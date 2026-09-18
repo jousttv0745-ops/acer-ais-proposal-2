@@ -46,6 +46,8 @@ window.DECK = {
         core: [[90, 3260, 820, 400], [1180, 3160, 520, 650]],
         selling: [[30, 5170, 1860, 480], [640, 5920, 640, 90], [0, 6020, 1920, 740], [0, 6860, 1920, 1600]],
       },
+      // the two scenario images of the Personalization tab (screenshot px)
+      tints: { scenes: [[47, 2140, 855, 630], [996, 2140, 855, 630]] },
     },
     lenovo: {
       kind: 'image', src: 'content/lenovo_960.png', srcLite: 'content/lenovo_480.lite.png', liteScale: 0.25, w: 1920, h: 11053,
@@ -137,7 +139,10 @@ window.DECK = {
       d.intro(0, { num: '00', title: 'Benchmark for web framework', sub: 'Samsung Galaxy AI x Lenovo AI x ASUS StoryCube',
         p: '<strong>Q：用戶來 Acer 官網的目的通常是什麼？</strong><br>A：想探索新設備或高擴充性需求；已購買設備，想了解設備技術細節。' }),
       ...d.categories(0, BENCH),
-      d.lengths(0, BENCH, { metric: 'hardware', label: '硬體導購' }),
+      d.lengths(0, BENCH, { metric: 'hardware', label: '硬體導購', notes: [
+        { targets: ['samsung', 'lenovo'], box: [80, 330, 430], k: 'SAMSUNG · LENOVO', h: '目標是導流硬體探索', p: '硬體畫面都占比至少 10% 以上，且都帶有導流 CTA' },
+        { targets: ['asus'], box: [1410, 330, 430], k: 'ASUS STORYCUBE', h: '目標是推動下載', p: '下載點 CTA 在第一屏就出現，網頁中段再提示一次' },
+      ] }),
       d.panel(0, 150,
         `<h3>三種說故事的方式</h3>` +
         `<div class="grid" style="grid-template-columns:200px 1fr 1fr 1fr">` +
@@ -158,20 +163,20 @@ window.DECK = {
       // ===== 02 Scenario =====
       d.intro(2, { num: '02', title: 'Scenario', sub: '使用情境', p: '<q>從用戶的真實需求場景出發，而非功能取向，更能帶動用戶往下閱讀，並代入消費意願。</q>' }),
       d.overview(2, REF, 'scenario', { active: ['Scenario'], caption: { k: 'SAMSUNG GALAXY AI', h: 'Samsung 的情境段落', p: '緊接在品牌露出之後，用分頁切換不同功能。' } }),
-      d.zoom(2, REF, 'scenario', { callout: { k: 'SAMSUNG · SCENARIO', h: '以使用情境<br>區分', tag: '需求導向',
-        items: [[1, '大標以<strong>提問</strong>帶入'], [2, '分頁以<strong>使用情境</strong>區分'], [3, '每張卡都是<strong>真實需求場景＋介面特寫</strong>']] } }),
-      d.zoom(2, REF, 'scenario', { marks: false, callout: { k: 'SCENE REFERENCE · SAMSUNG', h: '從 Samsung 看見的<br>場景設計語言', tag: '場景設計 tips',
+      d.zoom(2, REF, 'scenario', { callout: { k: 'SAMSUNG · SCENARIO', h: 'Samsung 的<br>說明結構', tag: '需求導向',
+        items: [[1, '大標以<strong>提問</strong>帶入'], [2, '分頁以<strong>使用情境</strong>區分'], [3, '每張卡都是<strong>沉浸式場景＋介面特寫</strong>']] } }),
+      d.zoom(2, REF, 'scenario', { marks: false, tint: 'scenes', callout: { k: 'SCENE REFERENCE · SAMSUNG', h: 'Samsung 的<br>場景設計語言', tag: '場景設計 tips',
         items: [[1, '主題性明確，抓住<strong>一個真實需求</strong>'], [2, '畫面極具沉浸感，讓人想像<strong>「日常能輕鬆一點」</strong>'], [3, '功能呈現清楚、介面選擇<strong>最適體驗</strong>']] } }),
       d.zoom(2, 'samsungLayout', 'full', { marks: false, cycle: ['two', 'three'],
-        callout: { k: 'SAMSUNG · LAYOUT', h: '從 Samsung 看見的<br>圖文排版', tag: '排版細節',
+        callout: { k: 'SAMSUNG · LAYOUT', h: 'Samsung 的<br>圖文排版', tag: '排版細節',
           items: [[1, '圖片視覺占比 <strong>35–47%</strong>，一屏就能看完主角'], [2, '圖片皆有約 <strong>3% 的輕量圓角</strong>，畫面乾淨'], [3, '圖片<strong>間距寬度一致</strong>，視覺舒適']] } }),
       d.versus(2, [REF, 'scenario'], [SUBJECT, 'scenario'], `<h3>從「功能能做什麼」到「<em>我的一天用得到什麼</em>」</h3>` +
-        versusTable([['情境切分', '使用情境', '使用情境'], ['畫面', '真實需求場景＋介面特寫', '真實需求場景＋介面特寫'], ['接下來', '回到功能說明', '連到「哪一台跑得動」']])),
+        versusTable([['情境切分', '使用情境', '使用情境'], ['畫面', '沉浸式場景＋介面特寫', '沉浸式場景＋介面特寫'], ['接下來', '回到功能說明', '連到「哪一台跑得動」']])),
 
       // ===== 03 Core experience =====
       d.intro(3, { num: '03', title: 'Core experience', sub: '核心體驗', p: '<q>讓貫穿所有 AI solution 的核心概念具象化，而非需要重新解釋的功能集合。</q>' }),
       d.overview(3, REF, 'core', { active: ['Core experience'], caption: { k: 'SAMSUNG GALAXY AI', h: 'Samsung 的核心體驗', p: '情境之後，分段介紹助理與資料安全。' } }),
-      d.versus(3, [REF, 'core'], [SUBJECT, 'core'], `<h3>從「一組功能」到「<em>一個看得見的夥伴</em>」</h3>` +
+      d.versus(3, [REF, 'core'], [SUBJECT, 'core'], `<h3>以<em>人機協作</em>開始你的 AI</h3>` +
         versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi and Qubi Claw'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { messageB: 'qubi', leadA: true }),
 
       // ===== 04 Product details · Selling =====

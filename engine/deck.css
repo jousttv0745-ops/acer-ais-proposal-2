@@ -140,6 +140,15 @@ svg.wire.show circle{opacity:1}
 .callout li b{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 18px Montserrat,sans-serif;background:var(--green);color:#fff}
 .callout li b.dim{background:#fff;border:2px solid var(--line);color:var(--faint)}
 .callout li strong{color:var(--ink)}
+/* notes: several small callouts on one step */
+.notes{position:absolute;inset:0;z-index:10;pointer-events:none}
+.callout.pin{padding:30px 34px 32px}
+.callout.pin h3{margin:10px 0 12px;font-size:32px}
+.callout.pin p{margin:0;font-size:22px;line-height:1.65;color:var(--ink-2)}
+/* tints: pale green masks over parts of a page */
+.tints{position:absolute;inset:0;pointer-events:none}
+.tint{position:absolute;background:rgba(131,184,26,.32);opacity:0;transition:opacity .5s .6s}
+.tints.on .tint{opacity:1}
 .callout .tag{display:inline-block;margin-top:28px;padding:8px 18px;border-radius:999px;background:var(--green-soft);color:var(--green-d);font-size:18px;font-weight:700}
 
 /* free panels: comparisons, tables, conclusions */

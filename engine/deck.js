@@ -82,10 +82,12 @@
     },
     categories: (chapter, keys) => CATS.map(c => d.category(chapter, keys, c.key)),
     /** benchmark: whole pages at one common scale, with a metric under each */
-    lengths: (chapter, keys, { metric, label }) => {
-      keys = keys.map(k => (PAGES[k + LEN_SUFFIX] ? k + LEN_SUFFIX : k));
+    lengths: (chapter, keys, { metric, label, notes }) => {
+      const len = k => (PAGES[k + LEN_SUFFIX] ? k + LEN_SUFFIX : k);
+      keys = keys.map(len);
       const rects = lengthRects(keys), scale = (L.lengthHeight - CHROME) / Math.max(...keys.map(k => PAGES[k].h));
       return { chapter, chips: { mode: 'length', metric, label },
+        notes: notes && notes.map(n => ({ ...n, targets: n.targets.map(len) })),
         wins: Object.fromEntries(keys.map(k => [k, { rect: rects[k], scale, bands: 'all', slim: true }])) };
     },
 
@@ -99,7 +101,7 @@
       const r = region(key, name), withThumb = !!o.thumb;
       return { chapter,
         wins: { [key]: { rect: withThumb ? L.subjectFocus : L.focus, focus: r.focus, spot: r.spot,
-          marks: o.marks === false ? null : (o.marks || name), cycle: o.cycle, frame: o.frame, message: o.message }, ...thumbWin(o.thumb) },
+          marks: o.marks === false ? null : (o.marks || name), cycle: o.cycle, frame: o.frame, message: o.message, tint: o.tint }, ...thumbWin(o.thumb) },
         callout: o.callout && { page: key, spot: r.spot, box: o.callout.box || (withThumb ? L.calloutThumb : L.calloutFocus), ...o.callout } };
     },
     /** two pages side by side + a panel underneath */
@@ -121,6 +123,8 @@
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACw='; // 1×1 placeholder, releases the decoded screenshot
   const winsHost = $('#windows');
+  // overlay notes (several small callouts at once); created here so older index.html files work too
+  const notesHost = $('#notes') || Object.assign(stage.appendChild(document.createElement('div')), { id: 'notes', className: 'notes' });
   for (const [key, page] of Object.entries(PAGES)) {
     const f = WF(key), q = v => +(v * f).toFixed(2);
     let body;
@@ -135,10 +139,13 @@
       `<div class="band" data-c="${c.key}" style="top:${q(y)}px;height:${q(h)}px;--c:${c.color};--fill:${c.color}24">${i === 0 ? `<span>${c.name}</span>` : ''}</div>`)).join('')}</div>` : '';
     const marks = Object.entries(page.marks || {}).map(([g, list]) => `<div class="marks" data-g="${g}">${list.map(([x, y, w, h], i) =>
       `<div class="mark" style="left:${q(x)}px;top:${q(y)}px;width:${q(w)}px;height:${q(h)}px;transition-delay:${0.9 + i * 0.25}s"><b>${i + 1}</b></div>`).join('')}</div>`).join('');
+    // tints: pale green masks over parts of the page (e.g. the images a step talks about), corner radius 3% of their width
+    const tints = Object.entries(page.tints || {}).map(([g, list]) => `<div class="tints" data-g="${g}">${list.map(([x, y, w, h]) =>
+      `<div class="tint" style="left:${q(x)}px;top:${q(y)}px;width:${q(w)}px;height:${q(h)}px;border-radius:${q(w * 0.03)}px"></div>`).join('')}</div>`).join('');
     const tag = page.kind === 'frames' ? `${page.label} · ${page.frames[page.defaultFrame].label}` : page.label;
     winsHost.insertAdjacentHTML('beforeend',
       `<div class="win hidden" id="win-${key}"><div class="chrome"><i></i><i></i><i></i><span>${esc(page.url || '')}</span><b>${esc(tag)}</b></div>` +
-      `<div class="view" data-none="${esc(cfg.meta?.noneLabel || '無此區塊')}"><div class="world" style="width:${q(page.w)}px;height:${q(page.h)}px">${body}${bands}${marks}<div class="dimset off"><i></i><i></i><i></i><i></i></div><div class="spot off"></div></div></div></div>`);
+      `<div class="view" data-none="${esc(cfg.meta?.noneLabel || '無此區塊')}"><div class="world" style="width:${q(page.w)}px;height:${q(page.h)}px">${body}${bands}${tints}${marks}<div class="dimset off"><i></i><i></i><i></i><i></i></div><div class="spot off"></div></div></div></div>`);
   }
   const wins = Object.fromEntries(Object.keys(PAGES).map(k => [k, $('#win-' + k)]));
 
@@ -292,6 +299,7 @@
       spot.classList.toggle('off', !c.spot);
       dims.classList.toggle('off', !c.spot);
       el.querySelectorAll('.marks').forEach(m => m.classList.toggle('on', m.dataset.g === c.marks));
+      el.querySelectorAll('.tints').forEach(m => m.classList.toggle('on', m.dataset.g === c.tint));
       const bands = el.querySelector('.bands');
       if (bands) {
         bands.classList.toggle('on', !!c.bands);
@@ -332,7 +340,7 @@
         el.classList.add('hidden');
         el.querySelector('.spot').classList.add('off');
         el.querySelector('.dimset').classList.add('off');
-        el.querySelectorAll('.marks').forEach(m => m.classList.remove('on'));
+        el.querySelectorAll('.marks, .tints').forEach(m => m.classList.remove('on'));
         continue;
       }
       if (morphIn[key]) snapToBig(key, morphIn[key]);
@@ -383,6 +391,7 @@
     // overlays hide immediately, reveal after the camera lands
     const labels = $('#labels'), wire = $('#wire'), caption = $('#caption'), callout = $('#callout'), panel = $('#panel'), cathead = $('#cathead'), chips = $('#chips');
     [labels, wire, caption, callout, panel, cathead, chips].forEach(el => el.classList.remove('show'));
+    notesHost.innerHTML = '';
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     // steps with `message` notify their embedded pages: { deck: message, at: 'start' | 'land' }
     const post = at => { for (const [k, c] of Object.entries(stepWins)) if (c.message) wins[k].querySelectorAll('iframe.on').forEach(fr => fr.contentWindow?.postMessage({ deck: c.message, at }, '*')); };
@@ -417,6 +426,26 @@
         const cx = c.box[0], cy = c.box[1] + 60, mid = ax + (cx - ax) / 2;
         paths += `<circle cx="${ax}" cy="${ay}" r="7"/><path d="M${ax} ${ay}H${mid}V${cy}H${cx}" style="--len:${Math.abs(cx - ax) + Math.abs(cy - ay)}"/>`;
       }
+      if (step.notes) {
+        // each note is a small callout; its wire runs to the facing edge of every target window,
+        // hopping over the windows in between along their top edge
+        notesHost.innerHTML = step.notes.map(n => `<aside class="callout pin" style="left:${n.box[0]}px;top:${n.box[1]}px;width:${n.box[2]}px">` +
+          (n.k ? `<small>${n.k}</small>` : '') + `<h3>${n.h}</h3>` + (n.p ? `<p>${n.p}</p>` : '') + `</aside>`).join('');
+        for (const n of step.notes) {
+          const leftOf = n.box[0] + n.box[2] / 2 < 960, bx = leftOf ? n.box[0] + n.box[2] : n.box[0], by = n.box[1] + 56;
+          n.targets.forEach((k, j) => {
+            const g = geo[k]; if (!g) return;
+            const [x, y, w, h] = g.rect;
+            if (j === 0) {
+              const ax = leftOf ? x : x + w, ay = Math.min(Math.max(by, y + 60), y + h - 40);
+              paths += `<circle cx="${ax}" cy="${ay}" r="7"/><path d="M${bx} ${by}H${(bx + ax) / 2}V${ay}H${ax}" style="--len:${Math.abs(ax - bx) + Math.abs(ay - by)}"/>`;
+            } else {
+              const ax = x + w / 2, top = y - 22;
+              paths += `<circle cx="${ax}" cy="${y}" r="7"/><path d="M${bx} ${by}H${(bx + (leftOf ? geo[n.targets[0]].rect[0] : x + w)) / 2}V${top}H${ax}V${y}" style="--len:${Math.abs(ax - bx) + Math.abs(top - by) + 22}"/>`;
+            }
+          });
+        }
+      }
       if (step.panel) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }
       if (step.catHead) {
         const c = CATS.find(x => x.key === step.catHead), n = CATS.indexOf(c) + 1;
@@ -444,6 +473,7 @@
         if (paths) wire.classList.add('show');
         if (step.caption) caption.classList.add('show');
         if (step.callout) callout.classList.add('show');
+        notesHost.querySelectorAll('.pin').forEach(n => n.classList.add('show'));
         if (step.panel) panel.classList.add('show');
         if (step.catHead) cathead.classList.add('show');
         if (step.chips) chips.classList.add('show');
