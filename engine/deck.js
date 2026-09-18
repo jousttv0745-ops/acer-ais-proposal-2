@@ -104,8 +104,9 @@
     },
     /** two pages side by side + a panel underneath */
     versus: (chapter, [ka, ra], [kb, rb], html, o = {}) => ({ chapter, panel: { top: L.versusPanelTop, html },
-      // leadA: arriving from the step before, the left page first pushes into its region (as a zoom step would), then splits
-      lead: o.leadA ? { [ka]: { rect: L.focus, focus: region(ka, ra).focus, spot: region(ka, ra).spot, marks: o.marksA === false ? null : ra } } : null,
+      // leadA: arriving from the step before, the left page first zooms into its region straight into its left-hand slot,
+      // then the right page and the panel come in
+      lead: o.leadA ? { [ka]: { rect: L.left, focus: region(ka, ra).focus, spot: region(ka, ra).spot, marks: o.marksA === false ? null : ra } } : null,
       wins: {
         [ka]: { rect: L.left, focus: region(ka, ra).focus, marks: o.marksA === false ? null : ra },
         [kb]: { rect: L.right, focus: region(kb, rb).focus, marks: o.marksB === false ? null : rb, frame: o.frameB, message: o.messageB },
@@ -238,7 +239,7 @@
   }
 
   // how long a lead-in shot holds before the step's own layout takes over
-  const LEAD_MS = 1400;
+  const LEAD_MS = 1150;
   function render(step, prevStep, my) {
     const cover = $('#cover'), intro = $('#intro');
     if (step.cover) {
