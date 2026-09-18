@@ -184,7 +184,7 @@ window.DECK = {
 
       // ===== 00 Benchmark =====
       d.intro(0, { num: '00', title: 'Benchmark for web framework', sub: 'Samsung Galaxy AI x Lenovo AI x ASUS StoryCube',
-        p: '<strong>Q：用戶來 Acer 官網的目的通常是什麼？</strong><br>A：想探索新設備或高擴充性需求；已購買設備，想了解設備技術細節。' }),
+        p: '<strong>Q：用戶來 Acer 官網的目的通常是什麼？</strong><br>A：想探索新設備或高擴充性需求；已購買設備，想了解設備細節及技術支援。' }),
       ...d.categories(0, BENCH),
       d.lengths(0, BENCH, { metric: 'hardware', label: '硬體導購', notes: [
         { targets: ['samsung', 'lenovo'], box: [80, 330, 430], k: 'SAMSUNG · LENOVO', h: '目標是導流硬體探索', p: '硬體畫面都占比至少 10% 以上，且都帶有導流 CTA' },
