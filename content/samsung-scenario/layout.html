@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Samsung Galaxy AI · scenario layout</title>
+<style>
+  /* The deck's Samsung screenshot around "Can your phone do that?" (page y 1720–3020, 1280px CSS viewport at 1.5×),
+     with annotations. ?n=2 = the screenshot as is (Personalization), ?n=3 = the Communication tab captured the same way.
+     Coordinates are image pixels; px labels are CSS px (image px ÷ 1.5). */
+  html,body{margin:0;width:1920px;height:1300px;overflow:hidden;background:#fff}
+  .abs{position:absolute}
+  .shot{left:0;top:0;width:1920px;height:1300px}
+  .mask{background:rgba(131,184,26,.32)}
+  .ratio{width:250px;height:250px;border-radius:50%;background:#5f8f10;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(255,255,255,.8);font-family:Montserrat,Arial,sans-serif}
+  .ratio b{font:800 56px/1 Montserrat,Arial,sans-serif}
+  .ratio span{margin-top:12px;font:700 28px/1 Montserrat,Arial,sans-serif}
+  .ring{width:96px;height:96px;border-radius:50%;border:9px solid #5f8f10;box-shadow:0 0 0 4px #fff}
+  .pill{padding:12px 24px;border-radius:999px;background:#5f8f10;color:#fff;font:800 32px/1 "Noto Sans TC",Arial,sans-serif;white-space:nowrap;box-shadow:0 0 0 4px #fff}
+  .gap{height:0;border-top:6px solid #5f8f10}
+  .gap::before,.gap::after{content:"";position:absolute;top:-22px;width:6px;height:40px;background:#5f8f10}
+  .gap::before{left:0}.gap::after{right:0}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const three = new URLSearchParams(location.search).get('n') === '3';
+  const S = 1.5, TOP = 420;
+  const L = three
+    ? { src: 'scene-3.jpg', xs: [15.8, 648.3, 1280.8], w: 600.9, h: 442.8 }
+    : { src: 'scene-2.jpg', xs: [46.9, 995.6], w: 855, h: 630 };
+  const css = v => Math.round(v / S);
+  const radius = L.w * 0.03;
+
+  let html = `<img class="abs shot" src="${L.src}" alt="">`;
+  html += L.xs.map(x => `<div class="abs mask" style="left:${x}px;top:${TOP}px;width:${L.w}px;height:${L.h}px;border-radius:${radius}px"></div>`).join('');
+
+  // first image: ratio + size
+  const x0 = L.xs[0], cy = TOP + L.h / 2;
+  html += `<div class="abs ratio" style="left:${x0 + L.w / 2 - 125}px;top:${cy - 125}px"><b>1.36 : 1</b><span>${css(L.w)}×${css(L.h)}</span></div>`;
+  // last image: corner
+  const xr = L.xs[L.xs.length - 1] + L.w;
+  html += `<div class="abs ring" style="left:${xr - 62}px;top:${TOP - 34}px"></div>`;
+  html += `<div class="abs pill" style="right:${1920 - xr + 70}px;top:${TOP + 34}px">圓角 ≈ 3%</div>`;
+  // spacing between image 1 and 2
+  const gx = x0 + L.w, gw = L.xs[1] - gx, gy = cy + 170;
+  html += `<div class="abs gap" style="left:${gx}px;top:${gy}px;width:${gw}px"></div>`;
+  html += `<div class="abs pill" style="left:${gx + gw / 2}px;top:${gy - 84}px;transform:translateX(-50%)">間距 ${css(gw)}px</div>`;
+  document.getElementById('root').innerHTML = html;
+</script>
+</body>
+</html>

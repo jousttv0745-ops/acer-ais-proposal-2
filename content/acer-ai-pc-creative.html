@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acer AI PC｜創意</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#83b81a; --green-d:#4f8a10; --brand-green:#0ea31b; --check:#22b33a;
+    --ink:#1a1a1a; --ink-2:#444; --muted:#888; --line:#e6e6e6; --bg:#fff;
+    --radius:14px; --shadow:0 8px 30px rgba(0,0,0,.08);
+    --w:1200px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--w);margin:0 auto;padding-inline:24px}
+  .logo{font-family:Montserrat,sans-serif;font-weight:900;font-style:italic;color:var(--green);letter-spacing:-.5px;font-size:26px;line-height:1}
+
+  /* Text overlaid on artwork: sizes/positions are in cqw of the image box,
+     taken from the Figma frames so both stay in sync. */
+  .art{position:relative;container-type:inline-size;overflow:hidden}
+  .art > img{width:100%;height:100%;object-fit:cover}
+  .ov{position:absolute;margin:0;white-space:pre;line-height:1.448;font-weight:400}
+
+  /* ---------- Header ---------- */
+  .topbar{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:20}
+  .topbar .wrap{display:flex;align-items:center;height:60px;gap:36px}
+  .topbar nav{display:flex;gap:28px;font-size:14px;color:var(--ink-2)}
+  .topbar nav a:hover{color:var(--green-d)}
+  .search{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px}
+  .subnav{background:#fff;border-bottom:1px solid var(--line)}
+  .subnav .wrap{display:flex;align-items:center;gap:28px;height:48px;font-size:13px;color:var(--ink-2)}
+  .subnav .brand{font-weight:700;color:var(--ink);position:relative}
+  .subnav .brand::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:2px;background:var(--green)}
+
+  /* ---------- Hero (image 1440×703) ---------- */
+  .hero{aspect-ratio:1440/703;background:#eef0ee}
+  .hero h1{position:absolute;margin:0;left:3.389cqw;top:5.771cqw;font:900 4.340cqw/4.783cqw Montserrat,sans-serif;color:#0a0b0d;white-space:pre}
+  .hero h1 em{font-style:normal;color:#4fad1b}
+  .hero .lead{left:3.451cqw;top:21.82cqw;font-size:1.701cqw;letter-spacing:.0444cqw;font-weight:500;color:#3f4146}
+  .hero .cats{left:3.549cqw;top:32.40cqw;font-size:1.597cqw;letter-spacing:.0861cqw;color:#45474c}
+  .hero .down{position:absolute;left:15.70cqw;top:36.19cqw;width:1.25cqw;animation:bob 2s infinite}
+  @keyframes bob{50%{transform:translateY(.4cqw)}}
+  @media (prefers-reduced-motion:reduce){.hero .down{animation:none}}
+
+  /* ---------- Section common ---------- */
+  section{padding-block:80px}
+  .sec-head{text-align:center;margin-bottom:36px}
+  .sec-head h2{font-size:36px;font-weight:900;margin:0 0 6px;letter-spacing:1px}
+  .sec-head p{margin:0;color:var(--ink-2);font-size:16px}
+  .tabs{display:flex;justify-content:center;margin:28px 0 36px}
+  .tabs a{padding:10px 40px;font-size:16px;color:var(--ink-2);border-bottom:2px solid transparent}
+  .tabs a:hover{color:var(--ink)}
+  .tabs a[aria-selected=true]{color:var(--ink);font-weight:700;border-color:var(--green)}
+
+  /* ---------- Day cards ---------- */
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .cards3.cols-2{grid-template-columns:repeat(2,1fr)}
+  /* scenario cards: corner radius 3% of the card width, same as the Samsung Galaxy AI scenario images */
+  .card:has(> .scene){container-type:inline-size}
+  .scene{border-radius:3cqw;box-shadow:0 2px 10px rgba(0,0,0,.06);background:#eef2ec}
+  .card h3{font-size:18px;margin:18px 0 8px}
+  .card p.desc{margin:0;font-size:14px;color:var(--muted);line-height:1.75}
+
+  /* ---------- Qubi (image 1440×625) ---------- */
+  .qubi{padding:0;aspect-ratio:1440/625;background:#eef6e8}
+  /* green artwork (old Qubi removed) + the Qubi Claw jump cut out of its video, drawn by qubi-claw.js */
+  .qubi .media{position:absolute;inset:0}
+  .qubi .media img,.qubi .media canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .qubi .k{left:6.875cqw;top:14.16cqw;font-size:2.743cqw;font-weight:700;color:#47ae1c}
+  .qubi h2.ov{left:6.785cqw;top:18.00cqw;font-size:4.306cqw;letter-spacing:-.0993cqw;font-weight:900;color:#111}
+  .qubi .b{left:6.972cqw;top:24.67cqw;font-size:1.875cqw;letter-spacing:.0389cqw;line-height:3.084cqw;color:#5a5a60}
+  .qubi .more{left:6.972cqw;top:33.2cqw;padding:.69cqw 1.67cqw;border-radius:999px;background:#47ae1c;color:#fff;font-size:1.39cqw;font-weight:700;line-height:1.3;transition:background .2s}
+  .qubi .more:hover{background:#3a9314}
+  .qubi .more span{display:inline-block;margin-left:.4em;transition:transform .2s}
+  .qubi .more:hover span{transform:translateX(3px)}
+  .qubi .media{pointer-events:none}
+
+  /* ---------- Compare ---------- */
+  .compare{background:#fbfbfa}
+  .pills{display:flex;justify-content:center;gap:14px;margin:26px 0 30px}
+  .pills a{min-width:130px;padding:9px 20px;border-radius:999px;background:#eceeea;color:var(--ink-2);font-size:14px;text-align:center}
+  .pills a:hover{background:#e2e5e0}
+  .pills a[aria-current=true]{background:#111;color:#fff;font-weight:700}
+  .table-box{background:#fff;border-radius:var(--radius);box-shadow:0 2px 16px rgba(0,0,0,.05);padding:10px 28px 18px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:720px;font-size:17px}
+  th,td{padding:18px 20px;border-bottom:1px solid #ececec}
+  th{font-size:18px;font-weight:700;padding-block:22px;color:#111;text-align:center}
+  th:first-child,td:first-child{text-align:left;width:37%}
+  td{text-align:center;color:#333a45}
+  .hl{background:#eefbe9}
+  .ok{color:var(--check);font-weight:700;font-size:22px}
+  .na{color:#9aa0a6}
+  .legend{text-align:right;font-size:13px;color:#6b7280;margin:18px 0 0}
+
+  /* ---------- Products (device 336×172) ---------- */
+  .products .cards3{gap:24px}
+  .prod{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s}
+  .prod:hover{box-shadow:var(--shadow)}
+  .prod.featured{border:2px solid var(--green);box-shadow:0 0 0 4px #eef6e3}
+  .device{aspect-ratio:336/172;overflow:visible}
+  .device > img{position:absolute;left:0;bottom:0;width:100%;height:auto;object-fit:contain}
+  .badge{position:absolute;left:4.46cqw;top:2.08cqw;height:11.9cqw;padding-inline:5.36cqw;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:4.76cqw;font-weight:700;background:#f2f6fa;color:#384158;white-space:nowrap}
+  .featured .badge{background:var(--brand-green);color:#fff}
+  .badge.cover{min-width:39.3cqw} /* hides the badge baked into the monitor photo */
+  .prod h3{font-size:20px;margin:6px 0 2px}
+  .prod .desc{margin:0 0 16px;font-size:13px;color:var(--muted)}
+  .icons{display:flex;justify-content:space-between;gap:6px;margin-bottom:20px;font-size:11px;color:var(--ink-2);text-align:center}
+  .icons div{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+  .icons svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .btn{margin-top:auto;display:block;text-align:center;padding:9px;border-radius:8px;border:1.5px solid #222;font-weight:700;font-size:14px;transition:.2s}
+  .btn:hover{background:#111;color:#fff}
+  .featured .btn{background:var(--green);border-color:var(--green);color:#fff}
+  .featured .btn:hover{background:var(--green-d);border-color:var(--green-d)}
+  .all{display:block;text-align:center;margin-top:28px;font-size:15px;color:var(--ink-2)}
+  .owner{margin-top:40px;border:1px solid var(--line);border-radius:var(--radius);padding:18px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:#fff}
+  .owner strong{font-size:17px}
+  .owner span{font-size:13px;color:var(--muted)}
+  .owner a{margin-left:auto;color:var(--green-d);font-weight:500}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding-top:10px}
+  .faq h2{font-size:28px;margin:0 0 14px;font-weight:900}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:64px}
+  details{border-bottom:1px solid #f0f0f0}
+  summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:10px 0;cursor:pointer;color:var(--ink-2);font-size:14.5px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:20px;color:var(--ink);transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{margin:0 0 14px;font-size:14px;color:var(--muted)}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--line);padding-block:20px;margin-top:40px}
+  footer .wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
+  footer .tag{font:600 10px Montserrat,sans-serif;color:var(--ink-2);letter-spacing:.5px}
+  footer nav{display:flex;gap:22px;flex-wrap:wrap}
+  .social{margin-left:auto;display:flex;gap:12px}
+  .social span{width:22px;height:22px;border-radius:50%;background:#1a1a1a;color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700}
+  .social span.fb{background:#1877f2}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    /* tablet: cards in two columns; an odd last card sits centred under the pair */
+    .cards3,.cards3.cols-2,.products .cards3{grid-template-columns:repeat(2,1fr);gap:24px}
+    .cards3 > :last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 12px)}
+    .faq-grid{grid-template-columns:1fr}
+    .topbar nav{display:none}
+    .tabs a{padding:10px 28px}
+    table{font-size:15px}
+    th,td{padding:14px}
+    .qubi .more{font-size:13px;padding:6px 14px}
+  }
+  @media (max-width:760px){
+    /* Hero & Qubi: copy moves above the artwork so it stays readable */
+    .hero,.qubi{aspect-ratio:auto;display:flex;flex-direction:column;container-type:normal}
+    .hero > img{order:2;aspect-ratio:1440/703}
+    .qubi .media{position:relative;order:2;aspect-ratio:1440/625;overflow:hidden}
+    .hero h1,.hero .ov,.qubi .ov{position:static;white-space:normal;padding-inline:16px}
+    .hero h1{font-size:36px;line-height:1.1;padding-top:28px}
+    .hero .lead{font-size:17px;margin-top:10px}
+    .hero .cats{font-size:15px;padding-bottom:16px}
+    .hero .down{display:none}
+    .qubi .ov{position:relative;inset:auto;padding-inline:24px}
+    .qubi .k{font-size:16px;line-height:1.5;padding-top:40px}
+    .qubi h2.ov{inset:auto;font-size:26px;line-height:1.35;margin-top:6px}
+    .qubi .b{font-size:15px;line-height:1.85;margin-top:12px;letter-spacing:0;color:#5a5a60}
+    .qubi .b br{display:none}
+    .qubi .more{align-self:flex-start;margin:18px 0 0 24px;padding:9px 20px;font-size:15px}
+    /* one continuous green panel: copy on top, Qubi standing under it (the jump rises behind the copy) */
+    .qubi{padding-bottom:200px}
+    .qubi .media{position:absolute;inset:0;aspect-ratio:auto}
+    .qubi .media img,.qubi .media canvas{object-position:50% 100%}
+    .qubi .ov{z-index:1}
+    .qubi .media canvas{z-index:2} /* Qubi jumps in front of the copy */
+  }
+  @media (max-width:600px){
+    .cards3,.cards3.cols-2,.products .cards3{grid-template-columns:1fr;max-width:480px;margin-inline:auto}
+    .cards3 > :last-child:nth-child(odd){width:auto;justify-self:stretch}
+  }
+  @media (max-width:560px){
+    .wrap{padding-inline:16px}
+    .sec-head h2{font-size:26px}
+    .tabs a{padding:10px 16px}
+    .pills a{min-width:0;flex:1}
+    .subnav .wrap{gap:16px;overflow-x:auto;white-space:nowrap}
+    .owner a{margin-left:0}
+    /* comparison table scrolls sideways with the feature column pinned */
+    .table-box{padding-inline:14px}
+    table{min-width:560px;font-size:14px}
+    th,td{padding:12px 10px}
+    th:first-child,td:first-child{position:sticky;left:0;z-index:1;background:#fff;width:auto;min-width:128px;box-shadow:1px 0 0 #ececec}
+  }
+
+  /* 真實機型資料：機型代號、規格重點列 */
+  th small{display:block;font-size:12px;font-weight:400;color:#6b7280;margin-top:2px}
+  tr.sub-h td{background:#f7f8f6;font-size:13px;font-weight:700;color:#6b7280;padding-block:10px;text-align:left}
+  tr.spec td{font-size:15px}
+  tr.spec .ok{font-size:17px;line-height:1}
+  thead th:not(:first-child){width:21%}  /* 三個情境欄寬一致，簡報標示框才對得準 */
+  .prod .code{margin:-2px 0 6px;font-size:12px;color:#6b7280}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="acer-ai-pc.html" class="logo" aria-label="Acer 首頁">acer</a>
+    <nav><a href="#">產品</a><a href="#">AI</a><a href="#">探索 Acer</a><a href="#">支援服務</a></nav>
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      搜尋 Acer
+    </label>
+  </div>
+</header>
+<div class="subnav">
+  <div class="wrap">
+    <a class="brand" href="acer-ai-pc.html">Acer AI PC</a>
+    <a href="#day">功能體驗</a><a href="#compare">機型比較</a><a href="#faq">常見問題</a>
+  </div>
+</div>
+
+<section class="hero art" style="padding:0">
+  <img src="images/hero.png" alt="桌上的 Acer 筆電開啟 AI 應用程式，旁邊浮著 Acer Meeting Assistant 與 Acer AI Workspace 視窗">
+  <h1>CAN YOUR
+COMPUTER
+DO <em>THAT?</em></h1>
+  <p class="ov lead">從會議到創作，讓它為你多做一點。</p>
+  <p class="ov cats">會議記錄 · 本機生圖 · 遊戲片段</p>
+  <a href="#day" class="down" aria-label="向下捲動">
+    <svg viewBox="0 0 18 8" fill="none" stroke="#41444e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l8 6 8-6"/></svg>
+  </a>
+</section>
+
+<section id="day">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>你的一天，它都在</h2>
+      <p>把腦中的畫面，快速變成作品。</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="使用情境">
+      <a role="tab" href="acer-ai-pc-personal.html#day" aria-selected="false">個人化</a>
+      <a role="tab" href="acer-ai-pc.html#day" aria-selected="false">商務</a>
+      <a role="tab" href="acer-ai-pc-creative.html#day" aria-selected="true" aria-current="page">創意</a>
+      <a role="tab" href="acer-ai-pc-gaming.html#day" aria-selected="false">遊戲</a>
+    </nav>
+    <div class="cards3 cols-3">
+      <article class="card">
+        <div class="scene art" style="aspect-ratio:380/330">
+          <img src="images/creative-1.png" alt="手繪鳥的草圖與 AI 生成的彩色作品">
+          
+        </div>
+        <h3>隨手一張草圖，就能生成完整作品。</h3>
+        <p class="desc">把手繪草圖交給 AI，快速生成細節豐富的圖片，保留你原本的構圖與想法。</p>
+      </article>
+      <article class="card">
+        <div class="scene art" style="aspect-ratio:380/330">
+          <img src="images/creative-2-v4.jpg" alt="在山頂用平板素描風景，旁邊浮現水墨與幾何兩種風格">
+          
+        </div>
+        <h3>同一個畫面，換個風格再看看。</h3>
+        <p class="desc">素描、水墨、幾何一鍵轉換，多試幾種風格，找到最適合作品的樣子。</p>
+      </article>
+      <article class="card">
+        <div class="scene art" style="aspect-ratio:380/330">
+          <img src="images/creative-3.png" alt="用描述搜尋到本機的風景照片">
+          <p class="ov" style="left:55.395cqw;top:36.211cqw;font-size:3.553cqw;font-weight:500;color:#4a4a52">travel.jpg</p>
+        </div>
+        <h3>忘了檔名，描述畫面就找得到。</h3>
+        <p class="desc">記得照片裡有雪山和湖，卻想不起檔名？用一句描述搜尋本機素材，馬上找到。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="qubi art">
+  <div class="media"><img src="images/qubi-bg.jpg" alt=""><canvas width="1440" height="625" role="img" aria-label="Qubi 向上跳起拿到龍蝦雙手，變身為 Qubi Claw"></canvas></div>
+  <p class="ov k">Qubi/Qubi claw is Anywhere.</p>
+  <h2 class="ov">屬於你的數位員工</h2>
+  <p class="ov b">所有裝置皆能搭載，隨時與你流暢對話，聰明理解問題、<br>自動安排你的專屬工作流程。</p>
+  <a class="ov more" href="https://www.acer.com/acer-qubi-claw" target="_blank" rel="noopener">了解更多<span aria-hidden="true">→</span></a>
+</section>
+<script src="qubi-claw.js"></script>
+
+<section class="compare" id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>你想要的功能，哪一台跑得動</h2>
+      <p>選擇使用情境，找到適合你的 Acer AI PC。</p>
+    </div>
+    <nav class="pills" aria-label="比較情境"><a href="acer-ai-pc.html#compare" aria-current="false">商務</a><a href="acer-ai-pc-creative.html#compare" aria-current="true">創意</a><a href="acer-ai-pc-gaming.html#compare" aria-current="false">遊戲</a></nav>
+    <div class="table-box">
+      <table>
+        <thead><tr><th>功能</th><th class="hl">Swift X 14<small>SFX14-73G-78HM</small></th><th>Predator Orion 3000<small>PO3-665</small></th><th>Swift Go 14<small>SFG14-75-5948</small></th></tr></thead>
+        <tbody>
+          <tr><td>文字快速生成圖片</td><td class="hl"><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>草圖生成圖片</td><td class="hl"><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>影像風格轉換</td><td class="hl"><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr><td>媒體素材搜尋</td><td class="hl"><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td></tr>
+          <tr class="sub-h"><td colspan="4">規格重點</td></tr>
+          <tr class="spec"><td>AI 生圖運算</td><td class="hl">RTX 5060 8GB 獨顯</td><td>RTX 5070 12GB 獨顯</td><td>Arc 130V 內顯</td></tr>
+          <tr class="spec"><td>處理器</td><td class="hl">Core Ultra 7 255H</td><td>Core Ultra 5 225F</td><td>Core Ultra 5 228V</td></tr>
+          <tr class="spec"><td>記憶體</td><td class="hl">32GB</td><td>32GB</td><td>32GB</td></tr>
+          <tr class="spec"><td>螢幕</td><td class="hl">14.5" 2.8K OLED 120Hz</td><td>需另購螢幕</td><td>14" OLED 60Hz</td></tr>
+          <tr class="spec"><td>儲存空間</td><td class="hl">1TB SSD</td><td>1TB SSD</td><td>512GB SSD</td></tr>
+        </tbody>
+      </table>
+      <p class="legend">✓ 支援　　— 不支援　　|　　規格為 2026/9/17 Acer 官方商城資料，實際功能依機型與地區而異。</p>
+    </div>
+  </div>
+</section>
+
+<section class="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>找到你的 AI 搭檔</h2>
+      <p>為創意發揮，選一台更合拍的電腦。</p>
+    </div>
+    <div class="cards3">
+      <article class="prod featured">
+        <div class="device art">
+          <img src="images/product-real-sfx14.png" alt="Swift X 14 筆電">
+          <span class="badge">創意首選</span>
+        </div>
+        <h3>Swift X 14</h3>
+        <p class="code">SFX14-73G-78HM</p>
+        <p class="desc">獨顯加 2.8K OLED，隨身的創作工作站。</p>
+        <div class="icons">
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/></svg>創作力</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><path d="M9 15l1.5-6h1L13 15M9.6 13h2.8M15 9v6"/></svg>AI 加速</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg>OLED 螢幕</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8 0-14 5-14 13v3M6 17c6 0 11-4 12-10M10 13h5"/></svg>輕薄便攜</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="1"/><path d="M7 16v3M11 16v3M15 16v3M7 11h2M11 11h2M15 11h2"/></svg>32GB</div>
+        </div>
+        <a href="https://store.acer.com/zh-tw/sfx14-73g-78hm" class="btn" target="_blank" rel="noopener">看規格與購買</a>
+      </article>
+      <article class="prod">
+        <div class="device art">
+          <img src="images/product-real-po3.png" alt="Predator Orion 3000 桌機">
+          <span class="badge">第二推薦</span>
+        </div>
+        <h3>Predator Orion 3000</h3>
+        <p class="code">PO3-665</p>
+        <p class="desc">12GB 顯示記憶體，生圖更快、尺寸更大。</p>
+        <div class="icons">
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>強效效能</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><path d="M9 15l1.5-6h1L13 15M9.6 13h2.8M15 9v6"/></svg>AI 加速</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg>大容量</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 10c0-3 1-5 3-5M14 12c3 0 5 1 5 3M12 14c0 3-1 5-3 5M10 12c-3 0-5-1-5-3"/></svg>高效散熱</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5a4 4 0 0 0 4.9 4.9L21 12l-9 9-3-3 9-9-1.6-1.6a4 4 0 0 0-4.9-4.9l2.5 2.5-2 2-2.5-2.5"/></svg>可擴充性</div>
+        </div>
+        <a href="https://store.acer.com/zh-tw/po3-665-u5-225f" class="btn" target="_blank" rel="noopener">看規格</a>
+      </article>
+      <article class="prod">
+        <div class="device art">
+          <img src="images/product-real-sfg14.png" alt="Swift Go 14 筆電">
+          <span class="badge">CP 值最高</span>
+        </div>
+        <h3>Swift Go 14</h3>
+        <p class="code">SFG14-75-5948</p>
+        <p class="desc">OLED 螢幕與 AI 生圖，一次到位的超值選擇。</p>
+        <div class="icons">
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>高 CP 值</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg>OLED 螢幕</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M9 7V5h6v2"/></svg>長效續航</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8 0-14 5-14 13v3M6 17c6 0 11-4 12-10M10 13h5"/></svg>輕薄便攜</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><path d="M9 15l1.5-6h1L13 15M9.6 13h2.8M15 9v6"/></svg>AI 性能</div>
+        </div>
+        <a href="https://store.acer.com/zh-tw/sfg14-75-5948" class="btn" target="_blank" rel="noopener">看規格</a>
+      </article>
+    </div>
+    <a href="#" class="all">看合適機型 ↓</a>
+
+    <div class="owner">
+      <strong>已經有 Acer 電腦？</strong>
+      <span>下載 Acer Intelligence Space，體驗 AI 功能。</span>
+      <a href="#">下載 Acer Intelligence Space ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <h2>常見問題</h2>
+    <div class="faq-grid">
+      <div>
+        <details><summary>我的 Acer 電腦支援哪些 AI 應用？</summary><p>支援的功能依機型、處理器與作業系統版本而定，可參考上方機型比較表。</p></details>
+        <details><summary>哪些功能需要網路連線使用？</summary><p>本機運算的功能可離線運作；雲端功能需要連線。</p></details>
+        <details><summary>沒有網路也能使用嗎？</summary><p>本機文件問答等本機功能，無需網路即可使用。</p></details>
+      </div>
+      <div>
+        <details><summary>Acer Qubi 和 AI Agent 是什麼？</summary><p>Qubi 是 Acer 的個人助理，可跨裝置與你對話、理解問題並協助完成任務。</p></details>
+        <details><summary>資料會上傳嗎？</summary><p>本機功能的資料保留在你的電腦上，不會上傳至雲端。</p></details>
+        <details><summary>購買 Acer 也可以升級功能嗎？</summary><p>透過 Acer Intelligence Space 可取得功能更新與新應用。</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="logo" style="font-size:22px">acer</span><span class="tag">IT LIES WITHIN YOU</span>
+    <nav><a href="#">關於 Acer</a><a href="#">永續發展</a><a href="#">新聞中心</a><a href="#">投資人專區</a><a href="#">隱私權政策</a><a href="#">使用條款</a><a href="#">台灣（繁體中文）⌄</a></nav>
+    <div class="social"><span>▶</span><span class="fb">f</span><span>◎</span><span>✉</span></div>
+  </div>
+</footer>
+</body>
+</html>
