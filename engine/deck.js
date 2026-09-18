@@ -104,6 +104,8 @@
     },
     /** two pages side by side + a panel underneath */
     versus: (chapter, [ka, ra], [kb, rb], html, o = {}) => ({ chapter, panel: { top: L.versusPanelTop, html },
+      // leadA: arriving from the step before, the left page first pushes into its region (as a zoom step would), then splits
+      lead: o.leadA ? { [ka]: { rect: L.focus, focus: region(ka, ra).focus, spot: region(ka, ra).spot, marks: o.marksA === false ? null : ra } } : null,
       wins: {
         [ka]: { rect: L.left, focus: region(ka, ra).focus, marks: o.marksA === false ? null : ra },
         [kb]: { rect: L.right, focus: region(kb, rb).focus, marks: o.marksB === false ? null : rb, frame: o.frameB, message: o.messageB },
@@ -228,7 +230,16 @@
     document.querySelectorAll('#chapters button').forEach(b => b.classList.toggle('on', +b.dataset.ch === step.chapter));
     clearInterval(cycleTimer);
     syncMedia(i);
+    if (step.lead && prevStep && prevStep === STEPS[i - 1]) {
+      const leadStep = { chapter: step.chapter, wins: step.lead };
+      render(leadStep, prevStep, my);
+      setTimeout(() => { if (my === token) render(step, leadStep, my); }, LEAD_MS);
+    } else render(step, prevStep, my);
+  }
 
+  // how long a lead-in shot holds before the step's own layout takes over
+  const LEAD_MS = 1400;
+  function render(step, prevStep, my) {
     const cover = $('#cover'), intro = $('#intro');
     if (step.cover) {
       const c = step.cover;
@@ -332,6 +343,15 @@
         continue;
       }
       if (swapIn.has(key)) el.classList.add('noanim');
+      else if (!prevWins[key] && !morphIn[key] && PAGES[key].kind === 'frames' && c.focus && c.focus !== 'full' && el.classList.contains('hidden')) {
+        // appearing mockup page: put it in place showing the top of the page, then let the camera scroll down to the region
+        const t0 = place(key, c), f0 = WF(key), world = el.querySelector('.world');
+        el.classList.add('noanim');
+        Object.assign(el.style, { left: c.rect[0] + 'px', top: c.rect[1] + 'px', width: c.rect[2] + 'px', height: c.rect[3] + 'px' });
+        world.style.transform = `translate(${t0.tx}px,0px) scale(${t0.s / f0})`;
+        void el.offsetWidth;
+        el.classList.remove('noanim');
+      }
       const t = applyWin(key, c);
       if (!proxyOf[key]) geo[key] = { rect: c.rect, t };
     }

@@ -153,7 +153,7 @@ window.DECK = {
       d.intro(1, { num: '01', title: 'Branding', sub: '品牌露出', p: '第一屏決定用戶要不要往下看。<br><q>呈現 AIS 真實介面，並提出一句宣言／提問。</q>' }),
       d.overview(1, REF, 'branding', { active: ['Branding'], caption: { k: 'SAMSUNG GALAXY AI', h: '先看 Samsung<br>怎麼開場', p: '整頁 7 個段落，第一屏是品牌露出。' } }),
       d.versus(1, [REF, 'branding'], [SUBJECT, 'branding'], `<h3>從「看新機」到「<em>看見 AI 能做什麼</em>」</h3>` +
-        versusTable([['主視覺', '新機產品照', 'AIS 真實介面'], ['宣言形式', '定義型標語', '提問型標語'], ['往下看的理由', '認識這支手機', '想知道電腦能幫我做到什麼']])),
+        versusTable([['主視覺', '新機產品照', 'AIS 真實介面'], ['宣言形式', '定義型標語', '提問型標語'], ['往下看的理由', '認識這支手機', '想知道電腦能幫我做到什麼']]), { leadA: true }),
 
       // ===== 02 Scenario =====
       d.intro(2, { num: '02', title: 'Scenario', sub: '使用情境', p: '<q>從用戶的真實需求場景出發，而非功能取向，更能帶動用戶往下閱讀，並代入消費意願。</q>' }),
@@ -172,13 +172,13 @@ window.DECK = {
       d.intro(3, { num: '03', title: 'Core experience', sub: '核心體驗', p: '<q>讓貫穿所有 AI solution 的核心概念具象化，而非需要重新解釋的功能集合。</q>' }),
       d.overview(3, REF, 'core', { active: ['Core experience'], caption: { k: 'SAMSUNG GALAXY AI', h: 'Samsung 的核心體驗', p: '情境之後，分段介紹助理與資料安全。' } }),
       d.versus(3, [REF, 'core'], [SUBJECT, 'core'], `<h3>從「一組功能」到「<em>一個看得見的夥伴</em>」</h3>` +
-        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi and Qubi Claw'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { messageB: 'qubi' }),
+        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi and Qubi Claw'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { messageB: 'qubi', leadA: true }),
 
       // ===== 04 Product details · Selling =====
       d.intro(4, { num: '04', title: 'Product details · Selling', sub: '產品細節與導購', p: '<q>Galaxy AI 全頁沒有任何規格或機型對照，用戶被留在感受層。</q>' }),
       d.overview(4, REF, 'selling', { active: ['Selling'], caption: { k: 'SAMSUNG GALAXY AI', h: 'Samsung 的導購段落', p: '功能介紹之後，先推 Try Galaxy，再出現機型列表與 FAQ。' } }),
       d.versus(4, [REF, 'selling'], [SUBJECT, 'product'], `<h3>把「AI 能做什麼」翻譯成「<em>哪一台做得到</em>」</h3>` +
-        versusTable([['機型資訊', '只有機型列表', '功能 × 機型對照'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '看規格與購買／看規格／下載']])),
+        versusTable([['機型資訊', '只有機型列表', '功能 × 機型對照'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '看規格與購買／看規格／下載']]), { leadA: true }),
       d.zoom(4, SUBJECT, 'details', { thumb: thumb('selling'), callout: { k: 'ACER AIS · PRODUCT DETAILS', h: '功能表：<br>哪一台跑得動', tag: '功能 × 機型',
         items: [[1, '<strong>情境切換</strong>：商務、創意、遊戲'], [2, '<strong>功能 × 機型對照表</strong>＋規格重點，把硬體賣點藏進功能表裡講'], [3, '推薦機型<strong>整欄標示</strong>，一眼看出最適合的一台']] } }),
       d.zoom(4, SUBJECT, 'selling', { thumb: thumb('selling'), callout: { k: 'ACER AIS · SELLING', h: '找到你的<br>AI 搭檔', tag: '每種需求都有 CTA',
