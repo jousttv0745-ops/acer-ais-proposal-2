@@ -180,7 +180,7 @@ window.DECK = {
 
     return [
       d.cover({ kicker: 'PROPOSAL · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Mockup Proposal',
-        chips: [['00', 'Benchmark'], ['01', 'Branding'], ['02', 'Scenario'], ['03', 'Core experience'], ['04', 'Product details · Selling']] }),
+        chips: [['00', 'Benchmark'], ['01', 'Branding'], ['02', 'Scenario'], ['03', 'Core experience'], ['04', 'Product details · Selling'], ['05', 'Recommendation logic']] }),
 
       // ===== 00 Benchmark =====
       d.intro(0, { num: '00', title: 'Benchmark for web framework', sub: 'Samsung Galaxy AI x Lenovo AI x ASUS StoryCube',
@@ -231,16 +231,16 @@ window.DECK = {
       d.overview(4, REF, 'selling', { active: ['Selling'], caption: { k: 'SAMSUNG GALAXY AI', h: 'Samsung 的導購段落', p: '功能介紹之後，先推 Try Galaxy，再出現機型列表與 FAQ。' } }),
       d.versus(4, [REF, 'selling'], [SUBJECT, 'product'], `<h3>把「AI 能做什麼」翻譯成「<em>哪一台做得到</em>」</h3>` +
         versusTable([['機型資訊', '只有機型列表', '功能 × 機型對照'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '看規格與購買／看規格／下載']]), { leadA: true }),
-      d.zoom(4, SUBJECT, 'details', { thumb: thumb('selling'), callout: { k: 'ACER AIS · PRODUCT DETAILS', h: '功能表：<br>哪一台跑得動', tag: '功能 × 機型',
+      d.zoom(4, SUBJECT, 'details', { callout: { k: 'ACER AIS · PRODUCT DETAILS', h: '功能表：<br>哪一台跑得動', tag: '功能 × 機型',
         items: [[1, '<strong>情境切換</strong>：商務、創意、遊戲'], [2, '<strong>功能 × 機型對照表</strong>＋規格重點，把硬體賣點藏進功能表裡講'], [3, '推薦機型<strong>整欄標示</strong>，一眼看出最適合的一台']] } }),
-      d.zoom(4, SUBJECT, 'selling', { thumb: thumb('selling'), callout: { k: 'ACER AIS · SELLING', h: '找到你的<br>AI 搭檔', tag: '每種需求都有 CTA',
+      d.zoom(4, SUBJECT, 'selling', { callout: { k: 'ACER AIS · SELLING', h: '找到你的<br>AI 搭檔', tag: '每種需求都有 CTA',
         items: [[1, '<strong>首選機型</strong>：綠框＋看規格與購買'], [2, '第二推薦與 CP 值最高，<strong>點擊導往商城</strong>查看細節'], [3, '已有 Acer 電腦 → <strong>下載 Acer Intelligence Space</strong>']] } }),
-      d.zoom(4, SUBJECT, 'product', { thumb: thumb('selling'), marks: false, cycle: ['business', 'creative', 'gaming'],
+      d.zoom(4, SUBJECT, 'product', { marks: false, cycle: ['business', 'creative', 'gaming'],
         callout: { k: 'ACER AIS · INTERACTION', h: '切換情境，<br>兩個區塊一起連動', tag: '點擊切換使用場景',
           items: [[1, '點擊切換使用場景，<strong>連動兩區塊</strong>推薦功能列表及適配硬體'], [2, '呈現<strong>適配機型</strong>，讓用戶能夠點擊導往商城查看細節'], [3, '已有 Acer 電腦者<strong>可點擊下載</strong>']] } }),
 
       // ===== 05 推薦邏輯（試作） =====
-      d.intro(5, { num: '05', title: 'Recommendation logic', sub: '此為目前產品推薦邏輯的試做版本，請以最終工程實作為準' }),
+      d.intro(5, { num: '05', title: 'Recommendation logic', sub: '產品推薦邏輯', p: '此為目前產品推薦邏輯的試做版本，請以最終工程實作為準。' }),
       d.panel(5, 110, recStyle +
         `<h3>情境推薦的機型，是這樣<em>算</em>出來的</h3>` +
         `<div class="rec-flow">` +
@@ -292,7 +292,7 @@ window.DECK = {
           `<div style="margin-left:430px">` +
           `<p class="quote">我們把「AI 能做什麼」<br>翻譯成「<em>哪一台做得到</em>」、「<em>找到你的搭檔</em>」。</p>` +
           `<p class="qa" style="margin:34px 0 0;font-size:26px">把硬體賣點藏進功能表裡講，無論用戶有哪一種需求都有 CTA。</p>` +
-          `<div class="recap"><span><b>01</b>提問式品牌露出</span><span><b>02</b>需求導向的情境</span><span><b>03</b>具象化的核心體驗</span><span><b>04</b>功能 × 機型導購</span></div>` +
+          `<div class="recap"><span><b>01</b>提問式品牌露出</span><span><b>02</b>需求導向的情境</span><span><b>03</b>具象化的核心體驗</span><span><b>04</b>功能 × 機型導購</span><span><b>05</b>產品推薦邏輯</span></div>` +
           `</div>` } },
     ];
   },
