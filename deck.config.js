@@ -21,7 +21,7 @@ window.DECK = {
   theme: {},
 
   // top-bar chapter buttons; steps refer to them by index (cover uses -1)
-  chapters: ['00 Benchmark', '01 Branding', '02 Scenario', '03 Core experience', '04 Product details · Selling', 'Summary'],
+  chapters: ['00 Benchmark', '01 Branding', '02 Scenario', '03 Core experience', '04 Product details · Selling', '05 推薦邏輯', 'Summary'],
 
   // benchmark categories, in the order they are presented
   categories: [
@@ -35,6 +35,19 @@ window.DECK = {
   frameCategory: 'frame', // this category aligns to its LAST segment (the footer)
 
   pages: {
+    // 05 recommendation logic: source captures, 1440px wide (captured 2026-09-18)
+    recJson: { kind: 'image', src: 'content/recommend/json.jpg', srcLite: 'content/recommend/json.lite.jpg', liteScale: 0.5, w: 1440, h: 1902,
+      label: 'App-list.json', url: 'global-download.acer.com/…/App-list.json',
+      marks: { req: [[12, 1540, 1416, 287]] } },
+    recApps: { kind: 'image', src: 'content/recommend/apptable.jpg', srcLite: 'content/recommend/apptable.lite.jpg', liteScale: 0.5, w: 1440, h: 2413,
+      label: 'AIS App 規格表', url: 'output 1',
+      marks: { qubi: [[521, 252, 398, 360], [919, 252, 250, 360]] } },
+    recStore: { kind: 'image', src: 'content/recommend/store.jpg', srcLite: 'content/recommend/store.lite.jpg', liteScale: 0.5, w: 1440, h: 2600,
+      label: 'Acer 官方商城', url: 'store.acer.com/zh-tw/laptops',
+      marks: { card: [[352, 1268, 256, 132], [352, 1500, 256, 232]] } },
+    recCompat: { kind: 'image', src: 'content/recommend/compat.jpg', srcLite: 'content/recommend/compat.lite.jpg', liteScale: 0.5, w: 1440, h: 2600,
+      label: 'Qubi × AIS 相容機種', url: 'output 2',
+      marks: { rows: [[397, 792, 152, 326], [549, 792, 437, 326]] } },
     samsung: {
       kind: 'image', src: 'content/screenshot/samsung_ai_html.png', srcLite: 'content/screenshot/samsung_ai_html.lite.png', liteScale: 0.5, w: 1920, h: 11760,
       label: 'Samsung Galaxy AI', url: 'samsung.com/us/galaxy-ai',
@@ -91,6 +104,10 @@ window.DECK = {
 
   // spot = highlighted block, focus = what the camera frames when zooming in
   regions: {
+    recJson: { req: { spot: [0, 1535, 1440, 297], focus: [0, 1440, 1440, 480] } },
+    recApps: { qubi: { spot: [101, 212, 1238, 404], focus: [101, 212, 1238, 404] } },
+    recStore: { card: { spot: [340, 1020, 1090, 760], focus: [340, 1020, 1090, 760] } },
+    recCompat: { rows: { spot: [100, 680, 1240, 440], focus: [100, 680, 1240, 440] } },
     samsung: {
       branding: { spot: [0, 232, 1920, 1508], focus: [0, 200, 1920, 1560] },
       scenario: { spot: [0, 1740, 1920, 1250], focus: [0, 1720, 1920, 1300] },
@@ -129,6 +146,40 @@ window.DECK = {
     const REF = 'samsung', SUBJECT = 'acer';
     const thumb = region => ({ page: REF, region });
     const versusTable = rows => d.table(['SAMSUNG', 'ACER AIS'], rows);
+    // 05 recommendation logic: progress strip, one row of the scenario table, shared styles
+    const recFlow = n => '<ol class="rec-steps">' + ['流程總覽', '1 App 規格表', '2 相容對照表', '3 情境推薦']
+      .map((t, i) => `<li${i === n ? ' class="on"' : ''}>${t}</li>`).join('') + '</ol>';
+    const recPick = ([name, sku], first) => `<div${first ? ' class="a"' : ''}><strong>${name}</strong><small>${sku}</small></div>`;
+    const recRow = (scene, apps, gate, order, a, b, c) =>
+      `<div class="k"><strong>${scene}</strong></div><div>${apps}</div><div>${gate}</div><div class="ord">${order}</div>` + recPick(a, true) + recPick(b) + recPick(c);
+    const recStyle = `<style>
+      .rec-steps{display:flex;gap:10px;margin:0 0 18px;padding:0;list-style:none;font:700 15px Montserrat,"Noto Sans TC",sans-serif;color:var(--faint)}
+      .rec-steps li{padding:6px 16px;border-radius:999px;border:1px solid var(--line)}
+      .rec-steps li.on{background:var(--green);border-color:var(--green);color:#fff}
+      .rec-flow{display:flex;align-items:stretch;gap:22px;margin-top:10px;min-height:560px}
+      .rec-col{flex:1;display:flex;flex-direction:column;gap:16px}
+      .rec-col.wide{flex:1.15}
+      .rec-col small{font:700 14px Montserrat,sans-serif;letter-spacing:2px;color:var(--green-d)}
+      .rec-box{position:relative;flex:1;padding:26px 26px 22px 76px;border:1px solid var(--line);border-radius:16px;background:#fff;font-size:28px;font-weight:900;line-height:1.35;
+        opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+      .panel.show .rec-box{opacity:1;transform:none}
+      .rec-box b{position:absolute;left:20px;top:28px;min-width:38px;height:30px;padding:0 6px;border-radius:15px;display:grid;place-items:center;background:var(--green-soft);color:var(--green-d);font:800 14px Montserrat,sans-serif}
+      .rec-box span{display:block;margin-top:8px;font-size:20px;font-weight:400;color:var(--muted)}
+      .rec-box.out{background:var(--green-soft);border-color:#cfe6a9}
+      .rec-box.final{background:var(--green);border-color:var(--green);color:#fff}
+      .rec-box.final b{background:#fff}
+      .rec-box.final span{color:#eef7dd;font-size:24px;line-height:1.7}
+      .rec-col:nth-of-type(1) .rec-box{transition-delay:.5s}
+      .rec-col:nth-of-type(2) .rec-box{transition-delay:1.1s}
+      .rec-col:nth-of-type(3) .rec-box{transition-delay:1.7s}
+      .rec-arrow{align-self:center;font:900 40px Montserrat,sans-serif;font-style:normal;color:var(--green);opacity:0;transition:opacity .4s}
+      .panel.show .rec-arrow{opacity:1;transition-delay:.9s}
+      .panel.show .rec-arrow:last-of-type{transition-delay:1.5s}
+      .rec-grid > div{font-size:19px;line-height:1.5;padding:14px 16px}
+      .rec-grid .ord{font-size:17px;color:var(--muted)}
+      .rec-grid strong{display:block}
+      .rec-grid small{display:block;font:600 14px Montserrat,sans-serif;color:var(--muted)}
+    </style>`;
 
 
     return [
@@ -192,9 +243,53 @@ window.DECK = {
         callout: { k: 'ACER AIS · INTERACTION', h: '切換情境，<br>兩個區塊一起連動', tag: '點擊切換使用場景',
           items: [[1, '點擊切換使用場景，<strong>連動兩區塊</strong>推薦功能列表及適配硬體'], [2, '呈現<strong>適配機型</strong>，讓用戶能夠點擊導往商城查看細節'], [3, '已有 Acer 電腦者<strong>可點擊下載</strong>']] } }),
 
+      // ===== 05 推薦邏輯（試作） =====
+      d.panel(5, 110, recStyle + recFlow(0) +
+        `<h3>情境推薦的機型，是這樣<em>算</em>出來的</h3>` +
+        `<div class="rec-flow">` +
+        `<div class="rec-col"><small>INPUT</small>` +
+          `<div class="rec-box"><b>1-1</b>AIS 設定檔 App-list.json<span>每個 app 的規格需求與安裝檢查</span></div>` +
+          `<div class="rec-box"><b>1-2</b>Qubi Claw 官網<span>雲端／內顯本地 AI／RTX 5090 三級需求</span></div>` +
+          `<div class="rec-box"><b>2-2</b>Acer 官方商城<span>正在販售的 345 台電腦與完整規格</span></div></div>` +
+        `<i class="rec-arrow">→</i>` +
+        `<div class="rec-col"><small>OUTPUT</small>` +
+          `<div class="rec-box out"><b>1</b>App 規格表<span>9 個 AIS app 各自的硬體條件</span></div>` +
+          `<div class="rec-box out"><b>2</b>商品相容對照表<span>345 台 × 9 個 app＋Qubi Claw 等級</span></div></div>` +
+        `<i class="rec-arrow">→</i>` +
+        `<div class="rec-col wide"><small>FINAL</small>` +
+          `<div class="rec-box final"><b>3</b>情境推薦<span>情境功能 → 對應 app → 查對照表 → 定義排序 → 首選／第二推薦／CP 值最高</span></div></div>` +
+        `</div>` +
+        `<p class="note">資料讀取日 2026-09-18；分級依官方規格，規格未列到的新世代另標「寬判」，不計分。</p>`),
+      d.versus(5, ['recJson', 'req'], ['recApps', 'qubi'],
+        `<h3>第一步：把設定檔整理成 <em>App 規格表</em></h3>` +
+        d.table(['AIS 設定檔（App-list.json）', 'App 規格表（output 1）'], [
+          ['給人看的條件', 'RequirementDetails 說明文字', '「規格需求」欄：獨顯／指定 CPU／RAM，多個條件以「或」連接'],
+          ['程式的檢查', 'SystemRequirement', '「安裝時檢查」欄：最低 RAM、顯卡型號、黑名單'],
+          ['補充來源', 'Qubi Claw 官網需求頁', 'Qubi Claw 不在設定檔內，另依官網分成 0～3 級'],
+        ])),
+      d.versus(5, ['recStore', 'card'], ['recCompat', 'rows'],
+        `<h3>第二步：逐台比對商城商品，得到 <em>相容對照表</em></h3>` +
+        d.table(['Acer 官方商城', '商品相容對照表（output 2）'], [
+          ['範圍', '正在販售的 345 台（筆電、桌機、AIO、掌機）', '324 台至少能裝一個 AIS app'],
+          ['比對', '商品頁規格表：CPU 世代、RAM、顯卡與 VRAM、螢幕', '每台 × 9 個 app：可裝／寬判才可裝／不可裝'],
+          ['排序', '—', '先比 Qubi Claw 等級，再比可裝的 AIS app 數'],
+        ])),
+      d.panel(5, 110, recStyle + recFlow(3) +
+        `<h3>第三步：從情境功能<em>推到三個推薦位置</em></h3>` +
+        `<div class="grid rec-grid" style="grid-template-columns:130px 1.05fr 1.15fr 1.6fr 1fr 1fr 1fr">` +
+        `<div class="h"></div><div class="h">關鍵 app</div><div class="h">篩選門檻</div><div class="h">排序依據</div><div class="h a">首選</div><div class="h">第二推薦</div><div class="h">CP 值最高</div>` +
+        recRow('商務', 'Meeting Assistant＋AI Agent', '兩者皆可裝、有庫存筆電 <b>57 台</b>', 'Qubi Claw 等級 → 重量 → 商務配備（Win 11 Pro、指紋）→ 續航 → 價格',
+          ['TravelMate P6 14', 'TMP614-54-7518'], ['Swift Air 14 OLED', 'SFA14-71M-791S'], ['Aspire Lite 14', 'AL14-56P-79Y2']) +
+        recRow('創意', 'Drawing Assistant（＋Media）', '依官方規格可裝 Drawing、有庫存 <b>71 台</b>', '獨顯與 VRAM → 32GB → OLED → Qubi Claw 等級 → app 數 → 價格',
+          ['Swift X 14', 'SFX14-73G-78HM'], ['Predator Orion 3000', 'PO3-665'], ['Swift Go 14', 'SFG14-75-5948']) +
+        recRow('遊戲', 'Game Assistant＋ProCam（所有機型可裝）', 'AIS 不是差異，改看獨顯：有庫存 <b>24 台</b>', '顯卡等級 → VRAM → 螢幕更新率 → Qubi Claw 等級 → 價格',
+          ['Predator Orion 7000', 'PO7-665'], ['Predator Helios Neo 16S', 'PHN16S-71-90TD'], ['Nitro N30', 'N30-100']) +
+        `</div>` +
+        `<p class="note">這三組就是 p27 mockup「找到你的 AI 搭檔」的推薦卡片。規格、價格與庫存為 2026/9/17 商城資料，會變動。</p>`),
+
       // ===== Summary =====
       // summary: the whole Acer mockup on the left, the conclusion on the right
-      { chapter: 5,
+      { chapter: 6,
         wins: { [SUBJECT]: { rect: [100, 100, 330, 900], focus: 'full', frame: 'business' } },
         panel: { top: 250, html:
           `<div style="margin-left:430px">` +
