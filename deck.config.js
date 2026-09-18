@@ -21,7 +21,7 @@ window.DECK = {
   theme: {},
 
   // top-bar chapter buttons; steps refer to them by index (cover uses -1)
-  chapters: ['00 Benchmark', '01 Branding', '02 Scenario', '03 Core experience', '04 Product details · Selling', '05 推薦邏輯', 'Summary'],
+  chapters: ['00 Benchmark', '01 Branding', '02 Scenario', '03 Core experience', '04 Product details · Selling', '05 Recommendation logic', 'Summary'],
 
   // benchmark categories, in the order they are presented
   categories: [
@@ -147,15 +147,10 @@ window.DECK = {
     const thumb = region => ({ page: REF, region });
     const versusTable = rows => d.table(['SAMSUNG', 'ACER AIS'], rows);
     // 05 recommendation logic: progress strip, one row of the scenario table, shared styles
-    const recFlow = n => '<ol class="rec-steps">' + ['流程總覽', '1 App 規格表', '2 相容對照表', '3 情境推薦']
-      .map((t, i) => `<li${i === n ? ' class="on"' : ''}>${t}</li>`).join('') + '</ol>';
-    const recPick = ([name, sku], first) => `<div${first ? ' class="a"' : ''}><strong>${name}</strong><small>${sku}</small></div>`;
+    const recPick = ([name, sku, img], first) => `<div class="pick${first ? ' a' : ''}"><img src="content/images/product-real-${img}.png" alt=""><strong>${name}</strong><small>${sku}</small></div>`;
     const recRow = (scene, apps, gate, order, a, b, c) =>
       `<div class="k"><strong>${scene}</strong></div><div>${apps}</div><div>${gate}</div><div class="ord">${order}</div>` + recPick(a, true) + recPick(b) + recPick(c);
     const recStyle = `<style>
-      .rec-steps{display:flex;gap:10px;margin:0 0 18px;padding:0;list-style:none;font:700 15px Montserrat,"Noto Sans TC",sans-serif;color:var(--faint)}
-      .rec-steps li{padding:6px 16px;border-radius:999px;border:1px solid var(--line)}
-      .rec-steps li.on{background:var(--green);border-color:var(--green);color:#fff}
       .rec-flow{display:flex;align-items:stretch;gap:22px;margin-top:10px;min-height:560px}
       .rec-col{flex:1;display:flex;flex-direction:column;gap:16px}
       .rec-col.wide{flex:1.15}
@@ -175,9 +170,10 @@ window.DECK = {
       .rec-arrow{align-self:center;font:900 40px Montserrat,sans-serif;font-style:normal;color:var(--green);opacity:0;transition:opacity .4s}
       .panel.show .rec-arrow{opacity:1;transition-delay:.9s}
       .panel.show .rec-arrow:last-of-type{transition-delay:1.5s}
-      .rec-grid > div{font-size:19px;line-height:1.5;padding:14px 16px}
+      .rec-grid > div{font-size:19px;line-height:1.5;padding:12px 16px}
       .rec-grid .ord{font-size:17px;color:var(--muted)}
       .rec-grid strong{display:block}
+      .rec-grid .pick img{display:block;width:100%;max-width:190px;height:auto;margin:0 0 6px}
       .rec-grid small{display:block;font:600 14px Montserrat,sans-serif;color:var(--muted)}
     </style>`;
 
@@ -244,7 +240,8 @@ window.DECK = {
           items: [[1, '點擊切換使用場景，<strong>連動兩區塊</strong>推薦功能列表及適配硬體'], [2, '呈現<strong>適配機型</strong>，讓用戶能夠點擊導往商城查看細節'], [3, '已有 Acer 電腦者<strong>可點擊下載</strong>']] } }),
 
       // ===== 05 推薦邏輯（試作） =====
-      d.panel(5, 110, recStyle + recFlow(0) +
+      d.intro(5, { num: '05', title: 'Recommendation logic', sub: '此為目前產品推薦邏輯的試做版本，請以最終工程實作為準' }),
+      d.panel(5, 110, recStyle +
         `<h3>情境推薦的機型，是這樣<em>算</em>出來的</h3>` +
         `<div class="rec-flow">` +
         `<div class="rec-col"><small>INPUT</small>` +
@@ -274,16 +271,16 @@ window.DECK = {
           ['比對', '商品頁規格表：CPU 世代、RAM、顯卡與 VRAM、螢幕', '每台 × 9 個 app：可裝／寬判才可裝／不可裝'],
           ['排序', '—', '先比 Qubi Claw 等級，再比可裝的 AIS app 數'],
         ])),
-      d.panel(5, 110, recStyle + recFlow(3) +
+      d.panel(5, 110, recStyle +
         `<h3>第三步：從情境功能<em>推到三個推薦位置</em></h3>` +
         `<div class="grid rec-grid" style="grid-template-columns:130px 1.05fr 1.15fr 1.6fr 1fr 1fr 1fr">` +
         `<div class="h"></div><div class="h">關鍵 app</div><div class="h">篩選門檻</div><div class="h">排序依據</div><div class="h a">首選</div><div class="h">第二推薦</div><div class="h">CP 值最高</div>` +
         recRow('商務', 'Meeting Assistant＋AI Agent', '兩者皆可裝、有庫存筆電 <b>57 台</b>', 'Qubi Claw 等級 → 重量 → 商務配備（Win 11 Pro、指紋）→ 續航 → 價格',
-          ['TravelMate P6 14', 'TMP614-54-7518'], ['Swift Air 14 OLED', 'SFA14-71M-791S'], ['Aspire Lite 14', 'AL14-56P-79Y2']) +
+          ['TravelMate P6 14', 'TMP614-54-7518', 'tmp614'], ['Swift Air 14 OLED', 'SFA14-71M-791S', 'sfa14'], ['Aspire Lite 14', 'AL14-56P-79Y2', 'al14']) +
         recRow('創意', 'Drawing Assistant（＋Media）', '依官方規格可裝 Drawing、有庫存 <b>71 台</b>', '獨顯與 VRAM → 32GB → OLED → Qubi Claw 等級 → app 數 → 價格',
-          ['Swift X 14', 'SFX14-73G-78HM'], ['Predator Orion 3000', 'PO3-665'], ['Swift Go 14', 'SFG14-75-5948']) +
+          ['Swift X 14', 'SFX14-73G-78HM', 'sfx14'], ['Predator Orion 3000', 'PO3-665', 'po3'], ['Swift Go 14', 'SFG14-75-5948', 'sfg14']) +
         recRow('遊戲', 'Game Assistant＋ProCam（所有機型可裝）', 'AIS 不是差異，改看獨顯：有庫存 <b>24 台</b>', '顯卡等級 → VRAM → 螢幕更新率 → Qubi Claw 等級 → 價格',
-          ['Predator Orion 7000', 'PO7-665'], ['Predator Helios Neo 16S', 'PHN16S-71-90TD'], ['Nitro N30', 'N30-100']) +
+          ['Predator Orion 7000', 'PO7-665', 'po7'], ['Predator Helios Neo 16S', 'PHN16S-71-90TD', 'phn16s'], ['Nitro N30', 'N30-100', 'n30']) +
         `</div>` +
         `<p class="note">這三組就是 p27 mockup「找到你的 AI 搭檔」的推薦卡片。規格、價格與庫存為 2026/9/17 商城資料，會變動。</p>`),
 
