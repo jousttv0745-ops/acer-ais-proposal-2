@@ -87,6 +87,9 @@ window.DECK = {
       frames: {
         personal: { src: 'content/acer-ai-pc-personal.html', label: '個人化' },
         business: { src: 'content/acer-ai-pc.html', label: '商務' },
+        // p22 / p23: the two Qubi copy options still to be decided
+        qubiA: { src: 'content/acer-ai-pc.html?qubi=a', label: '商務 · 方案 A' },
+        qubiB: { src: 'content/acer-ai-pc.html?qubi=b', label: '商務 · 方案 B' },
         creative: { src: 'content/acer-ai-pc-creative.html', label: '創意' },
         gaming: { src: 'content/acer-ai-pc-gaming.html', label: '遊戲' },
       },
@@ -146,6 +149,14 @@ window.DECK = {
     const REF = 'samsung', SUBJECT = 'acer';
     const thumb = region => ({ page: REF, region });
     const versusTable = rows => d.table(['SAMSUNG', 'ACER AIS'], rows);
+    // p22 / p23: comparison title with a small TBD note on the right (Acer side) marking which copy option is shown
+    const tbdHead = (opt, title) => `<div style="display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px">` +
+      `<h3 style="margin:0">${title}</h3>` +
+      `<div style="display:flex;align-items:center;gap:14px;padding:10px 18px;border:1.5px dashed var(--green);border-radius:14px;background:#fff;font-size:18px;color:var(--ink-2)">` +
+      `<b style="padding:3px 12px;border-radius:999px;background:#f59e0b;color:#fff;font:800 15px Montserrat,sans-serif;letter-spacing:1px">TBD</b>` +
+      `<span>Qubi 區塊文案與角色待決定</span>` +
+      ['A', 'B'].map(o => `<span style="padding:4px 14px;border-radius:999px;font-weight:700;${o === opt ? 'background:var(--green);color:#fff' : 'background:var(--green-soft);color:var(--green-d)'}">方案 ${o}</span>`).join('') +
+      `</div></div>`;
     // 05 recommendation logic: progress strip, one row of the scenario table, shared styles
     const recPick = ([name, sku, img], first) => `<div class="pick${first ? ' a' : ''}"><img src="content/images/product-real-${img}.png" alt=""><strong>${name}</strong><small>${sku}</small></div>`;
     const recRow = (scene, apps, gate, order, a, b, c) =>
@@ -223,8 +234,10 @@ window.DECK = {
       // ===== 03 Core experience =====
       d.intro(3, { num: '03', title: 'Core experience', sub: '核心體驗', p: '<q>讓貫穿所有 AI solution 的核心概念具象化，而非需要重新解釋的功能集合。</q>' }),
       d.overview(3, REF, 'core', { active: ['Core experience'], caption: { k: 'SAMSUNG GALAXY AI', h: 'Samsung 的核心體驗', p: '情境之後，分段介紹助理與資料安全。' } }),
-      d.versus(3, [REF, 'core'], [SUBJECT, 'core'], `<h3>以<em>人機協作</em>開始你的 AI</h3>` +
-        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi and Qubi Claw'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { messageB: 'qubi', leadA: true }),
+      d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('A', '以<em>個人助理</em>開始你的 AI') +
+        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi（個人助理）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiA', leadA: true }),
+      d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('B', '以<em>人機協作</em>開始你的 AI') +
+        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi Claw（數位員工）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiB', messageB: 'qubi' }),
 
       // ===== 04 Product details · Selling =====
       d.intro(4, { num: '04', title: 'Product details · Selling', sub: '產品細節與導購', p: '<q>Galaxy AI 全頁沒有任何規格或機型對照，用戶被留在感受層。</q>' }),

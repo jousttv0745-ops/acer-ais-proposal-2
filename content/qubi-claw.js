@@ -9,6 +9,8 @@
   const canvas = document.querySelector('.qubi canvas');
   if (!canvas) return;
   const out = canvas.getContext('2d');
+  // copy option A (?qubi=a): Qubi stays still, facing the camera, no jump and no lobster suit
+  const still = new URLSearchParams(location.search).get('qubi') === 'a';
   const video = document.createElement('video');
   video.src = 'images/qubi-claw.mp4'; video.muted = true; video.playsInline = true; video.preload = 'none';
 
@@ -49,7 +51,7 @@
     }
     // keep character-sized pieces; drop stage lines (thin, wide, or touching the side/bottom edges)
     const label = new Int32Array(n), keep = new Uint8Array(1 << 16);
-    let id = 0;
+    let id = 0, bestId = 0, bestArea = 0;
     for (let s = 0; s < n; s++) {
       if (bg[s] || label[s]) continue;
       id = (id + 1) & 0xffff || 1;
@@ -65,9 +67,12 @@
         if (i < n - W && !bg[i + W] && !label[i + W]) { label[i + W] = id; q.push(i + W); }
       }
       const bw = x1 - x0 + 1, bh = y1 - y0 + 1;
+      if (area > bestArea) { bestArea = area; bestId = id; }
       keep[id] = area >= 500 * K * K && bw <= 430 * K && bh <= 470 * K && area / (bw * bh) > 0.12 &&
         x0 > 0 && x1 < W - 1 && y1 < H - 1 ? 1 : 0;
     }
+    // option A shows Qubi alone: keep only the biggest piece (the lobster suit lying next to Qubi is dropped)
+    if (still) { keep.fill(0); keep[bestId] = 1; }
     for (let i = 0, p = 3; i < n; i++, p += 4) {
       if (bg[i] || !keep[label[i]]) { d[p] = 0; continue; }
       // soften the outline a little
@@ -116,9 +121,9 @@
     if (poster.complete && poster.naturalWidth) draw(poster, 0);
   };
 
-  if (window.parent === window) play();
+  if (window.parent === window && !still) play();
   addEventListener('message', e => {
     if (e.source !== window.parent || e.data?.deck !== 'qubi') return;
-    if (e.data.at === 'start') rewind(); else play();
+    if (e.data.at === 'start' || still) rewind(); else play();
   });
 })();

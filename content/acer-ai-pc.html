@@ -285,6 +285,22 @@ DO <em>THAT?</em></h1>
   <p class="ov b">所有裝置皆能搭載，隨時與你流暢對話，聰明理解問題、<br>自動安排你的專屬工作流程。</p>
   <a class="ov more" href="https://www.acer.com/acer-qubi-claw" target="_blank" rel="noopener">了解更多<span aria-hidden="true">→</span></a>
 </section>
+<script>
+  // copy options for the proposal deck: ?qubi=a (personal assistant, still Qubi, no CTA) / ?qubi=b (digital worker)
+  (() => {
+    const v = new URLSearchParams(location.search).get('qubi');
+    const sec = document.querySelector('.qubi'); if (!sec || !v) return;
+    const set = (sel, html) => { const el = sec.querySelector(sel); if (el) el.innerHTML = html; };
+    if (v === 'a') {
+      set('.k', 'Qubi is Anywhere.'); set('h2', '屬於你的個人助理');
+      set('.b', '所有裝置皆能搭載，隨時與你流暢對話，聰明理解問題、<br>搜索資料。');
+      sec.querySelector('.more')?.remove();
+    } else if (v === 'b') {
+      set('.k', 'Qubi Claw can do anything.'); set('h2', '屬於你的數位員工');
+      set('.b', '隨時與你流暢對話，聰明理解問題、拆解任務階段、<br>還能排程協作，自動安排你的專屬工作流程。');
+    }
+  })();
+</script>
 <script src="qubi-claw.js"></script>
 
 <section class="compare" id="compare">
