@@ -454,7 +454,7 @@
       if (step.tags) {
         tags.innerHTML = Object.entries(step.tags).filter(([k]) => geo[k]).map(([k, text]) => {
           const [x, y, w] = geo[k].rect;
-          return `<span style="left:${x + w / 2}px;top:${y - 46}px">${text}</span>`;
+          return `<span style="left:${x + w - 12}px;top:${y + 5}px">${text}</span>`;
         }).join('');
       }
       if (step.panel) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }

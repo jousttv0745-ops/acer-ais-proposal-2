@@ -111,8 +111,8 @@ html,body{margin:0;height:100%;background:#f3f4f6;color:var(--ink);font-family:"
 /* section labels beside an overview */
 /* tags: which page each window in a comparison is */
 .tags{position:absolute;inset:0;z-index:9;pointer-events:none}
-.tags span{position:absolute;transform:translateX(-50%);padding:7px 22px;border-radius:999px;background:var(--green-soft);color:var(--green-d);
-  font:800 22px Montserrat,"Noto Sans TC",sans-serif;letter-spacing:1px;white-space:nowrap;opacity:0;transition:opacity .4s}
+.tags span{position:absolute;transform:translateX(-100%);padding:4px 16px;border-radius:999px;background:var(--green);color:#fff;
+  font:800 17px Montserrat,"Noto Sans TC",sans-serif;letter-spacing:.5px;white-space:nowrap;opacity:0;transition:opacity .4s}
 .tags.show span{opacity:1}
 .labels{position:absolute;inset:0;z-index:9;pointer-events:none}
 .label{position:absolute;display:flex;align-items:center;gap:14px;transform:translateY(-50%);opacity:0;transition:opacity .4s}
