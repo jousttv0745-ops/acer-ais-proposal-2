@@ -38,8 +38,8 @@ window.DECK = {
     // today's Acer Intelligence Space page (captured 2026-09-21, 1440px wide)
     aisNow: { kind: 'image', src: 'content/recommend/ais-now.jpg', srcLite: 'content/recommend/ais-now.lite.jpg', liteScale: 0.5, w: 1440, h: 8060,
       label: 'Acer Intelligence Space', url: 'acer.com/tw-zh/ai/acer-intelligence-space',
-      bands: [['Hero · 下載 CTA', 0, 1180], ['Meeting Assistant', 1180, 960], ['AI Agent', 2140, 980], ['AI Drawing', 3120, 960],
-        ['Creator Space', 4080, 960], ['ProCam', 5040, 960], ['Game Assistant', 6000, 980], ['註腳 · Footer', 6980, 1080]] },
+      bands: [['Opening', 0, 1180], ['Meeting Assistant', 1180, 960], ['AI Agent', 2140, 980], ['AI Drawing', 3120, 960],
+        ['Creator Space', 4080, 960], ['ProCam', 5040, 960], ['Game Assistant', 6000, 980], ['Footer', 6980, 1080]] },
     // 05 recommendation logic: source captures, 1440px wide (captured 2026-09-18)
     recJson: { kind: 'image', src: 'content/recommend/json.jpg', srcLite: 'content/recommend/json.lite.jpg', liteScale: 0.5, w: 1440, h: 1902,
       label: 'App-list.json', url: 'global-download.acer.com/…/App-list.json',
@@ -62,7 +62,7 @@ window.DECK = {
         branding: [[430, 285, 1060, 330], [0, 640, 1920, 1095]],
         scenario: [[440, 1790, 1040, 120], [460, 2020, 1000, 80], [40, 2120, 1840, 880]],
         core: [[90, 3260, 820, 400], [1180, 3160, 520, 650]],
-        selling: [[30, 5170, 1860, 480], [640, 5920, 640, 90], [0, 6020, 1920, 740], [0, 6860, 1920, 1600]],
+        selling: [[30, 5170, 1860, 480], [640, 5920, 640, 90], [0, 6020, 1920, 740]],
       },
       // the two scenario images of the Personalization tab (screenshot px)
       tints: { scenes: [[47, 2140, 855, 630], [996, 2140, 855, 630]] },
@@ -121,7 +121,7 @@ window.DECK = {
       branding: { spot: [0, 232, 1920, 1508], focus: [0, 200, 1920, 1560] },
       scenario: { spot: [0, 1740, 1920, 1250], focus: [0, 1720, 1920, 1300] },
       core: { spot: [0, 3100, 1920, 860], focus: [0, 3060, 1920, 940] }, // assistant only (security block left out)
-      selling: { spot: [0, 5040, 1920, 3420], focus: [0, 5000, 1920, 3500] },
+      selling: { spot: [0, 5040, 1920, 1740], focus: [0, 5000, 1920, 1820] },
     },
     samsungLayout: {
       full: { spot: [0, 20, 1920, 1250], focus: [0, 0, 1920, 1300] }, // = samsung.scenario shifted by -1720
@@ -171,7 +171,7 @@ window.DECK = {
       .rec-flow{display:flex;align-items:stretch;gap:22px;margin-top:10px;min-height:560px}
       .rec-col{flex:1;display:flex;flex-direction:column;gap:16px}
       .rec-col.wide{flex:1.15}
-      .rec-col small{font:800 24px Montserrat,sans-serif;letter-spacing:3px;color:var(--green-d);margin-bottom:2px}
+      .rec-col small{font:800 30px Montserrat,sans-serif;letter-spacing:3px;color:var(--green-d);margin-bottom:2px}
       .rec-box{position:relative;flex:1;padding:26px 26px 22px 76px;border:1px solid var(--line);border-radius:16px;background:#fff;font-size:28px;font-weight:900;line-height:1.35;
         opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
       .panel.show .rec-box{opacity:1;transform:none}
@@ -199,7 +199,7 @@ window.DECK = {
       d.cover({ kicker: 'PROPOSAL · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Mockup Proposal',
         chips: [['00', 'Benchmark'], ['01', 'Opening'], ['02', 'Scenario'], ['03', 'Role definition'], ['04', 'Recommendation'], ['05', 'Recommendation logic']] }),
 
-      d.overview(-1, 'aisNow', 'hero', { active: ['Hero · 下載 CTA'],
+      d.overview(-1, 'aisNow', 'hero', { plain: true, spot: false,
         caption: { k: 'ACER.COM · 現況', h: '現在的 AIS 頁面', p: '七個產品功能各自一段的叢集頁，<br>頁面目的是讓使用者下載 Acer Intelligence Space。' } }),
 
       // ===== 00 Benchmark =====
@@ -241,12 +241,12 @@ window.DECK = {
       // ===== 03 Core experience =====
       d.overview(3, REF, 'core', { active: ['Role definition'], caption: { num: '03', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的核心體驗', p: '情境之後，分段介紹助理與資料安全。' } }),
       d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('A', '以<em>個人助理</em>開始你的 AI') +
-        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi（個人助理）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiA', leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS · 方案 A' }),
+        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi（個人助理）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiA', leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 A', tone: 'warn' } }),
       d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('B', '以<em>人機協作</em>開始你的 AI') +
-        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi Claw（數位員工）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiB', messageB: 'qubi', tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS · 方案 B' }),
+        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi Claw（數位員工）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiB', messageB: 'qubi', tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 B', tone: 'warn' } }),
 
       // ===== 04 Product details · Selling =====
-      d.overview(4, REF, 'selling', { active: ['Recommendation'], caption: { num: '04', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的導購段落', p: '功能介紹之後，先推 Try Galaxy，再出現機型列表與 FAQ。' } }),
+      d.overview(4, REF, 'selling', { active: ['Recommendation'], caption: { num: '04', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的導購段落', p: '功能介紹之後，先推 Try Galaxy，再出現機型列表。' } }),
       d.versus(4, [REF, 'selling'], [SUBJECT, 'product'], `<h3>把「AI 能做什麼」翻譯成「<em>哪一台做得到</em>」</h3>` +
         versusTable([['機型資訊', '只有機型列表', '功能 × 機型對照'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '看規格與購買／看規格／下載']]), { leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS' }),
       d.zoom(4, SUBJECT, 'product', { marks: false, cycle: ['business', 'creative', 'gaming'],

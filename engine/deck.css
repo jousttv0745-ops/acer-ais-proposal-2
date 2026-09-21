@@ -112,7 +112,9 @@ html,body{margin:0;height:100%;background:#f3f4f6;color:var(--ink);font-family:"
 /* tags: which page each window in a comparison is */
 .tags{position:absolute;inset:0;z-index:9;pointer-events:none}
 .tags span{position:absolute;transform:translateX(-100%);padding:4px 16px;border-radius:999px;background:var(--green);color:#fff;
-  font:800 17px Montserrat,"Noto Sans TC",sans-serif;letter-spacing:.5px;white-space:nowrap;opacity:0;transition:opacity .4s}
+  font:800 20px Montserrat,"Noto Sans TC",sans-serif;letter-spacing:.5px;white-space:nowrap;opacity:0;transition:opacity .4s}
+.tags span.warn{background:#f59e0b}
+.win.tagged .chrome b{display:none}
 .tags.show span{opacity:1}
 .labels{position:absolute;inset:0;z-index:9;pointer-events:none}
 .label{position:absolute;display:flex;align-items:center;gap:14px;transform:translateY(-50%);opacity:0;transition:opacity .4s}
@@ -120,6 +122,9 @@ html,body{margin:0;height:100%;background:#f3f4f6;color:var(--ink);font-family:"
 .label em{font:600 14px Montserrat,sans-serif;font-style:normal;color:var(--faint);width:26px}
 .label span{font:600 22px Montserrat,sans-serif;color:var(--faint)}
 .label.on span{color:var(--ink);font-weight:800;font-size:30px}
+/* plain: a structure page shows every section at once, no highlight */
+.labels.plain .label span{color:var(--ink);font-weight:700}
+.labels.plain .label em{color:var(--green-d)}
 .label.on em{color:var(--green-d)}
 .caption{position:absolute;left:80px;bottom:120px;max-width:560px;z-index:9;opacity:0;transition:opacity .5s}
 .caption.show{opacity:1}

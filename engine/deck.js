@@ -93,9 +93,9 @@
 
     /** one page shown whole, one region spotlighted, section labels on the right */
     overview: (chapter, key, name, o = {}) => ({ chapter,
-      labels: { page: key, active: o.active || [] },
+      labels: { page: key, active: o.active || [], plain: o.plain },
       caption: o.caption && { ...o.caption, top: o.thumb ? L.captionTopWithThumb : null },
-      wins: { [key]: { rect: L.overview, focus: 'full', spot: region(key, name).spot }, ...thumbWin(o.thumb) } }),
+      wins: { [key]: { rect: L.overview, focus: 'full', spot: o.spot === false ? null : region(key, name).spot }, ...thumbWin(o.thumb) } }),
     /** camera pushes into a region, marks + callout appear */
     zoom: (chapter, key, name, o = {}) => {
       const r = region(key, name), withThumb = !!o.thumb;
@@ -405,12 +405,13 @@
       post('land'); // the camera has landed: embedded pages can start their animation
       let paths = '';
       labels.innerHTML = '';
+      labels.classList.toggle('plain', !!(step.labels && step.labels.plain));
       if (step.labels) {
         const key = step.labels.page, page = PAGES[key], { rect, t } = geo[key];
         const edge = rect[0] + t.tx + page.w * t.s + 8, lx = rect[0] + rect[2] + 70;
         labels.innerHTML = (page.bands || []).map(([name, by, bh], n) => {
           const y = rect[1] + CHROME + t.ty + (by + bh / 2) * t.s, on = step.labels.active.includes(name);
-          if (on) paths += `<path d="M${edge} ${y}H${lx - 16}" style="--len:${lx - edge}"/>`;
+          if (on || step.labels.plain) paths += `<path d="M${edge} ${y}H${lx - 16}" style="--len:${lx - edge}"/>`;
           return `<div class="label${on ? ' on' : ''}" style="left:${lx}px;top:${y}px"><em>${String(n + 1).padStart(2, '0')}</em><span>${name}</span></div>`;
         }).join('');
       }
@@ -451,10 +452,12 @@
           });
         }
       }
+      Object.values(wins).forEach(w => w.classList.remove('tagged'));
       if (step.tags) {
-        tags.innerHTML = Object.entries(step.tags).filter(([k]) => geo[k]).map(([k, text]) => {
-          const [x, y, w] = geo[k].rect;
-          return `<span style="left:${x + w - 12}px;top:${y + 5}px">${text}</span>`;
+        tags.innerHTML = Object.entries(step.tags).filter(([k]) => geo[k]).map(([k, v]) => {
+          const [x, y, w] = geo[k].rect, { text, tone } = typeof v === 'string' ? { text: v } : v;
+          wins[k].classList.add('tagged');
+          return `<span class="${tone || ''}" style="left:${x + w - 10}px;top:${y + 3}px">${text}</span>`;
         }).join('');
       }
       if (step.panel) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }
