@@ -98,14 +98,14 @@ window.DECK = {
         creative: { src: 'content/acer-ai-pc-creative.html', label: '創意' },
         gaming: { src: 'content/acer-ai-pc-gaming.html', label: '遊戲' },
       },
-      bands: [['Opening', 109, 696], ['Scenario', 805, 789], ['Role definition', 1594, 618], ['Product details', 2212, 1149], ['Recommendation', 3361, 862], ['FAQ', 4223, 410]],
+      bands: [['Opening', 109, 696], ['Scenario', 805, 741], ['Role definition', 1546, 619], ['Product details', 2165, 1149], ['Recommendation', 3314, 862], ['FAQ', 4176, 410]],
       marks: {
         branding: [[42, 178, 412, 232], [460, 168, 980, 490], [42, 560, 412, 58]],
-        scenario: [[470, 1002, 500, 64], [136, 1086, 1168, 340], [136, 1430, 1168, 92]],
-        scenario2: [[470, 1002, 500, 64], [136, 1086, 1168, 436]], // page 23: two points, cards + their titles in one box
-        core: [[90, 1785, 720, 340], [815, 1840, 610, 360]],
-        details: [[500, 2408, 440, 58], [136, 2480, 1168, 808], [570, 2490, 246, 788]],
-        selling: [[136, 3558, 384, 435], [528, 3558, 776, 435], [136, 4070, 1168, 81]],
+        // two points: the scenario tabs, then each card as a whole (image + its copy)
+        scenario: [[470, 1002, 500, 64], [176, 1086, 1072, 470]],
+        core: [[90, 1737, 720, 340], [815, 1792, 610, 360]],
+        details: [[500, 2361, 440, 58], [136, 2433, 1168, 808], [570, 2443, 246, 788]],
+        selling: [[136, 3511, 384, 435], [528, 3511, 776, 435], [136, 4023, 1168, 81]],
       },
     },
   },
@@ -128,11 +128,11 @@ window.DECK = {
     },
     acer: {
       branding: { spot: [0, 109, 1440, 696], focus: [0, 60, 1440, 760] },
-      scenario: { spot: [0, 805, 1440, 789], focus: [0, 860, 1440, 700] },
-      core: { spot: [0, 1594, 1440, 618], focus: [0, 1594, 1440, 618] },
-      details: { spot: [0, 2212, 1440, 1149], focus: [0, 2380, 1440, 942] },
-      selling: { spot: [0, 3361, 1440, 862], focus: [0, 3422, 1440, 764] },
-      product: { spot: [0, 2212, 1440, 2011], focus: [0, 2380, 1440, 1806] },
+      scenario: { spot: [0, 805, 1440, 741], focus: [0, 860, 1440, 700] },
+      core: { spot: [0, 1546, 1440, 619], focus: [0, 1546, 1440, 619] },
+      details: { spot: [0, 2165, 1440, 1149], focus: [0, 2333, 1440, 942] },
+      selling: { spot: [0, 3314, 1440, 862], focus: [0, 3375, 1440, 764] },
+      product: { spot: [0, 2165, 1440, 2011], focus: [0, 2333, 1440, 1806] },
     },
   },
 
