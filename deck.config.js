@@ -229,7 +229,7 @@ window.DECK = {
         callout: { k: 'SAMSUNG · LAYOUT', h: 'Samsung 的<br>圖文排版', tag: '排版細節',
           items: [[1, '圖片視覺占比 <strong>35–47%</strong>，一屏就能看完主角'], [2, '圖片皆有約 <strong>3% 的輕量圓角</strong>，畫面乾淨'], [3, '圖片<strong>間距寬度一致</strong>，視覺舒適']] } }),
       d.versus(2, [REF, 'scenario'], [SUBJECT, 'scenario'], `<h3>從「功能能做什麼」到「<em>我的一天用得到什麼</em>」</h3>` +
-        versusTable([['情境切分', '使用情境', '使用情境'], ['畫面', '沉浸式場景＋介面特寫', '沉浸式場景＋介面特寫'], ['接下來', '回到功能說明', '連到「哪一台跑得動」']])),
+        versusTable([['情境切分', '使用情境', '使用情境'], ['畫面', '沉浸式場景＋介面特寫', '沉浸式場景＋介面特寫'], ['接下來', '回到功能說明', '連到「哪一台跑得動」']]), { frameB: 'personal' }),
 
       // ===== 03 Core experience =====
       d.intro(3, { num: '03', title: 'Core experience', sub: '核心體驗', p: '<q>讓貫穿所有 AI solution 的核心概念具象化，而非需要重新解釋的功能集合。</q>' }),
