@@ -109,6 +109,11 @@ html,body{margin:0;height:100%;background:#f3f4f6;color:var(--ink);font-family:"
 .chip .who{display:block;margin-bottom:4px;font:800 24px Montserrat,"Noto Sans TC",sans-serif;color:var(--ink)}
 
 /* section labels beside an overview */
+/* tags: which page each window in a comparison is */
+.tags{position:absolute;inset:0;z-index:9;pointer-events:none}
+.tags span{position:absolute;transform:translateX(-50%);padding:7px 22px;border-radius:999px;background:var(--green-soft);color:var(--green-d);
+  font:800 22px Montserrat,"Noto Sans TC",sans-serif;letter-spacing:1px;white-space:nowrap;opacity:0;transition:opacity .4s}
+.tags.show span{opacity:1}
 .labels{position:absolute;inset:0;z-index:9;pointer-events:none}
 .label{position:absolute;display:flex;align-items:center;gap:14px;transform:translateY(-50%);opacity:0;transition:opacity .4s}
 .labels.show .label{opacity:1}
@@ -118,6 +123,7 @@ html,body{margin:0;height:100%;background:#f3f4f6;color:var(--ink);font-family:"
 .label.on em{color:var(--green-d)}
 .caption{position:absolute;left:80px;bottom:120px;max-width:560px;z-index:9;opacity:0;transition:opacity .5s}
 .caption.show{opacity:1}
+.cap-num{font:800 84px/1 Montserrat,sans-serif;color:transparent;-webkit-text-stroke:2px var(--green);margin-bottom:10px}
 .caption small{display:block;font:700 15px Montserrat,sans-serif;letter-spacing:2px;color:var(--green-d);margin-bottom:14px}
 .caption h3{margin:0;font-size:40px;font-weight:900;line-height:1.3}
 .caption p{margin:14px 0 0;font-size:22px;color:var(--muted);line-height:1.7}
@@ -154,6 +160,10 @@ svg.wire.show circle{opacity:1}
 /* free panels: comparisons, tables, conclusions */
 .panel{position:absolute;left:80px;right:80px;z-index:10;opacity:0;transform:translateY(30px);pointer-events:none;transition:opacity .6s .45s,transform .8s .45s var(--ease)}
 .panel.show{opacity:1;transform:none}
+.demo{display:inline-flex;align-items:center;gap:10px;margin:6px 0 30px;padding:14px 32px;border-radius:999px;background:var(--green);color:#fff;
+  font:800 24px Montserrat,"Noto Sans TC",sans-serif;text-decoration:none;pointer-events:auto;transition:background .2s}
+.demo:hover{background:var(--green-d)}
+.demo span{font-size:20px}
 .panel h3{margin:0 0 22px;font-size:44px;font-weight:900;line-height:1.35}
 .panel h3 em{font-style:normal;color:var(--green-d)}
 .grid{display:grid;border-top:1px solid var(--line)}

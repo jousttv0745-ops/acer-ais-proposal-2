@@ -106,6 +106,8 @@
     },
     /** two pages side by side + a panel underneath */
     versus: (chapter, [ka, ra], [kb, rb], html, o = {}) => ({ chapter, panel: { top: L.versusPanelTop, html },
+      // tags: a名 / b名 chips above each window (defaults to the page label)
+      tags: o.tags === false ? null : { [ka]: o.tagA || PAGES[ka].label, [kb]: o.tagB || PAGES[kb].label },
       // leadA: arriving from the step before, the left page first zooms into its region straight into its left-hand slot,
       // then the right page and the panel come in
       lead: o.leadA ? { [ka]: { rect: L.left, focus: region(ka, ra).focus, spot: region(ka, ra).spot, marks: o.marksA === false ? null : ra } } : null,
@@ -389,8 +391,10 @@
     }
 
     // overlays hide immediately, reveal after the camera lands
+    const tags = $('#tags') || Object.assign(stage.appendChild(document.createElement('div')), { id: 'tags', className: 'tags' });
     const labels = $('#labels'), wire = $('#wire'), caption = $('#caption'), callout = $('#callout'), panel = $('#panel'), cathead = $('#cathead'), chips = $('#chips');
-    [labels, wire, caption, callout, panel, cathead, chips].forEach(el => el.classList.remove('show'));
+    [labels, wire, caption, callout, panel, cathead, chips, tags].forEach(el => el.classList.remove('show'));
+    tags.innerHTML = '';
     notesHost.innerHTML = '';
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     // steps with `message` notify their embedded pages: { deck: message, at: 'start' | 'land' }
@@ -411,7 +415,8 @@
         }).join('');
       }
       if (step.caption) {
-        caption.innerHTML = `<small>${step.caption.k}</small><h3>${step.caption.h}</h3><p>${step.caption.p}</p>`;
+        caption.innerHTML = (step.caption.num ? `<div class="cap-num">${step.caption.num}</div>` : '') +
+          `<small>${step.caption.k}</small><h3>${step.caption.h}</h3><p>${step.caption.p}</p>`;
         caption.style.top = step.caption.top ? step.caption.top + 'px' : '';
         caption.style.bottom = step.caption.top ? 'auto' : '';
       }
@@ -446,6 +451,12 @@
           });
         }
       }
+      if (step.tags) {
+        tags.innerHTML = Object.entries(step.tags).filter(([k]) => geo[k]).map(([k, text]) => {
+          const [x, y, w] = geo[k].rect;
+          return `<span style="left:${x + w / 2}px;top:${y - 46}px">${text}</span>`;
+        }).join('');
+      }
       if (step.panel) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }
       if (step.catHead) {
         const c = CATS.find(x => x.key === step.catHead), n = CATS.indexOf(c) + 1;
@@ -474,6 +485,7 @@
         if (step.caption) caption.classList.add('show');
         if (step.callout) callout.classList.add('show');
         notesHost.querySelectorAll('.pin').forEach(n => n.classList.add('show'));
+        if (step.tags) tags.classList.add('show');
         if (step.panel) panel.classList.add('show');
         if (step.catHead) cathead.classList.add('show');
         if (step.chips) chips.classList.add('show');
