@@ -220,7 +220,7 @@ window.DECK = {
         `<div class="k">Selling part</div>` + BENCH.map((k, i) => `<div${i === 0 ? ' class="a"' : ''}>硬體導購占比 ${d.pct(k, 'hardware')}%<div class="meter"><i style="--w:${d.pct(k, 'hardware')}%"></i></div></div>`).join('') +
         `</div><p class="note">* landing page：目的為導流的叢集頁。</p>` +
         `<p class="bench-qa" style="margin:34px 0 0;font-size:24px;line-height:1.7;color:var(--muted)"><strong style="color:var(--ink)">用戶來 Acer 官網的目的，通常是：</strong>想探索新設備或高擴充性需求；已購買設備，想了解應用操作及技術支援。</p>` +
-        `<p class="conclude" style="margin-top:18px">Acer 需要的是「<em>把軟體功能翻譯成購買硬體考量之一</em>」的版面<b>→ 以 Samsung Galaxy AI 為主要參考對象</b></p>`),
+        `<p class="conclude" style="margin-top:18px">Acer 需要的是「<em>把軟體功能包裝成購買硬體考量之一</em>」的版面<b>→ 以 Samsung Galaxy AI 為主要參考對象</b></p>`),
 
       // ===== 01 Branding =====
       d.overview(1, REF, 'branding', { active: ['Opening'], caption: { num: '01', k: 'SAMSUNG GALAXY AI', h: '先看 Samsung<br>怎麼開場' } }),
