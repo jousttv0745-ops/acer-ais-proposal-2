@@ -409,15 +409,15 @@
       if (step.labels) {
         const key = step.labels.page, page = PAGES[key], { rect, t } = geo[key];
         const edge = rect[0] + t.tx + page.w * t.s + 8, lx = rect[0] + rect[2] + 70;
-        labels.innerHTML = (page.bands || []).map(([name, by, bh], n) => {
+        labels.innerHTML = (page.bands || []).map(([name, by, bh, tone], n) => {
           const y = rect[1] + CHROME + t.ty + (by + bh / 2) * t.s, on = step.labels.active.includes(name);
           if (on || step.labels.plain) paths += `<path d="M${edge} ${y}H${lx - 16}" style="--len:${lx - edge}"/>`;
-          return `<div class="label${on ? ' on' : ''}" style="left:${lx}px;top:${y}px"><em>${String(n + 1).padStart(2, '0')}</em><span>${name}</span></div>`;
+          return `<div class="label${on ? ' on' : ''}${tone ? ' ' + tone : ''}" style="left:${lx}px;top:${y}px"><em>${String(n + 1).padStart(2, '0')}</em><span>${name}</span></div>`;
         }).join('');
       }
       if (step.caption) {
         caption.innerHTML = (step.caption.num ? `<div class="cap-num">${step.caption.num}</div>` : '') +
-          `<small>${step.caption.k}</small><h3>${step.caption.h}</h3><p>${step.caption.p}</p>`;
+          `<small>${step.caption.k}</small><h3>${step.caption.h}</h3>` + (step.caption.p ? `<p>${step.caption.p}</p>` : '');
         caption.style.top = step.caption.top ? step.caption.top + 'px' : '';
         caption.style.bottom = step.caption.top ? 'auto' : '';
       }
