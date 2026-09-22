@@ -219,7 +219,7 @@ window.DECK = {
         `<div class="k">Storytelling</div><div class="a">從使用情境出發，讓用戶在需求中探索適配的硬體，與 Acer AIS 性質最符合。</div><div>從功能套件出發，代價是用戶需要先建立對功能的認知，才有機會帶動後續導購。</div><div>從功能操作出發，但通篇與硬體導購無關。</div>` +
         `<div class="k">Selling part</div>` + BENCH.map((k, i) => `<div${i === 0 ? ' class="a"' : ''}>硬體導購占比 ${d.pct(k, 'hardware')}%<div class="meter"><i style="--w:${d.pct(k, 'hardware')}%"></i></div></div>`).join('') +
         `</div><p class="note">* landing page：目的為導流的叢集頁。</p>` +
-        `<p class="bench-qa" style="margin:34px 0 0;font-size:24px;line-height:1.7;color:var(--muted)"><strong style="color:var(--ink)">Q：用戶來 Acer 官網的目的通常是什麼？</strong><br>A：想探索新設備或高擴充性需求；已購買設備，想了解應用操作及技術支援。</p>` +
+        `<p class="bench-qa" style="margin:34px 0 0;font-size:24px;line-height:1.7;color:var(--muted)"><strong style="color:var(--ink)">用戶來 Acer 官網的目的，通常是：</strong>想探索新設備或高擴充性需求；已購買設備，想了解應用操作及技術支援。</p>` +
         `<p class="conclude" style="margin-top:18px">Acer 需要的是「<em>把軟體功能翻譯成購買硬體考量之一</em>」的版面<b>→ 以 Samsung Galaxy AI 為主要參考對象</b></p>`),
 
       // ===== 01 Branding =====
@@ -242,14 +242,14 @@ window.DECK = {
       // ===== 03 Core experience =====
       d.overview(3, REF, 'core', { active: ['AI Companion'], caption: { num: '03', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的核心體驗' } }),
       d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('A', '以<em>個人助理</em>開始你的 AI') +
-        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi（個人助理）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiA', leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 A', tone: 'warn' } }),
+        versusTable([['呈現方式', '助理', '單一角色 Qubi（個人助理）'], ['用戶要記住的', '一個核心概念：AI 陪伴', '一個核心概念：AI 陪伴'], ['在頁面中的角色', '串聯情境與硬體', '串聯情境與硬體']]), { frameB: 'qubiA', leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 A', tone: 'warn' } }),
       d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('B', '以<em>人機協作</em>開始你的 AI') +
-        versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi Claw（數位員工）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiB', messageB: 'qubi', tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 B', tone: 'warn' } }),
+        versusTable([['呈現方式', '助理', '單一角色 Qubi Claw（數位員工）'], ['用戶要記住的', '一個核心概念：AI 陪伴', '一個核心概念：AI 陪伴'], ['在頁面中的角色', '串聯情境與硬體', '串聯情境與硬體']]), { frameB: 'qubiB', messageB: 'qubi', tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 B', tone: 'warn' } }),
 
       // ===== 04 Recommendation =====
-      d.overview(4, REF, 'selling', { active: ['Recommendation'], caption: { num: '04', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的導購段落' } }),
-      d.versus(4, [REF, 'selling'], [SUBJECT, 'product'], `<h3>把「AI 能做什麼」翻譯成「<em>哪一台做得到</em>」</h3>` +
-        versusTable([['機型資訊', '只有機型列表', '推薦機型＋AI 功能表'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '立即了解／下載 Acer Intelligence Space']]), { leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS' }),
+      d.overview(4, REF, 'selling', { active: ['Recommendation'], caption: { num: '04', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的推薦段落' } }),
+      d.versus(4, [REF, 'selling'], [SUBJECT, 'product'], `<h3>把「AI 能做什麼」包裝成「<em>哪一台做得到</em>」</h3>` +
+        versusTable([['機型資訊', '只有機型列表', '推薦機型＋AI 功能表'], ['用戶停在', '找到機型、點進產品頁', '找到搭檔、點進商城'], ['CTA', 'Learn more', '立即了解／下載 Acer Intelligence Space']]), { leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS' }),
       d.zoom(4, SUBJECT, 'product', { marks: false, cycle: ['business', 'creative', 'gaming'],
         callout: { k: 'ACER AIS · INTERACTION', h: '切換情境，<br>整段一起連動', tag: '點擊切換使用場景',
           items: [[1, '點擊切換使用場景，<strong>推薦機型與 AI 功能表</strong>一起更新'], [2, '呈現<strong>適配機型</strong>，讓用戶能夠點擊導往商城查看細節'], [3, '已有 Acer 電腦者<strong>可點擊下載</strong>']] } }),
@@ -310,9 +310,9 @@ window.DECK = {
         wins: { [SUBJECT]: { rect: [100, 100, 330, 900], focus: 'full', frame: 'business' } },
         panel: { top: 250, html:
           `<div style="margin-left:430px">` +
-          `<p class="quote">我們把「AI 能做什麼」<br>翻譯成「<em>哪一台做得到</em>」、「<em>找到你的搭檔</em>」。</p>` +
+          `<p class="quote">我們把「AI 能做什麼」<br>包裝成「<em>哪一台做得到</em>」、「<em>找到你的搭檔</em>」。</p>` +
           `<p class="qa" style="margin:34px 0 0;font-size:26px">把硬體賣點放進推薦卡，再用功能表說明用得到的 AI 應用程式，無論用戶有哪一種需求都有 CTA。</p>` +
-          `<div class="recap"><span><b>01</b>提問式開場</span><span><b>02</b>需求導向的情境</span><span><b>03</b>具象化的角色定義</span><span><b>04</b>功能 × 機型推薦</span><span><b>05</b>產品推薦邏輯</span></div>` +
+          `<div class="recap"><span><b>01</b>提問式開場</span><span><b>02</b>需求導向的情境</span><span><b>03</b>AI 陪伴功能</span><span><b>04</b>功能 × 機型推薦</span><span><b>05</b>產品推薦邏輯</span></div>` +
           `</div>` } },
     ];
   },
