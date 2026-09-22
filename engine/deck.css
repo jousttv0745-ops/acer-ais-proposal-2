@@ -95,6 +95,7 @@ html,body{margin:0;height:100%;background:#f3f4f6;color:var(--ink);font-family:"
 
 .cathead{position:absolute;left:80px;top:104px;display:flex;align-items:baseline;gap:18px;z-index:12;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
 .cathead.show{opacity:1;transform:none}
+.cathead.still,.chips.still .chip{transition:none}
 .cathead i{align-self:center;width:18px;height:18px;border-radius:5px;background:var(--c)}
 .cathead em{font:700 18px Montserrat,sans-serif;font-style:normal;color:var(--faint)}
 .cathead strong{font-size:38px;font-weight:900}

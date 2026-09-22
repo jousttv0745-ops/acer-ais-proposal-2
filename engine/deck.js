@@ -393,13 +393,42 @@
     // overlays hide immediately, reveal after the camera lands
     const tags = $('#tags') || Object.assign(stage.appendChild(document.createElement('div')), { id: 'tags', className: 'tags' });
     const labels = $('#labels'), wire = $('#wire'), caption = $('#caption'), callout = $('#callout'), panel = $('#panel'), cathead = $('#cathead'), chips = $('#chips');
-    [labels, wire, caption, callout, panel, cathead, chips, tags].forEach(el => el.classList.remove('show'));
+    [labels, wire, caption, callout, panel, tags].forEach(el => el.classList.remove('show'));
+    // benchmark category steps: the heading and the chips under each page swap in place, only the pages animate
+    const still = !!step.catHead;
+    [cathead, chips].forEach(el => { el.classList.toggle('still', still); if (!still) el.classList.remove('show'); });
     tags.innerHTML = '';
     notesHost.innerHTML = '';
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     // steps with `message` notify their embedded pages: { deck: message, at: 'start' | 'land' }
     const post = at => { for (const [k, c] of Object.entries(stepWins)) if (c.message) wins[k].querySelectorAll('iframe.on').forEach(fr => fr.contentWindow?.postMessage({ deck: c.message, at }, '*')); };
     post('start');
+    // benchmark heading + chips; on category steps they swap at once instead of waiting for the camera
+    const paintBench = () => {
+      if (step.catHead) {
+        const c = CATS.find(x => x.key === step.catHead), n = CATS.indexOf(c) + 1;
+        cathead.style.setProperty('--c', c.color);
+        cathead.innerHTML = `<i></i><em>${String(n).padStart(2, '0')} / ${String(CATS.length).padStart(2, '0')}</em><strong>${c.name}</strong><span>${c.desc || ''}</span>`;
+      }
+      chips.innerHTML = '';
+      if (step.chips) {
+        chips.innerHTML = Object.keys(geo).map(key => {
+          const { rect } = geo[key], page = PAGES[key], cx = rect[0] + rect[2] / 2, top = rect[1] + rect[3] + 18;
+          if (step.chips.mode === 'length') {
+            return `<div class="chip" style="left:${cx}px;top:${top}px"><span class="who">${page.label}</span><b>${d.px(page.h)}</b> px<small>${step.chips.label} ${d.pct(key, step.chips.metric)}%</small></div>`;
+          }
+          const segs = page.cats?.[step.chips.cat];
+          if (!segs) return `<div class="chip none" style="left:${cx}px;top:${top}px"><span class="who">${page.label}</span>${cfg.meta?.noneLabel || '無此區塊'}</div>`;
+          const total = segs.reduce((a, [, h]) => a + h, 0);
+          return `<div class="chip" style="left:${cx}px;top:${top}px"><span class="who">${page.label}</span><b>${d.px(total)}</b> px<small>占整頁 ${Math.round(total / page.h * 100)}%</small></div>`;
+        }).join('');
+      }
+    };
+    if (still) {
+      paintBench();
+      if (step.catHead) cathead.classList.add('show');
+      if (step.chips) chips.classList.add('show');
+    }
     setTimeout(() => {
       if (my !== token) return;
       post('land'); // the camera has landed: embedded pages can start their animation
@@ -461,24 +490,7 @@
         }).join('');
       }
       if (step.panel) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }
-      if (step.catHead) {
-        const c = CATS.find(x => x.key === step.catHead), n = CATS.indexOf(c) + 1;
-        cathead.style.setProperty('--c', c.color);
-        cathead.innerHTML = `<i></i><em>${String(n).padStart(2, '0')} / ${String(CATS.length).padStart(2, '0')}</em><strong>${c.name}</strong><span>${c.desc || ''}</span>`;
-      }
-      chips.innerHTML = '';
-      if (step.chips) {
-        chips.innerHTML = Object.keys(geo).map(key => {
-          const { rect } = geo[key], page = PAGES[key], cx = rect[0] + rect[2] / 2, top = rect[1] + rect[3] + 18;
-          if (step.chips.mode === 'length') {
-            return `<div class="chip" style="left:${cx}px;top:${top}px"><span class="who">${page.label}</span><b>${d.px(page.h)}</b> px<small>${step.chips.label} ${d.pct(key, step.chips.metric)}%</small></div>`;
-          }
-          const segs = page.cats?.[step.chips.cat];
-          if (!segs) return `<div class="chip none" style="left:${cx}px;top:${top}px"><span class="who">${page.label}</span>${cfg.meta?.noneLabel || '無此區塊'}</div>`;
-          const total = segs.reduce((a, [, h]) => a + h, 0);
-          return `<div class="chip" style="left:${cx}px;top:${top}px"><span class="who">${page.label}</span><b>${d.px(total)}</b> px<small>占整頁 ${Math.round(total / page.h * 100)}%</small></div>`;
-        }).join('');
-      }
+      if (!still) paintBench();
       wire.innerHTML = paths;
       // short timeout (not rAF) so reveals still fire when the tab is in the background
       setTimeout(() => {

@@ -25,11 +25,11 @@ window.DECK = {
 
   // benchmark categories, in the order they are presented
   categories: [
-    { key: 'brand', name: '網頁定位', color: '#83b81a', desc: '第一屏怎麼介紹 AI 與品牌' },
-    { key: 'feature', name: '功能介紹', color: '#3b82f6', desc: '功能怎麼被說明、占多少篇幅' },
-    { key: 'security', name: '資訊安全', color: '#f59e0b', desc: '是否回應隱私與安全的疑慮' },
-    { key: 'hardware', name: '硬體導流', color: '#ef4444', desc: '是否把用戶帶到可以買的硬體' },
-    { key: 'seo', name: 'SEO（FAQ）', color: '#8b5cf6', desc: '用 FAQ 補足疑問與搜尋' },
+    { key: 'brand', name: '網頁定位', color: '#83b81a', desc: '第一屏都在一開場就介紹了自家品牌' },
+    { key: 'feature', name: '功能介紹', color: '#3b82f6', desc: 'Samsung 的功能介紹占比最低，而 ASUS StoryCube 高達 80%' },
+    { key: 'security', name: '資訊安全', color: '#f59e0b', desc: 'Samsung 獨有的資安說明' },
+    { key: 'hardware', name: '硬體導流', color: '#ef4444', desc: 'Samsung、Lenovo 都有導流硬體，而 ASUS StoryCube 完全沒有' },
+    { key: 'seo', name: 'SEO（FAQ）', color: '#8b5cf6', desc: 'Samsung 用 FAQ 來達成 SEO 效果' },
     { key: 'frame', name: '網站框架', color: '#9ca3af', desc: 'Header、Footer 與註解' },
   ],
   frameCategory: 'frame', // this category aligns to its LAST segment (the footer)
@@ -87,7 +87,7 @@ window.DECK = {
       },
     },
     acer: {
-      kind: 'frames', w: 1440, h: 4040, label: 'Acer AIS', url: 'acer.com/tw-zh/ai-pc（mockup）',
+      kind: 'frames', w: 1440, h: 4101, label: 'Acer AIS', url: 'acer.com/tw-zh/ai-pc（mockup）',
       defaultFrame: 'business',
       frames: {
         personal: { src: 'content/acer-ai-pc-personal.html', label: '個人化' },
@@ -98,7 +98,7 @@ window.DECK = {
         creative: { src: 'content/acer-ai-pc-creative.html', label: '創意' },
         gaming: { src: 'content/acer-ai-pc-gaming.html', label: '遊戲' },
       },
-      bands: [['Opening', 109, 696], ['Scenario', 805, 741], ['AI Companion', 1546, 619], ['Recommendation', 2165, 1466], ['FAQ', 3631, 409]],
+      bands: [['Opening', 109, 696], ['Scenario', 805, 741], ['AI Companion', 1546, 619], ['Recommendation', 2165, 1527], ['FAQ', 3692, 409]],
       marks: {
         branding: [[42, 178, 412, 232], [460, 168, 980, 490], [42, 560, 412, 58]],
         // two points: the scenario tabs, then each card as a whole (image + its copy)
@@ -106,7 +106,7 @@ window.DECK = {
         core: [[90, 1737, 720, 340], [815, 1792, 610, 360]],
         // recommendation: product cards first, then the AI app table and the download strip
         selling: [[128, 2432, 384, 529], [520, 2432, 776, 529]],
-        details: [[128, 2977, 1168, 462], [128, 3455, 1168, 103]],
+        details: [[128, 2977, 1168, 531], [128, 3517, 1168, 103]],
               },
     },
   },
@@ -132,8 +132,8 @@ window.DECK = {
       scenario: { spot: [0, 805, 1440, 741], focus: [0, 860, 1440, 700] },
       core: { spot: [0, 1546, 1440, 619], focus: [0, 1546, 1440, 619] },
       selling: { spot: [0, 2165, 1440, 818], focus: [0, 2225, 1440, 748] },
-      details: { spot: [0, 2965, 1440, 666], focus: [0, 2957, 1440, 618] },
-      product: { spot: [0, 2165, 1440, 1466], focus: [0, 2225, 1440, 1346] },
+      details: { spot: [0, 2965, 1440, 727], focus: [0, 2957, 1440, 680] },
+      product: { spot: [0, 2165, 1440, 1527], focus: [0, 2225, 1440, 1407] },
     },
   },
 
@@ -236,7 +236,7 @@ window.DECK = {
       d.zoom(2, 'samsungLayout', 'full', { marks: false, cycle: ['two', 'three'],
         callout: { k: 'SAMSUNG · LAYOUT', h: 'Samsung 的<br>圖文排版', tag: '排版細節',
           items: [[1, '圖片視覺占比 <strong>35–47%</strong>，一屏就能看完主角'], [2, '圖片皆有約 <strong>3% 的輕量圓角</strong>，畫面乾淨'], [3, '圖片<strong>間距寬度一致</strong>，視覺舒適']] } }),
-      d.versus(2, [REF, 'scenario'], [SUBJECT, 'scenario'], `<h3>從用戶<em>真實的一天</em>出發，激發需求探索</h3>` +
+      d.versus(2, [REF, 'scenario'], [SUBJECT, 'scenario'], `<h3>用<em>沉浸式場景</em>，讓使用者投射自我</h3>` +
         versusTable([['情境切分', '使用情境', '使用情境'], ['畫面', '沉浸式場景＋介面特寫', '沉浸式場景＋介面特寫'], ['接下來', '回到功能說明', '連到「哪一台跑得動」']]), { frameB: 'personal', leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS' }),
 
       // ===== 03 Core experience =====
@@ -256,7 +256,7 @@ window.DECK = {
       d.zoom(4, SUBJECT, 'selling', { callout: { k: 'ACER AIS · SELLING', h: '找到你的<br>AI 搭檔', tag: '每種需求都有 CTA',
         items: [[1, '<strong>首選機型</strong>：綠框＋立即了解，規格重點直接列在卡片上'], [2, '第二推薦與 CP 值最高，<strong>點擊導往商城</strong>查看細節']] } }),
       d.zoom(4, SUBJECT, 'details', { callout: { k: 'ACER AIS · AI APPS', h: '功能表：<br>用得到哪些 AI 應用程式', tag: '功能 × AI 應用程式',
-        items: [[1, '<strong>功能情境 × AI 應用程式</strong>：列出這個情境用得到的 app'], [2, '已有 Acer 電腦 → <strong>下載 Acer Intelligence Space</strong>']] } }),
+        items: [[1, '<strong>功能情境 × AI 應用程式</strong>：列出這個情境用得到的 app，「還有更多」向下展開'], [2, '已有 Acer 電腦 → <strong>下載 Acer Intelligence Space</strong>']] } }),
 
       // ===== 05 推薦邏輯（試作） =====
       d.intro(5, { num: '05', title: 'Recommendation logic', sub: '產品推薦邏輯', p: '此為目前產品推薦邏輯的試做版本，請以最終工程實作為準。' }),

@@ -134,12 +134,15 @@
   table.apps{min-width:0;font-size:14px}
   table.apps th{padding:14px 24px;background:#f7f9f5;font-size:14px;text-align:left}
   table.apps td{padding:14px 24px;text-align:left;color:#333a45;border-bottom:1px solid #f0f0f0}
-  table.apps th:first-child,table.apps td:first-child{width:50%}
+  table.apps th:first-child,table.apps td:first-child{width:32%}
   table.apps tr:last-child td{border-bottom:0}
   .app{display:flex;align-items:center;gap:20px}
   .app img{width:28px;height:28px;border-radius:6px;flex:none}
   .apps-box .legend{margin:14px 24px 0}
-  .compare .owner{margin-top:32px;display:grid;grid-template-columns:1fr auto;row-gap:2px;column-gap:16px}
+  .more-apps{display:flex;align-items:center;gap:8px;margin:24px auto 0;padding:10px 28px;border:1px solid var(--line);border-radius:999px;background:#fff;font:inherit;font-size:15px;color:var(--ink-2);cursor:pointer;transition:border-color .2s,color .2s}
+  .more-apps:hover{border-color:var(--ink);color:var(--ink)}
+  .more-apps svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .compare .owner{margin-top:24px;display:grid;grid-template-columns:1fr auto;row-gap:2px;column-gap:16px}
   .compare .owner a{grid-column:2;grid-row:1 / 3;align-self:center;margin-left:0}
   @media (max-width:640px){ table.apps th,table.apps td{padding:12px 14px;font-size:13px} table.apps th:first-child,table.apps td:first-child{width:40%} .app{gap:10px} .app img{width:24px;height:24px} .apps-box h3{margin-inline:14px;font-size:19px} .apps-box > p,.apps-box .legend{margin-inline:14px} .compare .owner{grid-template-columns:1fr} .compare .owner a{grid-column:1;grid-row:auto;margin-top:6px} }
 
@@ -379,6 +382,7 @@ DO <em>THAT?</em></h1>
       </table>
       <p class="legend">規格與庫存為 2026/9/17 Acer 官方商城資料</p>
     </div>
+    <button class="more-apps" type="button" aria-expanded="false">還有更多<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5l4 4 4-4"/></svg></button>
 
     <div class="owner">
       <strong>已經有 Acer 電腦？</strong>
