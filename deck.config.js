@@ -87,7 +87,7 @@ window.DECK = {
       },
     },
     acer: {
-      kind: 'frames', w: 1440, h: 4700, label: 'Acer AIS', url: 'acer.com/tw-zh/ai-pc（mockup）',
+      kind: 'frames', w: 1440, h: 4040, label: 'Acer AIS', url: 'acer.com/tw-zh/ai-pc（mockup）',
       defaultFrame: 'business',
       frames: {
         personal: { src: 'content/acer-ai-pc-personal.html', label: '個人化' },
@@ -98,15 +98,16 @@ window.DECK = {
         creative: { src: 'content/acer-ai-pc-creative.html', label: '創意' },
         gaming: { src: 'content/acer-ai-pc-gaming.html', label: '遊戲' },
       },
-      bands: [['Opening', 109, 696], ['Scenario', 805, 741], ['Role definition', 1546, 619], ['Product details', 2165, 1149], ['Recommendation', 3314, 862], ['FAQ', 4176, 410]],
+      bands: [['Opening', 109, 696], ['Scenario', 805, 741], ['Role definition', 1546, 619], ['Recommendation', 2165, 1466], ['FAQ', 3631, 409]],
       marks: {
         branding: [[42, 178, 412, 232], [460, 168, 980, 490], [42, 560, 412, 58]],
         // two points: the scenario tabs, then each card as a whole (image + its copy)
         scenario: [[470, 1002, 500, 64], [176, 1086, 1072, 470]],
         core: [[90, 1737, 720, 340], [815, 1792, 610, 360]],
-        details: [[500, 2361, 440, 58], [136, 2433, 1168, 808], [570, 2443, 246, 788]],
-        selling: [[136, 3511, 384, 435], [528, 3511, 776, 435], [136, 4023, 1168, 81]],
-      },
+        // recommendation: product cards first, then the AI app table and the download strip
+        selling: [[128, 2432, 384, 529], [520, 2432, 776, 529]],
+        details: [[128, 2977, 1168, 462], [128, 3455, 1168, 103]],
+              },
     },
   },
 
@@ -130,9 +131,9 @@ window.DECK = {
       branding: { spot: [0, 109, 1440, 696], focus: [0, 60, 1440, 760] },
       scenario: { spot: [0, 805, 1440, 741], focus: [0, 860, 1440, 700] },
       core: { spot: [0, 1546, 1440, 619], focus: [0, 1546, 1440, 619] },
-      details: { spot: [0, 2165, 1440, 1149], focus: [0, 2333, 1440, 942] },
-      selling: { spot: [0, 3314, 1440, 862], focus: [0, 3375, 1440, 764] },
-      product: { spot: [0, 2165, 1440, 2011], focus: [0, 2333, 1440, 1806] },
+      selling: { spot: [0, 2165, 1440, 818], focus: [0, 2225, 1440, 748] },
+      details: { spot: [0, 2965, 1440, 666], focus: [0, 2957, 1440, 618] },
+      product: { spot: [0, 2165, 1440, 1466], focus: [0, 2225, 1440, 1346] },
     },
   },
 
@@ -245,17 +246,17 @@ window.DECK = {
       d.versus(3, [REF, 'core'], [SUBJECT, 'core'], tbdHead('B', '以<em>人機協作</em>開始你的 AI') +
         versusTable([['呈現方式', '助理＋安全分段說明', '單一角色 Qubi Claw（數位員工）'], ['用戶要記住的', '多個功能名稱', '一個核心概念'], ['在頁面中的角色', '功能補充', '串連情境與硬體']]), { frameB: 'qubiB', messageB: 'qubi', tagA: 'SAMSUNG Galaxy AI', tagB: { text: 'ACER AIS · 方案 B', tone: 'warn' } }),
 
-      // ===== 04 Product details · Selling =====
+      // ===== 04 Recommendation =====
       d.overview(4, REF, 'selling', { active: ['Recommendation'], caption: { num: '04', k: 'SAMSUNG GALAXY AI', h: 'Samsung 的導購段落', p: '功能介紹之後，先推 Try Galaxy，再出現機型列表。' } }),
       d.versus(4, [REF, 'selling'], [SUBJECT, 'product'], `<h3>把「AI 能做什麼」翻譯成「<em>哪一台做得到</em>」</h3>` +
-        versusTable([['機型資訊', '只有機型列表', '功能 × 機型對照'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '看規格與購買／看規格／下載']]), { leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS' }),
+        versusTable([['機型資訊', '只有機型列表', '推薦機型＋AI 功能表'], ['用戶停在', '感受層', '找到搭檔、點進商城'], ['CTA', 'Learn more', '立即了解／下載 Acer Intelligence Space']]), { leadA: true, tagA: 'SAMSUNG Galaxy AI', tagB: 'ACER AIS' }),
       d.zoom(4, SUBJECT, 'product', { marks: false, cycle: ['business', 'creative', 'gaming'],
-        callout: { k: 'ACER AIS · INTERACTION', h: '切換情境，<br>兩個區塊一起連動', tag: '點擊切換使用場景',
-          items: [[1, '點擊切換使用場景，<strong>連動兩區塊</strong>推薦功能列表及適配硬體'], [2, '呈現<strong>適配機型</strong>，讓用戶能夠點擊導往商城查看細節'], [3, '已有 Acer 電腦者<strong>可點擊下載</strong>']] } }),
-      d.zoom(4, SUBJECT, 'details', { callout: { k: 'ACER AIS · PRODUCT DETAILS', h: '功能表：<br>哪一台跑得動', tag: '功能 × 機型',
-        items: [[1, '<strong>情境切換</strong>：商務、創意、遊戲'], [2, '<strong>功能 × 機型對照表</strong>＋規格重點，把硬體賣點藏進功能表裡講'], [3, '推薦機型<strong>整欄標示</strong>，一眼看出最適合的一台']] } }),
+        callout: { k: 'ACER AIS · INTERACTION', h: '切換情境，<br>整段一起連動', tag: '點擊切換使用場景',
+          items: [[1, '點擊切換使用場景，<strong>推薦機型與 AI 功能表</strong>一起更新'], [2, '呈現<strong>適配機型</strong>，讓用戶能夠點擊導往商城查看細節'], [3, '已有 Acer 電腦者<strong>可點擊下載</strong>']] } }),
       d.zoom(4, SUBJECT, 'selling', { callout: { k: 'ACER AIS · SELLING', h: '找到你的<br>AI 搭檔', tag: '每種需求都有 CTA',
-        items: [[1, '<strong>首選機型</strong>：綠框＋看規格與購買'], [2, '第二推薦與 CP 值最高，<strong>點擊導往商城</strong>查看細節'], [3, '已有 Acer 電腦 → <strong>下載 Acer Intelligence Space</strong>']] } }),
+        items: [[1, '<strong>首選機型</strong>：綠框＋立即了解，規格重點直接列在卡片上'], [2, '第二推薦與 CP 值最高，<strong>點擊導往商城</strong>查看細節']] } }),
+      d.zoom(4, SUBJECT, 'details', { callout: { k: 'ACER AIS · AI APPS', h: '功能表：<br>用得到哪些 AI 應用程式', tag: '功能 × AI 應用程式',
+        items: [[1, '<strong>功能情境 × AI 應用程式</strong>：列出這個情境用得到的 app'], [2, '已有 Acer 電腦 → <strong>下載 Acer Intelligence Space</strong>']] } }),
 
       // ===== 05 推薦邏輯（試作） =====
       d.intro(5, { num: '05', title: 'Recommendation logic', sub: '產品推薦邏輯', p: '此為目前產品推薦邏輯的試做版本，請以最終工程實作為準。' }),
@@ -310,7 +311,7 @@ window.DECK = {
         panel: { top: 250, html:
           `<div style="margin-left:430px">` +
           `<p class="quote">我們把「AI 能做什麼」<br>翻譯成「<em>哪一台做得到</em>」、「<em>找到你的搭檔</em>」。</p>` +
-          `<p class="qa" style="margin:34px 0 0;font-size:26px">把硬體賣點藏進功能表裡講，無論用戶有哪一種需求都有 CTA。</p>` +
+          `<p class="qa" style="margin:34px 0 0;font-size:26px">把硬體賣點放進推薦卡，再用功能表說明用得到的 AI 應用程式，無論用戶有哪一種需求都有 CTA。</p>` +
           `<div class="recap"><span><b>01</b>提問式開場</span><span><b>02</b>需求導向的情境</span><span><b>03</b>具象化的角色定義</span><span><b>04</b>功能 × 機型推薦</span><span><b>05</b>產品推薦邏輯</span></div>` +
           `</div>` } },
     ];
