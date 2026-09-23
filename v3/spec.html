@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AIS L1 Spec 附錄</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#83b81a;--green-d:#3f7d0a;--green-soft:#f1f8e6;--ink:#1a1d23;--ink-2:#3d4250;--muted:#6d7385;--line:#e3e6ec;--bg:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;padding:48px 16px 96px;background:var(--bg);color:var(--ink);font:16px/1.7 'Noto Sans TC',sans-serif}
+  main{max-width:1280px;margin:0 auto}
+  small.k{font:800 13px Montserrat,sans-serif;letter-spacing:3px;color:var(--green-d)}
+  h1{margin:6px 0 4px;font-size:34px;font-weight:900;border-left:8px solid var(--green);padding-left:16px}
+  .lead{color:var(--muted);margin:0 0 8px}
+  h2{margin:56px 0 14px;font-size:24px;font-weight:900}
+  h2 em{font-style:normal;color:var(--green-d)}
+  .wrap{overflow-x:auto;border:1px solid var(--line)}
+  table{border-collapse:collapse;width:100%;min-width:960px;font-size:14.5px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--green-soft);color:var(--green-d);font-weight:700;white-space:nowrap}
+  td.seg{font-weight:700;white-space:nowrap}
+  td.none{color:#9aa0ad;text-align:center}
+  .back{display:inline-block;margin-top:14px;color:var(--green-d);font-weight:700}
+  @media print{body{padding:0}h2{break-before:page}.wrap{border:0;overflow:visible}table{min-width:0;font-size:11px}.back{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <small class="k">APPENDIX · PROPOSAL v3</small>
+  <h1>Acer Intelligence Space — L1 Landing Page Spec</h1>
+  <p class="lead">Apple／Samsung 數值為 2026-09-23 截圖量測；Acer L1 為本提案建議值。說明文字為草稿。</p>
+  <a class="back" href="./">← 回到簡報</a>
+  <section id="l1"></section>
+  <section id="assets"></section>
+  <section id="bench"></section>
+</main>
+<script src="spec-data.js"></script>
+<script>
+  const S = window.SPEC, esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const table = (head, rows) => `<div class="wrap"><table><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+  const dimCells = r => r.none ? `<td class="none" colspan="${S.dims.length}">無此區塊</td>` : S.dims.map(([k]) => `<td>${esc(r[k])}</td>`).join('');
+  document.getElementById('l1').innerHTML = `<h2>1. L1 <em>逐段 Spec</em></h2>` +
+    table(['#', '段落', '參照', ...S.dims.map(([, l]) => l)], S.l1.map(r => `<tr><td class="seg">${r.id}</td><td class="seg">${esc(r.seg)}</td><td>${esc(r.ref.label)}</td>${dimCells(r)}</tr>`));
+  document.getElementById('assets').innerHTML = `<h2>2. <em>資產清單</em></h2>` +
+    table(['編號', '段落', '檔名', '規格', '數量', '提供者', '狀態'], S.assets.map(a => `<tr>${['no', 'seg', 'file', 'spec', 'qty', 'owner', 'status'].map(k => `<td>${esc(a[k])}</td>`).join('')}</tr>`));
+  document.getElementById('bench').innerHTML = `<h2>3. Benchmark <em>Spec</em>（參照）</h2>` +
+    [['Apple Intelligence', S.bench.apple], ['Samsung Galaxy AI', S.bench.samsung]].map(([name, rows]) =>
+      `<h3>${name}</h3>` + table(['段落', ...S.dims.map(([, l]) => l)], rows.map(r => `<tr><td class="seg">${esc(r.seg)}</td>${dimCells(r)}</tr>`))).join('');
+</script>
+</body>
+</html>
