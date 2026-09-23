@@ -200,6 +200,30 @@ window.DECK = {
       // ===== 03 L1 Spec =====
       d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → 相容門檻 → FAQ' }),
       ...S.l1.map(l1Step),
+
+      // ===== 04 L2 · L3 =====
+      d.panel(4, 150, STYLE +
+        `<h3>L2 產品頁：<em>這台能用哪些 AI</em></h3>` +
+        d.table(['方向'], [
+          ['參照', 'Apple 各機型頁中的 Apple Intelligence 區塊'],
+          ['內容', '這台可用的 AIS app、Qubi 等級、硬體亮點'],
+          ['與 L1 的關係', 'L1 相容門檻的每一列 → 對應 L2 產品頁；L2 回連 L1 看完整功能'],
+          ['本版範圍', '只定方向，spec 待 L1 上線後撰寫'],
+        ], '260px 1fr')),
+      d.panel(4, 150, STYLE +
+        `<h3>L3 商城：<em>v1 已試做</em>的情境推薦</h3>` +
+        d.table(['方向'], [
+          ['內容', '情境 → 關鍵 app → 相容對照表 → 首選／第二推薦／CP 值最高'],
+          ['已完成', 'App 規格表、345 台商品相容對照表、三情境推薦試算（v1 第 04、05 章）'],
+          ['啟動條件', 'L1、L2 上線後'],
+        ], '260px 1fr') +
+        `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 推薦段落<span aria-hidden="true">↗</span></a>` +
+        `<a class="demo" href="../#27" target="_blank" rel="noopener" style="margin-left:16px">看 v1 推薦邏輯<span aria-hidden="true">↗</span></a>`),
+
+      // ===== Summary =====
+      d.panel(5, 110, STYLE +
+        `<h3>L1 的<em>六格答案</em></h3>` + overviewTable(true) +
+        `<a class="demo" href="spec.html" target="_blank" rel="noopener" style="margin-top:22px">附錄：完整 Spec 表<span aria-hidden="true">↗</span></a>`),
     ];
   },
 };
