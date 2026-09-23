@@ -90,6 +90,14 @@ window.DECK = {
       .grid.ov > div{font-size:19px}
       .grid.ov small{display:block;margin-top:4px;font:700 14px 'Noto Sans TC',sans-serif;color:var(--green-d)}
       .grid.ov .q{font:800 34px Montserrat,sans-serif;color:var(--green)}
+      .l1{display:grid;grid-template-columns:780px 1fr;gap:40px}
+      .l1-ref{padding-top:560px}
+      .l1-ref small{font:800 22px Montserrat,sans-serif;letter-spacing:2px;color:var(--green-d)}
+      .l1-ref strong{display:block;margin-top:6px;font-size:44px;font-weight:900}
+      .l1-ref span{display:block;margin-top:8px;font-size:20px;color:var(--muted)}
+      .l1-card{display:grid;grid-template-columns:110px 1fr;border-top:1px solid var(--line)}
+      .l1-card > div{padding:16px 18px;border-bottom:1px solid var(--line);font-size:21px;line-height:1.55;color:var(--ink-2)}
+      .l1-card .k{font-weight:900;color:var(--green-d);background:var(--green-soft)}
     </style>`;
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
@@ -106,6 +114,18 @@ window.DECK = {
       `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h en a">ACER L1</div>` +
       S.overview.map(r => `<div class="k">${r.dim}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
         `<div class="a">${fill ? `${r.acer}<small>學 ${r.from}</small>` : '<b class="q">？</b>'}</div>`).join('') + `</div>`;
+    // L1 segment: reference page top-left, spec card on the right
+    const l1Step = seg => {
+      const r = R[seg.ref.page][seg.ref.region];
+      return { chapter: 3,
+        wins: { [seg.ref.page]: { rect: [80, 150, 780, 470], focus: r.focus, spot: r.spot } },
+        tags: { [seg.ref.page]: seg.ref.label },
+        panel: { top: 110, html: STYLE +
+          `<div class="l1">` +
+            `<div class="l1-ref"><small>${seg.id}</small><strong>${seg.seg}</strong><span>參照：${seg.ref.label}</span></div>` +
+            `<div class="l1-card">` + DIMS.map(([k, l]) => `<div class="k">${l}</div><div>${seg[k]}</div>`).join('') + `</div>` +
+          `</div>` } };
+    };
     return [
       d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
         chips: [['00', 'Recap'], ['01', 'Roadmap'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'L2 · L3']] }),
@@ -176,6 +196,10 @@ window.DECK = {
       d.panel(2, 110, STYLE + `<h3>Apple Intelligence <em>Spec</em></h3>` + specTable(S.bench.apple)),
       d.panel(2, 110, STYLE + `<h3>Samsung Galaxy AI <em>Spec</em></h3>` + specTable(S.bench.samsung)),
       d.panel(2, 130, STYLE + `<h3>L1 要回答的<em>六格</em></h3>` + overviewTable(false)),
+
+      // ===== 03 L1 Spec =====
+      d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → 相容門檻 → FAQ' }),
+      ...S.l1.map(l1Step),
     ];
   },
 };
