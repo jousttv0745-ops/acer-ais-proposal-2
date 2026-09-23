@@ -10,7 +10,10 @@ const page = await browser.newPage();
 await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
 await page.goto('https://www.apple.com/tw/apple-intelligence/', { waitUntil: 'networkidle2', timeout: 90000 });
 const H = await page.evaluate(() => document.documentElement.scrollHeight);
-for (let y = 0; y < H; y += 700) { await page.evaluate(v => window.scrollTo(0, v), y); await new Promise(r => setTimeout(r, 250)); }
+for (let y = 0; y < H; y += 400) { await page.evaluate(v => window.scrollTo(0, v), y); await new Promise(r => setTimeout(r, 500)); }
+// device-picker section (product photos are lazy and slow to reveal): scroll it into view and give it extra time
+await page.evaluate(() => { const h = document.documentElement.scrollHeight; window.scrollTo(0, Math.max(0, h - 3800)); });
+await new Promise(r => setTimeout(r, 3000));
 await page.evaluate(() => window.scrollTo(0, 0)); await new Promise(r => setTimeout(r, 1500));
 // pause videos on their first frame so the capture is stable
 await page.evaluate(() => document.querySelectorAll('video').forEach(v => { v.pause(); v.currentTime = 0; }));
