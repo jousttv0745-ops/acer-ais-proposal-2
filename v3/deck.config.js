@@ -67,8 +67,47 @@ window.DECK = {
     },
   },
   cycleMs: 2200,
-  steps: d => [
-    d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
-      chips: [['00', 'Recap'], ['01', 'Roadmap'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'L2 · L3']] }),
-  ],
+  steps: d => {
+    const S = window.SPEC, R = window.DECK.regions;
+    const STYLE = `<style>
+      .road{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:end;margin-top:30px}
+      .road div{position:relative;padding:26px 26px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
+      .road div:nth-child(1){height:250px}.road div:nth-child(2){height:330px}.road div:nth-child(3){height:410px}.road div:nth-child(4){height:490px}
+      .road b{font:800 44px Montserrat,sans-serif;color:var(--green-d)}
+      .road strong{display:block;margin-top:8px;font-size:28px}
+      .road span{display:block;margin-top:10px;font-size:20px;line-height:1.55;color:var(--muted)}
+      .road i{position:absolute;top:-18px;left:22px;padding:4px 14px;border-radius:999px;font:700 16px 'Noto Sans TC',sans-serif;font-style:normal}
+      .road .now i{background:#9ca3af;color:#fff}
+      .road .go{background:var(--green);border-color:var(--green)}
+      .road .go b,.road .go strong,.road .go span{color:#fff}
+      .road .go i{background:#f59e0b;color:#fff}
+      .road .dir{border-style:dashed}
+      .road .dir i{background:var(--green-soft);color:var(--green-d)}
+    </style>`;
+    return [
+      d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
+        chips: [['00', 'Recap'], ['01', 'Roadmap'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'L2 · L3']] }),
+
+      // ===== 00 Recap =====
+      d.panel(0, 130,
+        `<h3>v1 報告後的<em>四個調整</em></h3>` +
+        d.table(['回饋', '本版'], [
+          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：版面、Assets、敘事，章末附兩家 spec'],
+          ['02', '不提 mockup，只出 spec', '03 L1 Spec：每段寫目標、素材、比例、範圍、資產、敘事'],
+          ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Roadmap：本版定案 L1，L2／L3 寫方向'],
+          ['04', '參照 Apple 怎麼擺 Siri', '02 Benchmark：Siri ↔ Qubi 專頁'],
+        ], '120px 1fr 1fr') +
+        `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
+
+      // ===== 01 Roadmap =====
+      d.panel(1, 120, STYLE +
+        `<h3>我們在哪裡：從 <em>L0</em> 走到 <em>L1</em></h3>` +
+        `<div class="road">` +
+          `<div class="now"><i>● 現在</i><b>L0</b><strong>AIS 功能介紹頁</strong><span>一頁介紹 app 功能<br>導流終點：下載</span></div>` +
+          `<div class="go"><i>▶ 本次定案</i><b>L1</b><strong>AIS 品牌 landing page</strong><span>AIS＋Qubi 一頁講完<br>依裝置類別 → acer.com 分類頁</span></div>` +
+          `<div class="dir"><i>方向</i><b>L2</b><strong>產品頁 AIS 區塊</strong><span>這台能用哪些 AIS app<br>導流終點：單一機型</span></div>` +
+          `<div class="dir"><i>方向 · v1 已試做</i><b>L3</b><strong>商城情境推薦</strong><span>情境 → 推薦 SKU<br>導流終點：購買</span></div>` +
+        `</div>`),
+    ];
+  },
 };
