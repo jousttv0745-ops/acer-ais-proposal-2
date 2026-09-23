@@ -39,6 +39,11 @@ const walk = (o, where) => {
   }
 };
 walk(SPEC, 'SPEC');
+if ((SPEC.bench?.apple || []).length !== 6 || (SPEC.bench?.samsung || []).length !== 6) err('SPEC.bench.apple / samsung must have 6 segments');
+if ((SPEC.l1 || []).length !== 6) err('SPEC.l1 must have 6 segments');
+if ((SPEC.overview || []).length !== 6) err('SPEC.overview must have 6 rows');
+if (!(SPEC.assets || []).length) err('SPEC.assets is empty');
+for (const s of SPEC.l1 || []) if (!DECK.regions[s.ref?.page]?.[s.ref?.region]) err(`SPEC.l1 ${s.id}: unknown ref ${s.ref?.page}.${s.ref?.region}`);
 
 // steps: stub builder that records page/region references
 const refs = [];
