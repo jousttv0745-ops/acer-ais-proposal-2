@@ -20,13 +20,14 @@ window.DECK = {
 
   pages: {
     apple: {
-      kind: 'image', src: 'content/apple/apple-ai.png', srcLite: 'content/apple/apple-ai.lite.png', liteScale: 0.5, w: 1920, h: 12399,
+      kind: 'image', src: 'content/apple/apple-ai.png', srcLite: 'content/apple/apple-ai.lite.png', liteScale: 0.5, w: 1920, h: 12406,
       label: 'Apple Intelligence', url: 'apple.com/tw/apple-intelligence',
       // cats: brand = Hero + SDK；feature = 精選 + Siri AI + 情境章節 + 更多精彩；security = 隱私；hardware = 選機 + 相容清單；frame = [0, NAV] 與 註腳 · 頁尾
+      // 2026-09-23 重新擷取（capture-apple.mjs：捲動改 400px/500ms 並在選機分頁停留 3s 讓商品照載入）：全頁 12,406px（原 12,399px），差異僅在頁尾底部留白，其餘內容逐列比對完全一致
       cats: { brand: [[100, 980], [10630, 630]], feature: [[1080, 6620]],
-        security: [[7700, 880]], hardware: [[8580, 2050]], frame: [[0, 100], [11260, 1139]] },
+        security: [[7700, 880]], hardware: [[8580, 2050]], frame: [[0, 100], [11260, 1146]] },
       bands: [['Hero', 100, 980], ['精選', 1080, 920], ['Siri AI', 2000, 1140, 'green'], ['情境章節', 3140, 3940], ['更多精彩', 7080, 620],
-        ['隱私', 7700, 880], ['選機', 8580, 1150], ['相容清單', 9730, 900], ['SDK', 10630, 630], ['註腳 · 頁尾', 11260, 1139]],
+        ['隱私', 7700, 880], ['選機', 8580, 1150], ['相容清單', 9730, 900], ['SDK', 10630, 630], ['註腳 · 頁尾', 11260, 1146]],
       marks: {
         hero: [[780, 135, 360, 190], [865, 360, 195, 455]],
         siri: [[255, 2135, 330, 155], [325, 2480, 1165, 570]],
@@ -158,14 +159,15 @@ window.DECK = {
       d.panel(2, 130, STYLE +
         `<h3>Assets：拿什麼<em>當證據</em></h3>` +
         d.table(['APPLE INTELLIGENCE', 'SAMSUNG GALAXY AI'], [
+          ['證據數量', '約 20 張裝置內 UI', '13 個功能 UI 實拍＋去背商品照'],
           ['主要素材', '裝置內 UI 截圖，每張帶一句真實指令', '去背商品照＋UI 合成在生活照'],
           ['首屏圖片占比', '29%', '62%'],
-          ['UI 截圖文字', '≈22px，清楚可讀', '≈15px'],
+          ['UI 截圖文字', '≈13px，清楚可讀', '≈15px'],
           ['可讀介面占圖片面積', '92%', '29%'],
-          ['卡片比例・圓角', '直式 0.83:1・≈36px', '橫式 1.36:1・≈24px'],
+          ['卡片比例・圓角', '直式 0.83:1・≈24px', '橫式 1.36:1・≈24px'],
           ['影片', '精選卡有影片', '全靜態'],
         ], '260px 1fr 1fr') +
-        `<p class="note">2026-09-23 截圖量測；Apple 1920px 全頁，Samsung v1 截圖。</p>`),
+        `<p class="note">面積比例引用 2026-09-23 拆解；像素值為本版 1920px 截圖實測（Apple apple-ai.png 全頁 1×，Samsung v1 截圖）。</p>`),
       d.panel(2, 130, STYLE +
         `<h3>敘事包裝：讀者用<em>什麼視角</em>看這一頁</h3>` +
         d.table(['APPLE INTELLIGENCE', 'SAMSUNG GALAXY AI'], [

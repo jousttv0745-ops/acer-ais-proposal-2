@@ -1,5 +1,5 @@
 ﻿/* spec-data.js — shared by deck.config.js and spec.html. Edit spec text here only.
- * Apple / Samsung values: 2026-09-23 截圖量測（Apple 1920px 全頁、Samsung v1 截圖）。
+ * Apple / Samsung values：面積比例引用 2026-09-23 拆解；像素值為本版 1920px CSS px、1× 截圖實測（Apple apple-ai.png、Samsung v1 截圖）。
  * Acer L1 values: 本提案建議值。 */
 (() => {
   const NONE = { goal: '—', material: '—', ratio: '—', scope: '—', asset: '—', story: '—', none: true };
@@ -8,11 +8,11 @@
 
     bench: {
       apple: [
-        { seg: 'Hero', goal: '立 Siri 為整頁入口', material: '可讀 UI 截圖拼貼（5 張）', ratio: '首屏圖片 29%；UI 字級 ≈22px；標題置中',
+        { seg: 'Hero', goal: '立 Siri 為整頁入口', material: '可讀 UI 截圖拼貼（5 張）', ratio: '首屏圖片 29%；UI 字級 ≈13px；標題置中',
           scope: '1 句主標＋限制條件緊貼主標', asset: '中央 iPhone Siri 指令 UI ×1＋周邊介面 ×4', story: '宣言型主標；第一人稱「這是你的螢幕」' },
-        { seg: '助理', goal: '讓讀者記住一句能對 Siri 說的話', material: '裝置內 UI 截圖，每張帶一句真實指令；精選卡有影片', ratio: '直式卡 0.83:1（558×676）；圓角 ≈36px；間距 30px；露出第 4 張',
+        { seg: '助理', goal: '讓讀者記住一句能對 Siri 說的話', material: '裝置內 UI 截圖，每張帶一句真實指令；精選卡有影片', ratio: '直式卡 0.83:1（372×450）；圓角 ≈24px；間距 20px；露出第 4 張',
           scope: 'Siri 章輪播 4+ 張，前接精選卡', asset: '每張 = 指令句＋結果截圖', story: '情境小標（Siri AI）＋一句獨立主標' },
-        { seg: '情境功能', goal: '用章節標題證明覆蓋面', material: '裝置內 UI 卡', ratio: '同一模板 ×4 章；≈480px／功能',
+        { seg: '情境功能', goal: '用章節標題證明覆蓋面', material: '裝置內 UI 卡', ratio: '同一模板 ×4 章；≈330px／功能',
           scope: '視覺智慧／照片／溝通／生產力，各 3–4+ 張；次要功能降為 4 項 icon', asset: '約 20 張裝置內 UI', story: '每章情境小標＋獨立主標，附「使用可能會有所限制」' },
         { seg: '選機', goal: '依裝置類別選機', material: '去背裝置照', ratio: '4 分頁；主 CTA「進一步了解」，購買為次要文字連結',
           scope: 'iPhone／iPad／筆電／桌機', asset: '每分頁去背照 ×3', story: '「體驗 Apple Intelligence 的實力」' },
@@ -30,7 +30,7 @@
         { seg: '選機', goal: '依裝置類別選機', material: '去背商品照', ratio: '4 分頁；前接 Try Galaxy 轉場',
           scope: '手機／平板／手錶／耳機', asset: '去背商品攝影', story: '「Explore our range of Galaxy AI devices」＋Learn more' },
         { ...NONE, seg: '相容清單' },
-        { seg: 'FAQ', goal: '集中免責與長尾 SEO', material: '文字手風琴', ratio: '全頁最長的一段',
+        { seg: 'FAQ', goal: '集中免責與長尾 SEO', material: '文字手風琴', ratio: 'FAQ＋19 條註腳，頁尾前最長的文字段',
           scope: '9–11 題＋19 條註腳', asset: 'FAQ 文案＋註腳', story: '用讀者會問的句子當題目' },
       ],
     },
@@ -39,7 +39,7 @@
       { id: 'L1-1', seg: 'Hero：Qubi 亮相', ref: { page: 'apple', region: 'hero', label: 'Apple · Siri Hero' },
         goal: '一眼知道「AIS 是 Acer 的 AI 總稱，Qubi 是你的助理」，並往下讀',
         material: '真實、可讀的 AIS／Qubi UI 截圖拼貼，不用氛圍圖',
-        ratio: '首屏圖片 ≤35%；UI 文字 ≥20px；主標置中；使用限制緊貼主標下方',
+        ratio: '首屏圖片 ≤35%；UI 文字 ≥16px（Apple 實測 ≈13px）；主標置中；使用限制緊貼主標下方',
         scope: '1 句主標、1 句副標、1 行限制說明、主 CTA（往下看）＋次 CTA（下載 AIS）',
         asset: '中央 Qubi 對話 UI ×1＋周圍 AIS app UI ×4；繁中實機；PNG 1920 寬',
         story: '提問型標語（沿用 v1 開場）；第一人稱' },
@@ -48,7 +48,7 @@
         material: 'UI 截圖卡，每張 = 一句指令＋執行結果',
         ratio: '直式卡 0.83:1；圓角 ≈6% 卡寬；一排 3 張、露出第 4 張；約占全頁 15%',
         scope: '4–6 張卡，一組橫向輪播',
-        asset: '4–6 組「指令句（繁中）＋結果截圖」，1116×1352 @2x',
+        asset: '4–6 組「指令句（繁中）＋結果截圖」，744×900 @2x',
         story: '情境小標（Qubi）＋一句主標，如「你的 AI 助理，更懂你的工作」；指令句即文案' },
       { id: 'L1-3', seg: '情境功能', ref: { page: 'samsung', region: 'scenario', label: 'Samsung · 情境分頁' },
         goal: '一屏感受「AI 覆蓋我一整天」',
@@ -60,7 +60,7 @@
       { id: 'L1-4', seg: '選機：依裝置類別', ref: { page: 'samsung', region: 'selling', label: 'Samsung · 機種探索' },
         goal: '從「想用的功能」導到 acer.com 裝置分類頁；已有 Acer 電腦 → 下載',
         material: '去背商品照',
-        ratio: '4 分頁 × 3 張系列卡；約占全頁 15–18%',
+        ratio: '4 分頁 × 3 張系列卡；約占全頁 14–17%',
         scope: '筆電／桌機／AIO／掌機；每卡 = 一個系列；主 CTA「進一步了解」→ 分類頁，次 CTA「下載 Acer Intelligence Space」',
         asset: '系列去背照約 12 張（官網現有）＋系列名與一句定位',
         story: '標題承接軟體→硬體：「哪一台跑得動你的 AI？」' },
@@ -83,7 +83,7 @@
     overview: [
       { dim: '目標', apple: '介紹整套 AI 系統，最後用相容清單綁回晶片與機型', samsung: '用情境推動硬體探索', acer: '認識 AIS＋Qubi，依裝置類別導到分類頁', from: 'Samsung' },
       { dim: '素材', apple: '可讀 UI 截圖為主（圖片中 92% 為可讀介面）', samsung: '商品照為主，功能用 UI 合成生活照', acer: '可讀 UI（Hero、Qubi）＋生活照合成 UI（情境）＋去背照（選機）', from: 'Apple＋Samsung' },
-      { dim: '比例', apple: '首屏圖片 29%；卡片 0.83:1、圓角 ≈36px', samsung: '首屏圖片 62%；卡片 1.36:1、圓角 ≈24px', acer: '首屏圖片 ≤35%；Qubi 卡 0.83:1、情境卡 1.36:1；全頁約 8,000–9,000px', from: 'Apple＋Samsung' },
+      { dim: '比例', apple: '首屏圖片 29%；卡片 0.83:1、圓角 ≈24px', samsung: '首屏圖片 62%；卡片 1.36:1、圓角 ≈24px', acer: '首屏圖片 ≤35%；Qubi 卡 0.83:1、情境卡 1.36:1；全頁約 8,000–9,000px', from: 'Apple＋Samsung' },
       { dim: '範圍', apple: '6 章約 30 個功能；4 類裝置；約 30 個機型', samsung: '5 分頁 13 個功能；4 類裝置', acer: 'Qubi 4–6 卡；4 分頁 × 7–9 app；4 類裝置 × 3 系列', from: 'Samsung' },
       { dim: '資產', apple: '約 20 張裝置內 UI＋精選影片', samsung: '13 張 UI 合成照＋去背商品照', acer: 'Qubi 指令卡 4–6、情境圖 7–9、系列去背照約 12、相容表 1', from: 'Apple＋Samsung' },
       { dim: '敘事', apple: '角色（Siri）開場；「這是你的螢幕」', samsung: '提問開場；「它出現在你生活的某個時刻」', acer: 'Qubi 開場＋提問式情境＋「哪一台跑得動你的 AI？」', from: 'Apple＋Samsung' },
@@ -92,7 +92,7 @@
     assets: [
       { no: 'A01', seg: 'L1-1', file: 'hero-qubi-ui.png', spec: 'Qubi 對話 UI，繁中實機，1920 寬', qty: '1', owner: 'Qubi 團隊', status: '待提供' },
       { no: 'A02', seg: 'L1-1', file: 'hero-app-ui-01…04.png', spec: 'AIS app UI，繁中實機，文字 ≥20px', qty: '4', owner: 'PM', status: '待提供' },
-      { no: 'A03', seg: 'L1-2', file: 'qubi-card-01…06.png', spec: '指令句＋結果截圖，1116×1352 @2x', qty: '4–6', owner: 'Qubi 團隊', status: '待提供' },
+      { no: 'A03', seg: 'L1-2', file: 'qubi-card-01…06.png', spec: '指令句＋結果截圖，744×900 @2x', qty: '4–6', owner: 'Qubi 團隊', status: '待提供' },
       { no: 'A04', seg: 'L1-2', file: 'qubi-prompts.xlsx', spec: '每張卡的指令句（繁中）', qty: '4–6 句', owner: 'PM', status: '待提供' },
       { no: 'A05', seg: 'L1-3', file: 'scene-<app>.png', spec: '生活照合成 UI，1712×1262 @2x', qty: '7–9', owner: '設計', status: 'v1 可沿用 4 張' },
       { no: 'A06', seg: 'L1-4', file: 'series-<name>.png', spec: '系列去背照，透明底', qty: '約 12', owner: 'PM', status: '官網現有' },
