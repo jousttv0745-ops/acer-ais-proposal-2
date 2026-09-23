@@ -83,7 +83,29 @@ window.DECK = {
       .road .go i{background:#f59e0b;color:#fff}
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
+      .grid.spec > div{font-size:17px;line-height:1.5;padding:10px 14px}
+      .grid.spec .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
+      .grid.spec .k{font-size:17px;font-weight:700;color:var(--ink)}
+      .grid.spec .none{color:var(--faint);text-align:center;font-size:16px}
+      .grid.ov > div{font-size:19px}
+      .grid.ov small{display:block;margin-top:4px;font:700 14px 'Noto Sans TC',sans-serif;color:var(--green-d)}
+      .grid.ov .q{font:800 34px Montserrat,sans-serif;color:var(--green)}
     </style>`;
+    const BENCH = ['apple', 'samsung'];
+    const DIMS = S.dims;
+    // one row per segment, one column per dim; rows with `none` print the noneLabel across
+    const specTable = (rows, { first = '段落' } = {}) =>
+      `<div class="grid spec" style="grid-template-columns:150px repeat(6,1fr)">` +
+      `<div class="h">${first}</div>` + DIMS.map(([, l]) => `<div class="h">${l}</div>`).join('') +
+      rows.map(r => `<div class="k">${r.seg}</div>` + (r.none
+        ? `<div class="none" style="grid-column:span 6">${window.DECK.meta.noneLabel}</div>`
+        : DIMS.map(([k]) => `<div>${r[k]}</div>`).join(''))).join('') + `</div>`;
+    // fill = false leaves the Acer column as "?"
+    const overviewTable = fill =>
+      `<div class="grid spec ov" style="grid-template-columns:120px 1fr 1fr 1.2fr">` +
+      `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h en a">ACER L1</div>` +
+      S.overview.map(r => `<div class="k">${r.dim}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
+        `<div class="a">${fill ? `${r.acer}<small>學 ${r.from}</small>` : '<b class="q">？</b>'}</div>`).join('') + `</div>`;
     return [
       d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
         chips: [['00', 'Recap'], ['01', 'Roadmap'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'L2 · L3']] }),
@@ -108,6 +130,52 @@ window.DECK = {
           `<div class="dir"><i>方向</i><b>L2</b><strong>產品頁 AIS 區塊</strong><span>這台能用哪些 AIS app<br>導流終點：單一機型</span></div>` +
           `<div class="dir"><i>方向 · v1 已試做</i><b>L3</b><strong>商城情境推薦</strong><span>情境 → 推薦 SKU<br>導流終點：購買</span></div>` +
         `</div>`),
+
+      // ===== 02 Benchmark =====
+      d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
+      ...d.categories(2, BENCH),
+      d.lengths(2, BENCH, { metric: 'hardware', label: '硬體導購' }),
+      d.panel(2, 130, STYLE +
+        `<h3>Assets：拿什麼<em>當證據</em></h3>` +
+        d.table(['APPLE INTELLIGENCE', 'SAMSUNG GALAXY AI'], [
+          ['主要素材', '裝置內 UI 截圖，每張帶一句真實指令', '去背商品照＋UI 合成在生活照'],
+          ['首屏圖片占比', '29%', '62%'],
+          ['UI 截圖文字', '≈22px，清楚可讀', '≈15px'],
+          ['可讀介面占圖片面積', '92%', '29%'],
+          ['卡片比例・圓角', '直式 0.83:1・≈36px', '橫式 1.36:1・≈24px'],
+          ['影片', '精選卡有影片', '全靜態'],
+        ], '260px 1fr 1fr') +
+        `<p class="note">2026-09-23 截圖量測；Apple 1920px 全頁，Samsung v1 截圖。</p>`),
+      d.panel(2, 130, STYLE +
+        `<h3>敘事包裝：讀者用<em>什麼視角</em>看這一頁</h3>` +
+        d.table(['APPLE INTELLIGENCE', 'SAMSUNG GALAXY AI'], [
+          ['一句話', '「這是你的螢幕」', '「它出現在你生活的某個時刻」'],
+          ['視角', '第一人稱：像從自己肩膀往下看螢幕', '第三人稱：別人的早午餐、別人的客廳'],
+          ['開場', '角色先行：Siri 亮相', '提問先行：Can your phone do that?'],
+          ['轉換路徑', '功能 → 信任 → 選機 → 相容晶片清單', '功能 → 信任 → 試用 → 選機'],
+          ['讀者被邀請想像', '「我會對它說這句話」', '「上次我也遇過這個情況」'],
+        ], '260px 1fr 1fr')),
+
+      // Siri
+      d.overview(2, 'apple', 'siri', { active: ['Hero', 'Siri AI'], caption: { k: 'APPLE INTELLIGENCE', h: 'Apple 怎麼擺 Siri' } }),
+      d.zoom(2, 'apple', 'hero', { callout: { k: 'APPLE · HERO', h: 'Siri 就是<br>頁面的入口', tag: '角色先行',
+        items: [[1, 'Hero 就是<strong>Siri 亮相</strong>，5 張真實 UI 拼貼'], [2, '限制條件<strong>緊貼主標</strong>，不藏在頁尾']] } }),
+      d.zoom(2, 'apple', 'siri', { callout: { k: 'APPLE · SIRI 章', h: '第一章<br>也是 Siri', tag: '一句能說的話',
+        items: [[1, '<strong>情境小標＋一句主標</strong>，捲動時知道在哪一章'], [2, '每張卡都是<strong>一句指令＋結果畫面</strong>']] } }),
+      d.panel(2, 150, STYLE +
+        `<h3>AIS 對應 Apple Intelligence，<em>Qubi 對應 Siri</em></h3>` +
+        d.table(['APPLE', 'ACER'], [
+          ['總稱', 'Apple Intelligence', 'Acer Intelligence Space'],
+          ['人格入口', 'Siri', 'Qubi（個人助理）'],
+          ['頁面位置', 'Hero＋第一章', 'Hero＋第一章（L1-1、L1-2）'],
+          ['其他功能', '視覺／照片／溝通／生產力章節', 'AIS app 情境分頁（L1-3）'],
+        ]) +
+        `<p class="conclude" style="margin-top:28px">Qubi 當頁面的人格入口，AIS app 當情境章節</p>`),
+
+      // benchmark specs
+      d.panel(2, 110, STYLE + `<h3>Apple Intelligence <em>Spec</em></h3>` + specTable(S.bench.apple)),
+      d.panel(2, 110, STYLE + `<h3>Samsung Galaxy AI <em>Spec</em></h3>` + specTable(S.bench.samsung)),
+      d.panel(2, 130, STYLE + `<h3>L1 要回答的<em>六格</em></h3>` + overviewTable(false)),
     ];
   },
 };
