@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "deck", "runtimeExecutable": "node", "runtimeArgs": ["v3/tools/serve.js", "8090"], "port": 8090 }
+  ]
+}
