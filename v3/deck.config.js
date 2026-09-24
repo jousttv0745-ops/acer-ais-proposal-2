@@ -210,7 +210,7 @@ window.DECK = {
       // where each asset goes: the six segments as mini wireframes (full-length version in spec.html)
       d.panel(3, 110, STYLE + `<h3>資產<em>放在哪裡</em></h3>` +
         `<div class="wf-grid">` + S.l1.map(s => `<div><small>${s.id} ${s.seg}<i>≈${d.px(WF.height(s.id))}px</i></small>` +
-          WF.segment(s.id, WF.fitWidth(s.id, 566, 330) + 'px') + `</div>`).join('') + `</div>` +
+          WF.segment(s.id, WF.fitWidth(s.id, 566, 310) + 'px') + `</div>`).join('') + `</div>` +
         `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
 
       // ===== 04 L2 · L3 =====
