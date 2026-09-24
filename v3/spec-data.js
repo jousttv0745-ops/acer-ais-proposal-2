@@ -46,8 +46,8 @@
       { id: 'L1-2', seg: 'Qubi 章：大 Banner', ref: { page: 'apple', region: 'siri', label: 'Apple · Siri 章（位置）' },
         goal: '讀者記住一句「我可以對 Qubi 說的話」，並認識 Qubi',
         material: 'Qubi 形象 Banner（角色＋使用情境），疊一句指令句示範',
-        ratio: '滿版 2:1 Banner；小標、主標、指令句與 CTA 皆置中；與 L1-3 同為置中標題',
-        scope: '1 張 Banner：小標（Qubi）、1 句主標、1 句指令句示範、1 個 CTA（了解 Qubi）',
+        ratio: '滿版 2:1 Banner；小標、主標與指令句皆置中，不放 CTA；與 L1-3 同為置中標題',
+        scope: '1 張 Banner：小標（Qubi）、1 句主標、1 句指令句示範（不放 CTA）',
         asset: 'Qubi Banner 2880×1440 @2x（另備手機裁切 1:1）；指令句示範 1–3 句輪替',
         story: '位置照 Siri：Hero 之後的第一段；主標如「你的 AI 助理，更懂你的工作」，指令句即文案' },
       { id: 'L1-3', seg: '情境功能', ref: { page: 'samsung', region: 'scenario', label: 'Samsung · 情境分頁' },
@@ -108,7 +108,6 @@
           { k: 'line', x: 660, y: 200, w: 120, h: 20, t: 'Qubi' },
           { k: 'line', x: 420, y: 236, w: 600, h: 48, t: '主標' },
           { k: 'asset', a: 'A04', x: 470, y: 320, w: 500, h: 64 },
-          { k: 'cta', x: 620, y: 430, w: 200, h: 52, t: '了解 Qubi', primary: true },
         ] },
         { id: 'L1-3', h: 1000, boxes: [
           { k: 'line', x: 660, y: 56, w: 120, h: 20, t: '情境' },
