@@ -84,8 +84,8 @@ window.DECK = {
       .road .go i{background:#f59e0b;color:#fff}
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
-      .road.two{grid-template-columns:repeat(2,1fr);gap:30px;margin-top:40px;align-items:stretch}
-      .road.two div{height:auto;min-height:330px}
+      .road .fade{opacity:.35}
+      .road .go .demo{margin:22px 0 0;padding:10px 24px;font-size:20px;background:#fff;color:var(--green-d)}
       .grid.spec > div{font-size:17px;line-height:1.5;padding:10px 14px}
       .grid.spec .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
       .grid.spec .k{font-size:17px;font-weight:700;color:var(--ink)}
@@ -107,6 +107,17 @@ window.DECK = {
       .wf-grid small i{font-style:normal;font-weight:400;color:var(--muted);margin-left:8px}
       ${WF.css}
     </style>`;
+    // the L0–L3 ladder (01 Roadmap, 04 L2・L3); o[level] overrides { cls, tag, body }
+    const LEVELS = [
+      ['L0', 'now', '● 現在', 'AIS 功能介紹頁', '一頁介紹 app 功能<br>導流終點：下載'],
+      ['L1', 'go', '▶ 本次定案', 'AIS 品牌 landing page', 'AIS＋Qubi 一頁講完<br>依裝置類別 → acer.com 分類頁'],
+      ['L2', 'dir', '方向', '產品頁 AIS 區塊', '這台能用哪些 AIS app<br>導流終點：單一機型'],
+      ['L3', 'dir', '方向 · v1 已試做', '商城情境推薦', '情境 → 推薦 SKU<br>導流終點：購買'],
+    ];
+    const road = (o = {}) => `<div class="road">` + LEVELS.map(([lv, cls, tag, title, body]) => {
+      const x = { cls, tag, body, ...o[lv] };
+      return `<div class="${x.cls}"><i>${x.tag}</i><b>${lv}</b><strong>${title}</strong><span>${x.body}</span>${x.extra || ''}</div>`;
+    }).join('') + `</div>`;
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
@@ -152,12 +163,7 @@ window.DECK = {
       // ===== 01 Roadmap =====
       d.panel(1, 120, STYLE +
         `<h3>我們在哪裡：從 <em>L0</em> 走到 <em>L1</em></h3>` +
-        `<div class="road">` +
-          `<div class="now"><i>● 現在</i><b>L0</b><strong>AIS 功能介紹頁</strong><span>一頁介紹 app 功能<br>導流終點：下載</span></div>` +
-          `<div class="go"><i>▶ 本次定案</i><b>L1</b><strong>AIS 品牌 landing page</strong><span>AIS＋Qubi 一頁講完<br>依裝置類別 → acer.com 分類頁</span></div>` +
-          `<div class="dir"><i>方向</i><b>L2</b><strong>產品頁 AIS 區塊</strong><span>這台能用哪些 AIS app<br>導流終點：單一機型</span></div>` +
-          `<div class="dir"><i>方向 · v1 已試做</i><b>L3</b><strong>商城情境推薦</strong><span>情境 → 推薦 SKU<br>導流終點：購買</span></div>` +
-        `</div>`),
+        road()),
 
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
@@ -218,11 +224,12 @@ window.DECK = {
       // ===== 04 L2 · L3 =====
       d.panel(4, 120, STYLE +
         `<h3>L2・L3：<em>下一步</em>的方向</h3>` +
-        `<div class="road two">` +
-          `<div class="dir"><i>方向</i><b>L2</b><strong>產品頁 AIS 區塊</strong><span>這台能用哪些 AIS app、Qubi 等級<br>導流終點：單一機型<br>待 L1 上線後撰寫 spec</span></div>` +
-          `<div class="dir"><i>方向 · v1 已試做</i><b>L3</b><strong>商城情境推薦</strong><span>情境 → 推薦 SKU<br>導流終點：購買<br>待 L1、L2 上線後啟動</span>` +
-            `<a class="demo" href="../#22" target="_blank" rel="noopener" style="margin:24px 0 0">看 v1 試做 ↗</a></div>` +
-        `</div>`),
+        road({
+          L0: { cls: 'now fade' }, L1: { cls: 'go fade' },
+          L2: { cls: 'go', tag: '下一步', body: '這台能用哪些 AIS app、Qubi 等級<br>導流終點：單一機型<br>待 L1 上線後撰寫 spec' },
+          L3: { cls: 'go', tag: '方向 · v1 已試做', body: '情境 → 推薦 SKU<br>導流終點：購買<br>待 L1、L2 上線後啟動',
+            extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 試做 ↗</a>` },
+        })),
 
       // ===== Summary =====
       d.panel(5, 110, STYLE +
