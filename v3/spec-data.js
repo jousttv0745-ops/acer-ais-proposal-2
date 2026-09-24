@@ -81,12 +81,12 @@
     ],
 
     overview: [
-      { dim: '目標', apple: '介紹整套 AI 系統，最後用相容清單綁回晶片與機型', samsung: '用情境推動硬體探索', acer: '認識 AIS＋Qubi，依裝置類別導到分類頁', from: 'Samsung' },
-      { dim: '素材', apple: '可讀 UI 截圖為主（圖片中 92% 為可讀介面）', samsung: '商品照為主，功能用 UI 合成生活照', acer: '形象圖／影片（Hero、Qubi Banner）＋生活照合成 UI（情境）＋去背照（選機）', from: 'Samsung' },
-      { dim: '比例', apple: '首屏圖片 29%；卡片 0.83:1、圓角 ≈24px', samsung: '首屏圖片 62%；卡片 1.36:1、圓角 ≈24px', acer: 'Hero 滿版 16:9、Qubi Banner 2:1、情境卡 1.36:1；內容約 5,300px，含導覽與頁尾約 6,500px', from: 'Samsung' },
-      { dim: '範圍', apple: '6 章約 30 個功能；4 類裝置；約 30 個機型', samsung: '5 分頁 13 個功能；4 類裝置', acer: 'Qubi Banner 1 張；4 分頁 × 7–9 app；4 類裝置 × 3 系列', from: 'Samsung' },
-      { dim: '資產', apple: '約 20 張裝置內 UI＋精選影片', samsung: '13 張 UI 合成照＋去背商品照', acer: '形象主視覺 1（＋影片）、Qubi Banner 1、情境圖 7–9、系列去背照約 12、相容表 1', from: 'Apple＋Samsung' },
-      { dim: '敘事', apple: '角色（Siri）開場；「這是你的螢幕」', samsung: '提問開場；「它出現在你生活的某個時刻」', acer: 'Qubi 開場＋提問式情境＋「哪一台跑得動你的 AI？」', from: 'Apple＋Samsung' },
+      { dim: '目標', apple: '介紹整套 AI 系統，最後用相容清單綁回晶片與機型', samsung: '用情境推動硬體探索', acer: '認識 AIS＋Qubi，依裝置類別導到分類頁' },
+      { dim: '素材', apple: '可讀 UI 截圖為主（圖片中 92% 為可讀介面）', samsung: '商品照為主，功能用 UI 合成生活照', acer: '形象圖／影片（Hero、Qubi Banner）＋生活照合成 UI（情境）＋去背照（選機）' },
+      { dim: '比例', apple: '首屏圖片 29%；卡片 0.83:1、圓角 ≈24px', samsung: '首屏圖片 62%；卡片 1.36:1、圓角 ≈24px', acer: 'Hero 滿版 16:9、Qubi Banner 2:1、情境卡 1.36:1；內容約 5,300px，含導覽與頁尾約 6,500px' },
+      { dim: '範圍', apple: '6 章約 30 個功能；4 類裝置；約 30 個機型', samsung: '5 分頁 13 個功能；4 類裝置', acer: 'Qubi Banner 1 張；4 分頁 × 7–9 app；4 類裝置 × 3 系列' },
+      { dim: '資產', apple: '約 20 張裝置內 UI＋精選影片', samsung: '13 張 UI 合成照＋去背商品照', acer: '形象主視覺 1（＋影片）、Qubi Banner 1、情境圖 7–9、系列去背照約 12、相容表 1' },
+      { dim: '敘事', apple: '角色（Siri）開場；「這是你的螢幕」', samsung: '提問開場；「它出現在你生活的某個時刻」', acer: 'Qubi 開場＋提問式情境＋「哪一台跑得動你的 AI？」' },
     ],
 
     // L1 wireframe, page px at 1440 wide; y is relative to each segment. k: line | block | card | asset | cta | tab.

@@ -84,6 +84,8 @@ window.DECK = {
       .road .go i{background:#f59e0b;color:#fff}
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
+      .road.two{grid-template-columns:repeat(2,1fr);gap:30px;margin-top:40px;align-items:stretch}
+      .road.two div{height:auto;min-height:330px}
       .grid.spec > div{font-size:17px;line-height:1.5;padding:10px 14px}
       .grid.spec .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
       .grid.spec .k{font-size:17px;font-weight:700;color:var(--ink)}
@@ -119,7 +121,7 @@ window.DECK = {
       `<div class="grid spec ov" style="grid-template-columns:120px 1fr 1fr 1.2fr">` +
       `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h en a">ACER L1</div>` +
       S.overview.map(r => `<div class="k">${r.dim}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
-        `<div class="a">${fill ? `${r.acer}<small>學 ${r.from}</small>` : '<b class="q">？</b>'}</div>`).join('') + `</div>`;
+        `<div class="a">${fill ? r.acer : '<b class="q">？</b>'}</div>`).join('') + `</div>`;
     // L1 segment: reference page top-left, spec card on the right
     const l1Step = seg => {
       const r = R[seg.ref.page][seg.ref.region];
@@ -214,23 +216,13 @@ window.DECK = {
         `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
 
       // ===== 04 L2 · L3 =====
-      d.panel(4, 150, STYLE +
-        `<h3>L2 產品頁：<em>這台能用哪些 AI</em></h3>` +
-        d.table(['方向'], [
-          ['參照', 'Apple 各機型頁中的 Apple Intelligence 區塊'],
-          ['內容', '這台可用的 AIS app、Qubi 等級、硬體亮點'],
-          ['與 L1 的關係', 'L1 相容門檻的每一列 → 對應 L2 產品頁；L2 回連 L1 看完整功能'],
-          ['本版範圍', '只定方向，spec 待 L1 上線後撰寫'],
-        ], '260px 1fr')),
-      d.panel(4, 150, STYLE +
-        `<h3>L3 商城：<em>v1 已試做</em>的情境推薦</h3>` +
-        d.table(['方向'], [
-          ['內容', '情境 → 關鍵 app → 相容對照表 → 首選／第二推薦／CP 值最高'],
-          ['已完成', 'App 規格表、345 台商品相容對照表、三情境推薦試算（v1 第 04、05 章）'],
-          ['啟動條件', 'L1、L2 上線後'],
-        ], '260px 1fr') +
-        `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 推薦段落<span aria-hidden="true">↗</span></a>` +
-        `<a class="demo" href="../#27" target="_blank" rel="noopener" style="margin-left:16px">看 v1 推薦邏輯<span aria-hidden="true">↗</span></a>`),
+      d.panel(4, 120, STYLE +
+        `<h3>L2・L3：<em>下一步</em>的方向</h3>` +
+        `<div class="road two">` +
+          `<div class="dir"><i>方向</i><b>L2</b><strong>產品頁 AIS 區塊</strong><span>這台能用哪些 AIS app、Qubi 等級<br>導流終點：單一機型<br>待 L1 上線後撰寫 spec</span></div>` +
+          `<div class="dir"><i>方向 · v1 已試做</i><b>L3</b><strong>商城情境推薦</strong><span>情境 → 推薦 SKU<br>導流終點：購買<br>待 L1、L2 上線後啟動</span>` +
+            `<a class="demo" href="../#22" target="_blank" rel="noopener" style="margin:24px 0 0">看 v1 試做 ↗</a></div>` +
+        `</div>`),
 
       // ===== Summary =====
       d.panel(5, 110, STYLE +
