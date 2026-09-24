@@ -24,7 +24,16 @@
   td.seg{font-weight:700;white-space:nowrap}
   td.none{color:#9aa0ad;text-align:center}
   .back{display:inline-block;margin-top:14px;color:var(--green-d);font-weight:700}
-  @media print{body{padding:0}h2{break-before:page}.wrap{border:0;overflow:visible}table{min-width:0;font-size:11px}.back{display:none}}
+  .wf-page{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:28px;align-items:start;margin-bottom:28px}
+  .wf-stack{display:flex;flex-direction:column;gap:6px}
+  .wf-stack small{display:block;margin-top:10px;font-weight:700}
+  .wf-stack small i{font-style:normal;font-weight:400;color:var(--muted);margin-left:8px}
+  .wf-legend{position:sticky;top:16px;font-size:14.5px;color:var(--ink-2)}
+  .wf-legend p{margin:0 0 10px}
+  .wf-legend li{margin:4px 0}
+  .wf-legend b{display:inline-block;min-width:38px;padding:1px 6px;margin-right:8px;border-radius:4px;background:var(--green-d);color:#fff;font-size:12px;text-align:center}
+  @media (max-width:760px){.wf-page{grid-template-columns:1fr}.wf-legend{position:static}}
+  @media print{.wf-page{grid-template-columns:320px 1fr;break-after:page}.wf-legend{position:static}body{padding:0}h2{break-before:page}.wrap{border:0;overflow:visible}table{min-width:0;font-size:11px}.back{display:none}}
 </style>
 </head>
 <body>
@@ -38,13 +47,18 @@
   <section id="bench"></section>
 </main>
 <script src="spec-data.js"></script>
+<script src="wireframe.js"></script>
 <script>
-  const S = window.SPEC, esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const S = window.SPEC, WF = window.Wireframe, esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const table = (head, rows) => `<div class="wrap"><table><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
   const dimCells = r => r.none ? `<td class="none" colspan="${S.dims.length}">無此區塊</td>` : S.dims.map(([k]) => `<td>${esc(r[k])}</td>`).join('');
   document.getElementById('l1').innerHTML = `<h2>1. L1 <em>逐段 Spec</em></h2>` +
     table(['#', '段落', '參照', ...S.dims.map(([, l]) => l)], S.l1.map(r => `<tr><td class="seg">${r.id}</td><td class="seg">${esc(r.seg)}</td><td>${esc(r.ref.label)}</td>${dimCells(r)}</tr>`));
-  document.getElementById('assets').innerHTML = `<h2>2. <em>資產清單</em></h2>` +
+  document.head.insertAdjacentHTML('beforeend', `<style>${WF.css}</style>`);
+  document.getElementById('assets').innerHTML = `<h2>2. <em>資產清單</em>與位置</h2>` +
+    `<div class="wf-page"><div class="wf-stack">` + S.l1.map(s => `<small>${s.id} ${esc(s.seg)}<i>≈${WF.height(s.id).toLocaleString('en-US')}px</i></small>` + WF.segment(s.id, '100%')).join('') + `</div>` +
+    `<div class="wf-legend"><p>L1 整頁 wireframe，以 1440 寬為準，不含全域導覽與頁尾。綠框＝資產編號，灰色＝文字與按鈕位置；不代表最終視覺。</p><ul>` +
+    S.assets.map(a => `<li><b>${a.no}</b>${esc(a.name)}・${esc(a.seg)}</li>`).join('') + `</ul></div></div>` +
     table(['編號', '段落', '檔名', '規格', '數量', '提供者', '狀態'], S.assets.map(a => `<tr>${['no', 'seg', 'file', 'spec', 'qty', 'owner', 'status'].map(k => `<td>${esc(a[k])}</td>`).join('')}</tr>`));
   document.getElementById('bench').innerHTML = `<h2>3. Benchmark <em>Spec</em>（參照）</h2>` +
     [['Apple Intelligence', S.bench.apple], ['Samsung Galaxy AI', S.bench.samsung]].map(([name, rows]) =>

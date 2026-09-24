@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Loads spec-data.js + deck.config.js the way the browser does and checks:
+/* Loads spec-data.js + wireframe.js + deck.config.js the way the browser does and checks:
  * files exist, every page/region referenced by a step exists, rects fit their page,
  * spec rows carry all six dims, every local src/href in step HTML resolves. */
 const fs = require('fs'), path = require('path'), vm = require('vm');
@@ -7,7 +7,7 @@ const ROOT = path.resolve(__dirname, '..');
 const errors = [];
 const err = m => errors.push(m);
 global.window = {};
-for (const f of ['spec-data.js', 'deck.config.js']) vm.runInThisContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), { filename: f });
+for (const f of ['spec-data.js', 'wireframe.js', 'deck.config.js']) vm.runInThisContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), { filename: f });
 const { SPEC, DECK } = window;
 const exists = rel => fs.existsSync(path.join(ROOT, rel.split(/[?#]/)[0]));
 
@@ -44,6 +44,15 @@ if ((SPEC.l1 || []).length !== 6) err('SPEC.l1 must have 6 segments');
 if ((SPEC.overview || []).length !== 6) err('SPEC.overview must have 6 rows');
 if (!(SPEC.assets || []).length) err('SPEC.assets is empty');
 for (const s of SPEC.l1 || []) if (!DECK.regions[s.ref?.page]?.[s.ref?.region]) err(`SPEC.l1 ${s.id}: unknown ref ${s.ref?.page}.${s.ref?.region}`);
+// wireframe: one segment per L1 segment, boxes inside the page, asset numbers match the asset list both ways
+const WF = SPEC.wireframe || { segments: [] }, assetNos = new Set((SPEC.assets || []).map(a => a.no)), drawn = new Set();
+if ((SPEC.l1 || []).map(s => s.id).join() !== WF.segments.map(s => s.id).join()) err('SPEC.wireframe segments must match SPEC.l1 ids in order');
+for (const seg of WF.segments) seg.boxes.forEach(({ x, y, w, h, a }, i) => {
+  if (x < 0 || y < 0 || x + w > WF.width || y + h > seg.h) err(`wireframe ${seg.id}[${i}] outside ${WF.width}x${seg.h}`);
+  if (a) { drawn.add(a); if (!assetNos.has(a)) err(`wireframe ${seg.id}[${i}]: unknown asset ${a}`); }
+});
+for (const no of assetNos) if (!drawn.has(no)) err(`asset ${no} is not placed on the wireframe`);
+for (const a of SPEC.assets || []) if (!a.name) err(`asset ${a.no}: missing name`);
 
 // steps: stub builder that records page/region references
 const refs = [];

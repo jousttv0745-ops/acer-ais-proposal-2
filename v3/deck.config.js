@@ -69,7 +69,7 @@ window.DECK = {
   },
   cycleMs: 2200,
   steps: d => {
-    const S = window.SPEC, R = window.DECK.regions;
+    const S = window.SPEC, R = window.DECK.regions, WF = window.Wireframe;
     const STYLE = `<style>
       .road{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:end;margin-top:30px}
       .road div{position:relative;padding:26px 26px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
@@ -99,6 +99,11 @@ window.DECK = {
       .l1-card{display:grid;grid-template-columns:110px 1fr;border-top:1px solid var(--line)}
       .l1-card > div{padding:16px 18px;border-bottom:1px solid var(--line);font-size:21px;line-height:1.55;color:var(--ink-2)}
       .l1-card .k{font-weight:900;color:var(--green-d);background:var(--green-soft)}
+      .wf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 30px}
+      .wf-grid > div{display:flex;flex-direction:column;align-items:flex-start}
+      .wf-grid small{margin-bottom:8px;font-size:18px;font-weight:700;color:var(--ink)}
+      .wf-grid small i{font-style:normal;font-weight:400;color:var(--muted);margin-left:8px}
+      ${WF.css}
     </style>`;
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
@@ -202,6 +207,11 @@ window.DECK = {
       // ===== 03 L1 Spec =====
       d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → 相容門檻 → FAQ' }),
       ...S.l1.map(l1Step),
+      // where each asset goes: the six segments as mini wireframes (full-length version in spec.html)
+      d.panel(3, 110, STYLE + `<h3>資產<em>放在哪裡</em></h3>` +
+        `<div class="wf-grid">` + S.l1.map(s => `<div><small>${s.id} ${s.seg}<i>≈${d.px(WF.height(s.id))}px</i></small>` +
+          WF.segment(s.id, WF.fitWidth(s.id, 566, 330) + 'px') + `</div>`).join('') + `</div>` +
+        `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
 
       // ===== 04 L2 · L3 =====
       d.panel(4, 150, STYLE +
