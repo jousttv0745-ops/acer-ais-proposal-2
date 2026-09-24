@@ -91,7 +91,7 @@
 
     assets: [
       { no: 'A01', seg: 'L1-1', file: 'hero-qubi-ui.png', spec: 'Qubi 對話 UI，繁中實機，1920 寬', qty: '1', owner: 'Qubi 團隊', status: '待提供' },
-      { no: 'A02', seg: 'L1-1', file: 'hero-app-ui-01…04.png', spec: 'AIS app UI，繁中實機，文字 ≥20px', qty: '4', owner: 'PM', status: '待提供' },
+      { no: 'A02', seg: 'L1-1', file: 'hero-app-ui-01…04.png', spec: 'AIS app UI，繁中實機，文字 ≥16px', qty: '4', owner: 'PM', status: '待提供' },
       { no: 'A03', seg: 'L1-2', file: 'qubi-card-01…06.png', spec: '指令句＋結果截圖，744×900 @2x', qty: '4–6', owner: 'Qubi 團隊', status: '待提供' },
       { no: 'A04', seg: 'L1-2', file: 'qubi-prompts.xlsx', spec: '每張卡的指令句（繁中）', qty: '4–6 句', owner: 'PM', status: '待提供' },
       { no: 'A05', seg: 'L1-3', file: 'scene-<app>.png', spec: '生活照合成 UI，1712×1262 @2x', qty: '7–9', owner: '設計', status: 'v1 可沿用 4 張' },
