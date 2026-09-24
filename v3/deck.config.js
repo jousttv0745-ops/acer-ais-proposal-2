@@ -98,20 +98,21 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
-      .ba-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:16px}
+      .ba-head{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;margin-bottom:16px}
       .ba-head h3{margin:0}
       .ba-sum{display:flex;gap:10px;padding:10px 16px;border:2px solid var(--ink);border-radius:10px}
       .ba-sum span{display:flex;align-items:baseline;gap:6px;padding:0 8px;font-size:17px;color:var(--ink-2);white-space:nowrap}
       .ba-sum b{font:800 26px Montserrat,sans-serif;color:var(--green-d)}
-      .grid.ba > div{padding:7px 16px;font-size:17px;line-height:1.4}
+      .grid.ba > div{padding:0 16px;font-size:17px;line-height:1.4;display:flex;flex-direction:column;justify-content:center;min-width:0}
       .grid.ba .h{font:800 14px 'Noto Sans TC',sans-serif;letter-spacing:1px}
       .grid.ba .k{font-size:17px;font-weight:700;color:var(--ink)}
       .grid.ba .n b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font:800 14px Montserrat,sans-serif}
       .grid.ba strong{display:block;color:var(--ink);font-size:18px}
       .grid.ba small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-      .ba-foot{display:flex;align-items:baseline;gap:14px;margin:14px 0 0;font-size:19px;color:var(--ink)}
-      .ba-foot b{flex:none;padding:3px 12px;border-radius:999px;background:var(--green);color:#fff;font-size:15px}
-      .ba-foot i{margin-left:auto;flex:none;font-style:normal;font-size:13px;color:var(--muted)}
+      .ba-src{margin:10px 0 0;text-align:right;font-size:13px;color:var(--muted)}
+      .ba-lines{position:absolute;left:-80px;top:-100px;width:1920px;height:1080px;overflow:visible;pointer-events:none}
+      .ba-lines path{fill:none;stroke:var(--green);stroke-width:1.5;opacity:.75}
+      .ba-lines circle{fill:var(--green)}
       .road .go .demo{margin:22px 0 0;padding:10px 24px;font-size:20px;background:#fff;color:var(--green-d)}
       .grid.spec > div{font-size:17px;line-height:1.5;padding:10px 14px}
       .grid.spec .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
@@ -147,16 +148,25 @@ window.DECK = {
     }).join('') + `</div>`;
     // L1-1 / L1-2 banner mockup: the live page with a callout on how it moves
     const mockStep = (page, callout) => d.zoom(3, page, 'full', { marks: false, message: 'play', callout: { tag: '畫面提案・示意', ...callout } });
-    // section × copy × image files for one benchmark page (ASUS-style digital-asset sheet)
-    const benchAssetTable = key => { const b = S.benchAssets[key];
-      return `<div class="ba-head"><h3>${b.name}：<em>區塊 × 文案 × 影像</em></h3><div class="ba-sum">` +
+    // layout and assets sheet: the page on the left with a dashed box per section, the table on the right,
+    // one line from each box to its row. Geometry mirrors the engine's fit() so the lines land on the boxes.
+    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 35, rowH: { apple: 60, samsung: 88 } };
+    const benchAssetStep = (key, page) => {
+      const b = S.benchAssets[key], p = window.DECK.pages[page], [rx, ry, rw, rh] = SHEET.rect, rowH = SHEET.rowH[key];
+      const s = Math.min(rw / p.w, (rh - 40) / p.h), ox = rx + (rw - p.w * s) / 2, oy = ry + 40 + (rh - 40 - p.h * s) / 2;
+      const rowY = i => SHEET.rect[1] + SHEET.headH + SHEET.gap + SHEET.thH + i * rowH + rowH / 2;
+      const lines = p.marks.secs.map(([x, y, w, h], i) => { const x1 = ox + (x + w) * s + 3, y1 = oy + (y + h / 2) * s, x2 = SHEET.left + 6, y2 = rowY(i);
+        return `<circle cx="${x1}" cy="${y1}" r="4"/><path d="M${x1} ${y1}L${x2} ${y2}"/><circle cx="${x2}" cy="${y2}" r="4"/>`; }).join('');
+      const html = `<style>#win-${page} .marks[data-g="secs"] .mark b{display:none}</style>` +
+        `<svg class="ba-lines" viewBox="0 0 1920 1080">${lines}</svg>` +
+        `<div style="margin-left:${SHEET.left - 80}px"><div class="ba-head"><h3>${b.name} : <em>layout and assets</em></h3><div class="ba-sum">` +
         b.totals.map(([k, n]) => `<span><b>${n}</b>${k}</span>`).join('') + `</div></div>` +
-        `<div class="grid ba" style="grid-template-columns:52px 120px 1fr 300px"><div class="h"></div><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
+        `<div class="grid ba" style="grid-template-columns:52px 120px 1fr 300px;grid-template-rows:${SHEET.thH}px repeat(${b.rows.length},${rowH}px)">` +
+        `<div class="h"></div><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
         b.rows.map((r, i) => `<div class="n"><b>${i + 1}</b></div><div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
-        `<p class="ba-foot"><b>結論</b>${b.conclusion}<i>${b.url}・${S.benchAssets.date} 線上頁面讀取</i></p>`; };
-    const benchAssetStep = (key, page) => ({ chapter: 2,
-      wins: { [page]: { rect: [80, 100, 300, 900], focus: 'full', marks: 'secs' } },
-      panel: { top: 100, html: STYLE + `<div style="margin-left:330px">` + benchAssetTable(key) + `</div>` } });
+        `<p class="ba-src">${b.url}・${S.benchAssets.date} 線上頁面讀取</p></div>`;
+      return { chapter: 2, wins: { [page]: { rect: SHEET.rect, focus: 'full', marks: 'secs' } }, panel: { top: SHEET.rect[1], html: STYLE + html } };
+    };
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across

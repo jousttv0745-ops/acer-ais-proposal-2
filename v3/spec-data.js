@@ -192,8 +192,7 @@
           { seg: '選機', title: '體驗 Apple Intelligence 的實力', sub: 'iPhone 6 款・iPad 3 款・Mac 6 款，分頁切換', assets: '商品去背 ×15' },
           { seg: '相容裝置', title: '與 Apple Intelligence 相容的裝置', sub: '文字清單，機型後附晶片', assets: '—（純文字）' },
           { seg: 'SDK', title: '為常用 App，帶來更多新可能。', sub: '開發者 SDK', assets: 'Icon ×1' },
-        ],
-        conclusion: 'UI 截圖就是證據：Siri 開場、情境章節展開，最後用選機與相容清單收尾。「這是你的螢幕」' },
+        ] },
       samsung: { name: 'Samsung Galaxy AI', url: 'samsung.com/us/galaxy-ai',
         totals: [['Image', 18], ['商品去背', 11], ['Video', 0], ['Icon', 0]],
         rows: [
@@ -204,8 +203,7 @@
           { seg: '試用', title: 'Try Galaxy', sub: '非 Galaxy 用戶也能先試用', assets: 'Image ×1（橫幅）' },
           { seg: '選機', title: 'Explore our range of Galaxy AI devices', sub: 'Smartphones・Tablets・Watches・Buds 4 分頁', assets: '商品去背 ×11' },
           { seg: 'FAQ', title: 'Frequently Asked Questions', sub: '11 題，例：What devices have Galaxy AI?', assets: '—（純文字）' },
-        ],
-        conclusion: '生活情境照＋商品去背撐起畫面：提問開場、分頁壓縮功能，全頁沒有影片。「它出現在你生活的某個時刻」' },
+        ] },
     },
 
     assets: [
