@@ -6,30 +6,53 @@
 <meta name="robots" content="noindex, nofollow">
 <title>L1-2 Qubi Banner 畫面提案</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  /* L1-2 Qubi banner mockup, 1440×720. One exchange at a time in the centre dialog; the card row at the bottom
-     slides to the scene that matches what is being asked. Plays on load; in the deck it restarts on { deck: 'play' }. */
+  /* L1-2 Qubi banner mockup, 1440×720. The card row slides to the scene being talked about; the exchange is laid
+     over that card, which darkens behind it. In the cut-out scene the dark recedes to a crop frame around the people.
+     Plays on load; inside the deck it restarts on { deck: 'play' }. */
   *{box-sizing:border-box}
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#f6f7f9;font-family:'Noto Sans TC',sans-serif;color:#1a1d23}
   .stage{position:relative;width:1440px;height:720px}
-  .eyebrow{position:absolute;left:0;right:0;top:44px;margin:0;text-align:center;font:800 16px Montserrat,sans-serif;letter-spacing:4px;color:#3f7d0a}
-  h2{position:absolute;left:0;right:0;top:72px;margin:0;text-align:center;font-size:44px;font-weight:900}
+  .eyebrow{position:absolute;left:0;right:0;top:40px;margin:0;text-align:center;font:700 18px Montserrat,sans-serif;letter-spacing:2px;color:#3f7d0a}
+  h2{position:absolute;left:0;right:0;top:70px;margin:0;text-align:center;font-size:44px;font-weight:900}
 
-  /* cards: the active one sits in the middle, neighbours smaller and faded, partly off the canvas */
-  .cards{position:absolute;left:0;right:0;top:292px;height:428px}
-  .card{position:absolute;left:50%;top:0;width:640px;height:427px;margin-left:-320px;border-radius:22px;overflow:hidden;
-    box-shadow:0 20px 50px rgba(20,30,40,.18);transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity 1s,filter 1s}
+  /* cards: the active one in the middle, neighbours smaller and faded, partly off the canvas */
+  .card{position:absolute;left:360px;top:176px;width:720px;height:480px;border-radius:24px;overflow:hidden;
+    box-shadow:0 22px 54px rgba(20,30,40,.2);transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity 1s,filter 1s}
   .card img{display:block;width:100%;height:100%;object-fit:cover}
-  .card span{position:absolute;left:20px;bottom:18px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.92);font-size:15px;font-weight:700}
+  .card .label{position:absolute;left:22px;top:20px;z-index:3;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.92);font-size:15px;font-weight:700}
+  .shade{position:absolute;inset:0;z-index:1;background:rgba(12,16,22,.55);opacity:0;transition:opacity .6s}
+  .card.dim .shade{opacity:1}
 
-  /* dialog: one exchange, centred above the active card */
-  .dialog{position:absolute;left:50%;top:168px;width:720px;margin-left:-360px;z-index:5;display:flex;flex-direction:column;gap:12px}
+  /* crop frame around the people (cut-out scene): outside darkened by its own shadow, dashed edge, corner handles, scan line */
+  .crop{position:absolute;z-index:2;left:24%;top:13%;width:46%;height:87%;opacity:0;transition:opacity .6s;
+    box-shadow:0 0 0 2000px rgba(12,16,22,.55);
+    background:linear-gradient(90deg,#fff 50%,transparent 0) top/16px 2px repeat-x,linear-gradient(90deg,#fff 50%,transparent 0) bottom/16px 2px repeat-x,
+      linear-gradient(0deg,#fff 50%,transparent 0) left/2px 16px repeat-y,linear-gradient(0deg,#fff 50%,transparent 0) right/2px 16px repeat-y;
+    animation:ants .8s linear infinite}
+  @keyframes ants{to{background-position:16px 0,-16px 100%,0 -16px,100% 16px}}
+  .card.cropping .crop{opacity:1}
+  .crop i{position:absolute;width:14px;height:14px;background:#fff;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  .crop i:nth-child(1){left:-7px;top:-7px}.crop i:nth-child(2){right:-7px;top:-7px}.crop i:nth-child(3){left:-7px;bottom:-7px}.crop i:nth-child(4){right:-7px;bottom:-7px}
+  .crop b{position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,#a6e22e,transparent);box-shadow:0 0 14px #a6e22e;animation:scan 1.6s ease-in-out infinite alternate}
+  @keyframes scan{to{top:calc(100% - 3px)}}
+
+  /* dialog laid over the active card */
+  .dialog{position:absolute;z-index:5;display:flex;flex-direction:column;gap:12px}
+  .dialog.center{left:450px;top:330px;width:540px}
+  .dialog.side{left:878px;top:236px;width:192px;gap:10px}
   .msg{display:flex;align-items:flex-end;gap:12px;opacity:0;transform:translateY(16px);transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1)}
   .msg.show{opacity:1;transform:none}
   .msg.me{justify-content:flex-end}
-  .avatar{flex:none;width:56px;height:56px;border-radius:50%;background:#fff url(qubi.png) center 18%/88% no-repeat;box-shadow:0 4px 14px rgba(0,0,0,.12)}
-  .bubble{max-width:560px;padding:16px 22px;border-radius:22px 22px 22px 6px;background:#fff;font-size:24px;font-weight:500;line-height:1.45;box-shadow:0 10px 30px rgba(20,30,40,.14)}
+  .avatar{flex:none;width:52px;height:52px;border-radius:50%;background:#fff url(qubi.png) center 18%/88% no-repeat;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .bubble{padding:16px 22px;border-radius:22px 22px 22px 6px;background:#fff;font-size:24px;font-weight:500;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+  .side .bubble{font-size:18px;padding:12px 14px;line-height:1.4}
+  .side .avatar{width:34px;height:34px}
+  .side .msg{gap:6px}
+  .side .msg:not(.me) .bubble{white-space:nowrap;font-size:17px}
+  .side .file{font-size:13px;gap:8px}
+  .side .file img{width:44px;height:29px}
   .me .bubble{border-radius:22px 22px 6px 22px;background:#83b81a;color:#fff}
   .chips{display:flex;gap:8px;margin-top:10px}
   .chips b{padding:6px 14px;border-radius:999px;border:1.5px solid #83b81a;color:#3f7d0a;font-size:15px}
@@ -39,62 +62,72 @@
   .dots i{width:9px;height:9px;border-radius:50%;background:#b3b8c4;animation:dot 1s infinite}
   .dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
   @keyframes dot{0%,100%{opacity:.3}50%{opacity:1}}
-  /* the dragged file: flies from the active card up into the user's bubble */
-  .drag{position:absolute;z-index:6;left:640px;top:470px;width:160px;height:107px;border-radius:12px;overflow:hidden;opacity:0;
-    box-shadow:0 14px 30px rgba(0,0,0,.25);transition:transform .9s cubic-bezier(.4,0,.2,1),opacity .3s}
+  /* the dragged file: slides in from the lower left and drops into the user's bubble */
+  .drag{position:absolute;z-index:6;left:0;top:0;width:160px;height:107px;border-radius:12px;overflow:hidden;opacity:0;box-shadow:0 14px 30px rgba(0,0,0,.35)}
   .drag img{width:100%;height:100%;object-fit:cover}
-  .drag.go{opacity:1;transform:translate(260px,-262px) scale(.34)}
-  .cursor{position:absolute;right:-10px;bottom:-12px;width:26px;height:26px}
-  .tag{position:absolute;right:24px;bottom:14px;z-index:7;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
 </style>
 </head>
 <body>
 <div class="stage">
-  <p class="eyebrow">QUBI</p>
-  <h2>你的 AI 助理，更懂你的工作</h2>
-  <div class="cards" id="cards"></div>
-  <div class="dialog" id="dialog"></div>
+  <p class="eyebrow">Acer Qubi</p>
+  <h2>個人 AI 助理，Qubi 比你更懂你</h2>
+  <div id="cards"></div>
+  <div class="dialog center" id="dialog"></div>
   <div class="drag" id="drag"><img src="scene-cutout.jpg" alt=""></div>
-  <div class="tag">畫面提案・示意</div>
 </div>
 <script>
-  // each scene: the card behind the dialog, and who says what
+  // each scene: the card, and who says what over it
   const SCENES = [
     { img: 'scene-mail.jpg', label: '郵件摘要', who: 'qubi', text: '要幫你做郵件摘要嗎？', chips: ['好，幫我摘要', '稍後再說'] },
-    { img: 'scene-cutout.jpg', label: '人物去背', who: 'me', text: '可以幫我把人物去背嗎？', file: 'selfie.jpg' },
+    { img: 'scene-cutout.jpg', label: '人物去背', who: 'me', text: '可以幫我把<br>人物去背嗎？', file: 'selfie.jpg', crop: true },
     { img: 'scene-meeting.jpg', label: '會議摘要', who: 'qubi', text: '要幫你做會議摘要嗎？', chips: ['好，開始記錄', '稍後再說'] },
   ];
-  const cards = document.getElementById('cards'), dialog = document.getElementById('dialog'), drag = document.getElementById('drag');
-  cards.innerHTML = SCENES.map(s => `<div class="card"><img src="${s.img}" alt=""><span>${s.label}</span></div>`).join('');
-  const els = [...cards.children];
-  const show = active => els.forEach((el, i) => {
+  const $ = id => document.getElementById(id);
+  const dialog = $('dialog'), drag = $('drag');
+  $('cards').innerHTML = SCENES.map(s => `<div class="card"><img src="${s.img}" alt=""><div class="shade"></div>` +
+    (s.crop ? '<div class="crop"><i></i><i></i><i></i><i></i><b></b></div>' : '') + `<span class="label">${s.label}</span></div>`).join('');
+  const cards = [...$('cards').children];
+  const show = active => cards.forEach((el, i) => {
     let d = i - active; if (d > 1) d -= SCENES.length; if (d < -1) d += SCENES.length;
-    el.style.transform = `translateX(${d * 620}px) scale(${d ? .78 : 1})`;
-    el.style.opacity = d ? .55 : 1; el.style.filter = d ? 'saturate(.6)' : 'none'; el.style.zIndex = d ? 1 : 2;
+    el.classList.remove('dim', 'cropping');
+    el.style.transform = `translateX(${d * 700}px) scale(${d ? .72 : 1})`;
+    el.style.opacity = d ? .5 : 1; el.style.filter = d ? 'saturate(.6)' : 'none'; el.style.zIndex = d ? 1 : 2;
   });
-  const msg = (who, html) => { const m = document.createElement('div'); m.className = 'msg' + (who === 'me' ? ' me' : '');
+  const msg = (who, html, hidden) => { const m = document.createElement('div'); m.className = 'msg' + (who === 'me' ? ' me' : '');
     m.innerHTML = (who === 'qubi' ? '<div class="avatar"></div>' : '') + `<div class="bubble">${html}</div>`; dialog.appendChild(m);
-    requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('show'))); return m; };
+    if (!hidden) requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('show'))); return m; };
+  // fly the file thumbnail from the card's lower left into the chip of a (still hidden) message
+  const dropInto = m => {
+    const to = m.querySelector('.file img').getBoundingClientRect();
+    drag.style.transition = 'none'; drag.style.opacity = 1; drag.style.transform = 'translate(380px,560px) rotate(-6deg)';
+    drag.offsetWidth;
+    drag.style.transition = 'transform .9s cubic-bezier(.4,0,.2,1), opacity .25s .85s';
+    drag.style.transform = `translate(${to.left - 53}px,${to.top - 36}px) scale(${to.width / 160}) rotate(0)`;
+    drag.style.opacity = 0;
+  };
 
   const timers = [], at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const DUR = 4800;
   function scene(i, t) {
-    const s = SCENES[i];
-    at(t, () => { dialog.innerHTML = ''; show(i); });
+    const s = SCENES[i], card = cards[i];
+    at(t, () => { dialog.innerHTML = ''; dialog.className = 'dialog ' + (s.crop ? 'side' : 'center'); show(i); });
+    at(t + 800, () => card.classList.add('dim'));
     if (s.who === 'qubi') {
-      at(t + 700, () => msg('qubi', '<span class="dots"><i></i><i></i><i></i></span>'));
-      at(t + 1500, () => { dialog.lastChild.querySelector('.bubble').innerHTML = s.text + `<div class="chips">${s.chips.map(c => `<b>${c}</b>`).join('')}</div>`; });
+      at(t + 1000, () => msg('qubi', '<span class="dots"><i></i><i></i><i></i></span>'));
+      at(t + 1800, () => { dialog.lastChild.querySelector('.bubble').innerHTML = s.text + `<div class="chips">${s.chips.map(c => `<b>${c}</b>`).join('')}</div>`; });
     } else {
-      at(t + 600, () => { drag.style.transition = 'none'; drag.classList.remove('go'); drag.offsetWidth; drag.style.transition = ''; drag.classList.add('go'); });
-      at(t + 1500, () => { drag.classList.remove('go'); drag.style.opacity = 0;
-        msg('me', `<div class="file"><img src="${s.img}" alt="">${s.file}</div>${s.text}`); });
-      at(t + 2500, () => msg('qubi', '好的，處理中…'));
+      let m;
+      at(t + 900, () => { m = msg('me', `<div class="file"><img src="${s.img}" alt="">${s.file}</div>${s.text}`, true); dropInto(m); });
+      at(t + 1800, () => m.classList.add('show'));
+      at(t + 2600, () => msg('qubi', '好的，處理中…'));
+      at(t + 3000, () => { card.classList.remove('dim'); card.classList.add('cropping'); }); // dark recedes to the crop frame
     }
   }
   function play() {
     timers.splice(0).forEach(clearTimeout);
     dialog.innerHTML = '';
-    SCENES.forEach((s, i) => scene(i, i * 4200));
-    at(SCENES.length * 4200, play);
+    SCENES.forEach((s, i) => scene(i, i * DUR));
+    at(SCENES.length * DUR, play);
   }
   show(0);
   addEventListener('message', e => { if (e.data && e.data.deck === 'play' && e.data.at === 'land') play(); });

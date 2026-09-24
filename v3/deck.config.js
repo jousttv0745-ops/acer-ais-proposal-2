@@ -222,10 +222,10 @@ window.DECK = {
 
       l1Step(S.l1[0]),
       mockStep('mockHero', { k: 'L1-1 · 畫面提案', h: 'Hey Qubi!<br>從筆電探出頭',
-        items: [[1, '全白底、<strong>筆電置中</strong>，畫面只有一個主角'], [2, 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>'], [3, '「Hey Qubi!」→ 副標 → CTA <strong>依序淡入</strong>，約 3 秒完成']] }),
+        items: [[1, '全白底、<strong>筆電置中</strong>，畫面只有一個主角'], [2, 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>'], [3, '「Hey Qubi!」→ 副標<strong>依序淡入</strong>，約 3 秒完成，不放 CTA']] }),
       l1Step(S.l1[1]),
       mockStep('mockBanner', { k: 'L1-2 · 畫面提案', h: '問什麼，<br>就換什麼場景',
-        items: [[1, '中央<strong>對話框</strong>：Qubi 主動提議，或使用者拖檔案提問'], [2, '底部<strong>橫式卡片輪播</strong>，跟著對話滑到對應場景'], [3, '郵件摘要・人物去背・會議摘要，<strong>約 4 秒一組</strong>']] }),
+        items: [[1, '<strong>橫式卡片輪播</strong>跟著對話滑到對應場景'], [2, '對話框<strong>壓在卡片上</strong>，底圖同步壓暗'], [3, '人物去背時出現<strong>裁切框與掃描線</strong>，表示處理中']] }),
       ...S.l1.slice(2).map(l1Step),
 
       // ===== 04 L2 · L3 =====
