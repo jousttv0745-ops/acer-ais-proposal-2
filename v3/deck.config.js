@@ -19,6 +19,10 @@ window.DECK = {
   frameCategory: 'frame',
 
   pages: {
+    // today's Samsung page (2026-09-24), used only by the digital-asset sheet; other steps keep the v1 capture
+    samsungLive: { kind: 'image', src: 'content/samsung/samsung-ai.jpg', srcLite: 'content/samsung/samsung-ai.lite.jpg', liteScale: 0.5, w: 1920, h: 8731,
+      label: 'Samsung Galaxy AI', url: 'samsung.com/us/galaxy-ai',
+      marks: { secs: [[0, 180, 1920, 1120], [0, 1300, 1920, 990], [0, 2290, 1920, 650], [0, 2940, 1920, 760], [0, 3700, 1920, 540], [0, 4240, 1920, 780], [0, 5020, 1920, 1240]] } },
     // L1-1 / L1-2 banner mockups (live HTML, restart on { deck: 'play' })
     mockHero: { kind: 'frames', w: 1440, h: 810, label: 'L1-1 Hero', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/hero.html', label: '畫面提案' } } },
@@ -34,6 +38,8 @@ window.DECK = {
       bands: [['Hero', 100, 980], ['精選', 1080, 920], ['Siri AI', 2000, 1140, 'green'], ['情境章節', 3140, 3940], ['更多精彩', 7080, 620],
         ['隱私', 7700, 880], ['選機', 8580, 1150], ['相容清單', 9730, 900], ['SDK', 10630, 630], ['註腳 · 頁尾', 11260, 1146]],
       marks: {
+        // one box per section of the digital-asset sheet (benchAssets.apple.rows)
+        secs: [[0, 100, 1920, 1026], [0, 1126, 1920, 1022], [0, 2148, 1920, 907], [0, 3055, 1920, 916], [0, 3971, 1920, 981], [0, 4952, 1920, 975], [0, 5927, 1920, 1096], [0, 7023, 1920, 592], [0, 7615, 1920, 950], [0, 8565, 1920, 1099], [0, 9664, 1920, 964], [0, 10628, 1920, 746]],
         hero: [[780, 135, 360, 190], [865, 360, 195, 455]],
         siri: [[255, 2135, 330, 155], [325, 2480, 1165, 570]],
         compat: [[620, 10015, 215, 35]],
@@ -95,11 +101,12 @@ window.DECK = {
       .ba-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:16px}
       .ba-head h3{margin:0}
       .ba-sum{display:flex;gap:10px;padding:10px 16px;border:2px solid var(--ink);border-radius:10px}
-      .ba-sum span{display:flex;align-items:baseline;gap:6px;padding:0 8px;font-size:17px;color:var(--ink-2)}
+      .ba-sum span{display:flex;align-items:baseline;gap:6px;padding:0 8px;font-size:17px;color:var(--ink-2);white-space:nowrap}
       .ba-sum b{font:800 26px Montserrat,sans-serif;color:var(--green-d)}
       .grid.ba > div{padding:7px 16px;font-size:17px;line-height:1.4}
       .grid.ba .h{font:800 14px 'Noto Sans TC',sans-serif;letter-spacing:1px}
       .grid.ba .k{font-size:17px;font-weight:700;color:var(--ink)}
+      .grid.ba .n b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font:800 14px Montserrat,sans-serif}
       .grid.ba strong{display:block;color:var(--ink);font-size:18px}
       .grid.ba small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .ba-foot{display:flex;align-items:baseline;gap:14px;margin:14px 0 0;font-size:19px;color:var(--ink)}
@@ -144,9 +151,12 @@ window.DECK = {
     const benchAssetTable = key => { const b = S.benchAssets[key];
       return `<div class="ba-head"><h3>${b.name}：<em>區塊 × 文案 × 影像</em></h3><div class="ba-sum">` +
         b.totals.map(([k, n]) => `<span><b>${n}</b>${k}</span>`).join('') + `</div></div>` +
-        `<div class="grid ba" style="grid-template-columns:150px 1fr 330px"><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
-        b.rows.map(r => `<div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
+        `<div class="grid ba" style="grid-template-columns:52px 120px 1fr 300px"><div class="h"></div><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
+        b.rows.map((r, i) => `<div class="n"><b>${i + 1}</b></div><div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
         `<p class="ba-foot"><b>結論</b>${b.conclusion}<i>${b.url}・${S.benchAssets.date} 線上頁面讀取</i></p>`; };
+    const benchAssetStep = (key, page) => ({ chapter: 2,
+      wins: { [page]: { rect: [80, 100, 300, 900], focus: 'full', marks: 'secs' } },
+      panel: { top: 100, html: STYLE + `<div style="margin-left:330px">` + benchAssetTable(key) + `</div>` } });
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
@@ -198,8 +208,8 @@ window.DECK = {
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
       ...d.categories(2, BENCH),
       // each benchmark page section by section: copy and image files
-      d.panel(2, 100, STYLE + benchAssetTable('apple')),
-      d.panel(2, 100, STYLE + benchAssetTable('samsung')),
+      benchAssetStep('apple', 'apple'),
+      benchAssetStep('samsung', 'samsungLive'),
 
       // Siri
       d.overview(2, 'apple', 'siri', { active: ['Hero', 'Siri AI'], caption: { k: 'APPLE INTELLIGENCE', h: 'Apple 怎麼擺 Siri' } }),

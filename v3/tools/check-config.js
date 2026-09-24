@@ -54,6 +54,11 @@ for (const seg of WF.segments) seg.boxes.forEach(({ x, y, w, h, a }, i) => {
 });
 for (const no of assetNos) if (!drawn.has(no)) err(`asset ${no} is not placed on the wireframe`);
 for (const a of SPEC.assets || []) if (!a.name) err(`asset ${a.no}: missing name`);
+// digital-asset sheets: one numbered box on the page per table row
+for (const [key, page] of [['apple', 'apple'], ['samsung', 'samsungLive']]) {
+  const rows = SPEC.benchAssets?.[key]?.rows?.length || 0, boxes = DECK.pages[page]?.marks?.secs?.length || 0;
+  if (rows !== boxes) err(`benchAssets.${key}: ${rows} rows but ${page}.marks.secs has ${boxes} boxes`);
+}
 
 // steps: stub builder that records page/region references
 const refs = [];

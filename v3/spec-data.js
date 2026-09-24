@@ -177,10 +177,10 @@
     // benchmark pages section by section: copy and image files (read from the live pages)
     benchAssets: {
       date: '2026-09-24',
-      apple: { name: 'Apple Intelligence 與 Siri', url: 'apple.com/tw/apple-intelligence',
+      apple: { name: 'Apple Intelligence', url: 'apple.com/tw/apple-intelligence',
         totals: [['Image', 36], ['商品去背', 15], ['Video', 2], ['Icon', 6]],
         rows: [
-          { seg: 'Hero', title: '全新 Siri AI 亮相。真能幫助你，真的很懂你。', sub: '眉標：Apple Intelligence 與 Siri', assets: 'Image ×6（iPhone 框＋5 張 UI 拼貼）' },
+          { seg: 'Hero', title: '全新 Siri AI 亮相。真能幫助你，真的很懂你。', sub: '眉標：Apple Intelligence 與 Siri', assets: 'Image ×6（iPhone 框＋UI 拼貼）' },
           { seg: '精選', title: '探索 Apple Intelligence 的全新特點', sub: '6 張精選卡：Siri AI・視覺智慧・照片編輯・自然對談・隨處寫作・常用 App', assets: 'Image ×4＋Video ×2' },
           { seg: 'Siri AI', title: '你的 AI 助理，更個人化，更強大。', sub: '儘管開口問 Siri／了解你的個人情況／在更多 App 中操作／世界知識／Siri App／說話方式／CarPlay', assets: 'Image ×7（UI 截圖卡）' },
           { seg: '視覺智慧', title: '視覺智慧', sub: '相機 App 上的 Siri 模式／智慧建議操作／眼前一切都可問 Siri／Mac・iPad・Vision Pro', assets: 'Image ×5（UI 截圖卡）' },
