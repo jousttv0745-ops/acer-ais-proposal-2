@@ -168,28 +168,19 @@ window.DECK = {
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
       ...d.categories(2, BENCH),
-      d.lengths(2, BENCH, { metric: 'hardware', label: '硬體導購' }),
-      d.panel(2, 130, STYLE +
-        `<h3>Assets：拿什麼<em>當證據</em></h3>` +
-        d.table(['APPLE INTELLIGENCE', 'SAMSUNG GALAXY AI'], [
-          ['證據數量', '約 20 張裝置內 UI', '13 個功能 UI 實拍＋去背商品照'],
-          ['主要素材', '裝置內 UI 截圖，每張帶一句真實指令', '去背商品照＋UI 合成在生活照'],
-          ['首屏圖片占比', '29%', '62%'],
-          ['UI 截圖文字', '≈13px，清楚可讀', '≈15px'],
-          ['可讀介面占圖片面積', '92%', '29%'],
-          ['卡片比例・圓角', '直式 0.83:1・≈24px', '橫式 1.36:1・≈24px'],
-          ['影片', '精選卡有影片', '全靜態'],
-        ], '260px 1fr 1fr') +
-        `<p class="note">面積比例引用 2026-09-23 拆解；像素值為本版 1920px 截圖實測（Apple apple-ai.png 全頁 1×，Samsung v1 截圖）。</p>`),
-      d.panel(2, 130, STYLE +
-        `<h3>敘事包裝：讀者用<em>什麼視角</em>看這一頁</h3>` +
-        d.table(['APPLE INTELLIGENCE', 'SAMSUNG GALAXY AI'], [
-          ['一句話', '「這是你的螢幕」', '「它出現在你生活的某個時刻」'],
-          ['視角', '第一人稱：像從自己肩膀往下看螢幕', '第三人稱：別人的早午餐、別人的客廳'],
-          ['開場', '角色先行：Siri 亮相', '提問先行：Can your phone do that?'],
-          ['轉換路徑', '功能 → 信任 → 選機 → 相容晶片清單', '功能 → 信任 → 試用 → 選機'],
-          ['讀者被邀請想像', '「我會對它說這句話」', '「上次我也遇過這個情況」'],
-        ], '260px 1fr 1fr')),
+      // page lengths, then the same view twice with wired conclusions: assets, then narrative
+      d.lengths(2, BENCH, { metric: 'hardware', label: '硬體導購', notes: [
+        { targets: ['apple'], box: [80,250,580], k: 'APPLE · ASSETS', h: '可讀的 UI 就是證據',
+          p: '約 20 張裝置內 UI，每張帶一句真實指令；圖片中 92% 是可讀介面，首屏圖片只占 29%。<br><small style="color:var(--muted)">2026-09-23 截圖量測</small>' },
+        { targets: ['samsung'], box: [1260,250,580], k: 'SAMSUNG · ASSETS', h: '商品與生活照撐起畫面',
+          p: '去背商品照＋UI 合成在生活照；首屏 62% 是圖，可讀介面只占 29%，全頁沒有影片。<br><small style="color:var(--muted)">2026-09-23 截圖量測</small>' },
+      ] }),
+      d.lengths(2, BENCH, { metric: 'hardware', label: '硬體導購', notes: [
+        { targets: ['apple'], box: [80,250,580], k: 'APPLE · 敘事', h: '「這是你的螢幕」',
+          p: '第一人稱，Siri 先登場<br>功能 → 信任 → 選機 → 相容晶片清單' },
+        { targets: ['samsung'], box: [1260,250,580], k: 'SAMSUNG · 敘事', h: '「它出現在你生活的某個時刻」',
+          p: '第三人稱，提問開場<br>功能 → 信任 → 試用 → 選機' },
+      ] }),
 
       // Siri
       d.overview(2, 'apple', 'siri', { active: ['Hero', 'Siri AI'], caption: { k: 'APPLE INTELLIGENCE', h: 'Apple 怎麼擺 Siri' } }),
@@ -214,12 +205,13 @@ window.DECK = {
 
       // ===== 03 L1 Spec =====
       d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → 相容門檻 → FAQ' }),
-      ...S.l1.map(l1Step),
       // where each asset goes: the six segments as mini wireframes (full-length version in spec.html)
       d.panel(3, 110, STYLE + `<h3>資產<em>放在哪裡</em></h3>` +
         `<div class="wf-grid">` + S.l1.map(s => `<div><small>${s.id} ${s.seg}<i>≈${d.px(WF.height(s.id))}px</i></small>` +
           WF.segment(s.id, WF.fitWidth(s.id, 566, 310) + 'px') + `</div>`).join('') + `</div>` +
         `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
+
+      ...S.l1.map(l1Step),
 
       // ===== 04 L2 · L3 =====
       d.panel(4, 120, STYLE +
