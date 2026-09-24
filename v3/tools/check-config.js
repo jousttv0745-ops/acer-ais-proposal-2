@@ -13,6 +13,7 @@ const exists = rel => fs.existsSync(path.join(ROOT, rel.split(/[?#]/)[0]));
 
 // pages
 for (const [k, p] of Object.entries(DECK.pages)) {
+  if (p.kind === 'frames') for (const [n, fr] of Object.entries(p.frames || {})) if (!exists(fr.src)) err(`page ${k}: frame ${n} missing ${fr.src}`);
   if (p.kind === 'image') {
     for (const s of [p.src, p.srcLite].filter(Boolean)) if (!exists(s)) err(`page ${k}: missing ${s}`);
     for (const [g, list] of Object.entries(p.marks || {})) list.forEach(([x, y, w, h], i) => { if (x < 0 || y < 0 || x + w > p.w || y + h > p.h) err(`page ${k}: mark ${g}[${i}] outside ${p.w}x${p.h}`); });

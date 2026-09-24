@@ -19,6 +19,11 @@ window.DECK = {
   frameCategory: 'frame',
 
   pages: {
+    // L1-1 / L1-2 banner mockups (live HTML, restart on { deck: 'play' })
+    mockHero: { kind: 'frames', w: 1440, h: 810, label: 'L1-1 Hero', url: '畫面提案・示意', defaultFrame: 'main',
+      frames: { main: { src: 'content/mockup/hero.html', label: '畫面提案' } } },
+    mockBanner: { kind: 'frames', w: 1440, h: 720, label: 'L1-2 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
+      frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
       kind: 'image', src: 'content/apple/apple-ai.png', srcLite: 'content/apple/apple-ai.lite.png', liteScale: 0.5, w: 1920, h: 12406,
       label: 'Apple Intelligence', url: 'apple.com/tw/apple-intelligence',
@@ -52,6 +57,8 @@ window.DECK = {
 
   // spot = highlighted block, focus = what the camera frames when zooming in
   regions: {
+    mockHero: { full: { spot: [0, 0, 1440, 810], focus: [0, 0, 1440, 810] } },
+    mockBanner: { full: { spot: [0, 0, 1440, 720], focus: [0, 0, 1440, 720] } },
     apple: {
       hero: { spot: [0, 100, 1920, 980], focus: [0, 60, 1920, 1060] },
       siri: { spot: [0, 2000, 1920, 1140], focus: [0, 1960, 1920, 1220] },
@@ -118,6 +125,8 @@ window.DECK = {
       const x = { cls, tag, body, ...o[lv] };
       return `<div class="${x.cls}"><i>${x.tag}</i><b>${lv}</b><strong>${title}</strong><span>${x.body}</span>${x.extra || ''}</div>`;
     }).join('') + `</div>`;
+    // L1-1 / L1-2 banner mockup: the live page with a callout on how it moves
+    const mockStep = (page, callout) => d.zoom(3, page, 'full', { marks: false, message: 'play', callout: { tag: '畫面提案・示意', ...callout } });
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
@@ -211,7 +220,13 @@ window.DECK = {
           WF.segment(s.id, WF.fitWidth(s.id, 566, 310) + 'px') + `</div>`).join('') + `</div>` +
         `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
 
-      ...S.l1.map(l1Step),
+      l1Step(S.l1[0]),
+      mockStep('mockHero', { k: 'L1-1 · 畫面提案', h: 'Hey Qubi!<br>從筆電探出頭',
+        items: [[1, '全白底、<strong>筆電置中</strong>，畫面只有一個主角'], [2, 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>'], [3, '「Hey Qubi!」→ 副標 → CTA <strong>依序淡入</strong>，約 3 秒完成']] }),
+      l1Step(S.l1[1]),
+      mockStep('mockBanner', { k: 'L1-2 · 畫面提案', h: '問什麼，<br>就換什麼場景',
+        items: [[1, '中央<strong>對話框</strong>：Qubi 主動提議，或使用者拖檔案提問'], [2, '底部<strong>橫式卡片輪播</strong>，跟著對話滑到對應場景'], [3, '郵件摘要・人物去背・會議摘要，<strong>約 4 秒一組</strong>']] }),
+      ...S.l1.slice(2).map(l1Step),
 
       // ===== 04 L2 · L3 =====
       d.panel(4, 120, STYLE +
