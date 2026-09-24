@@ -92,6 +92,19 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
+      .ba-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:16px}
+      .ba-head h3{margin:0}
+      .ba-sum{display:flex;gap:10px;padding:10px 16px;border:2px solid var(--ink);border-radius:10px}
+      .ba-sum span{display:flex;align-items:baseline;gap:6px;padding:0 8px;font-size:17px;color:var(--ink-2)}
+      .ba-sum b{font:800 26px Montserrat,sans-serif;color:var(--green-d)}
+      .grid.ba > div{padding:7px 16px;font-size:17px;line-height:1.4}
+      .grid.ba .h{font:800 14px 'Noto Sans TC',sans-serif;letter-spacing:1px}
+      .grid.ba .k{font-size:17px;font-weight:700;color:var(--ink)}
+      .grid.ba strong{display:block;color:var(--ink);font-size:18px}
+      .grid.ba small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .ba-foot{display:flex;align-items:baseline;gap:14px;margin:14px 0 0;font-size:19px;color:var(--ink)}
+      .ba-foot b{flex:none;padding:3px 12px;border-radius:999px;background:var(--green);color:#fff;font-size:15px}
+      .ba-foot i{margin-left:auto;flex:none;font-style:normal;font-size:13px;color:var(--muted)}
       .road .go .demo{margin:22px 0 0;padding:10px 24px;font-size:20px;background:#fff;color:var(--green-d)}
       .grid.spec > div{font-size:17px;line-height:1.5;padding:10px 14px}
       .grid.spec .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
@@ -127,6 +140,13 @@ window.DECK = {
     }).join('') + `</div>`;
     // L1-1 / L1-2 banner mockup: the live page with a callout on how it moves
     const mockStep = (page, callout) => d.zoom(3, page, 'full', { marks: false, message: 'play', callout: { tag: '畫面提案・示意', ...callout } });
+    // section × copy × image files for one benchmark page (ASUS-style digital-asset sheet)
+    const benchAssetTable = key => { const b = S.benchAssets[key];
+      return `<div class="ba-head"><h3>${b.name}：<em>區塊 × 文案 × 影像</em></h3><div class="ba-sum">` +
+        b.totals.map(([k, n]) => `<span><b>${n}</b>${k}</span>`).join('') + `</div></div>` +
+        `<div class="grid ba" style="grid-template-columns:150px 1fr 330px"><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
+        b.rows.map(r => `<div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
+        `<p class="ba-foot"><b>結論</b>${b.conclusion}<i>${b.url}・${S.benchAssets.date} 線上頁面讀取</i></p>`; };
     const BENCH = ['apple', 'samsung'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
@@ -177,19 +197,9 @@ window.DECK = {
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
       ...d.categories(2, BENCH),
-      // page lengths, then the same view twice with wired conclusions: assets, then narrative
-      d.lengths(2, BENCH, { metric: 'hardware', label: '硬體導購', notes: [
-        { targets: ['apple'], box: [80,250,580], k: 'APPLE · ASSETS', h: '可讀的 UI 就是證據',
-          p: '約 20 張裝置內 UI，每張帶一句真實指令；圖片中 92% 是可讀介面，首屏圖片只占 29%。<br><small style="color:var(--muted)">2026-09-23 截圖量測</small>' },
-        { targets: ['samsung'], box: [1260,250,580], k: 'SAMSUNG · ASSETS', h: '商品與生活照撐起畫面',
-          p: '去背商品照＋UI 合成在生活照；首屏 62% 是圖，可讀介面只占 29%，全頁沒有影片。<br><small style="color:var(--muted)">2026-09-23 截圖量測</small>' },
-      ] }),
-      d.lengths(2, BENCH, { metric: 'hardware', label: '硬體導購', notes: [
-        { targets: ['apple'], box: [80,250,580], k: 'APPLE · 敘事', h: '「這是你的螢幕」',
-          p: '第一人稱，Siri 先登場<br>功能 → 信任 → 選機 → 相容晶片清單' },
-        { targets: ['samsung'], box: [1260,250,580], k: 'SAMSUNG · 敘事', h: '「它出現在你生活的某個時刻」',
-          p: '第三人稱，提問開場<br>功能 → 信任 → 試用 → 選機' },
-      ] }),
+      // each benchmark page section by section: copy and image files
+      d.panel(2, 100, STYLE + benchAssetTable('apple')),
+      d.panel(2, 100, STYLE + benchAssetTable('samsung')),
 
       // Siri
       d.overview(2, 'apple', 'siri', { active: ['Hero', 'Siri AI'], caption: { k: 'APPLE INTELLIGENCE', h: 'Apple 怎麼擺 Siri' } }),
