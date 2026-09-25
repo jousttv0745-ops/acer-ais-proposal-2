@@ -57,7 +57,7 @@
         scope: '4 分頁（商務／創意／遊戲／個人化）× 7–9 個 AIS app',
         asset: '每個 app 情境照合成 UI ×1，1712×1262 @2x；v1 圖可沿用或改版',
         story: '置中小標＋置中提問式大標（「Can your phone do that?」的 Acer 版），與 L1-2 一致；卡片 = 功能標題＋2–3 行說明' },
-      { id: 'L1-4', copy: [["主標","哪一台跑得動你的 AI？"],["副標","依裝置類別挑選適合你的 Acer AI PC"],["分頁","筆電・桌機・AIO・掌機"],["卡片","系列名＋一句定位，例：Swift Go 14｜輕薄續航，AI 隨身帶著走"],["CTA","進一步了解（→ 分類頁）・下載 Acer Intelligence Space"]], seg: '選機：依裝置類別', ref: { page: 'samsung', region: 'selling', label: 'Samsung · 機種探索' },
+      { id: 'L1-4', copy: [["主標","哪一台跑得動你的 AI？"],["副標","依裝置類別挑選適合你的 Acer AI PC"],["分頁","筆電・桌機・AIO・掌機"],["卡片","Swift Go 14｜輕薄續航，AI 隨身帶著走"],["卡片","Predator Helios Neo 16S｜遊戲與創作，本地 AI 全速跑"],["卡片","Aspire Lite 14｜入門首選，日常 AI 就夠用"],["CTA","進一步了解（→ 分類頁）・下載 Acer Intelligence Space"]], seg: '選機：依裝置類別', ref: { page: 'samsung', region: 'selling', label: 'Samsung · 機種探索' },
         goal: '從「想用的功能」導到 acer.com 裝置分類頁；已有 Acer 電腦 → 下載',
         material: '去背商品照',
         ratio: '4 分頁 × 3 張系列卡；約占全頁 14–17%',

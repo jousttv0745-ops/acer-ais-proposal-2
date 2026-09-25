@@ -117,6 +117,24 @@ window.DECK = {
       .l1s-copy > div,.l1s-spec > div{padding:10px 14px;border-bottom:1px solid var(--line);font-size:20px;line-height:1.5;color:var(--ink)}
       .l1s-spec > div{font-size:17px;color:var(--ink-2)}
       .l1s-copy .k,.l1s-spec .k{font-size:16px;font-weight:700;color:var(--green-d);background:var(--green-soft)}
+      .l1s:not(.mock){display:flex;flex-direction:column;height:870px}
+      .l1s:not(.mock) .l1c{flex:1;display:flex;flex-direction:column;justify-content:center}
+      .l1c{margin-top:4px;padding:30px 34px;border:1px solid var(--line);border-radius:18px;background:#f8f9fb;text-align:center}
+      .l1c .eb{margin:0 0 10px;font:800 20px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:2px;color:var(--green-d)}
+      .l1c .hl{margin:0;font-size:58px;font-weight:900;line-height:1.3;color:var(--ink)}
+      .l1c .sub{margin:14px 0 0;font-size:25px;color:var(--ink-2)}
+      .l1c .tabs{display:flex;justify-content:center;gap:12px;margin-top:30px}
+      .l1c .tabs span{padding:8px 22px;border-radius:999px;background:#eceef2;font-size:20px;color:var(--ink-2)}
+      .l1c .tabs span.on{background:var(--ink);color:#fff}
+      .l1c .tiles{display:grid;gap:16px;margin-top:34px;text-align:left}
+      .l1c .tiles > div{padding:22px 24px;border-radius:16px;background:#fff;border:1px solid var(--line);font-size:21px;line-height:1.5;color:var(--ink)}
+      .l1c .tiles small{display:block;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--green-d)}
+      .l1c .cta{display:flex;justify-content:center;gap:14px;margin-top:34px}
+      .l1c .cta span{padding:12px 28px;border-radius:999px;border:2px solid var(--ink);font-size:20px;font-weight:700}
+      .l1c .cta span.p{background:var(--ink);color:#fff}
+      .spec3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+      .spec3 > div{padding:16px 18px;border-radius:14px;background:var(--green-soft);font-size:17px;line-height:1.5;color:var(--ink-2)}
+      .spec3 small{display:block;margin-bottom:6px;font-size:14px;font-weight:900;color:var(--green-d)}
       .l1s.mock .l1s-head{display:flex;align-items:baseline;gap:16px}
       .l1s.mock .l1s-head strong{font-size:28px;margin:0}
       .l1s.mock ol{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0 0;padding:0;list-style:none;counter-reset:n}
@@ -251,9 +269,20 @@ window.DECK = {
         html = `<div class="l1s mock" style="margin-top:${h + 24}px"><div class="l1s-head"><small>${seg.id}・畫面提案</small><strong>${mock.title}</strong></div><ol>` +
           mock.items.map(t => `<li>${t}</li>`).join('') + `</ol></div>`;
       } else {
+        const pick = keys => seg.copy.filter(([k]) => keys.includes(k));
+        const one = k => (seg.copy.find(([x]) => x === k) || [])[1];
+        const tiles = pick(['卡片範例', '卡片', '列表寫法', '題目']);
+        const tabs = one('分頁'), cta = one('CTA');
         html = `<div class="l1s"><div class="l1s-head"><small>${seg.id}</small><strong>${seg.seg}</strong></div>` +
-          `<h4>建議文案<i>草稿</i></h4><div class="l1s-copy">` + seg.copy.map(([k, v]) => `<div class="k">${k}</div><div>${v}</div>`).join('') + `</div>` +
-          `<h4>Spec</h4><div class="l1s-spec">` + [['goal', '目標'], ['material', '素材'], ['asset', '資產']].map(([k, l]) => `<div class="k">${l}</div><div>${seg[k]}</div>`).join('') + `</div></div>`;
+          `<h4>建議文案<i>草稿</i></h4><div class="l1c">` +
+            (one('小標') ? `<p class="eb">${one('小標')}</p>` : '') +
+            `<p class="hl">${one('主標')}</p>` +
+            (one('副標') || one('說明') ? `<p class="sub">${one('副標') || one('說明')}</p>` : '') +
+            (tabs ? `<div class="tabs">${tabs.split('・').map((t, i) => `<span${i ? '' : ' class="on"'}>${t}</span>`).join('')}</div>` : '') +
+            (tiles.length ? `<div class="tiles" style="grid-template-columns:repeat(${tiles.length > 3 ? 2 : tiles.length},1fr)">${tiles.map(([k, v]) => `<div><small>${k}</small>${v}</div>`).join('')}</div>` : '') +
+            (cta ? `<div class="cta">${cta.split('・').map((t, i) => `<span${i ? '' : ' class="p"'}>${t}</span>`).join('')}</div>` : '') +
+          `</div>` +
+          `<div class="spec3">` + [['goal', '目標'], ['material', '素材'], ['asset', '資產']].map(([k, l]) => `<div><small>${l}</small>${seg[k]}</div>`).join('') + `</div></div>`;
       }
       return { chapter: 3, wins, panel: { top: 100, html: STYLE + html } };
     };
