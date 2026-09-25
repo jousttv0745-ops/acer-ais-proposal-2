@@ -26,6 +26,9 @@ window.DECK = {
       cats: { brand: [[180, 1120]], feature: [[1300, 1640]], security: [[2940, 760]], hardware: [[3700, 1320]], seo: [[5020, 1240]], frame: [[0, 180], [6260, 2471]] },
       marks: { secs: [[0, 180, 1920, 1120], [0, 1300, 1920, 990], [0, 2290, 1920, 650], [0, 2940, 1920, 760], [0, 3700, 1920, 540], [0, 4240, 1920, 780], [0, 5020, 1920, 1240]] } },
     // L1-1 / L1-2 banner mockups (live HTML, restart on { deck: 'play' })
+    // the whole L1 wireframe as one strip; the L1 steps scroll down it one segment at a time
+    wfStrip: { kind: 'frames', w: 1440, h: window.Wireframe.stackHeight(), label: 'L1 Wireframe', url: '整頁 1440 寬', defaultFrame: 'main',
+      frames: { main: { src: 'content/wireframe.html', label: 'Wireframe' } } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: 'L1-1 Hero', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/hero.html', label: '畫面提案' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: 'L1-2 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
@@ -65,8 +68,11 @@ window.DECK = {
 
   // spot = highlighted block, focus = what the camera frames when zooming in
   regions: {
-    mockHero: { full: { spot: [0, 0, 1440, 810], focus: [0, 0, 1440, 810] } },
-    mockBanner: { full: { spot: [0, 0, 1440, 720], focus: [0, 0, 1440, 720] } },
+    // one region per segment on the strip: spot = the segment, focus = a window of the strip centred on it
+    wfStrip: Object.fromEntries(window.Wireframe.stack().map(s => {
+      const H = window.Wireframe.stackHeight(), view = 2212, top = Math.max(0, Math.min(H - view, s.label + (s.h + 56) / 2 - view / 2));
+      return [s.id, { spot: [0, s.label, 1440, s.h + 56], focus: [0, top, 1440, Math.min(view, H)] }];
+    })),
     apple: {
       hero: { spot: [0, 100, 1920, 980], focus: [0, 60, 1920, 1060] },
       siri: { spot: [0, 2000, 1920, 1140], focus: [0, 1960, 1920, 1220] },
@@ -102,6 +108,20 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
+      .l1s{margin-left:620px}
+      .l1s-head small{display:block;font:800 18px Montserrat,sans-serif;letter-spacing:2px;color:var(--green-d)}
+      .l1s-head strong{display:block;margin-top:4px;font-size:40px;font-weight:900}
+      .l1s h4{display:flex;align-items:center;gap:10px;margin:26px 0 10px;font-size:18px;font-weight:900;color:var(--muted)}
+      .l1s h4 i{padding:2px 10px;border-radius:999px;background:#fff4df;color:#b45309;font-size:13px;font-style:normal}
+      .l1s-copy,.l1s-spec{display:grid;grid-template-columns:110px 1fr;border-top:1px solid var(--line)}
+      .l1s-copy > div,.l1s-spec > div{padding:10px 14px;border-bottom:1px solid var(--line);font-size:20px;line-height:1.5;color:var(--ink)}
+      .l1s-spec > div{font-size:17px;color:var(--ink-2)}
+      .l1s-copy .k,.l1s-spec .k{font-size:16px;font-weight:700;color:var(--green-d);background:var(--green-soft)}
+      .l1s.mock .l1s-head{display:flex;align-items:baseline;gap:16px}
+      .l1s.mock .l1s-head strong{font-size:28px;margin:0}
+      .l1s.mock ol{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0 0;padding:0;list-style:none;counter-reset:n}
+      .l1s.mock li{position:relative;padding:0 0 0 40px;font-size:17px;line-height:1.5;color:var(--ink-2);counter-increment:n}
+      .l1s.mock li::before{content:counter(n);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font:800 14px Montserrat,sans-serif}
       .cat-note{position:absolute;top:0;width:400px;max-height:700px;overflow:hidden;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 10px 30px rgba(17,24,39,.06)}
       .cat-note.apple{left:0}.cat-note.samsung{right:0}
       .cat-note .who{display:block;margin-bottom:6px;font:800 14px Montserrat,sans-serif;letter-spacing:1.5px;color:var(--green-d);text-transform:uppercase}
@@ -166,8 +186,6 @@ window.DECK = {
       const x = { cls, tag, body, ...o[lv] };
       return `<div class="${x.cls}"><i>${x.tag}</i><b>${lv}</b><strong>${title}</strong><span>${x.body}</span>${x.extra || ''}</div>`;
     }).join('') + `</div>`;
-    // L1-1 / L1-2 banner mockup: the live page with a callout on how it moves
-    const mockStep = (page, callout) => d.zoom(3, page, 'full', { marks: false, message: 'play', callout: { tag: '畫面提案・示意', ...callout } });
     // layout and assets sheet: the page on the left with a dashed box per section, the table on the right,
     // one line from each box to its row. Geometry mirrors the engine's fit() so the lines land on the boxes.
     const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 35, rowH: { apple: 60, samsung: 88 } };
@@ -220,17 +238,24 @@ window.DECK = {
       `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h en a">ACER L1</div>` +
       S.overview.map(r => `<div class="k">${r.dim}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
         `<div class="a">${fill ? r.acer : '<b class="q">？</b>'}</div>`).join('') + `</div>`;
-    // L1 segment: reference page top-left, spec card on the right
-    const l1Step = seg => {
-      const r = R[seg.ref.page][seg.ref.region];
-      return { chapter: 3,
-        wins: { [seg.ref.page]: { rect: [80, 150, 780, 470], focus: r.focus, spot: r.spot } },
-        tags: { [seg.ref.page]: seg.ref.label },
-        panel: { top: 110, html: STYLE +
-          `<div class="l1">` +
-            `<div class="l1-ref"><small>${seg.id}</small><strong>${seg.seg}</strong><span>參照：${seg.ref.label}</span></div>` +
-            `<div class="l1-card">` + DIMS.map(([k, l]) => `<div class="k">${l}</div><div>${seg[k]}</div>`).join('') + `</div>` +
-          `</div>` } };
+    // L1 segment: the wireframe strip on the left scrolled to it; on the right its banner mockup
+    // (L1-1, L1-2) with how it moves, or the suggested copy and a short spec
+    const STRIP = [80, 100, 560, 900];
+    const MOCK = { mockHero: 810, mockBanner: 720 };
+    const l1Scroll = (seg, mock) => {
+      const r = R.wfStrip[seg.id], wins = { wfStrip: { rect: STRIP, focus: r.focus, spot: r.spot } };
+      let html;
+      if (mock) {
+        const h = Math.round(1140 * MOCK[mock.page] / 1440) + 40;
+        wins[mock.page] = { rect: [700, 100, 1140, h], focus: 'full', message: 'play' };
+        html = `<div class="l1s mock" style="margin-top:${h + 24}px"><div class="l1s-head"><small>${seg.id}・畫面提案</small><strong>${mock.title}</strong></div><ol>` +
+          mock.items.map(t => `<li>${t}</li>`).join('') + `</ol></div>`;
+      } else {
+        html = `<div class="l1s"><div class="l1s-head"><small>${seg.id}</small><strong>${seg.seg}</strong></div>` +
+          `<h4>建議文案<i>草稿</i></h4><div class="l1s-copy">` + seg.copy.map(([k, v]) => `<div class="k">${k}</div><div>${v}</div>`).join('') + `</div>` +
+          `<h4>Spec</h4><div class="l1s-spec">` + [['goal', '目標'], ['material', '素材'], ['asset', '資產']].map(([k, l]) => `<div class="k">${l}</div><div>${seg[k]}</div>`).join('') + `</div></div>`;
+      }
+      return { chapter: 3, wins, panel: { top: 100, html: STYLE + html } };
     };
     return [
       d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
@@ -262,7 +287,6 @@ window.DECK = {
       // Apple vs Samsung: copy, then image assets, each with the pick for Acer
       d.panel(2, 110, STYLE + `<h3>文字文案：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.copy)),
       d.panel(2, 110, STYLE + `<h3>影像素材：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.assets)),
-      d.panel(2, 130, STYLE + `<h3>L1 要回答的<em>六格</em></h3>` + overviewTable(false)),
 
       // ===== 03 L1 Spec =====
       d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → 相容門檻 → FAQ' }),
@@ -272,13 +296,11 @@ window.DECK = {
           WF.segment(s.id, WF.fitWidth(s.id, 566, 310) + 'px') + `</div>`).join('') + `</div>` +
         `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
 
-      l1Step(S.l1[0]),
-      mockStep('mockHero', { k: 'L1-1 · 畫面提案', h: 'Hey Qubi!<br>從筆電探出頭',
-        items: [[1, '全白底、<strong>筆電置中</strong>，畫面只有一個主角'], [2, 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>'], [3, '「Hey Qubi!」→ 副標<strong>依序淡入</strong>，約 3 秒完成，不放 CTA']] }),
-      l1Step(S.l1[1]),
-      mockStep('mockBanner', { k: 'L1-2 · 畫面提案', h: '問什麼，<br>就換什麼場景',
-        items: [[1, '<strong>橫式卡片輪播</strong>跟著對話滑到對應場景'], [2, '對話框<strong>壓在卡片上</strong>，底圖同步壓暗'], [3, '人物去背時出現<strong>裁切框與掃描線</strong>，表示處理中']] }),
-      ...S.l1.slice(2).map(l1Step),
+      l1Scroll(S.l1[0], { page: 'mockHero', title: 'Hey Qubi!　從筆電探出頭', items: [
+        '全白底、<strong>筆電置中</strong>，畫面只有一個主角', 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>', '「Hey Qubi!」→ 副標<strong>依序淡入</strong>，約 3 秒，不放 CTA'] }),
+      l1Scroll(S.l1[1], { page: 'mockBanner', title: '問什麼，就換什麼場景', items: [
+        '<strong>橫式卡片輪播</strong>跟著對話滑到對應場景', '對話框<strong>壓在卡片上</strong>，底圖同步壓暗', '人物去背時出現<strong>裁切框與掃描線</strong>，表示處理中'] }),
+      ...S.l1.slice(2).map(s => l1Scroll(s)),
 
       // ===== 04 L2 · L3 =====
       d.panel(4, 120, STYLE +

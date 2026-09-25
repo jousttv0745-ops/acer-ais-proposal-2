@@ -34,5 +34,10 @@ window.Wireframe = (() => {
   // widest width (px) at which a segment still fits inside a box
   const fitWidth = (id, maxW, maxH) => Math.min(maxW, Math.floor(maxH * W / seg(id).h));
 
-  return { css, segment, fitWidth, height: id => seg(id).h };
+  // the whole L1 page as one strip: each segment below a label band; y positions in page px (1440 wide)
+  const LABEL = 56;
+  const stack = () => { let y = 0; return S.wireframe.segments.map(s => { const o = { id: s.id, label: y, y: y + LABEL, h: s.h }; y += LABEL + s.h; return o; }); };
+  const stackHeight = () => S.wireframe.segments.reduce((a, s) => a + LABEL + s.h, 0);
+
+  return { css, segment, fitWidth, height: id => seg(id).h, stack, stackHeight, LABEL };
 })();
