@@ -7,6 +7,7 @@ window.DECK = {
     noneLabel: '無此區塊',
   },
   theme: {},
+  layout: { benchSide: 500, benchGap: 40 }, // category steps: two narrow page columns, notes left and right
   chapters: ['00 Recap', '01 Roadmap', '02 Benchmark', '03 L1 Spec', '04 L2 · L3', 'Summary'],
   categories: [
     { key: 'brand', name: '網頁定位', color: '#83b81a', desc: '兩家第一屏都先立 AI 的角色：Apple 是 Siri，Samsung 是 AI companion' },
@@ -22,6 +23,7 @@ window.DECK = {
     // today's Samsung page (2026-09-24), used only by the digital-asset sheet; other steps keep the v1 capture
     samsungLive: { kind: 'image', src: 'content/samsung/samsung-ai.jpg', srcLite: 'content/samsung/samsung-ai.lite.jpg', liteScale: 0.5, w: 1920, h: 8731,
       label: 'Samsung Galaxy AI', url: 'samsung.com/us/galaxy-ai',
+      cats: { brand: [[180, 1120]], feature: [[1300, 1640]], security: [[2940, 760]], hardware: [[3700, 1320]], seo: [[5020, 1240]], frame: [[0, 180], [6260, 2471]] },
       marks: { secs: [[0, 180, 1920, 1120], [0, 1300, 1920, 990], [0, 2290, 1920, 650], [0, 2940, 1920, 760], [0, 3700, 1920, 540], [0, 4240, 1920, 780], [0, 5020, 1920, 1240]] } },
     // L1-1 / L1-2 banner mockups (live HTML, restart on { deck: 'play' })
     mockHero: { kind: 'frames', w: 1440, h: 810, label: 'L1-1 Hero', url: '畫面提案・示意', defaultFrame: 'main',
@@ -84,9 +86,11 @@ window.DECK = {
   steps: d => {
     const S = window.SPEC, R = window.DECK.regions, WF = window.Wireframe;
     const STYLE = `<style>
-      .road{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:end;margin-top:30px}
+      .road{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;align-items:stretch;margin-top:40px}
       .road div{position:relative;padding:26px 26px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
-      .road div:nth-child(1){height:250px}.road div:nth-child(2){height:330px}.road div:nth-child(3){height:410px}.road div:nth-child(4){height:490px}
+      .road div{min-height:360px}
+      .road div:not(:last-child)::after{content:'';position:absolute;right:-38px;top:50%;width:28px;height:28px;margin-top:-14px;
+        background:no-repeat center/28px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 12h14M12 5l7 7-7 7' fill='none' stroke='%2383b81a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
       .road b{font:800 44px Montserrat,sans-serif;color:var(--green-d)}
       .road strong{display:block;margin-top:8px;font-size:28px}
       .road span{display:block;margin-top:10px;font-size:20px;line-height:1.55;color:var(--muted)}
@@ -98,6 +102,22 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
+      .cat-note{position:absolute;top:0;width:400px;max-height:700px;overflow:hidden;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 10px 30px rgba(17,24,39,.06)}
+      .cat-note.apple{left:0}.cat-note.samsung{right:0}
+      .cat-note .who{display:block;margin-bottom:6px;font:800 14px Montserrat,sans-serif;letter-spacing:1.5px;color:var(--green-d);text-transform:uppercase}
+      .cat-note h4{margin:14px 0 6px;font-size:15px;font-weight:900;color:var(--muted)}
+      .cat-note p{margin:0;font-size:19px;line-height:1.5;color:var(--ink)}
+      .cat-note p small{font-size:15px;color:var(--muted)}
+      .cat-note p b{color:var(--green-d)}
+      .cat-note p.none{margin-top:10px;color:var(--faint)}
+      .cat-note ul{margin:0;padding:0 0 0 18px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+      .cat-note li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .grid.cmp > div{font-size:18px;line-height:1.5;padding:14px 18px}
+      .grid.cmp .k{font-weight:700;color:var(--ink)}
+      .grid.cmp .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1.5px}
+      .grid.cmp .a{font-weight:500}
+      .pick{display:inline-block;margin:0 10px 4px 0;padding:2px 12px;border-radius:999px;font:800 14px Montserrat,'Noto Sans TC',sans-serif;font-style:normal;color:#fff}
+      .pick.ap{background:#1a1d23}.pick.ss{background:#1428a0}.pick.both{background:var(--green)}
       .ba-head{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;margin-bottom:16px}
       .ba-head h3{margin:0}
       .ba-sum{display:flex;gap:10px;padding:10px 16px;border:2px solid var(--ink);border-radius:10px}
@@ -167,7 +187,25 @@ window.DECK = {
         `<p class="ba-src">${b.url}・${S.benchAssets.date} 線上頁面讀取</p></div>`;
       return { chapter: 2, wins: { [page]: { rect: SHEET.rect, focus: 'full', marks: 'secs' } }, panel: { top: SHEET.rect[1], html: STYLE + html } };
     };
-    const BENCH = ['apple', 'samsung'];
+    // category steps: per brand, which sections sit in this category, their headlines and their image assets
+    const CAT_PAGE = { apple: 'apple', samsung: 'samsungLive' };
+    const count = rows => { const t = { Image: 0, 商品去背: 0, Video: 0, Icon: 0 };
+      rows.forEach(r => Object.keys(t).forEach(k => { const m = r.assets.match(new RegExp(k + ' ×(\\d+)')); if (m) t[k] += +m[1]; }));
+      const s = Object.entries(t).filter(([, n]) => n).map(([k, n]) => `${k} <b>${n}</b>`).join('・'); return s || '純文字'; };
+    const catNote = (brand, cat) => { const b = S.benchAssets[brand], rows = b.rows.filter(r => r.cat === cat), page = CAT_PAGE[brand];
+      const body = cat === 'frame' ? `<p>Header、Footer 與註腳，不列入比較</p>`
+        : !rows.length ? `<p class="none">${window.DECK.meta.noneLabel}</p>`
+        : `<h4>架構</h4><p>${rows.map(r => r.seg).join('＋')}<br><small>占整頁 ${d.pct(page, cat)}%</small></p>` +
+          `<h4>敘事文字</h4><ul>${rows.map(r => `<li>${r.title}</li>`).join('')}</ul>` +
+          `<h4>影像資產</h4><p>${count(rows)}</p>`;
+      return `<div class="cat-note ${brand}"><small class="who">${b.name}</small>${body}</div>`; };
+    const catStep = st => ({ ...st, panel: { top: 180, html: STYLE + catNote('apple', st.catHead) + catNote('samsung', st.catHead) } });
+    // copy / image comparison with the pick for Acer
+    const compareTable = rows => `<div class="grid cmp" style="grid-template-columns:120px 1fr 1fr 1.15fr">` +
+      `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h a">更適合 ACER</div>` +
+      rows.map(r => `<div class="k">${r.seg}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
+        `<div class="a"><i class="pick ${r.pick === 'Apple' ? 'ap' : r.pick === 'Samsung' ? 'ss' : 'both'}">${r.pick}</i>${r.why}</div>`).join('') + `</div>`;
+    const BENCH = ['apple', 'samsungLive'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
     const specTable = (rows, { first = '段落' } = {}) =>
@@ -205,7 +243,7 @@ window.DECK = {
           ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：版面、Assets、敘事，章末附兩家 spec'],
           ['02', '不提 mockup，只出 spec', '03 L1 Spec：每段寫目標、素材、比例、範圍、資產、敘事'],
           ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Roadmap：本版定案 L1，L2／L3 寫方向'],
-          ['04', '參照 Apple 怎麼擺 Siri', '02 Benchmark：Siri ↔ Qubi 專頁'],
+          ['04', '參照 Apple 怎麼擺 Siri', '03 L1 Spec：Qubi 照 Siri 的位置，放在 Hero 與第一段（L1-1、L1-2）'],
         ], '120px 1fr 1fr') +
         `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
 
@@ -216,30 +254,14 @@ window.DECK = {
 
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
-      ...d.categories(2, BENCH),
+      ...d.categories(2, BENCH).map(catStep),
       // each benchmark page section by section: copy and image files
       benchAssetStep('apple', 'apple'),
       benchAssetStep('samsung', 'samsungLive'),
 
-      // Siri
-      d.overview(2, 'apple', 'siri', { active: ['Hero', 'Siri AI'], caption: { k: 'APPLE INTELLIGENCE', h: 'Apple 怎麼擺 Siri' } }),
-      d.zoom(2, 'apple', 'hero', { callout: { k: 'APPLE · HERO', h: 'Siri 就是<br>頁面的入口', tag: '角色先行',
-        items: [[1, 'Hero 就是<strong>Siri 亮相</strong>，5 張真實 UI 拼貼'], [2, '限制條件<strong>緊貼主標</strong>，不藏在頁尾']] } }),
-      d.zoom(2, 'apple', 'siri', { callout: { k: 'APPLE · SIRI 章', h: '第一章<br>也是 Siri', tag: '一句能說的話',
-        items: [[1, '<strong>情境小標＋一句主標</strong>，捲動時知道在哪一章'], [2, '每張卡都是<strong>一句指令＋結果畫面</strong>']] } }),
-      d.panel(2, 150, STYLE +
-        `<h3>AIS 對應 Apple Intelligence，<em>Qubi 對應 Siri</em></h3>` +
-        d.table(['APPLE', 'ACER'], [
-          ['總稱', 'Apple Intelligence', 'Acer Intelligence Space'],
-          ['人格入口', 'Siri', 'Qubi（個人助理）'],
-          ['頁面位置', 'Hero＋第一章', 'Hero＋第一章（L1-1、L1-2）'],
-          ['其他功能', '視覺／照片／溝通／生產力章節', 'AIS app 情境分頁（L1-3）'],
-        ]) +
-        `<p class="conclude" style="margin-top:28px">Qubi 當頁面的人格入口，AIS app 當情境章節</p>`),
-
-      // benchmark specs
-      d.panel(2, 110, STYLE + `<h3>Apple Intelligence <em>Spec</em></h3>` + specTable(S.bench.apple)),
-      d.panel(2, 110, STYLE + `<h3>Samsung Galaxy AI <em>Spec</em></h3>` + specTable(S.bench.samsung)),
+      // Apple vs Samsung: copy, then image assets, each with the pick for Acer
+      d.panel(2, 110, STYLE + `<h3>文字文案：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.copy)),
+      d.panel(2, 110, STYLE + `<h3>影像素材：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.assets)),
       d.panel(2, 130, STYLE + `<h3>L1 要回答的<em>六格</em></h3>` + overviewTable(false)),
 
       // ===== 03 L1 Spec =====
