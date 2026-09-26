@@ -195,6 +195,34 @@
         { seg: 'FAQ', title: '常見問題', sub: '5–8 題，含支援機型、語言、費用、資料處理', assets: 'A07 FAQ 文案（純文字）' },
       ] },
 
+    // copy table: every L1 section item by item, next to the reference brand's copy (Hero / Qubi → Apple, the rest → Samsung).
+    // Reference copy read from the live pages on 2026-09-26; Acer copy is a draft (scenarios from the v1 mockup).
+    copyTable: [{"seg":"L1-1 Hero","ref":"Apple","rows":[["眉標","Apple Intelligence 與 Siri","Acer Intelligence Space"],
+        ["主標","全新 Siri AI 亮相。真能幫助你，真的很懂你。","Hey Qubi!"],
+        ["內文","新一代 Apple Intelligence 與 Siri 聯手亮相，帶來真能幫助你的 AI，一切以你和你的需求為核心。","Acer Intelligence Space，你的 AI 助理就在電腦裡。"]]},
+      {"seg":"L1-2 Qubi 章","ref":"Apple","rows":[["眉標","Siri AI","Acer Qubi"],
+        ["主標","你的 AI 助理，更個人化，更強大。","個人 AI 助理，Qubi 比你更懂你"],
+        ["內文","Siri AI 由 Apple Intelligence 驅動，透過更深入的回答、自然流暢的對話，以及全新的專屬 app，助你完成更多事。","Qubi 看得懂你正在做的事，主動提出下一步：整理郵件、做會議摘要、幫圖片去背，一句話就完成。"],
+        ["卡片 / 對話 #1","儘管開口問 Siri。","Qubi：要幫你做郵件摘要嗎？"],
+        ["卡片 / 對話 #2","Siri 了解你的個人情況。","你：可以幫我把人物去背嗎？"],
+        ["卡片 / 對話 #3","在更多 App 中進行操作。","Qubi：要幫你做會議摘要嗎？"]]},
+      {"seg":"L1-3 情境功能","ref":"Samsung","rows":[["主標","Can your phone do that?","你的電腦，也做得到嗎？"],
+        ["內文","Galaxy AI offers a wide variety of already-available features that you can jump right into.","從會議到創作，讓它為你多做一點。"],
+        ["情境 #1","Productivity — Get clean scans in a snap / Written and formatted your way","商務｜掌握對話，推進工作。聽的同時，也能看見對話／專心談，重點留著回頭看／接手新專案，從一個問題開始"],
+        ["情境 #2","Creativity — Make your picture perfect in seconds / Design your feed with Creative Studio / Instantly compile your best moments","創意｜把腦中的畫面，快速變成作品。隨手一張草圖，就能生成完整作品／同一個畫面，換個風格再看看／忘了檔名，描述畫面就找得到"],
+        ["情境 #3","Communication — Let AI handle unwanted calls for you / Turn long recordings into short summaries / Don&#39;t let language be a barrier","遊戲｜看得更清楚，打得更準。準星自動變色，暗處也看得見／遠方細節放大看，夜裡也清楚／精彩時刻自動剪好，馬上分享"],
+        ["情境 #4","Personalization — A little nudge to your next action keeps you focused / Get personalized insights tailored to you","個人化｜讓電腦更懂你的日常。回信不卡關，語氣一鍵調整／信件自動分類，重要的先看"]]},
+      {"seg":"L1-4 選機","ref":"Samsung","rows":[["主標","Explore our range of Galaxy AI devices","哪一台跑得動你的 AI？"],
+        ["內文 / 分頁","Smartphones・Tablets・Watches・Buds","依裝置類別挑選適合你的 Acer AI PC｜筆電・桌機・AIO・掌機"],
+        ["卡片","Galaxy Z Fold8・Galaxy Z Fold8 Ultra・Galaxy S26 Ultra","Swift Go 14｜輕薄續航，AI 隨身帶著走・Predator Helios Neo 16S｜遊戲與創作，本地 AI 全速跑・Aspire Lite 14｜入門首選，日常 AI 就夠用"],
+        ["CTA","Learn more","進一步了解（→ 分類頁）・下載 Acer Intelligence Space"]]},
+      {"seg":"L1-5 FAQ","ref":"Samsung","rows":[["主標","Frequently Asked Questions","常見問題"],
+        ["Q1","What devices have Galaxy AI?","哪些 Acer 電腦可以使用 Acer Intelligence Space？"],
+        ["Q2","What languages does Galaxy AI support?","支援哪些語言？"],
+        ["Q3","Is Galaxy AI secure in terms of privacy?","我的資料會被上傳到雲端嗎？"],
+        ["Q4","How do I use Galaxy AI on my Samsung phone?","如何下載與更新？"],
+        ["Q5","—","Qubi 是什麼？需要付費嗎？"]]}],
+
     // Apple vs Samsung, copy and image assets only, with which fits Acer better
     benchCompare: {
       copy: [

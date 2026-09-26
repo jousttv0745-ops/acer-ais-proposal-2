@@ -8,7 +8,7 @@ window.DECK = {
   },
   theme: {},
   layout: { benchSide: 500, benchGap: 40 }, // category steps: two narrow page columns, notes left and right
-  chapters: ['00 Recap', '01 Roadmap', '02 Benchmark', '03 L1 Spec', '04 L2 · L3', 'Summary'],
+  chapters: ['00 Recap', '01 Roadmap', '02 Benchmark', '03 L1 Spec', 'Summary'],
   categories: [
     { key: 'brand', name: '網頁定位', color: '#83b81a', desc: '兩家第一屏都先立 AI 的角色：Apple 是 Siri，Samsung 是 AI companion' },
     { key: 'feature', name: '功能介紹', color: '#3b82f6', desc: 'Apple 用情境章節拉長篇幅，Samsung 用分頁壓縮在一屏' },
@@ -109,6 +109,20 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
+      .road .dir .demo{margin:22px 0 0;padding:10px 24px;font-size:20px}
+      .ct-head{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+      .ct-head h3{margin:0}
+      .ct-head h3 em{font-size:30px;color:var(--muted)}
+      .ct-ref{padding:6px 16px;border-radius:999px;color:#fff;font:800 17px Montserrat,sans-serif}
+      .ct-ref.ap{background:#1a1d23}.ct-ref.ss{background:#1428a0}
+      .ct-head i{margin-left:auto;padding:4px 14px;border-radius:999px;background:#fff4df;color:#b45309;font-size:16px;font-style:normal;font-weight:700}
+      .grid.ct > div{padding:10px 16px;font-size:19px;line-height:1.45}
+      .grid.ct .h{font:800 16px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
+      .grid.ct .k{font-size:20px;font-weight:900;color:var(--ink)}
+      .grid.ct .k.cont{border-bottom-color:transparent}
+      .grid.ct .it{font-size:17px;font-weight:700;color:var(--green-d)}
+      .grid.ct .first{border-top:2px solid var(--ink)}
+      .grid.ct .a{color:var(--ink);font-weight:500}
       .l1s{margin-left:620px}
       .l1s:not(.mock) .l1s-head{display:flex;align-items:baseline;gap:16px}
       .l1s:not(.mock) .l1s-head strong{margin:0;font-size:42px}
@@ -235,6 +249,14 @@ window.DECK = {
       `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h a">更適合 ACER</div>` +
       rows.map(r => `<div class="k">${r.seg}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
         `<div class="a"><i class="pick ${r.pick === 'Apple' ? 'ap' : r.pick === 'Samsung' ? 'ss' : 'both'}">${r.pick}</i>${r.why}</div>`).join('') + `</div>`;
+    // copy table page: groups of S.copyTable, reference brand column next to the Acer draft
+    const copyPage = (groups, ref, n) => d.panel(4, 100, STYLE +
+      `<div class="ct-head"><h3>L1 文案對照表<em>（${n}）</em></h3><span class="ct-ref ${ref === 'Apple' ? 'ap' : 'ss'}">參照 ${ref}</span><i>Acer 文案為草稿</i></div>` +
+      `<div class="grid ct" style="grid-template-columns:200px 170px 1fr 1fr">` +
+      `<div class="h">區塊</div><div class="h">項目</div><div class="h en">${ref.toUpperCase()}</div><div class="h a">ACER（草稿）</div>` +
+      groups.map(g => S.copyTable[g]).map(g => g.rows.map(([item, refCopy, acer], i) =>
+        `<div class="k${i ? ' cont' : ' first'}">${i ? '' : g.seg}</div><div class="it${i ? '' : ' first'}">${item}</div><div class="${i ? '' : 'first'}">${refCopy}</div><div class="a${i ? '' : ' first'}">${acer}</div>`).join('')).join('') +
+      `</div>`);
     const BENCH = ['apple', 'samsungLive'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
@@ -282,7 +304,7 @@ window.DECK = {
       // ===== 01 Roadmap =====
       d.panel(1, 120, STYLE +
         `<h3>我們在哪裡：從 <em>L0</em> 走到 <em>L1</em></h3>` +
-        road()),
+        road({ L3: { extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 試做 ↗</a>` } })),
 
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
@@ -309,19 +331,12 @@ window.DECK = {
         '<strong>橫式卡片輪播</strong>跟著對話滑到對應場景', '對話框<strong>壓在卡片上</strong>，底圖同步壓暗', '人物去背時出現<strong>裁切框與掃描線</strong>，表示處理中'] }),
       ...S.l1.slice(2).map(s => l1Scroll(s)),
 
-      // ===== 04 L2 · L3 =====
-      d.panel(4, 120, STYLE +
-        `<h3>L2・L3：<em>下一步</em>的方向</h3>` +
-        road({
-          L0: { cls: 'now fade' }, L1: { cls: 'go fade' },
-          L2: { cls: 'go', tag: '下一步', body: '這台能用哪些 AIS app、Qubi 等級<br>導流終點：單一機型<br>待 L1 上線後撰寫 spec' },
-          L3: { cls: 'go', tag: '方向 · v1 已試做', body: '情境 → 推薦 SKU<br>導流終點：購買<br>待 L1、L2 上線後啟動',
-            extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 試做 ↗</a>` },
-        })),
-
       // ===== Summary =====
-      sheetStep(S.acerSheet, 'acer', 'wfStrip', 5,
+      sheetStep(S.acerSheet, 'acer', 'wfStrip', 4,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
+      copyPage([0, 1], 'Apple', '1 / 3'),
+      copyPage([2], 'Samsung', '2 / 3'),
+      copyPage([3, 4], 'Samsung', '3 / 3'),
     ];
   },
 };
