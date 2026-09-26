@@ -323,11 +323,9 @@ window.DECK = {
 
       // ===== 03 L1 Spec =====
       d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
-      // where each asset goes: the six segments as mini wireframes (full-length version in spec.html)
-      d.panel(3, 110, STYLE + `<h3>資產<em>放在哪裡</em></h3>` +
-        `<div class="wf-grid">` + S.l1.map(s => `<div><small>${s.id} ${s.seg}<i>≈${d.px(WF.height(s.id))}px</i></small>` +
-          WF.segment(s.id, WF.fitWidth(s.id, 566, 310) + 'px') + `</div>`).join('') + `</div>` +
-        `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A07）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
+      // the whole L1 page: sections, their copy and image assets (the chapter's overview)
+      sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
+        `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
 
       l1Scroll(S.l1[0], { page: 'mockHero', title: 'Hey Qubi!　從筆電探出頭', items: [
         '全白底、<strong>筆電置中</strong>，畫面只有一個主角', 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>', '「Hey Qubi!」→ 副標<strong>依序淡入</strong>，約 3 秒，不放 CTA'] }),
@@ -336,8 +334,6 @@ window.DECK = {
       ...S.l1.slice(2).map(s => l1Scroll(s)),
 
       // ===== Summary =====
-      sheetStep(S.acerSheet, 'acer', 'wfStrip', 4,
-        `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
       copyPage([0, 1], 'Apple', '1 / 5'),
       copyPage([2], 'Samsung', '2 / 5'),
       copyPage([3], 'Samsung', '3 / 5'),

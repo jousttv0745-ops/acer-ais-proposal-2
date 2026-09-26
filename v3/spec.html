@@ -47,14 +47,16 @@
   <section id="assets"></section>
   <section id="bench"></section>
 </main>
-<script src="spec-data.js?v=20260926-5"></script>
-<script src="wireframe.js?v=20260926-5"></script>
+<script src="spec-data.js?v=20260926-6"></script>
+<script src="wireframe.js?v=20260926-6"></script>
 <script>
-  const S = window.SPEC, WF = window.Wireframe, esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const S = window.SPEC, WF = window.Wireframe;
+  const DIMS = S.dims.filter(([k]) => k !== 'material'); // the detail tables leave out 素材
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const table = (head, rows) => `<div class="wrap"><table><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
-  const dimCells = r => r.none ? `<td class="none" colspan="${S.dims.length}">無此區塊</td>` : S.dims.map(([k]) => `<td>${esc(r[k])}</td>`).join('');
+  const dimCells = r => r.none ? `<td class="none" colspan="${DIMS.length}">無此區塊</td>` : DIMS.map(([k]) => `<td>${esc(r[k])}</td>`).join('');
   document.getElementById('l1').innerHTML = `<h2>1. L1 <em>逐段 Spec</em></h2>` +
-    table(['#', '段落', '參照', ...S.dims.map(([, l]) => l)], S.l1.map(r => `<tr><td class="seg">${r.id}</td><td class="seg">${esc(r.seg)}</td><td>${esc(r.ref.label)}</td>${dimCells(r)}</tr>`));
+    table(['#', '段落', '參照', ...DIMS.map(([, l]) => l)], S.l1.map(r => `<tr><td class="seg">${r.id}</td><td class="seg">${esc(r.seg)}</td><td>${esc(r.ref.label)}</td>${dimCells(r)}</tr>`));
   document.head.insertAdjacentHTML('beforeend', `<style>${WF.css}</style>`);
   document.getElementById('assets').innerHTML = `<h2>3. <em>資產清單</em>與位置</h2>` +
     `<div class="wf-page"><div class="wf-stack">` + S.l1.map(s => `<small>${s.id} ${esc(s.seg)}<i>≈${WF.height(s.id).toLocaleString('en-US')}px</i></small>` + WF.segment(s.id, '100%')).join('') + `</div>` +
@@ -68,7 +70,7 @@
       `<tr><td class="seg">${i ? '' : esc(g.seg)}</td><td class="seg">${esc(it)}</td><td>${i ? '' : g.ref}</td><td>${r}</td><td>${a}</td></tr>`)));
   document.getElementById('bench').innerHTML = `<h2>4. Benchmark <em>Spec</em>（參照）</h2>` +
     [['Apple Intelligence', S.bench.apple], ['Samsung Galaxy AI', S.bench.samsung]].map(([name, rows]) =>
-      `<h3>${name}</h3>` + table(['段落', ...S.dims.map(([, l]) => l)], rows.map(r => `<tr><td class="seg">${esc(r.seg)}</td>${dimCells(r)}</tr>`))).join('');
+      `<h3>${name}</h3>` + table(['段落', ...DIMS.map(([, l]) => l)], rows.map(r => `<tr><td class="seg">${esc(r.seg)}</td>${dimCells(r)}</tr>`))).join('');
 </script>
 </body>
 </html>
