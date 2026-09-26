@@ -47,8 +47,8 @@
   <section id="assets"></section>
   <section id="bench"></section>
 </main>
-<script src="spec-data.js?v=20260926-3"></script>
-<script src="wireframe.js?v=20260926-3"></script>
+<script src="spec-data.js?v=20260926-4"></script>
+<script src="wireframe.js?v=20260926-4"></script>
 <script>
   const S = window.SPEC, WF = window.Wireframe, esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const table = (head, rows) => `<div class="wrap"><table><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
@@ -65,7 +65,7 @@
   const keep = s => String(s).replace(/&(?!#?w+;)/g, '&amp;').replace(/</g, '&lt;');
   document.getElementById('copy').innerHTML = `<h2>2. L1 <em>文案對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；Acer 文案為草稿。</p>` +
     table(['區塊', '項目', '參照', '參照文案', 'Acer 文案（草稿）'], S.copyTable.flatMap(g => g.rows.map(([it, r, a], i) =>
-      `<tr><td class="seg">${i ? '' : esc(g.seg)}</td><td class="seg">${esc(it)}</td><td>${i ? '' : g.ref}</td><td>${keep(r)}</td><td>${keep(a)}</td></tr>`)));
+      `<tr><td class="seg">${i ? '' : esc(g.seg)}</td><td class="seg">${esc(it)}</td><td>${i ? '' : g.ref}</td><td>${r}</td><td>${a}</td></tr>`)));
   document.getElementById('bench').innerHTML = `<h2>4. Benchmark <em>Spec</em>（參照）</h2>` +
     [['Apple Intelligence', S.bench.apple], ['Samsung Galaxy AI', S.bench.samsung]].map(([name, rows]) =>
       `<h3>${name}</h3>` + table(['段落', ...S.dims.map(([, l]) => l)], rows.map(r => `<tr><td class="seg">${esc(r.seg)}</td>${dimCells(r)}</tr>`))).join('');

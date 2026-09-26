@@ -123,6 +123,10 @@ window.DECK = {
       .grid.ct .it{font-size:17px;font-weight:700;color:var(--green-d)}
       .grid.ct .first{border-top:2px solid var(--ink)}
       .grid.ct .a{color:var(--ink);font-weight:500}
+      .grid.ct b{display:inline;color:var(--ink);font-size:19px;font-weight:900}
+      .grid.ct b.tab{display:block;font-size:21px;color:var(--green-d)}
+      .grid.ct i{display:inline-block;margin-left:10px;padding:0 10px;border-radius:999px;background:#eceef2;color:var(--muted);font-size:14px;font-style:normal;font-weight:700;vertical-align:2px}
+      .grid.ct b ~ br + *,.grid.ct > div:has(> b:not(.tab)){font-size:17px;line-height:1.45}
       .l1s{margin-left:620px}
       .l1s:not(.mock) .l1s-head{display:flex;align-items:baseline;gap:16px}
       .l1s:not(.mock) .l1s-head strong{margin:0;font-size:42px}
@@ -334,9 +338,12 @@ window.DECK = {
       // ===== Summary =====
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 4,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
-      copyPage([0, 1], 'Apple', '1 / 3'),
-      copyPage([2], 'Samsung', '2 / 3'),
-      copyPage([3, 4], 'Samsung', '3 / 3'),
+      copyPage([0, 1], 'Apple', '1 / 6'),
+      copyPage([2], 'Samsung', '2 / 6'),
+      copyPage([3], 'Samsung', '3 / 6'),
+      copyPage([4], 'Samsung', '4 / 6'),
+      copyPage([5], 'Samsung', '5 / 6'),
+      copyPage([6, 7], 'Samsung', '6 / 6'),
     ];
   },
 };
