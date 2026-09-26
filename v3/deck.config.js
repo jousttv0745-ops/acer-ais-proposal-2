@@ -110,10 +110,10 @@ window.DECK = {
       .road .fade{opacity:.35}
       .l1s{margin-left:620px}
       .l1s:not(.mock) .l1s-head{display:flex;align-items:baseline;gap:16px}
-      .l1s:not(.mock) .l1s-head strong{margin:0;font-size:36px}
+      .l1s:not(.mock) .l1s-head strong{margin:0;font-size:42px}
       .l1s-head i{padding:3px 12px;border-radius:999px;background:#fff4df;color:#b45309;font-size:15px;font-style:normal;font-weight:700}
-      .l1s-goal{margin:10px 0 16px;font-size:19px;color:var(--ink-2)}
-      .l1s-goal b{margin-right:10px;padding:2px 10px;border-radius:6px;background:var(--green-soft);color:var(--green-d);font-size:15px}
+      .l1s-goal{margin:10px 0 16px;font-size:23px;color:var(--ink-2)}
+      .l1s-goal b{margin-right:10px;padding:2px 12px;border-radius:6px;background:var(--green-soft);color:var(--green-d);font-size:18px}
       .l1s-mock{margin:0 auto;box-shadow:0 10px 30px rgba(17,24,39,.08);border-radius:8px;overflow:hidden}
       .l1s-head small{display:block;font:800 18px Montserrat,sans-serif;letter-spacing:2px;color:var(--green-d)}
       .l1s-head strong{display:block;margin-top:4px;font-size:40px;font-weight:900}
@@ -124,20 +124,22 @@ window.DECK = {
       .l1s-spec > div{font-size:17px;color:var(--ink-2)}
       .l1s-copy .k,.l1s-spec .k{font-size:16px;font-weight:700;color:var(--green-d);background:var(--green-soft)}
       .l1s.mock .l1s-head{display:flex;align-items:baseline;gap:16px}
-      .l1s.mock .l1s-head strong{font-size:28px;margin:0}
+      .l1s.mock .l1s-head strong{font-size:34px;margin:0}
       .l1s.mock ol{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0 0;padding:0;list-style:none;counter-reset:n}
-      .l1s.mock li{position:relative;padding:0 0 0 40px;font-size:17px;line-height:1.5;color:var(--ink-2);counter-increment:n}
-      .l1s.mock li::before{content:counter(n);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font:800 14px Montserrat,sans-serif}
+      .l1s.mock li{position:relative;padding:0 0 0 44px;font-size:21px;line-height:1.5;color:var(--ink-2);counter-increment:n}
+      .l1s.mock li::before{content:counter(n);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font:800 14px Montserrat,sans-serif}
       .cat-note{position:absolute;top:0;width:400px;max-height:700px;overflow:hidden;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 10px 30px rgba(17,24,39,.06)}
       .cat-note.apple{left:0}.cat-note.samsung{right:0}
-      .cat-note .who{display:block;margin-bottom:6px;font:800 14px Montserrat,sans-serif;letter-spacing:1.5px;color:var(--green-d);text-transform:uppercase}
-      .cat-note h4{margin:14px 0 6px;font-size:15px;font-weight:900;color:var(--muted)}
-      .cat-note p{margin:0;font-size:19px;line-height:1.5;color:var(--ink)}
-      .cat-note p small{font-size:15px;color:var(--muted)}
+      .cat-note .who{display:inline-block;margin-bottom:8px;padding:6px 16px;border-radius:999px;font:800 18px Montserrat,sans-serif;letter-spacing:.5px;color:#fff}
+      .cat-note .who.ap{background:#1a1d23}.cat-note .who.ss{background:#1428a0}
+      .tags span.ap{background:#1a1d23}.tags span.ss{background:#1428a0}
+      .cat-note h4{margin:16px 0 6px;font-size:18px;font-weight:900;color:var(--muted)}
+      .cat-note p{margin:0;font-size:23px;line-height:1.5;color:var(--ink)}
+      .cat-note p small{font-size:18px;color:var(--muted)}
       .cat-note p b{color:var(--green-d)}
       .cat-note p.none{margin-top:10px;color:var(--faint)}
-      .cat-note ul{margin:0;padding:0 0 0 18px;font-size:16px;line-height:1.5;color:var(--ink-2)}
-      .cat-note li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .cat-note ul{margin:0;padding:0 0 0 20px;font-size:19px;line-height:1.5;color:var(--ink-2)}
+      .cat-note li{line-height:1.4;margin-bottom:4px}
       .grid.cmp > div{font-size:18px;line-height:1.5;padding:14px 18px}
       .grid.cmp .k{font-weight:700;color:var(--ink)}
       .grid.cmp .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1.5px}
@@ -222,8 +224,9 @@ window.DECK = {
         : `<h4>架構</h4><p>${rows.map(r => r.seg).join('＋')}<br><small>占整頁 ${d.pct(page, cat)}%</small></p>` +
           `<h4>敘事文字</h4><ul>${rows.map(r => `<li>${r.title}</li>`).join('')}</ul>` +
           `<h4>影像資產</h4><p>${count(rows)}</p>`;
-      return `<div class="cat-note ${brand}"><small class="who">${b.name}</small>${body}</div>`; };
-    const catStep = st => ({ ...st, panel: { top: 180, html: STYLE + catNote('apple', st.catHead) + catNote('samsung', st.catHead) } });
+      return `<div class="cat-note ${brand}"><small class="who ${brand === 'apple' ? 'ap' : 'ss'}">${b.name}</small>${body}</div>`; };
+    const catStep = st => ({ ...st, tags: { apple: { text: 'Apple Intelligence', tone: 'ap' }, samsungLive: { text: 'Samsung Galaxy AI', tone: 'ss' } },
+      panel: { top: 180, instant: true, html: STYLE + catNote('apple', st.catHead) + catNote('samsung', st.catHead) } });
     // copy / image comparison with the pick for Acer
     const compareTable = rows => `<div class="grid cmp" style="grid-template-columns:120px 1fr 1fr 1.15fr">` +
       `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h a">更適合 ACER</div>` +
@@ -257,7 +260,7 @@ window.DECK = {
         html = `<div class="l1s mock" style="margin-top:${h + 24}px"><div class="l1s-head"><small>${seg.id}・畫面提案</small><strong>${mock.title}</strong></div><ol>` +
           mock.items.map(t => `<li>${t}</li>`).join('') + `</ol></div>`;
       } else {
-        const w = WF.fitWidth(seg.id, 1140, 770);
+        const w = WF.fitWidth(seg.id, 1140, 740);
         html = `<div class="l1s"><div class="l1s-head"><small>${seg.id}</small><strong>${seg.seg}</strong><i>建議文案草稿</i></div>` +
           `<p class="l1s-goal"><b>目標</b>${seg.goal}</p>` +
           `<div class="l1s-mock" style="width:${w}px">` + WF.filled(seg.id, w) + `</div></div>`;
@@ -296,12 +299,12 @@ window.DECK = {
       d.panel(2, 110, STYLE + `<h3>影像素材：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.assets)),
 
       // ===== 03 L1 Spec =====
-      d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → 相容門檻 → FAQ' }),
+      d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
       // where each asset goes: the six segments as mini wireframes (full-length version in spec.html)
       d.panel(3, 110, STYLE + `<h3>資產<em>放在哪裡</em></h3>` +
         `<div class="wf-grid">` + S.l1.map(s => `<div><small>${s.id} ${s.seg}<i>≈${d.px(WF.height(s.id))}px</i></small>` +
           WF.segment(s.id, WF.fitWidth(s.id, 566, 310) + 'px') + `</div>`).join('') + `</div>` +
-        `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A08）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
+        `<p class="note" style="margin-top:14px">綠框＝資產清單編號（A01–A07）；灰色為文字與按鈕位置。以 1440 寬頁面為準，不含全域導覽與頁尾。</p>`),
 
       l1Scroll(S.l1[0], { page: 'mockHero', title: 'Hey Qubi!　從筆電探出頭', items: [
         '全白底、<strong>筆電置中</strong>，畫面只有一個主角', 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>', '「Hey Qubi!」→ 副標<strong>依序淡入</strong>，約 3 秒，不放 CTA'] }),

@@ -167,6 +167,7 @@ svg.wire.show circle{opacity:1}
 /* free panels: comparisons, tables, conclusions */
 .panel{position:absolute;left:80px;right:80px;z-index:10;opacity:0;transform:translateY(30px);pointer-events:none;transition:opacity .6s .45s,transform .8s .45s var(--ease)}
 .panel.show{opacity:1;transform:none}
+.panel.instant{transition:none}
 .demo{display:inline-flex;align-items:center;gap:10px;margin:6px 0 30px;padding:14px 32px;border-radius:999px;background:var(--green);color:#fff;
   font:800 24px Montserrat,"Noto Sans TC",sans-serif;text-decoration:none;pointer-events:auto;transition:background .2s}
 .demo:hover{background:var(--green-d)}

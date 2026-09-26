@@ -26,9 +26,9 @@ window.Wireframe = (() => {
     .wf-fill .wf-line.has.left{justify-content:flex-start}
     .wf-fill .wf-block.has span{color:#1a1d23;font-weight:500}
     .wf-fill .wf-asset{align-items:flex-end;padding:0 12px 12px}
-    .wf-fill .wf-asset em{font:500 14px/1.45 'Noto Sans TC',sans-serif;font-style:normal;color:#3f7d0a;text-align:center;
+    .wf-fill .wf-asset em{font:500 18px/1.45 'Noto Sans TC',sans-serif;font-style:normal;color:#3f7d0a;text-align:center;
       background:rgba(255,255,255,.85);padding:6px 10px;border-radius:8px}
-    .wf-fill b{font-size:13px}
+    .wf-fill b{font-size:16px}
   `;
 
   // one segment at a CSS width; its height follows the segment's aspect ratio
@@ -44,7 +44,7 @@ window.Wireframe = (() => {
   const filled = (id, width) => {
     const s = seg(id), k = width / W;
     // text size follows the box height; controls (tabs, buttons, FAQ rows) stay at body size
-    const fs = b => b.k === 'line' ? Math.max(12, Math.min(38, Math.round(b.h * k * 0.62))) : Math.max(12, Math.min(19, Math.round(b.h * k * 0.42)));
+    const fs = b => b.k === 'line' ? Math.max(18, Math.min(44, Math.round(b.h * k * 0.74))) : Math.max(15, Math.min(23, Math.round(b.h * k * 0.5)));
     return `<div class="wf wf-fill" style="width:${width}px;aspect-ratio:${W}/${s.h}">` + s.boxes.map(b => {
       const pos = `left:${pct(b.x, W)};top:${pct(b.y, s.h)};width:${pct(b.w, W)};height:${pct(b.h, s.h)}`;
       if (b.k === 'asset') {

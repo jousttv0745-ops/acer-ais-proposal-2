@@ -394,6 +394,7 @@
     const tags = $('#tags') || Object.assign(stage.appendChild(document.createElement('div')), { id: 'tags', className: 'tags' });
     const labels = $('#labels'), wire = $('#wire'), caption = $('#caption'), callout = $('#callout'), panel = $('#panel'), cathead = $('#cathead'), chips = $('#chips');
     [labels, wire, caption, callout, panel, tags].forEach(el => el.classList.remove('show'));
+    panel.classList.remove('instant');
     // benchmark category steps: the heading and the chips under each page swap in place, only the pages animate
     const still = !!step.catHead;
     [cathead, chips].forEach(el => { el.classList.toggle('still', still); if (!still) el.classList.remove('show'); });
@@ -428,6 +429,11 @@
       paintBench();
       if (step.catHead) cathead.classList.add('show');
       if (step.chips) chips.classList.add('show');
+    }
+    // panel.instant: the panel appears with the step instead of fading in after the camera lands
+    if (step.panel && step.panel.instant) {
+      panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html;
+      panel.classList.add('instant', 'show');
     }
     setTimeout(() => {
       if (my !== token) return;
@@ -489,7 +495,7 @@
           return `<span class="${tone || ''}" style="left:${x + w - 10}px;top:${y + 3}px">${text}</span>`;
         }).join('');
       }
-      if (step.panel) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }
+      if (step.panel && !step.panel.instant) { panel.style.top = step.panel.top + 'px'; panel.innerHTML = step.panel.html; }
       if (!still) paintBench();
       wire.innerHTML = paths;
       // short timeout (not rAF) so reveals still fire when the tab is in the background
