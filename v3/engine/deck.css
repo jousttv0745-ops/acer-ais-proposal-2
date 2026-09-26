@@ -175,7 +175,7 @@ svg.wire.show circle{opacity:1}
 .panel h3{margin:0 0 22px;font-size:44px;font-weight:900;line-height:1.35}
 .panel h3 em{font-style:normal;color:var(--green-d)}
 .grid{display:grid;border-top:1px solid var(--line)}
-.grid > div{padding:14px 24px;border-bottom:1px solid var(--line);font-size:23px;line-height:1.6;color:var(--ink-2)}
+.grid > div{padding:14px 24px;border-bottom:1px solid var(--line);font-size:25px;line-height:1.6;color:var(--ink-2)}
 .grid .k{color:var(--muted);font-size:20px}
 .grid .h{font:800 16px Montserrat,sans-serif;letter-spacing:2px;color:var(--faint)}
 .grid .a{color:var(--ink);font-weight:700;background:var(--green-soft)}

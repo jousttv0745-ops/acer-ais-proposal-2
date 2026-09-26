@@ -158,7 +158,7 @@
       apple: { name: 'Apple Intelligence', url: 'apple.com/tw/apple-intelligence',
         totals: [['Image', 36], ['商品去背', 15], ['Video', 2], ['Icon', 6]],
         rows: [
-          { cat: 'brand', seg: 'Hero', title: '全新 Siri AI 亮相。真能幫助你，真的很懂你。', sub: '眉標：Apple Intelligence 與 Siri', assets: 'Image ×6（iPhone 框＋UI 拼貼）' },
+          { cat: 'brand', seg: 'Hero', title: '全新 Siri AI 亮相。真能幫助你，真的很懂你。', sub: '眉標：Apple Intelligence 與 Siri', assets: 'Image ×6（iPhone＋UI 拼貼）' },
           { cat: 'feature', seg: '精選', title: '探索 Apple Intelligence 的全新特點', sub: '6 張精選卡：Siri AI・視覺智慧・照片編輯・自然對談・隨處寫作・常用 App', assets: 'Image ×4＋Video ×2' },
           { cat: 'feature', seg: 'Siri AI', title: '你的 AI 助理，更個人化，更強大。', sub: '儘管開口問 Siri／了解你的個人情況／在更多 App 中操作／世界知識／Siri App／說話方式／CarPlay', assets: 'Image ×7（UI 截圖卡）' },
           { cat: 'feature', seg: '視覺智慧', title: '視覺智慧', sub: '相機 App 上的 Siri 模式／智慧建議操作／眼前一切都可問 Siri／Mac・iPad・Vision Pro', assets: 'Image ×5（UI 截圖卡）' },
@@ -183,6 +183,17 @@
           { cat: 'seo', seg: 'FAQ', title: 'Frequently Asked Questions', sub: '11 題，例：What devices have Galaxy AI?', assets: '—（純文字）' },
         ] },
     },
+
+    // Acer L1, section by section: suggested copy (draft) and image assets, for the summary sheet
+    acerSheet: { name: 'Acer L1', src: 'Level 1 landing page 建議・文案為草稿',
+      totals: [['Image', '10–12'], ['商品去背', '約 13'], ['動畫', 1], ['Icon', 0]],
+      rows: [
+        { seg: 'Hero', title: 'Hey Qubi!', sub: '副標：Acer Intelligence Space，你的 AI 助理就在電腦裡', assets: 'A01 探頭動畫＋A02 筆電圖' },
+        { seg: 'Qubi 章', title: '個人 AI 助理，Qubi 比你更懂你', sub: '小標 Acer Qubi；對話：郵件摘要・人物去背・會議摘要', assets: 'A03 情境照 ×3＋A04 腳本 ×3' },
+        { seg: '情境功能', title: '你的電腦，也做得到嗎？', sub: '分頁：商務・創意・遊戲・個人化；7–9 則功能標題', assets: 'A05 情境圖 ×7–9' },
+        { seg: '選機', title: '哪一台跑得動你的 AI？', sub: '筆電・桌機・AIO・掌機；CTA 進一步了解・下載 AIS', assets: 'A06 系列去背照 ×約 12' },
+        { seg: 'FAQ', title: '常見問題', sub: '5–8 題，含支援機型、語言、費用、資料處理', assets: 'A07 FAQ 文案（純文字）' },
+      ] },
 
     // Apple vs Samsung, copy and image assets only, with which fits Acer better
     benchCompare: {

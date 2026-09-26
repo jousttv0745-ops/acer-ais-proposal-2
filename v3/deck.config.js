@@ -28,7 +28,8 @@ window.DECK = {
     // L1-1 / L1-2 banner mockups (live HTML, restart on { deck: 'play' })
     // the whole L1 wireframe as one strip; the L1 steps scroll down it one segment at a time
     wfStrip: { kind: 'frames', w: 1440, h: window.Wireframe.stackHeight(), label: 'L1 Wireframe', url: '整頁 1440 寬', defaultFrame: 'main',
-      frames: { main: { src: 'content/wireframe.html', label: 'Wireframe' } } },
+      frames: { main: { src: 'content/wireframe.html', label: 'Wireframe' } },
+      marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: 'L1-1 Hero', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/hero.html', label: '畫面提案' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: 'L1-2 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
@@ -140,9 +141,9 @@ window.DECK = {
       .cat-note p.none{margin-top:10px;color:var(--faint)}
       .cat-note ul{margin:0;padding:0 0 0 20px;font-size:19px;line-height:1.5;color:var(--ink-2)}
       .cat-note li{line-height:1.4;margin-bottom:4px}
-      .grid.cmp > div{font-size:18px;line-height:1.5;padding:14px 18px}
+      .grid.cmp > div{font-size:21px;line-height:1.5;padding:16px 20px}
       .grid.cmp .k{font-weight:700;color:var(--ink)}
-      .grid.cmp .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1.5px}
+      .grid.cmp .h{font:800 16px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1.5px}
       .grid.cmp .a{font-weight:500}
       .pick{display:inline-block;margin:0 10px 4px 0;padding:2px 12px;border-radius:999px;font:800 14px Montserrat,'Noto Sans TC',sans-serif;font-style:normal;color:#fff}
       .pick.ap{background:#1a1d23}.pick.ss{background:#1428a0}.pick.both{background:var(--green)}
@@ -151,20 +152,21 @@ window.DECK = {
       .ba-sum{display:flex;gap:10px;padding:10px 16px;border:2px solid var(--ink);border-radius:10px}
       .ba-sum span{display:flex;align-items:baseline;gap:6px;padding:0 8px;font-size:17px;color:var(--ink-2);white-space:nowrap}
       .ba-sum b{font:800 26px Montserrat,sans-serif;color:var(--green-d)}
-      .grid.ba > div{padding:0 16px;font-size:17px;line-height:1.4;display:flex;flex-direction:column;justify-content:center;min-width:0}
-      .grid.ba .h{font:800 14px 'Noto Sans TC',sans-serif;letter-spacing:1px}
-      .grid.ba .k{font-size:17px;font-weight:700;color:var(--ink)}
-      .grid.ba .n b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font:800 14px Montserrat,sans-serif}
-      .grid.ba strong{display:block;color:var(--ink);font-size:18px}
-      .grid.ba small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-      .ba-src{margin:10px 0 0;text-align:right;font-size:13px;color:var(--muted)}
+      .grid.ba > div{padding:0 16px;font-size:20px;line-height:1.4;display:flex;flex-direction:column;justify-content:center;min-width:0}
+      .grid.ba .h{font:800 16px 'Noto Sans TC',sans-serif;letter-spacing:1px}
+      .grid.ba .k{font-size:20px;font-weight:700;color:var(--ink)}
+      .grid.ba .n b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font:800 16px Montserrat,sans-serif}
+      .grid.ba strong{display:block;color:var(--ink);font-size:21px;line-height:1.3}
+      .grid.ba small{display:block;margin-top:2px;font-size:16px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .ba-src{margin:10px 0 0;text-align:right;font-size:15px;color:var(--muted)}
+      .ba-src a{color:var(--green-d);font-weight:700}
       .ba-lines{position:absolute;left:-80px;top:-100px;width:1920px;height:1080px;overflow:visible;pointer-events:none}
       .ba-lines path{fill:none;stroke:var(--green);stroke-width:1.5;opacity:.75}
       .ba-lines circle{fill:var(--green)}
       .road .go .demo{margin:22px 0 0;padding:10px 24px;font-size:20px;background:#fff;color:var(--green-d)}
-      .grid.spec > div{font-size:17px;line-height:1.5;padding:10px 14px}
+      .grid.spec > div{font-size:19px;line-height:1.5;padding:10px 14px}
       .grid.spec .h{font:800 14px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
-      .grid.spec .k{font-size:17px;font-weight:700;color:var(--ink)}
+      .grid.spec .k{font-size:19px;font-weight:700;color:var(--ink)}
       .grid.spec .none{color:var(--faint);text-align:center;font-size:16px}
       .grid.ov > div{font-size:19px}
       .grid.ov small{display:block;margin-top:4px;font:700 14px 'Noto Sans TC',sans-serif;color:var(--green-d)}
@@ -196,9 +198,10 @@ window.DECK = {
     }).join('') + `</div>`;
     // layout and assets sheet: the page on the left with a dashed box per section, the table on the right,
     // one line from each box to its row. Geometry mirrors the engine's fit() so the lines land on the boxes.
-    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 35, rowH: { apple: 60, samsung: 88 } };
-    const benchAssetStep = (key, page) => {
-      const b = S.benchAssets[key], p = window.DECK.pages[page], [rx, ry, rw, rh] = SHEET.rect, rowH = SHEET.rowH[key];
+    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 38, rowH: { apple: 62, samsung: 96, acer: 130 } };
+    const benchAssetStep = (key, page) => sheetStep(S.benchAssets[key], key, page, 2, `${S.benchAssets[key].url}・${S.benchAssets.date} 線上頁面讀取`);
+    const sheetStep = (b, key, page, chapter, foot) => {
+      const p = window.DECK.pages[page], [rx, ry, rw, rh] = SHEET.rect, rowH = SHEET.rowH[key];
       const s = Math.min(rw / p.w, (rh - 40) / p.h), ox = rx + (rw - p.w * s) / 2, oy = ry + 40 + (rh - 40 - p.h * s) / 2;
       const rowY = i => SHEET.rect[1] + SHEET.headH + SHEET.gap + SHEET.thH + i * rowH + rowH / 2;
       const lines = p.marks.secs.map(([x, y, w, h], i) => { const x1 = ox + (x + w) * s + 3, y1 = oy + (y + h / 2) * s, x2 = SHEET.left + 6, y2 = rowY(i);
@@ -207,11 +210,11 @@ window.DECK = {
         `<svg class="ba-lines" viewBox="0 0 1920 1080">${lines}</svg>` +
         `<div style="margin-left:${SHEET.left - 80}px"><div class="ba-head"><h3>${b.name} : <em>layout and assets</em></h3><div class="ba-sum">` +
         b.totals.map(([k, n]) => `<span><b>${n}</b>${k}</span>`).join('') + `</div></div>` +
-        `<div class="grid ba" style="grid-template-columns:52px 120px 1fr 300px;grid-template-rows:${SHEET.thH}px repeat(${b.rows.length},${rowH}px)">` +
+        `<div class="grid ba" style="grid-template-columns:52px 150px 1fr 330px;grid-template-rows:${SHEET.thH}px repeat(${b.rows.length},${rowH}px)">` +
         `<div class="h"></div><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
         b.rows.map((r, i) => `<div class="n"><b>${i + 1}</b></div><div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
-        `<p class="ba-src">${b.url}・${S.benchAssets.date} 線上頁面讀取</p></div>`;
-      return { chapter: 2, wins: { [page]: { rect: SHEET.rect, focus: 'full', marks: 'secs' } }, panel: { top: SHEET.rect[1], html: STYLE + html } };
+        `<p class="ba-src">${foot}</p></div>`;
+      return { chapter, wins: { [page]: { rect: SHEET.rect, focus: 'full', marks: 'secs' } }, panel: { top: SHEET.rect[1], html: STYLE + html } };
     };
     // category steps: per brand, which sections sit in this category, their headlines and their image assets
     const CAT_PAGE = { apple: 'apple', samsung: 'samsungLive' };
@@ -228,7 +231,7 @@ window.DECK = {
     const catStep = st => ({ ...st, tags: { apple: { text: 'Apple Intelligence', tone: 'ap' }, samsungLive: { text: 'Samsung Galaxy AI', tone: 'ss' } },
       panel: { top: 180, instant: true, html: STYLE + catNote('apple', st.catHead) + catNote('samsung', st.catHead) } });
     // copy / image comparison with the pick for Acer
-    const compareTable = rows => `<div class="grid cmp" style="grid-template-columns:120px 1fr 1fr 1.15fr">` +
+    const compareTable = rows => `<div class="grid cmp" style="grid-template-columns:150px 1fr 1fr 1.15fr">` +
       `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h a">更適合 ACER</div>` +
       rows.map(r => `<div class="k">${r.seg}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
         `<div class="a"><i class="pick ${r.pick === 'Apple' ? 'ap' : r.pick === 'Samsung' ? 'ss' : 'both'}">${r.pick}</i>${r.why}</div>`).join('') + `</div>`;
@@ -241,12 +244,6 @@ window.DECK = {
       rows.map(r => `<div class="k">${r.seg}</div>` + (r.none
         ? `<div class="none" style="grid-column:span 6">${window.DECK.meta.noneLabel}</div>`
         : DIMS.map(([k]) => `<div>${r[k]}</div>`).join(''))).join('') + `</div>`;
-    // fill = false leaves the Acer column as "?"
-    const overviewTable = fill =>
-      `<div class="grid spec ov" style="grid-template-columns:120px 1fr 1fr 1.2fr">` +
-      `<div class="h"></div><div class="h en">APPLE</div><div class="h en">SAMSUNG</div><div class="h en a">ACER L1</div>` +
-      S.overview.map(r => `<div class="k">${r.dim}</div><div>${r.apple}</div><div>${r.samsung}</div>` +
-        `<div class="a">${fill ? r.acer : '<b class="q">？</b>'}</div>`).join('') + `</div>`;
     // L1 segment: the wireframe strip on the left scrolled to it; on the right its banner mockup
     // (L1-1, L1-2) with how it moves, or the suggested copy and a short spec
     const STRIP = [80, 100, 560, 900];
@@ -275,8 +272,8 @@ window.DECK = {
       d.panel(0, 130,
         `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
-          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：版面、Assets、敘事，章末附兩家 spec'],
-          ['02', '不提 mockup，只出 spec', '03 L1 Spec：每段寫目標、素材、比例、範圍、資產、敘事'],
+          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：分類比對、layout and assets、文案與影像比對'],
+          ['02', '不提 mockup，只出 spec', '03 L1 Spec：線框＋畫面提案＋建議文案，附錄為完整 spec 表'],
           ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Roadmap：本版定案 L1，L2／L3 寫方向'],
           ['04', '參照 Apple 怎麼擺 Siri', '03 L1 Spec：Qubi 照 Siri 的位置，放在 Hero 與第一段（L1-1、L1-2）'],
         ], '120px 1fr 1fr') +
@@ -323,9 +320,8 @@ window.DECK = {
         })),
 
       // ===== Summary =====
-      d.panel(5, 110, STYLE +
-        `<h3>L1 的<em>六格答案</em></h3>` + overviewTable(true) +
-        `<a class="demo" href="spec.html" target="_blank" rel="noopener" style="margin-top:22px">附錄：完整 Spec 表<span aria-hidden="true">↗</span></a>`),
+      sheetStep(S.acerSheet, 'acer', 'wfStrip', 5,
+        `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
     ];
   },
 };
