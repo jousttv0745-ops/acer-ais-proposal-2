@@ -338,12 +338,11 @@ window.DECK = {
       // ===== Summary =====
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 4,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
-      copyPage([0, 1], 'Apple', '1 / 6'),
-      copyPage([2], 'Samsung', '2 / 6'),
-      copyPage([3], 'Samsung', '3 / 6'),
-      copyPage([4], 'Samsung', '4 / 6'),
-      copyPage([5], 'Samsung', '5 / 6'),
-      copyPage([6, 7], 'Samsung', '6 / 6'),
+      copyPage([0, 1], 'Apple', '1 / 5'),
+      copyPage([2], 'Samsung', '2 / 5'),
+      copyPage([3], 'Samsung', '3 / 5'),
+      copyPage([4, 5], 'Samsung', '4 / 5'),
+      copyPage([6, 7], 'Samsung', '5 / 5'),
     ];
   },
 };
