@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260929-14', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260929-15', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -138,7 +138,8 @@ window.DECK = {
       .fw-blk em,.fw-ctx em{display:flex;align-items:baseline;gap:12px;font:800 24px Montserrat,sans-serif;font-style:normal}
       .fw-blk small,.fw-ctx small{font:700 17px 'Noto Sans TC',sans-serif;opacity:.8}
       .fw-blk.hero{background:#eceef2;color:var(--ink)}
-      .fw-blk.assistant{background:var(--green);color:#fff}
+      .fw-blk.assistant{background:#fff;border:2.5px solid var(--green);color:var(--ink)}
+      .fw-blk.assistant em{color:var(--green-d)}
       .fw-ctx{background:var(--green-soft);color:var(--green-d)}
       .fw-ctx > div{display:flex;gap:10px;margin-top:10px}
       .fw-ctx.vertical > div{flex-direction:column}
