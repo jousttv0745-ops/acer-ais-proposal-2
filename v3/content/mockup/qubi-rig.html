@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex, nofollow">
+<title>Qubi 3D 角色</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hero-base.css">
+<style>
+  /* playground: the 3D Qubi rig with one button per action */
+  .stage{background:linear-gradient(#fff 0 78%,#f1f3f5 78%)}
+  canvas{position:absolute;left:0;top:0;width:1440px;height:810px}
+  .title{position:absolute;left:60px;top:70px}
+  .title h1{font-size:56px}
+  .title p{margin:10px 0 0;font-size:19px;color:#6d7385}
+  .ref{position:absolute;right:70px;top:70px;text-align:center;font-size:14px;color:#6d7385}
+  .ref img{display:block;width:120px;margin:0 auto 6px}
+  .bar{position:absolute;left:60px;right:60px;bottom:40px;display:flex;flex-wrap:wrap;gap:10px}
+  .bar button{padding:10px 20px;border-radius:999px;border:1.5px solid #1a1d23;background:#fff;font:700 17px 'Noto Sans TC',sans-serif;cursor:pointer}
+  .bar button:hover{background:#1a1d23;color:#fff}
+  .bar button.auto{border-color:#83b81a;background:#83b81a;color:#fff}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div class="stage">
+  <div class="title"><h1>Acer <em>Qubi</em> 3D 角色</h1><p>即時 3D 模型，可以走路、揮手、點頭、跳躍、東張西望……</p></div>
+  <div class="ref"><img src="qubi-ref.jpg" alt="">參考原圖（影片中的 Qubi）</div>
+  <canvas id="c"></canvas>
+  <div class="bar" id="bar"></div>
+</div>
+<script type="module">
+  import { createStage } from './qubi3d.js';
+  const stage = createStage(document.getElementById('c'));
+  const q = stage.add({ x: 720, y: 632, size: 330 });
+  const acts = {
+    '自動展示': null,
+    '走到左邊': () => q.walkTo(380),
+    '走到右邊': () => q.walkTo(1060),
+    '走回中間': () => q.walkTo(720),
+    '揮手': () => q.wave(),
+    '點頭': () => q.nod(),
+    '歪頭': () => q.tilt(),
+    '東張西望': () => q.lookAround(),
+    '指向右邊': () => q.point(1),
+    '原地跳': () => q.hop(90),
+    '跳到右邊': () => q.jumpTo(1000, 632, { height: 200 }),
+    '跳回中間': () => q.jumpTo(720, 632, { height: 200 }),
+    '跳舞': () => q.dance(),
+    '眨眼': () => q.blink(),
+  };
+  let busy = false, gen = 0;
+  const demo = async g => {
+    const seq = [() => q.wave(), () => q.walkTo(420), () => q.lookAround(), () => q.walkTo(720), () => q.nod(),
+      () => q.jumpTo(1010, 632, { height: 200 }), () => q.point(-1), () => q.dance(), () => q.jumpTo(720, 632, { height: 160 }), () => q.tilt()];
+    while (g === gen) for (const f of seq) { if (g !== gen) return; await f(); await q.wait(.35); }
+  };
+  const bar = document.getElementById('bar');
+  bar.innerHTML = Object.keys(acts).map((k, i) => `<button type="button" class="${i ? '' : 'auto'}">${k}</button>`).join('');
+  bar.addEventListener('click', async e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const f = acts[b.textContent]; gen++; q.reset(q.x, 632);
+    if (!f) { demo(gen); return; }
+    await f();
+  });
+  demo(gen);
+</script>
+</body>
+</html>

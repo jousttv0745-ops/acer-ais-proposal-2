@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hero 動畫 5 個方向</title>
+<title>Hero 動畫方向</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800&display=swap" rel="stylesheet">
 <style>
@@ -30,17 +30,16 @@
 </head>
 <body>
 <main>
-  <h1>Hero 動畫：5 個方向</h1>
-  <p class="lead">每張約 9 秒一輪、自動循環；「重播」從頭播放，「全尺寸」開新分頁看 1440×810 原尺寸。</p>
+  <h1>Hero 動畫：修改版 A2 / C2 / D2</h1>
+  <p class="lead">Qubi 改為可動的 3D 角色（依影片中未穿龍蝦裝的 Qubi 建模）。每張約 12 秒一輪、自動循環；「重播」從頭播放，「全尺寸」開新分頁看 1440×810 原尺寸。</p>
   <div class="grid" id="grid"></div>
 </main>
 <script>
   const OPTS = [
-    ['A', '開蓋喚醒', 'hero-a.html', '3/4 側面，筆電開蓋、螢幕亮綠光，Qubi 從上蓋後探出'],
-    ['B', '從螢幕裡走出來', 'hero-b.html', 'Qubi 先在螢幕裡打招呼，穿出玻璃落到鍵盤旁揮手'],
-    ['C', '俯視桌面', 'hero-c.html', '俯視桌面，Qubi 走過鍵盤、按鍵亮起，螢幕跳出對話'],
-    ['D', '字體主視覺', 'hero-d.html', '超大 Qubi 字樣，Q 的圓洞變綠、Qubi 從洞裡冒出'],
-    ['E', '背面視角', 'hero-e.html', '筆電背面 Acer logo 亮起，Qubi 從螢幕後探頭，標題進場'],
+    ['A2', '開蓋喚醒（正面）', 'hero-a2.html', '正面的 Acer 筆電開蓋、螢幕亮起，Qubi 從螢幕後探頭，跳到筆電前揮手'],
+    ['C2', 'Qubi 走過來', 'hero-c2.html', '真實的 Acer 筆電，Qubi 從左邊走進來，揮手後指向螢幕，螢幕跳出對話'],
+    ['D2', '字體主視覺（無筆電）', 'hero-d2.html', '超大 Qubi 字樣，Qubi 在 Q 的圓洞裡冒出，跳到舞台中央揮手，標題進場'],
+    ['3D', 'Qubi 3D 角色', 'qubi-rig.html', '角色本身：可走路、揮手、點頭、歪頭、東張西望、跳躍、跳舞，全尺寸可點按鈕試玩'],
     ['現行', '正面探頭（目前版本）', 'hero.html', '對照用：目前簡報中的版本'],
   ];
   const grid = document.getElementById('grid');

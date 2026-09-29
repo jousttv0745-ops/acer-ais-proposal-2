@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero C2 · Qubi 走過來</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hero-base.css">
+<style>
+  /* C2: the real Acer laptop on a desk; the 3D Qubi walks in from the left, stops beside the laptop, waves, and
+     points at the screen, which answers with a greeting */
+  .stage{background:linear-gradient(#fff 0 76%,#f1f3f5 76%)}
+  .copy{position:absolute;left:110px;top:130px;width:620px}
+  .copy.hide{transform:translateY(-16px)}
+  .laptop{position:absolute;left:740px;top:170px;width:620px}
+  .laptop > img{display:block;width:620px}
+  .screen{position:absolute;left:64px;top:14px;width:491px;height:302px;overflow:hidden;border-radius:4px;background:#0f1a1c;opacity:0;transition:opacity .6s}
+  .screen.on{opacity:1}
+  .screen::before{content:'';position:absolute;inset:0;background:radial-gradient(70% 90% at 30% 40%,rgba(120,220,215,.5),transparent 70%)}
+  .dlg{position:absolute;left:50%;top:50%;width:340px;margin:-62px 0 0 -170px;padding:20px 24px;border-radius:18px;background:#fff;
+    opacity:0;transform:translateY(14px) scale(.96);transition:all .55s cubic-bezier(.2,.8,.2,1)}
+  .dlg.show{opacity:1;transform:none}
+  .dlg b{display:block;font:900 30px/1.15 Montserrat,'Noto Sans TC',sans-serif}
+  .dlg b em{font-style:normal;color:#83b81a}
+  .dlg span{display:block;margin-top:8px;font-size:16px;color:#3d4250}
+  .shadow{position:absolute;left:750px;top:608px;width:600px;height:26px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.15),transparent 70%)}
+  canvas{position:absolute;left:0;top:0;width:1440px;height:810px}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div class="stage">
+  <div class="copy t hide" id="copy"><h1>Acer <em>Qubi</em><br>全新亮相!</h1>
+    <p class="sub">新一代 Acer Intelligence Space 與 Acer Qubi<br>就在你的電腦裡，幫你做得更多、更懂你。</p></div>
+  <div class="shadow"></div>
+  <div class="laptop"><img src="laptop.png" alt="">
+    <div class="screen" id="screen"><div class="dlg" id="dlg"><b>Hi，我是 <em>Qubi</em>！</b><span>今天想先處理哪件事？</span></div></div></div>
+  <canvas id="c"></canvas>
+  <span class="tag">C2 · Qubi 走過來</span>
+</div>
+<script type="module">
+  import { createStage, loopScene } from './qubi3d.js';
+  const $ = id => document.getElementById(id);
+  const q = createStage($('c')).add({ x: -120, y: 700, size: 250 });
+  loopScene(() => {
+    q.reset(-120, 700); $('copy').classList.add('hide'); $('screen').classList.remove('on'); $('dlg').classList.remove('show');
+  }, async (wait, live) => {
+    await wait(300); $('copy').classList.remove('hide');
+    await q.walkTo(640, { speed: 230 }); if (!live()) return;      // walks in from the left, under the headline
+    await q.hop(50); if (!live()) return;
+    await q.wave(2); if (!live()) return;
+    q.point(1); await wait(300); $('screen').classList.add('on');    // points at the laptop: the screen wakes
+    await wait(500); $('dlg').classList.add('show');
+    await wait(900); await q.nod();
+  }, 12000);
+</script>
+</body>
+</html>

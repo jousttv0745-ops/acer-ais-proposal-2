@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero D2 · 字體主視覺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hero-base.css">
+<style>
+  /* D2: type-led, no laptop. A huge "Qubi" wordmark drops in letter by letter; the counter of the Q lights up and the
+     3D Qubi rises inside it, looks around, then jumps out to the centre of the stage while the wordmark moves up;
+     the headline comes in below Qubi */
+  .word{position:absolute;left:50%;top:120px;width:1100px;height:420px;margin-left:-550px;transform-origin:50% 0;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+  .word.small{transform:translateY(-70px) scale(.46)}
+  .word svg{width:100%;height:100%;overflow:visible}
+  .word .l{transform-box:fill-box;transform-origin:50% 100%;transform:translateY(-260px);opacity:0;transition:transform .7s cubic-bezier(.3,1.4,.5,1),opacity .3s}
+  .word .l.in{transform:none;opacity:1}
+  .hole{transition:fill .5s}
+  .copy{position:absolute;left:0;right:0;top:600px;text-align:center}
+  .copy h1{font-size:60px}
+  .copy .sub{margin-top:12px}
+  .copy.hide{transform:translateY(20px)}
+  canvas{position:absolute;left:0;top:0;width:1440px;height:810px}
+  /* while Qubi is inside the Q, only the counter shows it (counter: centre 380,335 page px, r 98) */
+  canvas.inq{clip-path:circle(98px at 380px 335px)}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div class="stage">
+  <div class="word" id="word">
+    <svg viewBox="0 0 1100 420">
+      <g class="l" id="lq">
+        <circle cx="210" cy="215" r="158" fill="#1a1d23"/>
+        <circle class="hole" id="hole" cx="210" cy="215" r="98" fill="#fff"/>
+        <path d="M285 300 L385 395 L330 410 L240 330 Z" fill="#1a1d23"/>
+      </g>
+      <text class="l" x="400" y="370" style="font:900 400px Montserrat,sans-serif;fill:#83b81a">u</text>
+      <text class="l" x="660" y="370" style="font:900 400px Montserrat,sans-serif;fill:#1a1d23">b</text>
+      <text class="l" x="920" y="370" style="font:900 400px Montserrat,sans-serif;fill:#1a1d23">i</text>
+    </svg>
+  </div>
+  <canvas id="c" class="inq"></canvas>
+  <div class="copy t hide" id="copy"><h1>Acer <em>Qubi</em> 全新亮相!</h1><p class="sub">新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。</p></div>
+  <span class="tag">D2 · 字體主視覺</span>
+</div>
+<script type="module">
+  import { createStage, loopScene } from './qubi3d.js';
+  const $ = id => document.getElementById(id), cv = $('c');
+  const letters = [...document.querySelectorAll('.l')];
+  const q = createStage(cv).add({ x: 380, y: 700, size: 220 });
+  loopScene(() => {
+    letters.forEach(l => l.classList.remove('in')); $('word').classList.remove('small');
+    $('hole').setAttribute('fill', '#fff'); $('copy').classList.add('hide');
+    q.reset(380, 700); cv.classList.add('inq');
+  }, async (wait, live) => {
+    for (const l of letters) { await wait(180); l.classList.add('in'); }     // letters drop in
+    await wait(700); $('hole').setAttribute('fill', '#e9fbf9');              // the Q's counter lights up
+    await wait(250); await q.rise(452, .9); if (!live()) return;             // Qubi rises inside the Q
+    await q.lookAround(); if (!live()) return;
+    cv.classList.remove('inq');
+    setTimeout(() => live() && $('word').classList.add('small'), 250);       // wordmark moves up as Qubi jumps out
+    await q.jumpTo(720, 560, { height: 180, dur: .9 }); if (!live()) return;
+    $('copy').classList.remove('hide');
+    await q.wave(3); if (!live()) return;
+    await q.nod();
+  }, 12000);
+</script>
+</body>
+</html>
