@@ -21,12 +21,12 @@
 </style>
 </head>
 <body>
-<iframe id="fa" src="hero-d2.html?deck&v=20260929-9" title="版本 A" scrolling="no" tabindex="-1"></iframe>
-<iframe id="fb" src="hero-a2.html?deck&v=20260929-9" title="版本 B" scrolling="no" tabindex="-1"></iframe>
+<iframe id="fa" src="hero-d2.html?deck&v=20260929-10" title="版本 A" scrolling="no" tabindex="-1"></iframe>
+<iframe id="fb" src="hero-a2.html?deck&v=20260929-10" title="版本 B" scrolling="no" tabindex="-1"></iframe>
 <div class="ver"><span id="la"><b>A</b>字體主視覺</span><span id="lb"><b>B</b>從筆電探頭</span></div>
 <script>
   // each version waits for 'play' (?deck) and says 'ready' once loaded; a version starts, and its time counts, only
-  // when it is both on screen and ready. The deck's { play, land } starts from A; opened on its own it starts on load.
+  // when it is both on screen and ready. The deck's { play, start } holds both at their first frame, { play, land } starts from A; opened on its own it starts on load.
   const V = [['fa', 'la', 10000], ['fb', 'lb', 8500]], ready = {};
   let n = -1, timer;
   const run = i => {
@@ -44,10 +44,14 @@
     if (d.deck === 'ready') {
       const f = V.find(([id]) => document.getElementById(id).contentWindow === e.source); if (!f) return;
       ready[f[0]] = true; if (n >= 0 && V[n][0] === f[0]) run(n);
+    } else if (d.deck === 'play' && d.at === 'start') {
+      // the deck is moving to this page: hold both versions at their first frame until it lands
+      clearTimeout(timer); n = -1;
+      V.forEach(([f, l], k) => { document.getElementById(f).classList.toggle('on', !k); document.getElementById(l).classList.toggle('on', !k); document.getElementById(f).contentWindow.postMessage({ deck: 'reset' }, '*'); });
     } else if (d.deck === 'play' && d.at === 'land') show(0);
   });
-  // in the deck, wait for its land message (with a fallback); on its own, start right away
-  if (parent === self) show(0); else setTimeout(() => { if (n < 0) show(0); }, 2500);
+  // on its own it starts right away; in the deck it waits for the land (and asks for it, in case it loaded late)
+  if (parent === self) show(0); else parent.postMessage({ deck: 'hello' }, '*');
 </script>
 </body>
 </html>

@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260929-9', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260929-10', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -366,9 +366,9 @@ window.DECK = {
       d.panel(0, 130,
         STYLE + `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
-          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark'],
-          ['02', '不提 mockup，只出 spec', '03 Spec'],
-          ['03', '不直接導流 EC，而是可落地執行的版本', '01 Milestone'],
+          ['01', '不直接導流 EC，而是可落地執行的版本', '01 Milestone'],
+          ['02', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark'],
+          ['03', '不提 mockup，只出 spec', '03 Spec'],
           ['04', '參照 Apple 怎麼擺 Siri', '03 Spec'],
         ], '90px 1fr 340px').replace('<div class="grid"', '<div class="grid rcp"') +
         `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
@@ -379,7 +379,7 @@ window.DECK = {
         road({ M3: { extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">See more ↗</a>` } })),
 
       // ===== 02 Benchmark =====
-      d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
+      d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: 'Layout ・ Assets ・ Framework' }),
       // each benchmark page section by section: copy and image files
       benchAssetStep('apple', 'apple'),
       benchAssetStep('samsung', 'samsungLive'),

@@ -222,12 +222,20 @@
   }
 
   // ---------- step engine ----------
-  let current = -1, token = 0, cycleTimer = null;
+  let current = -1, token = 0, cycleTimer = null, landed = -1;
   function setFrame(key, f) {
     const page = PAGES[key];
     wins[key].querySelectorAll('iframe').forEach(fr => fr.classList.toggle('on', fr.dataset.f === f));
     wins[key].querySelector('.chrome b').textContent = `${page.label} · ${page.frames[f].label}`;
   }
+
+  // an embedded page that loaded after the step landed says { deck: 'hello' }; answer with the land it missed
+  addEventListener('message', e => {
+    if (!e.data || e.data.deck !== 'hello' || landed !== current) return;
+    for (const [k, c] of Object.entries(STEPS[current].wins || {})) if (c.message) wins[k]?.querySelectorAll('iframe.on').forEach(fr => {
+      if (fr.contentWindow === e.source) fr.contentWindow.postMessage({ deck: c.message, at: 'land' }, '*');
+    });
+  });
 
   function go(i) {
     i = Math.max(0, Math.min(STEPS.length - 1, i));
@@ -403,6 +411,7 @@
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     // steps with `message` notify their embedded pages: { deck: message, at: 'start' | 'land' }
     const post = at => { for (const [k, c] of Object.entries(stepWins)) if (c.message) wins[k].querySelectorAll('iframe.on').forEach(fr => fr.contentWindow?.postMessage({ deck: c.message, at }, '*')); };
+    landed = -1;
     post('start');
     // benchmark heading + chips; on category steps they swap at once instead of waiting for the camera
     const paintBench = () => {
@@ -437,7 +446,7 @@
     }
     setTimeout(() => {
       if (my !== token) return;
-      post('land'); // the camera has landed: embedded pages can start their animation
+      post('land'); landed = current; // the camera has landed: embedded pages can start their animation
       let paths = '';
       labels.innerHTML = '';
       labels.classList.toggle('plain', !!(step.labels && step.labels.plain));
