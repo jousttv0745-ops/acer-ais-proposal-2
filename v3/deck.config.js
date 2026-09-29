@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html', label: '畫面提案' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260929-6', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -392,8 +392,8 @@ window.DECK = {
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
 
-      l1Scroll(S.l1[0], { page: 'mockHero', title: 'Acer Qubi 全新亮相!　從筆電探出頭', items: [
-        '全白底、<strong>筆電置中</strong>，畫面只有一個主角', 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>', '「Acer Qubi 全新亮相!」→ 副標<strong>依序淡入</strong>，約 3 秒，不放 CTA'] }),
+      l1Scroll(S.l1[0], { page: 'mockHero', title: 'Acer Qubi 全新亮相!　兩個版本', items: [
+        '<strong>A 從筆電探頭</strong>：筆電開蓋、螢幕亮起，Qubi 從螢幕後探出頭揮手', '<strong>B 字體主視覺</strong>：綠色 Qubi 字樣落下，Qubi 從 Q 的窗框探出頭，跳到中央，字樣縮成標題', 'Qubi 為<strong>可動的 3D 角色</strong>；標題 → 副標依序淡入，不放 CTA'] }),
       l1Scroll(S.l1[1], { page: 'mockBanner', title: '問什麼，就換什麼場景', items: [
         '<strong>橫式卡片輪播</strong>跟著對話滑到對應場景', '對話框<strong>壓在卡片上</strong>，底圖同步壓暗', '人物去背時出現<strong>裁切框與掃描線</strong>，表示處理中'] }),
       ...S.l1.slice(2).map(s => l1Scroll(s)),

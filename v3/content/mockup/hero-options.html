@@ -30,17 +30,16 @@
 </head>
 <body>
 <main>
-  <h1>Hero 動畫：修改版 A2 / C2 / D2</h1>
+  <h1>Hero 動畫：收斂版 A / B</h1>
   <p class="lead">Qubi 改為可動的 3D 角色（依影片中未穿龍蝦裝的 Qubi 建模）。每張約 12 秒一輪、自動循環；「重播」從頭播放，「全尺寸」開新分頁看 1440×810 原尺寸。</p>
   <div class="grid" id="grid"></div>
 </main>
 <script>
   const OPTS = [
-    ['A2', '開蓋喚醒（正面）', 'hero-a2.html', '正面的 Acer 筆電開蓋、螢幕亮起，Qubi 從螢幕後探頭，跳到筆電前揮手'],
-    ['C2', 'Qubi 走過來', 'hero-c2.html', '真實的 Acer 筆電，Qubi 從左邊走進來，揮手後指向螢幕，螢幕跳出對話'],
-    ['D2', '字體主視覺（無筆電）', 'hero-d2.html', '超大 Qubi 字樣，Qubi 在 Q 的圓洞裡冒出，跳到舞台中央揮手，標題進場'],
+    ['A', '從筆電探頭', 'hero-a2.html', '正面的 Acer 筆電開蓋、螢幕亮起，Qubi 從螢幕後探出頭揮手'],
+    ['B', '字體主視覺', 'hero-d2.html', '綠色 Qubi 字樣落下，Qubi 從 Q 的窗框探出頭、揮手，跳到中央，字樣縮成標題'],
     ['3D', 'Qubi 3D 角色', 'qubi-rig.html', '角色本身：可走路、揮手、點頭、歪頭、東張西望、跳躍、跳舞，全尺寸可點按鈕試玩'],
-    ['現行', '正面探頭（目前版本）', 'hero.html', '對照用：目前簡報中的版本'],
+    ['p11', '簡報 p11（A / B 輪播）', 'hero.html', '線上簡報 p11 的畫面：A、B 兩版自動輪播'],
   ];
   const grid = document.getElementById('grid');
   grid.innerHTML = OPTS.map(([k, name, src, desc]) => `<div class="card"><div class="frame"><iframe src="${src}" title="${name}" scrolling="no"></iframe></div>` +

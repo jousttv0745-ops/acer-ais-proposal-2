@@ -8,8 +8,12 @@
 //   const q = stage.add({ x: 700, y: 620, size: 260 }); // feet at (700, 620) page px, 260 px tall incl. antennae
 //   await q.walkTo(900); await q.wave(); q.jumpTo(1000, 600);
 import * as THREE from 'three';
+
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// inside the deck (?deck) the pages drop their direction tag
+if (new URLSearchParams(location.search).has('deck')) document.documentElement.classList.add('deck');
 
 const CYAN = 0xc8faf4, RING = 0x6fe0dc;
 const H_MODEL = 1.44;                       // model height in units, feet to antenna tips
@@ -96,7 +100,7 @@ class Qubi {
       const sh = G(); sh.position.set(s * .2, .4, 0); sh.rotation.z = s * .7; sh.userData.rest = s * .7;
       const ball = new THREE.Mesh(new THREE.SphereGeometry(.05, 20, 14), joint);
       const upper = new THREE.Mesh(new THREE.CapsuleGeometry(.048, .07, 6, 16), white); upper.position.y = -.07;
-      const el = G(); el.position.y = -.14; el.rotation.z = -s * .75;
+      const el = G(); el.position.y = -.14; el.rotation.z = -s * .75; sh.userData.el = el;
       const elBall = new THREE.Mesh(new THREE.SphereGeometry(.042, 20, 14), joint);
       const fore = new THREE.Mesh(new THREE.CapsuleGeometry(.05, .06, 6, 16), white); fore.position.y = -.07;
       const hand = G(); hand.position.y = -.14;
@@ -156,7 +160,7 @@ class Qubi {
   reset(x = this.x, y = this.y, yaw = 0) {
     this.stop(); this.walkAmt = 0; this.place(x, y); this.lift.position.y = 0; this.yawG.rotation.y = yaw;
     this.squash.scale.set(1, 1, 1); this.head.rotation.set(0, 0, 0); this.neck.rotation.set(0, 0, 0);
-    this.arms.forEach(a => a.rotation.set(0, 0, a.userData.rest)); this.legs.forEach(l => l.rotation.set(0, 0, 0));
+    this.arms.forEach((a, i) => { a.rotation.set(0, 0, a.userData.rest); a.userData.el.rotation.z = (i ? -1 : 1) * .75; }); this.legs.forEach(l => l.rotation.set(0, 0, 0));
     this.eyes.forEach(e => e.scale.set(1, 1, 1)); this.root.visible = true;
   }
 
@@ -195,12 +199,13 @@ class Qubi {
   // rise or sink along y without walking (peeking out from behind something)
   rise(y, dur = .9) { return this.moveTo(this.x, y, dur, ease.back); }
   async wave(times = 3, side = 1) {
-    const a = this.arms[side > 0 ? 1 : 0], rest = a.userData.rest, up = side * 2.55;
+    const a = this.arms[side > 0 ? 1 : 0], el = a.userData.el, rest = a.userData.rest, up = side * 1.5;
+    const bent = -side * .75, open = side * .95;                    // the forearm swings up for the wave
     this.tween(.3, t => { this.head.rotation.z = lerp(0, -side * .12, t); });
-    await this.tween(.3, t => { a.rotation.z = lerp(rest, up, t); }, ease.out);
-    await this.tween(.34 * times, t => { a.rotation.z = up + side * .38 * Math.sin(t * times * Math.PI * 2); }, ease.linear);
+    await this.tween(.3, t => { a.rotation.z = lerp(rest, up, t); el.rotation.z = lerp(bent, open, t); }, ease.out);
+    await this.tween(.34 * times, t => { el.rotation.z = open + side * .45 * Math.sin(t * times * Math.PI * 2); }, ease.linear);
     this.tween(.3, t => { this.head.rotation.z = lerp(-side * .12, 0, t); });
-    await this.tween(.35, t => { a.rotation.z = lerp(up, rest, t); });
+    await this.tween(.35, t => { a.rotation.z = lerp(up, rest, t); el.rotation.z = lerp(open, bent, t); });
   }
   async nod(times = 2) {
     await this.tween(.32 * times, t => { this.head.rotation.x = .22 * Math.sin(t * times * Math.PI) ** 2; }, ease.linear);

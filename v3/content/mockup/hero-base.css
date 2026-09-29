@@ -9,3 +9,4 @@ h1 em{font-style:normal;color:#83b81a}
 .sub{margin:18px 0 0;font-size:22px;font-weight:500;line-height:1.55;color:#3d4250}
 .qubi{position:absolute;width:150px}
 .tag{position:absolute;left:28px;top:24px;padding:4px 14px;border-radius:999px;background:#1a1d23;color:#fff;font:800 15px Montserrat,sans-serif}
+.deck .tag{display:none}

@@ -4,57 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=1440">
 <meta name="robots" content="noindex, nofollow">
-<title>L1-1 Hero 畫面提案</title>
+<title>01 Hero 畫面提案</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
 <style>
-  /* L1-1 hero mockup, 1440×810, white canvas. Plays on load; inside the deck it restarts on { deck: 'play' }. */
+  /* 01 Hero mockup for the deck, 1440×810: plays version A (hero-a2) then version B (hero-d2) and loops.
+     Restarts from A on { deck: 'play', at: 'land' }. */
   *{box-sizing:border-box}
-  html,body{margin:0;width:1440px;height:810px;overflow:hidden;background:#fff;font-family:'Noto Sans TC',sans-serif;color:#1a1d23}
-  .stage{position:relative;width:1440px;height:810px}
-  .t{transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-  .hide{opacity:0;transform:translateY(24px)}
-  h1{position:absolute;left:0;right:0;top:74px;margin:0;text-align:center;font:900 96px/1 Montserrat,'Noto Sans TC',sans-serif;letter-spacing:-1px}
-  h1 em{font-style:normal;color:#83b81a}
-  h1.hide{transform:scale(.9)}
-  .sub{position:absolute;left:0;right:0;top:204px;margin:0;text-align:center;font-size:24px;font-weight:500;color:#3d4250}
-  /* laptop in front, Qubi behind its lid: Qubi rises from behind the top edge of the screen */
-  .device{position:absolute;left:50%;top:410px;width:470px;margin-left:-235px}
-  .device img.laptop{position:relative;z-index:2;display:block;width:470px}
-  .qubi{position:absolute;z-index:1;left:50%;top:0;width:160px;margin-left:-80px;transform:translateY(150px);transition:transform 1.1s cubic-bezier(.3,1.5,.5,1)}
-  .qubi.up{transform:translateY(-112px)}
-  .qubi.nod{animation:nod 1.4s ease-in-out}
-  @keyframes nod{0%,100%{transform:translateY(-112px) rotate(0)}30%{transform:translateY(-118px) rotate(-6deg)}65%{transform:translateY(-110px) rotate(5deg)}}
-  .shadow{position:absolute;left:50%;top:752px;width:500px;height:18px;margin-left:-250px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.14),transparent 70%)}
+  html,body{margin:0;width:1440px;height:810px;overflow:hidden;background:#fff;font-family:'Noto Sans TC',sans-serif}
+  iframe{position:absolute;left:0;top:0;width:1440px;height:810px;border:0;opacity:0;transition:opacity .6s}
+  iframe.on{opacity:1}
+  .ver{position:absolute;left:28px;top:24px;z-index:2;display:flex;gap:8px}
+  .ver span{padding:6px 16px;border-radius:999px;border:1.5px solid #1a1d23;background:#fff;color:#1a1d23;font:700 17px 'Noto Sans TC',sans-serif;transition:all .4s}
+  .ver span b{font:800 17px Montserrat,sans-serif;margin-right:6px}
+  .ver span.on{background:#1a1d23;color:#fff}
 </style>
 </head>
 <body>
-<div class="stage">
-  <h1 class="t hide" id="title">Acer <em>Qubi</em> 全新亮相!</h1>
-  <p class="sub t hide" id="sub">新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。</p>
-  <div class="device t hide" id="device">
-    <img class="qubi" id="qubi" src="qubi.png" alt="Qubi">
-    <img class="laptop" src="laptop.png" alt="Acer Aspire Lite 14">
-  </div>
-  <div class="shadow"></div>
-</div>
+<iframe id="fa" src="hero-a2.html?deck&v=20260929-6" title="版本 A" scrolling="no" tabindex="-1"></iframe>
+<iframe id="fb" src="hero-d2.html?deck&v=20260929-6" title="版本 B" scrolling="no" tabindex="-1"></iframe>
+<div class="ver"><span id="la"><b>A</b>從筆電探頭</span><span id="lb"><b>B</b>字體主視覺</span></div>
 <script>
-  const $ = id => document.getElementById(id);
-  const timers = [];
-  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
-  function play() {
-    timers.splice(0).forEach(clearTimeout);
-    ['device', 'title', 'sub'].forEach(id => $(id).classList.add('hide'));
-    $('qubi').classList.remove('up', 'nod');
-    at(200, () => $('device').classList.remove('hide'));      // laptop settles in
-    at(900, () => $('qubi').classList.add('up'));             // Qubi peeks out from behind the lid
-    at(1500, () => $('title').classList.remove('hide'));      // headline
-    at(2100, () => $('qubi').classList.add('nod'));           // small hello nod
-    at(2400, () => $('sub').classList.remove('hide'));
-    at(9000, play);                                           // loop
-  }
-  addEventListener('message', e => { if (e.data && e.data.deck === 'play' && e.data.at === 'land') play(); });
-  play();
+  const V = [['fa', 'la', 8500], ['fb', 'lb', 10000]];
+  let n = 0, timer;
+  const show = i => {
+    clearTimeout(timer); n = i;
+    V.forEach(([f, l], k) => { document.getElementById(f).classList.toggle('on', k === i); document.getElementById(l).classList.toggle('on', k === i); });
+    document.getElementById(V[i][0]).contentWindow.postMessage({ deck: 'play', at: 'land' }, '*');
+    timer = setTimeout(() => show((i + 1) % V.length), V[i][2]);
+  };
+  addEventListener('message', e => { if (e.data && e.data.deck === 'play' && e.data.at === 'land') show(0); });
+  addEventListener('load', () => show(0));
 </script>
 </body>
 </html>
