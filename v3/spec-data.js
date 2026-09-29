@@ -36,13 +36,13 @@
     },
 
     l1: [
-      { id: 'L1-1', seg: 'Hero：Hey Qubi!', ref: { page: 'apple', region: 'hero', label: 'Apple · Siri Hero（白底）' },
+      { id: 'L1-1', seg: 'Hero：Acer Qubi 全新亮相!', ref: { page: 'apple', region: 'hero', label: 'Apple · Siri Hero（白底）' },
         goal: '一眼知道「AI 助理 Qubi 就在你的電腦裡」，並往下讀',
         material: '全白底＋筆電產品圖＋Qubi 從螢幕後探頭的動畫',
-        ratio: '全白底 16:9；「Hey Qubi!」與副標置中在上，筆電置中在下；Qubi 約筆電寬度 1/3',
-        scope: '1 句主標（Hey Qubi!）＋1 句副標；不放 CTA 與限制說明（移到 FAQ 註腳）',
+        ratio: '全白底 16:9；「Acer Qubi 全新亮相!」與副標置中在上，筆電置中在下；Qubi 約筆電寬度 1/3',
+        scope: '1 句主標（Acer Qubi 全新亮相!）＋1 句副標；不放 CTA 與限制說明（移到 FAQ 註腳）',
         asset: 'Qubi 探頭動畫（約 3 秒，MP4／Lottie）；筆電正面去背圖（透明底 PNG @2x）',
-        story: '以呼喚「Hey Qubi!」開場，Qubi 探出頭回應：AI 助理就在你的電腦裡' },
+        story: '以「Acer Qubi 全新亮相!」開場，Qubi 從筆電探出頭：AI 助理就在你的電腦裡' },
       { id: 'L1-2', seg: 'Qubi 章：對話＋情境輪播', ref: { page: 'apple', region: 'siri', label: 'Apple · Siri 章（位置）' },
         goal: '讓讀者看到 Qubi 能做的事：問什麼，就換什麼場景',
         material: '3:2 情境照卡片輪播，對話框疊在卡片上',
@@ -88,7 +88,7 @@
       width: 1440,
       segments: [
         { id: 'L1-1', h: 810, boxes: [
-          { k: 'line', x: 420, y: 74, w: 600, h: 90, t: 'Hey Qubi!（主標）' },
+          { k: 'line', x: 420, y: 74, w: 600, h: 90, t: 'Acer Qubi 全新亮相!（主標）' },
           { k: 'line', x: 440, y: 212, w: 560, h: 26, t: '副標' },
           { k: 'asset', a: 'A01', x: 640, y: 298, w: 160, h: 185 },
           { k: 'asset', a: 'A02', x: 485, y: 410, w: 470, h: 343 },
@@ -188,7 +188,7 @@
     acerSheet: { name: 'Acer', conclusion: '開場的敘事框架參考 Apple，其餘細節與影像素材參考 Samsung', src: 'Level 1 landing page 建議・文案為草稿',
       totals: [['Image', '10–12'], ['商品去背', '約 13'], ['動畫', 1], ['Icon', 0]],
       rows: [
-        { ref: 'Apple', seg: 'Hero', title: 'Hey Qubi!', sub: '副標：Acer Intelligence Space，你的 AI 助理就在電腦裡', assets: 'A01 探頭動畫＋A02 筆電圖' },
+        { ref: 'Apple', seg: 'Hero', title: 'Acer Qubi 全新亮相!', sub: '副標：新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。', assets: 'A01 探頭動畫＋A02 筆電圖' },
         { ref: 'Apple', seg: 'Qubi 章', title: '個人 AI 助理，Qubi 比你更懂你', sub: '小標 Acer Qubi；對話：郵件摘要・人物去背・會議摘要', assets: 'A03 情境照 ×3＋A04 腳本 ×3' },
         { ref: 'Samsung', seg: '情境功能', title: '你的電腦，也做得到嗎？', sub: '分頁：商務・創意・遊戲・個人化；7–9 則功能標題', assets: 'A05 情境圖 ×7–9' },
         { ref: 'Samsung', seg: '選機', title: '哪一台跑得動你的 AI？', sub: '筆電・桌機・AIO・掌機；CTA 進一步了解・下載 AIS', assets: 'A06 系列去背照 ×約 12' },
@@ -246,7 +246,7 @@
     // Apple vs Samsung, copy and image assets only, with which fits Acer better
     benchCompare: {
       copy: [
-        { seg: 'Hero', apple: '「全新 Siri AI 亮相。真能幫助你，真的很懂你。」宣言型，角色先登場', samsung: '「Galaxy AI. Make life more seamless.」定義型品牌標語', pick: 'Apple', why: '以角色開場，對應「Hey Qubi!」' },
+        { seg: 'Hero', apple: '「全新 Siri AI 亮相。真能幫助你，真的很懂你。」宣言型，角色先登場', samsung: '「Galaxy AI. Make life more seamless.」定義型品牌標語', pick: 'Apple', why: '以角色開場，對應「Acer Qubi 全新亮相!」' },
         { seg: '助理', apple: '「你的 AI 助理，更個人化，更強大。」＋7 則小標，卡上是一句指令', samsung: '「Smart assistance that&#39;s always available」單段說明 Bixby', pick: 'Apple', why: 'Qubi 章用「主標＋一句能說的話」' },
         { seg: '情境功能', apple: '章節小標（視覺智慧／照片與影像…）＋逐條功能句', samsung: '提問式「Can your phone do that?」＋5 分頁 14 則功能標題', pick: 'Samsung', why: '提問式大標＋分頁，一屏看完' },
         { seg: '選機', apple: '「體驗 Apple Intelligence 的實力」', samsung: '「Explore our range of Galaxy AI devices」', pick: 'Samsung', why: '直接以裝置類別導購；Acer 改問「哪一台跑得動你的 AI？」' },

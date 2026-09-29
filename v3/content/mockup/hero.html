@@ -14,10 +14,10 @@
   .stage{position:relative;width:1440px;height:810px}
   .t{transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
   .hide{opacity:0;transform:translateY(24px)}
-  h1{position:absolute;left:0;right:0;top:74px;margin:0;text-align:center;font:900 112px/1 Montserrat,sans-serif;letter-spacing:-2px}
+  h1{position:absolute;left:0;right:0;top:74px;margin:0;text-align:center;font:900 96px/1 Montserrat,'Noto Sans TC',sans-serif;letter-spacing:-1px}
   h1 em{font-style:normal;color:#83b81a}
   h1.hide{transform:scale(.9)}
-  .sub{position:absolute;left:0;right:0;top:212px;margin:0;text-align:center;font-size:26px;font-weight:500;color:#3d4250}
+  .sub{position:absolute;left:0;right:0;top:204px;margin:0;text-align:center;font-size:24px;font-weight:500;color:#3d4250}
   /* laptop in front, Qubi behind its lid: Qubi rises from behind the top edge of the screen */
   .device{position:absolute;left:50%;top:410px;width:470px;margin-left:-235px}
   .device img.laptop{position:relative;z-index:2;display:block;width:470px}
@@ -30,8 +30,8 @@
 </head>
 <body>
 <div class="stage">
-  <h1 class="t hide" id="title">Hey <em>Qubi</em>!</h1>
-  <p class="sub t hide" id="sub">Acer Intelligence Space，你的 AI 助理就在電腦裡</p>
+  <h1 class="t hide" id="title">Acer <em>Qubi</em> 全新亮相!</h1>
+  <p class="sub t hide" id="sub">新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。</p>
   <div class="device t hide" id="device">
     <img class="qubi" id="qubi" src="qubi.png" alt="Qubi">
     <img class="laptop" src="laptop.png" alt="Acer Aspire Lite 14">
@@ -48,7 +48,7 @@
     $('qubi').classList.remove('up', 'nod');
     at(200, () => $('device').classList.remove('hide'));      // laptop settles in
     at(900, () => $('qubi').classList.add('up'));             // Qubi peeks out from behind the lid
-    at(1500, () => $('title').classList.remove('hide'));      // "Hey Qubi!"
+    at(1500, () => $('title').classList.remove('hide'));      // headline
     at(2100, () => $('qubi').classList.add('nod'));           // small hello nod
     at(2400, () => $('sub').classList.remove('hide'));
     at(9000, play);                                           // loop

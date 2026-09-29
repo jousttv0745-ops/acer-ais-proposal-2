@@ -252,8 +252,8 @@ window.DECK = {
     // the L0–L3 ladder (01 Roadmap, 04 L2・L3); o[level] overrides { cls, tag, body }
     const LEVELS = [
       ['M1', 'go', '▶ 本次定案', 'AIS Landing Page Renewal', 'Landing page', 'Guide users to product category pages for more information'],
-      ['M2', 'dir', 'Next', 'Recommendations on Product Pages', 'Product pages', 'Guide users to specific product pages for more details'],
-      ['M3', 'dir', 'Future・v1 prototype', 'Recommendations on the Online Store', 'Online store (EC)', 'Take users directly to product pages on the online store'],
+      ['M2', 'dir', 'Next', 'Recommendations on Product Pages', 'Landing page', 'Guide users to specific product pages for more details'],
+      ['M3', 'dir', 'Future・v1 prototype', 'Recommendations on the Online Store', 'Landing page', 'Take users directly to product pages on the online store'],
     ];
     const road = (o = {}) => `<div class="road">` + LEVELS.map(([lv, cls, tag, title, target, goal]) => {
       const x = { cls, tag, ...o[lv] };
@@ -365,10 +365,10 @@ window.DECK = {
       d.panel(0, 130,
         `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
-          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：layout and assets、框架與影像比對（分類比對移至附錄）'],
-          ['02', '不提 mockup，只出 spec', '03 Spec：線框＋畫面提案＋建議文案，附錄為完整 spec 表'],
-          ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Milestone：本版定案 Milestone 1（L1），2、3 寫方向'],
-          ['04', '參照 Apple 怎麼擺 Siri', '03 Spec：Qubi 照 Siri 的位置，放在 Hero 與第一段（01、02）'],
+          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark'],
+          ['02', '不提 mockup，只出 spec', '03 Spec'],
+          ['03', '不直接導流 EC，而是可落地執行的版本', '01 Milestone'],
+          ['04', '參照 Apple 怎麼擺 Siri', '03 Spec'],
         ], '120px 1fr 1fr') +
         `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
 
@@ -391,8 +391,8 @@ window.DECK = {
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
 
-      l1Scroll(S.l1[0], { page: 'mockHero', title: 'Hey Qubi!　從筆電探出頭', items: [
-        '全白底、<strong>筆電置中</strong>，畫面只有一個主角', 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>', '「Hey Qubi!」→ 副標<strong>依序淡入</strong>，約 3 秒，不放 CTA'] }),
+      l1Scroll(S.l1[0], { page: 'mockHero', title: 'Acer Qubi 全新亮相!　從筆電探出頭', items: [
+        '全白底、<strong>筆電置中</strong>，畫面只有一個主角', 'Qubi 從螢幕後<strong>探出頭、點頭打招呼</strong>', '「Acer Qubi 全新亮相!」→ 副標<strong>依序淡入</strong>，約 3 秒，不放 CTA'] }),
       l1Scroll(S.l1[1], { page: 'mockBanner', title: '問什麼，就換什麼場景', items: [
         '<strong>橫式卡片輪播</strong>跟著對話滑到對應場景', '對話框<strong>壓在卡片上</strong>，底圖同步壓暗', '人物去背時出現<strong>裁切框與掃描線</strong>，表示處理中'] }),
       ...S.l1.slice(2).map(s => l1Scroll(s)),
