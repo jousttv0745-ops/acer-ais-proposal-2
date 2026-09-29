@@ -8,7 +8,7 @@ window.DECK = {
   },
   theme: {},
   layout: { benchSide: 500, benchGap: 40 }, // category steps: two narrow page columns, notes left and right
-  chapters: ['00 Recap', '01 Roadmap', '02 Benchmark', '03 L1 Spec', 'Summary'],
+  chapters: ['00 Recap', '01 Milestone', '02 Benchmark', '03 L1 Spec', 'Summary', 'Appendix'],
   categories: [
     { key: 'brand', name: '網頁定位', color: '#83b81a', desc: '兩家第一屏都先立 AI 的角色：Apple 是 Siri，Samsung 是 AI companion' },
     { key: 'feature', name: '功能介紹', color: '#3b82f6', desc: 'Apple 用情境章節拉長篇幅，Samsung 用分頁壓縮在一屏' },
@@ -93,12 +93,12 @@ window.DECK = {
   steps: d => {
     const S = window.SPEC, R = window.DECK.regions, WF = window.Wireframe;
     const STYLE = `<style>
-      .road{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;align-items:stretch;margin-top:40px}
+      .road{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;align-items:stretch;margin-top:40px}
       .road div{position:relative;padding:26px 26px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
       .road div{min-height:360px}
       .road div:not(:last-child)::after{content:'';position:absolute;right:-38px;top:50%;width:28px;height:28px;margin-top:-14px;
         background:no-repeat center/28px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 12h14M12 5l7 7-7 7' fill='none' stroke='%2383b81a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
-      .road b{font:800 44px Montserrat,sans-serif;color:var(--green-d)}
+      .road b{font:800 38px Montserrat,sans-serif;color:var(--green-d)}
       .road strong{display:block;margin-top:8px;font-size:28px}
       .road span{display:block;margin-top:10px;font-size:20px;line-height:1.55;color:var(--muted)}
       .road i{position:absolute;top:-18px;left:22px;padding:4px 14px;border-radius:999px;font:700 16px 'Noto Sans TC',sans-serif;font-style:normal}
@@ -109,6 +109,22 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
+      .fw-col{position:absolute;top:100px;width:640px}
+      .fw-tag{display:inline-block;margin-bottom:12px;padding:6px 16px;border-radius:999px;color:#fff;font:800 18px Montserrat,'Noto Sans TC',sans-serif}
+      .fw-tag.ap{background:#1a1d23}.fw-tag.ss{background:#1428a0}
+      .fw-group{position:relative;margin:0 0 12px;padding:8px 0 8px 18px;border-left:4px solid var(--green)}
+      .fw-group em{display:block;margin-bottom:6px;font-style:normal;font-size:17px;font-weight:900;color:var(--green-d)}
+      .fw-row{display:flex;align-items:baseline;gap:14px;padding:5px 0}
+      .fw-row b{font:800 20px Montserrat,sans-serif;color:var(--faint)}
+      .fw-row strong{display:block;font-size:22px;color:var(--ink)}
+      .fw-row small{display:block;font-size:17px;color:var(--muted)}
+      .concl{position:absolute;left:0;right:0;margin:0;padding:18px 26px;border-radius:14px;background:var(--green);color:#fff;font-size:26px;font-weight:900}
+      .ap-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px}
+      .ap-card{padding:24px;border:1px solid var(--line);border-radius:18px;background:#fff}
+      .ap-img{height:470px;display:flex;align-items:center;justify-content:center;background:#f6f7f9;border-radius:12px;overflow:hidden}
+      .ap-img img{max-width:100%;max-height:100%;border-radius:10px}
+      .ap-card strong{display:block;margin:16px 0 6px;font-size:26px;font-weight:900}
+      .ap-card ul{margin:0;padding-left:22px;font-size:20px;line-height:1.6;color:var(--ink-2)}
       .road .dir .demo{margin:22px 0 0;padding:10px 24px;font-size:20px}
       .ct-head{display:flex;align-items:center;gap:18px;margin-bottom:14px}
       .ct-head h3{margin:0}
@@ -205,18 +221,17 @@ window.DECK = {
     </style>`;
     // the L0–L3 ladder (01 Roadmap, 04 L2・L3); o[level] overrides { cls, tag, body }
     const LEVELS = [
-      ['L0', 'now', '● 現在', 'AIS 功能介紹頁', '一頁介紹 app 功能<br>導流終點：下載'],
-      ['L1', 'go', '▶ 本次定案', 'AIS 品牌 landing page', 'AIS＋Qubi 一頁講完<br>依裝置類別 → acer.com 分類頁'],
-      ['L2', 'dir', '方向', '產品頁 AIS 區塊', '這台能用哪些 AIS app<br>導流終點：單一機型'],
-      ['L3', 'dir', '方向 · v1 已試做', '商城情境推薦', '情境 → 推薦 SKU<br>導流終點：購買'],
+      ['M1', 'go', '▶ 本次定案', 'AIS 品牌 landing page', 'AIS＋Qubi 一頁講完<br>依裝置類別 → acer.com 分類頁'],
+      ['M2', 'dir', '下一步', '產品頁 AIS 區塊', '這台能用哪些 AIS app<br>導流終點：單一機型'],
+      ['M3', 'dir', '方向 · v1 已試做', '商城情境推薦', '情境 → 推薦 SKU<br>導流終點：購買'],
     ];
     const road = (o = {}) => `<div class="road">` + LEVELS.map(([lv, cls, tag, title, body]) => {
       const x = { cls, tag, body, ...o[lv] };
-      return `<div class="${x.cls}"><i>${x.tag}</i><b>${lv}</b><strong>${title}</strong><span>${x.body}</span>${x.extra || ''}</div>`;
+      return `<div class="${x.cls}"><i>${x.tag}</i><b>Milestone ${lv.slice(1)}</b><strong>${title}</strong><span>${x.body}</span>${x.extra || ''}</div>`;
     }).join('') + `</div>`;
     // layout and assets sheet: the page on the left with a dashed box per section, the table on the right,
     // one line from each box to its row. Geometry mirrors the engine's fit() so the lines land on the boxes.
-    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 38, rowH: { apple: 62, samsung: 96, acer: 130 } };
+    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 38, rowH: { apple: 62, samsung: 96, acer: 112 } };
     const benchAssetStep = (key, page) => sheetStep(S.benchAssets[key], key, page, 2, `${S.benchAssets[key].url}・${S.benchAssets.date} 線上頁面讀取`);
     const sheetStep = (b, key, page, chapter, foot) => {
       const p = window.DECK.pages[page], [rx, ry, rw, rh] = SHEET.rect, rowH = SHEET.rowH[key];
@@ -231,6 +246,7 @@ window.DECK = {
         `<div class="grid ba" style="grid-template-columns:52px 150px 1fr 330px;grid-template-rows:${SHEET.thH}px repeat(${b.rows.length},${rowH}px)">` +
         `<div class="h"></div><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
         b.rows.map((r, i) => `<div class="n"><b>${i + 1}</b></div><div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
+        (b.conclusion ? `<p class="concl" style="position:static;margin-top:18px">${b.conclusion}</p>` : '') +
         `<p class="ba-src">${foot}</p></div>`;
       return { chapter, wins: { [page]: { rect: SHEET.rect, focus: 'full', marks: 'secs' } }, panel: { top: SHEET.rect[1], html: STYLE + html } };
     };
@@ -261,6 +277,25 @@ window.DECK = {
       groups.map(g => S.copyTable[g]).map(g => g.rows.map(([item, refCopy, acer], i) =>
         `<div class="k${i ? ' cont' : ' first'}">${i ? '' : g.seg}</div><div class="it${i ? '' : ' first'}">${item}</div><div class="${i ? '' : 'first'}">${refCopy}</div><div class="a${i ? '' : ' first'}">${acer}</div>`).join('')).join('') +
       `</div>`);
+    // layout and framework for Acer: each brand's opening sections, grouped, with the page strip beside them
+    const FW_WIN = { apple: [80, 200, 230, 700], samsungLive: [980, 200, 230, 392] };
+    const fwCol = (key, page, x) => { const f = S.framework[key], rows = S.benchAssets[key].rows.slice(0, f.take);
+      return `<div class="fw-col" style="left:${x}px"><span class="fw-tag ${key === 'apple' ? 'ap' : 'ss'}">${S.benchAssets[key].name}・區塊 01–0${f.take}</span>` +
+        f.groups.map(([a, b, label]) => `<div class="fw-group"><em>${label}</em>` + rows.slice(a, b + 1).map((r, k) =>
+          `<div class="fw-row"><b>${String(a + k + 1).padStart(2, '0')}</b><div><strong>${r.seg}</strong><small>${r.title === r.seg ? r.sub.split('／').slice(0, 2).join('／') : r.title}</small></div></div>`).join('') + `</div>`).join('') + `</div>`; };
+    const frameworkStep = () => ({ chapter: 2,
+      wins: {
+        apple: { rect: FW_WIN.apple, focus: [0, 0, 1920, S.benchAssets.apple && window.DECK.pages.apple.marks.secs[6][1] + window.DECK.pages.apple.marks.secs[6][3]], marks: 'secs' },
+        samsungLive: { rect: FW_WIN.samsungLive, focus: [0, 0, 1920, window.DECK.pages.samsungLive.marks.secs[2][1] + window.DECK.pages.samsungLive.marks.secs[2][3]], marks: 'secs' },
+      },
+      panel: { top: 100, html: STYLE + `<h3>Layout and framework <em>for Acer</em></h3>` + fwCol('apple', 'apple', 250) + fwCol('samsung', 'samsungLive', 1150) +
+        `<p class="concl" style="top:830px">${S.framework.conclusion}</p>` } });
+    // assets for Acer: one representative image per brand, side by side
+    const assetsStep = () => d.panel(2, 100, STYLE + `<h3>Assets <em>for Acer</em></h3><div class="ap-row">` +
+      ['apple', 'samsung'].map(k => { const a = S.assetPick[k];
+        return `<div class="ap-card"><span class="fw-tag ${k === 'apple' ? 'ap' : 'ss'}">${S.benchAssets[k].name}</span><div class="ap-img"><img src="${a.src}" alt=""></div>` +
+          `<strong>${a.title}</strong><ul>${a.points.map(p => `<li>${p}</li>`).join('')}</ul></div>`; }).join('') +
+      `</div><p class="concl" style="position:static;margin-top:26px">${S.assetPick.conclusion}</p>`);
     const BENCH = ['apple', 'samsungLive'];
     const DIMS = S.dims;
     // one row per segment, one column per dim; rows with `none` print the noneLabel across
@@ -292,34 +327,32 @@ window.DECK = {
     };
     return [
       d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
-        chips: [['00', 'Recap'], ['01', 'Roadmap'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'L2 · L3']] }),
+        chips: [['00', 'Recap'], ['01', 'Milestone'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'Summary']] }),
 
       // ===== 00 Recap =====
       d.panel(0, 130,
         `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
-          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：分類比對、layout and assets、文案與影像比對'],
+          ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：layout and assets、框架與影像比對（分類比對移至附錄）'],
           ['02', '不提 mockup，只出 spec', '03 L1 Spec：線框＋畫面提案＋建議文案，附錄為完整 spec 表'],
-          ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Roadmap：本版定案 L1，L2／L3 寫方向'],
+          ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Milestone：本版定案 Milestone 1（L1），2、3 寫方向'],
           ['04', '參照 Apple 怎麼擺 Siri', '03 L1 Spec：Qubi 照 Siri 的位置，放在 Hero 與第一段（L1-1、L1-2）'],
         ], '120px 1fr 1fr') +
         `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
 
       // ===== 01 Roadmap =====
       d.panel(1, 120, STYLE +
-        `<h3>我們在哪裡：從 <em>L0</em> 走到 <em>L1</em></h3>` +
-        road({ L3: { extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 試做 ↗</a>` } })),
+        `<h3>Milestones：本次定案 <em>Milestone 1</em></h3>` +
+        road({ M3: { extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 試做 ↗</a>` } })),
 
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
-      ...d.categories(2, BENCH).map(catStep),
       // each benchmark page section by section: copy and image files
       benchAssetStep('apple', 'apple'),
       benchAssetStep('samsung', 'samsungLive'),
-
-      // Apple vs Samsung: copy, then image assets, each with the pick for Acer
+      frameworkStep(),
       d.panel(2, 110, STYLE + `<h3>文字文案：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.copy)),
-      d.panel(2, 110, STYLE + `<h3>影像素材：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.assets)),
+      assetsStep(),
 
       // ===== 03 L1 Spec =====
       d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
@@ -339,6 +372,10 @@ window.DECK = {
       copyPage([3], 'Samsung', '3 / 5'),
       copyPage([4, 5], 'Samsung', '4 / 5'),
       copyPage([6, 7], 'Samsung', '5 / 5'),
+
+      // ===== Appendix =====
+      d.intro(5, { num: 'A', title: 'Appendix', sub: 'Benchmark 分類比對', p: '網頁定位・功能介紹・資訊安全・硬體導流・SEO・網站框架' }),
+      ...d.categories(5, BENCH).map(catStep),
     ];
   },
 };

@@ -185,7 +185,7 @@
     },
 
     // Acer L1, section by section: suggested copy (draft) and image assets, for the summary sheet
-    acerSheet: { name: 'Acer L1', src: 'Level 1 landing page 建議・文案為草稿',
+    acerSheet: { name: 'Acer', conclusion: '開場的敘事框架參考 Apple，其餘細節與影像素材參考 Samsung', src: 'Level 1 landing page 建議・文案為草稿',
       totals: [['Image', '10–12'], ['商品去背', '約 13'], ['動畫', 1], ['Icon', 0]],
       rows: [
         { seg: 'Hero', title: 'Hey Qubi!', sub: '副標：Acer Intelligence Space，你的 AI 助理就在電腦裡', assets: 'A01 探頭動畫＋A02 筆電圖' },
@@ -221,6 +221,19 @@
         ["Q3","Is Galaxy AI secure in terms of privacy?","我的資料會被上傳到雲端嗎？"],
         ["Q4","How do I use Galaxy AI on my Samsung phone?","如何下載與更新？"],
         ["Q5","—","Qubi 是什麼？需要付費嗎？"]]}],
+
+    // framework page: which opening sections each brand uses, and the order of assistant vs scenarios
+    framework: {
+      apple: { take: 7, groups: [[0, 2, '角色：Siri 個人助理'], [3, 6, '情境章節']] },
+      samsung: { take: 3, groups: [[0, 0, '品牌'], [1, 1, '情境分頁'], [2, 2, '助理：Bixby']] },
+      conclusion: 'Acer 更適合 Apple 的敘事框架：從 Qubi（個人助理）出發，再帶到使用情境',
+    },
+    // assets page: one representative image per brand
+    assetPick: {
+      apple: { src: 'content/assets-pick/apple-siri-card.png', title: '裝置內 UI 截圖卡', points: ['中性底色，畫面只有介面', '卡片上是一句讀得到的真實指令', '證明「它做得到」，但看不到使用情境'] },
+      samsung: { src: 'content/assets-pick/samsung-now-brief.jpg', title: 'UI 合成在生活照', points: ['真實生活場景＋浮在畫面上的 UI', '一張圖講一個使用時刻', '讀者容易代入「上次我也遇過」'] },
+      conclusion: 'Acer 更適合 Samsung 的影像呈現：情境照＋UI，讓讀者看到 AI 出現在自己的一天裡',
+    },
 
     // Apple vs Samsung, copy and image assets only, with which fits Acer better
     benchCompare: {
