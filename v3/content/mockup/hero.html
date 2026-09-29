@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
 <style>
-  /* 01 Hero mockup for the deck, 1440×810: plays version A (hero-a2) then version B (hero-d2) and loops.
+  /* 01 Hero mockup for the deck, 1440×810: plays version A (hero-d2, type-led) then version B (hero-a2, laptop) and loops.
      Restarts from A on { deck: 'play', at: 'land' }. */
   *{box-sizing:border-box}
   html,body{margin:0;width:1440px;height:810px;overflow:hidden;background:#fff;font-family:'Noto Sans TC',sans-serif}
@@ -21,11 +21,11 @@
 </style>
 </head>
 <body>
-<iframe id="fa" src="hero-a2.html?deck&v=20260929-7" title="版本 A" scrolling="no" tabindex="-1"></iframe>
-<iframe id="fb" src="hero-d2.html?deck&v=20260929-7" title="版本 B" scrolling="no" tabindex="-1"></iframe>
-<div class="ver"><span id="la"><b>A</b>從筆電探頭</span><span id="lb"><b>B</b>字體主視覺</span></div>
+<iframe id="fa" src="hero-d2.html?deck&v=20260929-8" title="版本 A" scrolling="no" tabindex="-1"></iframe>
+<iframe id="fb" src="hero-a2.html?deck&v=20260929-8" title="版本 B" scrolling="no" tabindex="-1"></iframe>
+<div class="ver"><span id="la"><b>A</b>字體主視覺</span><span id="lb"><b>B</b>從筆電探頭</span></div>
 <script>
-  const V = [['fa', 'la', 8500], ['fb', 'lb', 10000]];
+  const V = [['fa', 'la', 10000], ['fb', 'lb', 8500]];
   let n = 0, timer;
   const show = i => {
     clearTimeout(timer); n = i;
