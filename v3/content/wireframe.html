@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=1440">
 <meta name="robots" content="noindex, nofollow">
-<title>L1 整頁 Wireframe</title>
+<title>整頁 Wireframe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -20,14 +20,14 @@
 </head>
 <body>
 <div id="strip"></div>
-<script src="../spec-data.js?v=20260929-3"></script>
-<script src="../wireframe.js?v=20260929-3"></script>
+<script src="../spec-data.js?v=20260929-4"></script>
+<script src="../wireframe.js?v=20260929-4"></script>
 <script>
   const S = window.SPEC, WF = window.Wireframe;
   document.head.insertAdjacentHTML('beforeend', `<style>${WF.css}</style>`);
   document.getElementById('strip').innerHTML = WF.stack().map(s => {
     const l1 = S.l1.find(x => x.id === s.id);
-    return `<div class="label">${s.id} ${l1.seg}<i>≈${s.h.toLocaleString('en-US')}px</i></div>` + WF.segment(s.id, '1440px');
+    return `<div class="label">${s.id.replace(/^L1-/, '0')} ${l1.seg}<i>≈${s.h.toLocaleString('en-US')}px</i></div>` + WF.segment(s.id, '1440px');
   }).join('');
 </script>
 </body>

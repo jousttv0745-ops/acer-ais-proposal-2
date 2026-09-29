@@ -47,8 +47,8 @@
   <section id="assets"></section>
   <section id="bench"></section>
 </main>
-<script src="spec-data.js?v=20260929-3"></script>
-<script src="wireframe.js?v=20260929-3"></script>
+<script src="spec-data.js?v=20260929-4"></script>
+<script src="wireframe.js?v=20260929-4"></script>
 <script>
   const S = window.SPEC, WF = window.Wireframe;
   const DIMS = S.dims.filter(([k]) => k !== 'material'); // the detail tables leave out 素材
@@ -65,8 +65,8 @@
     table(['編號', '段落', '檔名', '規格', '數量', '提供者', '狀態'], S.assets.map(a => `<tr>${['no', 'seg', 'file', 'spec', 'qty', 'owner', 'status'].map(k => `<td>${esc(a[k])}</td>`).join('')}</tr>`));
   // copy table: reference brand next to the Acer draft; html entities in the data are kept, the rest escaped
   const keep = s => String(s).replace(/&(?!#?w+;)/g, '&amp;').replace(/</g, '&lt;');
-  document.getElementById('copy').innerHTML = `<h2>2. L1 <em>文案對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；Acer 文案為草稿。</p>` +
-    table(['區塊', '項目', '參照', '參照文案', 'Acer 文案（草稿）'], S.copyTable.flatMap(g => g.rows.map(([it, r, a], i) =>
+  document.getElementById('copy').innerHTML = `<h2>2. Layout and Assets <em>對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；Acer 文案為草稿。</p>` +
+    table(['區塊', '項目', '參照', '參照文案', 'Acer 文案（草稿）'], S.copyTable.flatMap(g => [...g.rows, ['Assets', g.assets[0], g.assets[1]]].map(([it, r, a], i) =>
       `<tr><td class="seg">${i ? '' : esc(g.seg)}</td><td class="seg">${esc(it)}</td><td>${i ? '' : g.ref}</td><td>${r}</td><td>${a}</td></tr>`)));
   document.getElementById('bench').innerHTML = `<h2>4. Benchmark <em>Spec</em>（參照）</h2>` +
     [['Apple Intelligence', S.bench.apple], ['Samsung Galaxy AI', S.bench.samsung]].map(([name, rows]) =>

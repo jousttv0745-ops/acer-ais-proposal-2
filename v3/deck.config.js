@@ -8,11 +8,11 @@ window.DECK = {
   },
   theme: {},
   layout: { benchSide: 500, benchGap: 40 }, // category steps: two narrow page columns, notes left and right
-  chapters: ['00 Recap', '01 Milestone', '02 Benchmark', '03 L1 Spec', 'Summary', 'Appendix'],
+  chapters: ['00 Recap', '01 Milestone', '02 Benchmark', '03 Spec', 'Summary', 'Appendix'],
   categories: [
     { key: 'brand', name: '網頁定位', color: '#83b81a', desc: '兩家第一屏都先立 AI 的角色：Apple 是 Siri，Samsung 是 AI companion' },
     { key: 'feature', name: '功能介紹', color: '#3b82f6', desc: 'Apple 用情境章節拉長篇幅，Samsung 用分頁壓縮在一屏' },
-    { key: 'security', name: '資訊安全', color: '#f59e0b', desc: '兩家都在選機前處理隱私疑慮（L1 本版不做此段）' },
+    { key: 'security', name: '資訊安全', color: '#f59e0b', desc: '兩家都在選機前處理隱私疑慮（Acer 本版不做此段）' },
     { key: 'hardware', name: '硬體導流', color: '#ef4444', desc: '兩家都依裝置類別選機；Apple 另附相容晶片清單' },
     { key: 'seo', name: 'SEO（FAQ）', color: '#8b5cf6', desc: 'Samsung 用 FAQ 集中免責與長尾；Apple 只有註腳' },
     { key: 'frame', name: '網站框架', color: '#9ca3af', desc: 'Header、Footer 與註解' },
@@ -27,12 +27,12 @@ window.DECK = {
       marks: { secs: [[0, 180, 1920, 1120], [0, 1300, 1920, 990], [0, 2290, 1920, 650], [0, 2940, 1920, 760], [0, 3700, 1920, 540], [0, 4240, 1920, 780], [0, 5020, 1920, 1240]] } },
     // L1-1 / L1-2 banner mockups (live HTML, restart on { deck: 'play' })
     // the whole L1 wireframe as one strip; the L1 steps scroll down it one segment at a time
-    wfStrip: { kind: 'frames', w: 1440, h: window.Wireframe.stackHeight(), label: 'L1 Wireframe', url: '整頁 1440 寬', defaultFrame: 'main',
-      frames: { main: { src: 'content/wireframe.html', label: 'Wireframe' } },
+    wfStrip: { kind: 'frames', w: 1440, h: window.Wireframe.stackHeight(), label: 'Wireframe', url: '整頁 1440 寬', defaultFrame: 'main',
+      frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
-    mockHero: { kind: 'frames', w: 1440, h: 810, label: 'L1-1 Hero', url: '畫面提案・示意', defaultFrame: 'main',
+    mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/hero.html', label: '畫面提案' } } },
-    mockBanner: { kind: 'frames', w: 1440, h: 720, label: 'L1-2 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
+    mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
       kind: 'image', src: 'content/apple/apple-ai.png', srcLite: 'content/apple/apple-ai.lite.png', liteScale: 0.5, w: 1920, h: 12406,
@@ -131,7 +131,7 @@ window.DECK = {
       .fw-two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
       .fw-dia{padding:22px 26px;border:1px solid var(--line);border-radius:18px;background:#fff}
       .fw-order{margin:4px 0 14px;font:800 22px Montserrat,sans-serif;color:var(--ink)}
-      .fw-order span{display:block;margin-top:4px;font:900 24px 'Noto Sans TC',sans-serif;color:var(--green-d)}
+      .fw-order span{font:900 22px 'Noto Sans TC',sans-serif;color:var(--ink)}
       .fw-blk p{margin:6px 0 0;font-size:18px;line-height:1.45}
       .fw-blk,.fw-ctx{border-radius:14px;padding:14px 18px}
       .fw-blk em,.fw-ctx em{display:flex;align-items:baseline;gap:12px;font:800 24px Montserrat,sans-serif;font-style:normal}
@@ -158,7 +158,7 @@ window.DECK = {
       .ct-ref{padding:6px 16px;border-radius:999px;color:#fff;font:800 17px Montserrat,sans-serif}
       .ct-ref.ap{background:#1a1d23}.ct-ref.ss{background:#1428a0}
       .ct-head i{margin-left:auto;padding:4px 14px;border-radius:999px;background:#fff4df;color:#b45309;font-size:16px;font-style:normal;font-weight:700}
-      .grid.ct > div{padding:10px 16px;font-size:19px;line-height:1.45}
+      .grid.ct > div{padding:8px 16px;font-size:19px;line-height:1.4}
       .grid.ct .h{font:800 16px Montserrat,'Noto Sans TC',sans-serif;letter-spacing:1px}
       .grid.ct .k{font-size:20px;font-weight:900;color:var(--ink)}
       .grid.ct .k.cont{border-bottom-color:transparent}
@@ -166,6 +166,8 @@ window.DECK = {
       .grid.ct .first{border-top:2px solid var(--ink)}
       .grid.ct .a{color:var(--ink);font-weight:500}
       .grid.ct ul{margin:0;padding-left:22px}
+      .grid.ct .as{display:inline-block;padding:3px 12px;border-radius:8px;background:#eef1f5;font-size:17px;font-weight:700;color:var(--ink-2)}
+      .grid.ct .a .as{background:#fff;color:var(--green-d)}
       .grid.ct li{margin:2px 0}
       .grid.ct b{display:inline;color:var(--ink);font-size:19px;font-weight:900}
       .grid.ct b.tab{display:block;font-size:21px;color:var(--green-d)}
@@ -300,10 +302,10 @@ window.DECK = {
         `<div class="a"><i class="pick ${r.pick === 'Apple' ? 'ap' : r.pick === 'Samsung' ? 'ss' : 'both'}">${r.pick}</i>${r.why}</div>`).join('') + `</div>`;
     // copy table page: groups of S.copyTable, reference brand column next to the Acer draft
     const copyPage = (groups, ref, n) => d.panel(4, 100, STYLE +
-      `<div class="ct-head"><h3>文案對照表<em>（${n}）</em></h3><span class="ct-ref ${ref === 'Apple' ? 'ap' : 'ss'}">參照 ${ref}</span><i>Acer 文案為草稿</i></div>` +
+      `<div class="ct-head"><h3>Layout and Assets 對照表<em>（${n}）</em></h3><span class="ct-ref ${ref === 'Apple' ? 'ap' : 'ss'}">參照 ${ref}</span><i>Acer 文案為草稿</i></div>` +
       `<div class="grid ct" style="grid-template-columns:200px 170px 1fr 1fr">` +
       `<div class="h">區塊</div><div class="h">項目</div><div class="h en">${ref.toUpperCase()}</div><div class="h a">ACER（草稿）</div>` +
-      groups.map(g => S.copyTable[g]).map(g => g.rows.map(([item, refCopy, acer], i) =>
+      groups.map(g => S.copyTable[g]).map(g => [...g.rows, ['Assets', `<span class="as">${g.assets[0]}</span>`, `<span class="as">${g.assets[1]}</span>`]].map(([item, refCopy, acer], i) =>
         `<div class="k${i ? ' cont' : ' first'}">${i ? '' : g.seg}</div><div class="it${i ? '' : ' first'}">${item}</div><div class="${i ? '' : 'first'}">${refCopy}</div><div class="a${i ? '' : ' first'}">${acer}</div>`).join('')).join('') +
       `</div>`);
     // layout and framework for Acer: each brand's section order drawn as a structure diagram
@@ -313,7 +315,7 @@ window.DECK = {
         if (part === 'context') return `<div class="fw-ctx ${g.layout}"><em>${FW_LABEL.context}<small>情境</small></em><div>` + g.contexts.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
         return `<div class="fw-blk ${part}"><em>${FW_LABEL[part]}<small>${part === 'hero' ? '主視覺' : '助理：' + (key === 'apple' ? 'Siri' : 'Bixby')}</small></em><p>${g.copy[part]}</p></div>`; };
       return `<div class="fw-dia"><span class="fw-tag ${key === 'apple' ? 'ap' : 'ss'}">${name}</span>` +
-        `<p class="fw-order">${g.order.map(p => FW_LABEL[p]).join(' → ')}<span>${g.note}</span></p>` +
+        `<p class="fw-order">${g.order.map(p => FW_LABEL[p]).join(' → ')}<span>：${g.note}</span></p>` +
         g.order.map(block).join('<i class="fw-arrow">↓</i>') + `</div>`; };
     const frameworkStep = () => d.panel(2, 100, STYLE + `<h3>Layout and framework <em>for Acer</em></h3>` +
       `<div class="fw-two">${fwDiagram('apple')}${fwDiagram('samsung')}</div>` +
@@ -336,6 +338,7 @@ window.DECK = {
         : DIMS.map(([k]) => `<div>${r[k]}</div>`).join(''))).join('') + `</div>`;
     // L1 segment: the wireframe strip on the left scrolled to it; on the right its banner mockup
     // (L1-1, L1-2) with how it moves, or the suggested copy and a short spec
+    const segNo = id => id.replace(/^L1-/, '0'); // L1-3 → 03 on screen
     const STRIP = [80, 100, 560, 900];
     const MOCK = { mockHero: 810, mockBanner: 720 };
     const l1Scroll = (seg, mock) => {
@@ -344,11 +347,11 @@ window.DECK = {
       if (mock) {
         const h = Math.round(1140 * MOCK[mock.page] / 1440) + 40;
         wins[mock.page] = { rect: [700, 100, 1140, h], focus: 'full', message: 'play' };
-        html = `<div class="l1s mock" style="margin-top:${h + 24}px"><div class="l1s-head"><small>${seg.id}・畫面提案</small><strong>${mock.title}</strong></div><ol>` +
+        html = `<div class="l1s mock" style="margin-top:${h + 24}px"><div class="l1s-head"><small>${segNo(seg.id)}・畫面提案</small><strong>${mock.title}</strong></div><ol>` +
           mock.items.map(t => `<li>${t}</li>`).join('') + `</ol></div>`;
       } else {
         const w = WF.fitWidth(seg.id, 1140, 740);
-        html = `<div class="l1s"><div class="l1s-head"><small>${seg.id}</small><strong>${seg.seg}</strong><i>建議文案草稿</i></div>` +
+        html = `<div class="l1s"><div class="l1s-head"><small>${segNo(seg.id)}</small><strong>${seg.seg}</strong><i>建議文案草稿</i></div>` +
           `<p class="l1s-goal"><b>目標</b>${seg.goal}</p>` +
           `<div class="l1s-mock" style="width:${w}px">` + WF.filled(seg.id, w) + `</div></div>`;
       }
@@ -356,16 +359,16 @@ window.DECK = {
     };
     return [
       d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
-        chips: [['00', 'Recap'], ['01', 'Milestone'], ['02', 'Benchmark'], ['03', 'L1 Spec'], ['04', 'Summary']] }),
+        chips: [['00', 'Recap'], ['01', 'Milestone'], ['02', 'Benchmark'], ['03', 'Spec'], ['04', 'Summary']] }),
 
       // ===== 00 Recap =====
       d.panel(0, 130,
         `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
           ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark：layout and assets、框架與影像比對（分類比對移至附錄）'],
-          ['02', '不提 mockup，只出 spec', '03 L1 Spec：線框＋畫面提案＋建議文案，附錄為完整 spec 表'],
+          ['02', '不提 mockup，只出 spec', '03 Spec：線框＋畫面提案＋建議文案，附錄為完整 spec 表'],
           ['03', '可落地：L1 分類頁／L2 產品頁／L3 商城', '01 Milestone：本版定案 Milestone 1（L1），2、3 寫方向'],
-          ['04', '參照 Apple 怎麼擺 Siri', '03 L1 Spec：Qubi 照 Siri 的位置，放在 Hero 與第一段（L1-1、L1-2）'],
+          ['04', '參照 Apple 怎麼擺 Siri', '03 Spec：Qubi 照 Siri 的位置，放在 Hero 與第一段（01、02）'],
         ], '120px 1fr 1fr') +
         `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
 
@@ -382,7 +385,8 @@ window.DECK = {
       frameworkStep(),
       assetsStep(),
 
-      // ===== 03 L1 Spec =====
+      // ===== 03 Spec =====
+      d.intro(3, { num: '03', title: 'Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
       // the whole L1 page: sections, their copy and image assets (the chapter's overview)
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
