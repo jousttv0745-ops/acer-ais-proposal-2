@@ -131,6 +131,8 @@ window.DECK = {
       .fw-two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
       .fw-dia{padding:22px 26px;border:1px solid var(--line);border-radius:18px;background:#fff}
       .fw-order{margin:4px 0 14px;font:800 22px Montserrat,sans-serif;color:var(--ink)}
+      .fw-order span{display:block;margin-top:4px;font:900 24px 'Noto Sans TC',sans-serif;color:var(--green-d)}
+      .fw-blk p{margin:6px 0 0;font-size:18px;line-height:1.45}
       .fw-blk,.fw-ctx{border-radius:14px;padding:14px 18px}
       .fw-blk em,.fw-ctx em{display:flex;align-items:baseline;gap:12px;font:800 24px Montserrat,sans-serif;font-style:normal}
       .fw-blk small,.fw-ctx small{font:700 17px 'Noto Sans TC',sans-serif;opacity:.8}
@@ -139,7 +141,7 @@ window.DECK = {
       .fw-ctx{background:var(--green-soft);color:var(--green-d)}
       .fw-ctx > div{display:flex;gap:10px;margin-top:10px}
       .fw-ctx.vertical > div{flex-direction:column}
-      .fw-ctx span{padding:9px 14px;border-radius:10px;background:#fff;border:1px solid #cfe6a9;color:var(--ink);font-size:18px;font-weight:700}
+      .fw-ctx span{padding:6px 14px;border-radius:10px;background:#fff;border:1px solid #cfe6a9;color:var(--ink);font-size:18px;font-weight:700}
       .fw-ctx.horizontal span{flex:1;text-align:center;font-size:15px;padding:12px 4px}
       .fw-arrow{display:block;text-align:center;font-style:normal;font-size:22px;line-height:1.4;color:var(--faint)}
       .fw-note{margin:14px 0 0;font-size:21px;font-weight:700;color:var(--ink)}
@@ -163,6 +165,8 @@ window.DECK = {
       .grid.ct .it{font-size:17px;font-weight:700;color:var(--green-d)}
       .grid.ct .first{border-top:2px solid var(--ink)}
       .grid.ct .a{color:var(--ink);font-weight:500}
+      .grid.ct ul{margin:0;padding-left:22px}
+      .grid.ct li{margin:2px 0}
       .grid.ct b{display:inline;color:var(--ink);font-size:19px;font-weight:900}
       .grid.ct b.tab{display:block;font-size:21px;color:var(--green-d)}
       .grid.ct i{display:inline-block;margin-left:10px;padding:0 10px;border-radius:999px;background:#eceef2;color:var(--muted);font-size:14px;font-style:normal;font-weight:700;vertical-align:2px}
@@ -296,7 +300,7 @@ window.DECK = {
         `<div class="a"><i class="pick ${r.pick === 'Apple' ? 'ap' : r.pick === 'Samsung' ? 'ss' : 'both'}">${r.pick}</i>${r.why}</div>`).join('') + `</div>`;
     // copy table page: groups of S.copyTable, reference brand column next to the Acer draft
     const copyPage = (groups, ref, n) => d.panel(4, 100, STYLE +
-      `<div class="ct-head"><h3>L1 文案對照表<em>（${n}）</em></h3><span class="ct-ref ${ref === 'Apple' ? 'ap' : 'ss'}">參照 ${ref}</span><i>Acer 文案為草稿</i></div>` +
+      `<div class="ct-head"><h3>文案對照表<em>（${n}）</em></h3><span class="ct-ref ${ref === 'Apple' ? 'ap' : 'ss'}">參照 ${ref}</span><i>Acer 文案為草稿</i></div>` +
       `<div class="grid ct" style="grid-template-columns:200px 170px 1fr 1fr">` +
       `<div class="h">區塊</div><div class="h">項目</div><div class="h en">${ref.toUpperCase()}</div><div class="h a">ACER（草稿）</div>` +
       groups.map(g => S.copyTable[g]).map(g => g.rows.map(([item, refCopy, acer], i) =>
@@ -307,10 +311,10 @@ window.DECK = {
     const fwDiagram = key => { const g = S.framework.diagram[key], name = S.benchAssets[key].name;
       const block = part => {
         if (part === 'context') return `<div class="fw-ctx ${g.layout}"><em>${FW_LABEL.context}<small>情境</small></em><div>` + g.contexts.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
-        return `<div class="fw-blk ${part}"><em>${FW_LABEL[part]}<small>${part === 'hero' ? '主視覺' : '助理：' + (key === 'apple' ? 'Siri' : 'Bixby')}</small></em></div>`; };
+        return `<div class="fw-blk ${part}"><em>${FW_LABEL[part]}<small>${part === 'hero' ? '主視覺' : '助理：' + (key === 'apple' ? 'Siri' : 'Bixby')}</small></em><p>${g.copy[part]}</p></div>`; };
       return `<div class="fw-dia"><span class="fw-tag ${key === 'apple' ? 'ap' : 'ss'}">${name}</span>` +
-        `<p class="fw-order">${g.order.map(p => FW_LABEL[p]).join(' → ')}</p>` +
-        g.order.map(block).join('<i class="fw-arrow">↓</i>') + `<p class="fw-note">${g.note}</p></div>`; };
+        `<p class="fw-order">${g.order.map(p => FW_LABEL[p]).join(' → ')}<span>${g.note}</span></p>` +
+        g.order.map(block).join('<i class="fw-arrow">↓</i>') + `</div>`; };
     const frameworkStep = () => d.panel(2, 100, STYLE + `<h3>Layout and framework <em>for Acer</em></h3>` +
       `<div class="fw-two">${fwDiagram('apple')}${fwDiagram('samsung')}</div>` +
       `<p class="concl" style="position:static;margin-top:22px">${S.framework.conclusion}</p>`);
@@ -376,11 +380,9 @@ window.DECK = {
       benchAssetStep('apple', 'apple'),
       benchAssetStep('samsung', 'samsungLive'),
       frameworkStep(),
-      d.panel(2, 110, STYLE + `<h3>文字文案：<em>哪一家更適合 Acer</em></h3>` + compareTable(S.benchCompare.copy)),
       assetsStep(),
 
       // ===== 03 L1 Spec =====
-      d.intro(3, { num: '03', title: 'L1 Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
       // the whole L1 page: sections, their copy and image assets (the chapter's overview)
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
