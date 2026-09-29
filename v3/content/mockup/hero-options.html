@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 動畫 5 個方向</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<style>
+  /* picker: the five hero directions side by side, each scaled from 1440×810, with replay and full-size links */
+  :root{--ink:#1a1d23;--muted:#6d7385;--line:#e3e6ec;--green:#83b81a;--green-d:#3f7d0a;--bg:#f4f5f7}
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 16px 64px;background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif}
+  main{max-width:1500px;margin:0 auto}
+  h1{margin:0;font-size:32px;font-weight:900}
+  .lead{margin:6px 0 22px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:#fff}
+  .frame iframe{position:absolute;left:0;top:0;width:1440px;height:810px;border:0;transform-origin:0 0}
+  .meta{display:flex;align-items:center;gap:12px;padding:14px 16px}
+  .meta b{padding:2px 10px;border-radius:999px;background:var(--green);color:#fff;font:800 15px Montserrat,sans-serif}
+  .meta strong{font-size:18px}
+  .meta span{margin-left:auto;display:flex;gap:8px}
+  .meta button,.meta a{padding:6px 14px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);font:700 14px 'Noto Sans TC',sans-serif;text-decoration:none;cursor:pointer}
+  .meta p{flex-basis:100%;margin:-4px 0 0;font-size:14px;color:var(--muted)}
+  .meta{flex-wrap:wrap}
+</style>
+</head>
+<body>
+<main>
+  <h1>Hero 動畫：5 個方向</h1>
+  <p class="lead">每張約 9 秒一輪、自動循環；「重播」從頭播放，「全尺寸」開新分頁看 1440×810 原尺寸。</p>
+  <div class="grid" id="grid"></div>
+</main>
+<script>
+  const OPTS = [
+    ['A', '開蓋喚醒', 'hero-a.html', '3/4 側面，筆電開蓋、螢幕亮綠光，Qubi 從上蓋後探出'],
+    ['B', '從螢幕裡走出來', 'hero-b.html', 'Qubi 先在螢幕裡打招呼，穿出玻璃落到鍵盤旁揮手'],
+    ['C', '俯視桌面', 'hero-c.html', '俯視桌面，Qubi 走過鍵盤、按鍵亮起，螢幕跳出對話'],
+    ['D', '字體主視覺', 'hero-d.html', '超大 Qubi 字樣，Q 的圓洞變綠、Qubi 從洞裡冒出'],
+    ['E', '背面視角', 'hero-e.html', '筆電背面 Acer logo 亮起，Qubi 從螢幕後探頭，標題進場'],
+    ['現行', '正面探頭（目前版本）', 'hero.html', '對照用：目前簡報中的版本'],
+  ];
+  const grid = document.getElementById('grid');
+  grid.innerHTML = OPTS.map(([k, name, src, desc]) => `<div class="card"><div class="frame"><iframe src="${src}" title="${name}" scrolling="no"></iframe></div>` +
+    `<div class="meta"><b>${k}</b><strong>${name}</strong><span><button type="button" data-k="${k}">重播</button><a href="${src}" target="_blank" rel="noopener">全尺寸 ↗</a></span><p>${desc}</p></div></div>`).join('');
+  const fit = () => document.querySelectorAll('.frame').forEach(f => { f.firstChild.style.transform = `scale(${f.clientWidth / 1440})`; });
+  addEventListener('resize', fit); fit();
+  grid.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    b.closest('.card').querySelector('iframe').contentWindow.postMessage({ deck: 'play', at: 'land' }, '*');
+  });
+</script>
+</body>
+</html>

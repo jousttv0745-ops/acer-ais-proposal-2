@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero C · 俯視桌面</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hero-base.css">
+<style>
+  /* C: top-down desk. Laptop open flat, coffee and phone beside it; Qubi walks across the keyboard,
+     keys light up under it, and the headline appears on the screen as a dialog */
+  body,.stage{background:#f3f1ec}
+  .desk{position:absolute;left:560px;top:40px;width:820px;height:740px;transform:rotate(-8deg)}
+  .lid{position:absolute;left:90px;top:40px;width:600px;height:370px;border-radius:18px 18px 4px 4px;background:#2a2d31;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+  .disp{position:absolute;left:18px;top:18px;right:18px;bottom:22px;border-radius:6px;background:linear-gradient(135deg,#1f3a13,#0f1a12 60%);overflow:hidden}
+  .disp .dlg{position:absolute;left:50%;top:50%;width:420px;margin-left:-210px;margin-top:-70px;padding:22px 26px;border-radius:18px;background:#fff;
+    opacity:0;transform:translateY(16px) scale(.96);transition:all .6s cubic-bezier(.2,.8,.2,1)}
+  .disp .dlg.show{opacity:1;transform:none}
+  .dlg b{display:block;font:900 34px/1.15 Montserrat,'Noto Sans TC',sans-serif}
+  .dlg b em{font-style:normal;color:#83b81a}
+  .dlg span{display:block;margin-top:8px;font-size:15px;color:#3d4250}
+  .base{position:absolute;left:90px;top:410px;width:600px;height:330px;border-radius:4px 4px 22px 22px;background:linear-gradient(#d8dbe0,#c9cdd3);box-shadow:0 18px 40px rgba(0,0,0,.14)}
+  .keys{position:absolute;left:40px;top:28px;right:40px;display:grid;grid-template-columns:repeat(14,1fr);gap:6px}
+  .keys i{height:28px;border-radius:5px;background:#2e3238;transition:background .25s,box-shadow .25s}
+  .keys i.on{background:#83b81a;box-shadow:0 0 14px rgba(166,226,46,.8)}
+  .pad{position:absolute;left:190px;top:210px;width:220px;height:96px;border-radius:10px;background:#c1c5cc}
+  .cup{position:absolute;left:-60px;top:470px;width:130px;height:130px;border-radius:50%;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+  .cup::after{content:'';position:absolute;inset:18px;border-radius:50%;background:radial-gradient(#7a4a2a,#5b3219)}
+  .phone{position:absolute;left:730px;top:420px;width:90px;height:180px;border-radius:16px;background:#1a1d23;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+  .leaf{position:absolute;left:720px;top:40px;width:120px;height:120px;border-radius:0 70% 0 70%;background:#8fbf5a;opacity:.85}
+  .walker{position:absolute;left:150px;top:478px;width:80px;transition:left 2.4s linear}
+  .walker img{width:80px;display:block;animation:bob .4s ease-in-out infinite alternate}
+  @keyframes bob{to{transform:translateY(-8px) rotate(4deg)}}
+  .walker.go{left:470px}
+  .copy{position:absolute;left:90px;top:280px;width:470px}
+  .copy.hide{transform:translateX(-30px)}
+  .copy h1{font-size:74px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="desk">
+    <div class="leaf"></div>
+    <div class="lid"><div class="disp"><div class="dlg" id="dlg"><b>Hi，我是 <em>Qubi</em>！</b><span>今天想先處理哪件事？</span></div></div></div>
+    <div class="base"><div class="keys" id="keys"></div><div class="pad"></div></div>
+    <div class="cup"></div><div class="phone"></div>
+    <div class="walker" id="walker"><img src="qubi.png" alt="Qubi"></div>
+  </div>
+  <div class="copy t hide" id="copy"><h1>Acer <em>Qubi</em><br>全新亮相!</h1>
+    <p class="sub">新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。</p></div>
+  <span class="tag">C · 俯視桌面</span>
+</div>
+<script src="hero-base.js"></script>
+<script>
+  const keys = $('keys'); keys.innerHTML = '<i></i>'.repeat(14 * 5);
+  const K = [...keys.children], timers = [];
+  heroTimeline(() => {
+    timers.splice(0).forEach(clearTimeout); K.forEach(k => k.classList.remove('on'));
+    const w = $('walker'); w.style.transition = 'none'; w.classList.remove('go'); w.offsetWidth; w.style.transition = '';
+    $('dlg').classList.remove('show'); $('copy').classList.add('hide');
+  }, [
+    [400, () => {
+      $('walker').classList.add('go');                                  // Qubi walks across the keyboard
+      for (let c = 1; c < 11; c++) timers.push(setTimeout(() => { K[14 * 4 + c].classList.add('on'); K[14 * 3 + c].classList.add('on'); }, c * 220));
+    }],
+    [2900, () => $('dlg').classList.add('show')],                       // headline pops up on the screen
+    [3400, () => $('copy').classList.remove('hide')],
+  ], 9000);
+</script>
+</body>
+</html>

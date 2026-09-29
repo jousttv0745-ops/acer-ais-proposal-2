@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero E · 背面視角</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hero-base.css">
+<style>
+  /* E: the laptop seen from behind; the Acer logo on the lid lights up, Qubi peeks over the top of the screen
+     at the viewer, then the laptop slides right and the headline comes in on the left */
+  .rig{position:absolute;left:460px;top:190px;width:520px;height:420px;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+  .rig.right{transform:translateX(330px)}
+  .lid{position:absolute;left:0;top:40px;width:520px;height:330px;border-radius:18px 18px 6px 6px;z-index:2;
+    background:linear-gradient(160deg,#eef0f3 0%,#d9dde2 45%,#c8cdd3 100%);box-shadow:inset 0 0 0 1.5px #b9bec6,0 26px 50px rgba(0,0,0,.12)}
+  .lid::after{content:'';position:absolute;left:24px;right:24px;top:14px;height:40%;border-radius:12px;background:linear-gradient(rgba(255,255,255,.6),transparent)}
+  .logo{position:absolute;left:0;right:0;top:128px;text-align:center;font:italic 800 64px/1 Montserrat,sans-serif;letter-spacing:-2px;color:#a9aeb6;transition:color .8s,text-shadow .8s}
+  .logo.lit{color:#83b81a;text-shadow:0 0 24px rgba(166,226,46,.7)}
+  .base{position:absolute;left:-26px;top:368px;width:572px;height:16px;border-radius:0 0 14px 14px;z-index:2;background:linear-gradient(#cfd3d9,#b3b8c0)}
+  .qubi{left:330px;top:40px;width:150px;z-index:1;transform:translateY(150px) rotate(0);transition:transform 1s cubic-bezier(.3,1.5,.5,1)}
+  .qubi.up{transform:translateY(-112px) rotate(-8deg)}
+  .qubi.tilt{transform:translateY(-112px) rotate(8deg)}
+  .shadow{position:absolute;left:10px;top:392px;width:500px;height:22px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.16),transparent 70%)}
+  .copy{position:absolute;left:130px;top:300px;width:560px}
+  .copy.hide{transform:translateX(-40px)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="copy t hide" id="copy"><h1>Acer <em>Qubi</em><br>全新亮相!</h1>
+    <p class="sub">新一代 Acer Intelligence Space 與 Acer Qubi<br>就在你的電腦裡，幫你做得更多、更懂你。</p></div>
+  <div class="rig" id="rig">
+    <div class="shadow"></div>
+    <img class="qubi" id="qubi" src="qubi.png" alt="Qubi">
+    <div class="lid"><div class="logo" id="logo">acer</div></div>
+    <div class="base"></div>
+  </div>
+  <span class="tag">E · 背面視角</span>
+</div>
+<script src="hero-base.js"></script>
+<script>
+  heroTimeline(() => {
+    $('logo').classList.remove('lit'); $('qubi').className = 'qubi'; $('rig').classList.remove('right'); $('copy').classList.add('hide');
+  }, [
+    [500, () => $('logo').classList.add('lit')],          // the Acer logo on the lid lights up
+    [1400, () => $('qubi').classList.add('up')],          // Qubi peeks over the screen
+    [2300, () => $('qubi').classList.add('tilt')],        // curious head tilt
+    [3000, () => $('rig').classList.add('right')],        // laptop slides right
+    [3400, () => $('copy').classList.remove('hide')],     // headline on the left
+  ], 9000);
+</script>
+</body>
+</html>

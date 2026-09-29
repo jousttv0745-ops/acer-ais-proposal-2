@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero B · 從螢幕裡走出來</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hero-base.css">
+<style>
+  /* B: Qubi lives in the screen UI, then steps out through the glass and lands beside the keyboard */
+  .laptop{position:absolute;left:410px;top:150px;width:620px}
+  .laptop > img{display:block;width:620px}
+  /* the display area of laptop.png at 620 wide */
+  .screen{position:absolute;left:64px;top:14px;width:491px;height:302px;overflow:hidden;border-radius:4px;background:#0f1a12}
+  .screen::before{content:'';position:absolute;inset:0;background:radial-gradient(70% 90% at 30% 40%,rgba(131,184,26,.55),transparent 70%)}
+  .bubble{position:absolute;left:250px;top:92px;padding:12px 18px;border-radius:16px 16px 16px 4px;background:#fff;font-size:20px;font-weight:700;opacity:0;transform:translateY(10px);transition:all .5s}
+  .bubble.show{opacity:1;transform:none}
+  .inside{position:absolute;left:120px;top:78px;width:110px;transition:opacity .25s}
+  .out{position:absolute;left:530px;top:230px;width:110px;opacity:0;filter:drop-shadow(0 0 0 rgba(166,226,46,0));
+    transition:transform 1.3s cubic-bezier(.45,-0.2,.25,1.2),opacity .2s,filter .6s}
+  .out.go{opacity:1;filter:drop-shadow(0 0 22px rgba(166,226,46,.9))}
+  .out.land{transform:translate(520px,300px) scale(1.55);filter:drop-shadow(0 14px 18px rgba(0,0,0,.18))}
+  .ring{position:absolute;left:560px;top:260px;width:70px;height:70px;border:3px solid #a6e22e;border-radius:50%;opacity:0;transform:scale(.4)}
+  .ring.pop{animation:pop .7s ease-out}
+  @keyframes pop{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(2.2)}}
+  .copy{position:absolute;left:0;right:0;top:48px;text-align:center}
+  .copy .sub{margin-top:10px}
+  .copy.hide{transform:translateY(-16px)}
+  .shadow{position:absolute;left:430px;top:612px;width:600px;height:24px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.14),transparent 70%)}
+  .wave{animation:wave 1s ease-in-out 2}
+  @keyframes wave{0%,100%{rotate:0deg}30%{rotate:-8deg}70%{rotate:8deg}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="copy t hide" id="copy"><h1>Acer <em>Qubi</em> 全新亮相!</h1><p class="sub">新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。</p></div>
+  <div class="shadow"></div>
+  <div class="laptop" style="top:210px">
+    <img src="laptop.png" alt="">
+    <div class="screen"><img class="inside" id="inside" src="qubi.png" alt=""><div class="bubble" id="bubble">Hi，我在這裡！</div></div>
+  </div>
+  <div class="ring" id="ring"></div>
+  <img class="out" id="out" src="qubi.png" alt="Qubi">
+  <span class="tag">B · 從螢幕裡走出來</span>
+</div>
+<script src="hero-base.js"></script>
+<script>
+  // "out" sits exactly over "inside" in page px: laptop (410,210) + screen (64,14) + inside (120,78)
+  $('out').style.left = (410 + 64 + 120) + 'px'; $('out').style.top = (210 + 14 + 78) + 'px';
+  $('ring').style.left = (410 + 64 + 140) + 'px'; $('ring').style.top = (210 + 14 + 100) + 'px';
+  heroTimeline(() => {
+    $('inside').style.opacity = 1; $('bubble').classList.remove('show');
+    const o = $('out'); o.className = 'out'; o.style.transition = 'none'; o.offsetWidth; o.style.transition = '';
+    $('copy').classList.add('hide'); $('ring').classList.remove('pop');
+  }, [
+    [500, () => $('bubble').classList.add('show')],                                             // Qubi talks from inside the screen
+    [1900, () => { $('bubble').classList.remove('show'); $('ring').classList.add('pop'); }],
+    [2000, () => { $('inside').style.opacity = 0; $('out').classList.add('go'); }],             // breaks through the glass
+    [2150, () => $('out').classList.add('land')],                                               // jumps out and lands beside the keyboard
+    [3500, () => { $('out').classList.add('wave'); $('copy').classList.remove('hide'); }],
+  ], 9000);
+</script>
+</body>
+</html>
