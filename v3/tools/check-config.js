@@ -52,7 +52,8 @@ for (const seg of WF.segments) seg.boxes.forEach(({ x, y, w, h, a }, i) => {
   if (x < 0 || y < 0 || x + w > WF.width || y + h > seg.h) err(`wireframe ${seg.id}[${i}] outside ${WF.width}x${seg.h}`);
   if (a) { drawn.add(a); if (!assetNos.has(a)) err(`wireframe ${seg.id}[${i}]: unknown asset ${a}`); }
 });
-for (const no of assetNos) if (!drawn.has(no)) err(`asset ${no} is not placed on the wireframe`);
+// assets used by only one hero version (only: 'B 版') may be left off the wireframe, which draws version A
+for (const no of assetNos) if (!drawn.has(no) && !SPEC.assets.find(a => a.no === no).only) err(`asset ${no} is not placed on the wireframe`);
 for (const a of SPEC.assets || []) if (!a.name) err(`asset ${a.no}: missing name`);
 // digital-asset sheets: one numbered box on the page per table row
 for (const [key, page] of [['apple', 'apple'], ['samsung', 'samsungLive'], ['acer', 'wfStrip']]) {

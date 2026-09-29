@@ -38,15 +38,15 @@
     l1: [
       { id: 'L1-1', seg: 'Hero：Acer Qubi 全新亮相!', ref: { page: 'apple', region: 'hero', label: 'Apple · Siri Hero（白底）' },
         goal: '一眼知道「AI 助理 Qubi 就在你的電腦裡」，並往下讀',
-        material: '全白底＋筆電產品圖＋Qubi 從螢幕後探頭的動畫',
-        ratio: '全白底 16:9；「Acer Qubi 全新亮相!」與副標置中在上，筆電置中在下；Qubi 約筆電寬度 1/3',
+        material: 'A 版：綠色 Qubi 字樣＋Qubi 3D 角色；B 版：筆電正面產品圖＋Qubi 3D 角色',
+        ratio: '全白底 16:9。A 版：Qubi 字樣置中，縮成主標後 Qubi 置中、主標與副標在下；B 版：主標與副標靠左，筆電在右，Qubi 在螢幕內',
         scope: '1 句主標（Acer Qubi 全新亮相!）＋1 句副標；不放 CTA 與限制說明（移到 FAQ 註腳）',
-        asset: 'Qubi 探頭動畫（約 3 秒，MP4／Lottie）；筆電正面去背圖（透明底 PNG @2x）',
-        story: '以「Acer Qubi 全新亮相!」開場，Qubi 從筆電探出頭：AI 助理就在你的電腦裡' },
+        asset: 'Qubi 3D 角色動畫（A 版約 7 秒、B 版約 5 秒）；B 版另需筆電正面去背圖（透明底 PNG @2x）',
+        story: 'A 版：Qubi 從 Q 的窗框探頭、跳出揮手，字樣縮成「Acer Qubi 全新亮相!」；B 版：Qubi 從筆電螢幕內探頭揮手。兩版都在說 AI 助理就在你的電腦裡' },
       { id: 'L1-2', seg: 'Qubi 章：對話＋情境輪播', ref: { page: 'apple', region: 'siri', label: 'Apple · Siri 章（位置）' },
         goal: '讓讀者看到 Qubi 能做的事：問什麼，就換什麼場景',
         material: '3:2 情境照卡片輪播，對話框疊在卡片上',
-        ratio: '淺灰底 2:1；置中卡 720×480、兩側卡縮小 72% 並淡化；對話出現時底圖壓暗；標題置中，與 L1-3 一致',
+        ratio: '淺灰底 2:1；置中卡 720×480、兩側卡縮小 72% 並淡化；對話出現時底圖壓暗；標題置中，與 03 一致',
         scope: '小標 Acer Qubi＋1 句主標；3 組對話（郵件摘要・人物去背・會議摘要），約 5 秒一組；不放 CTA',
         asset: '情境照 3 張（3:2，1440×960 @2x）；對話腳本 3 組；人物去背加裁切框與掃描線動態',
         story: '主標「個人 AI 助理，Qubi 比你更懂你」；Qubi 主動提議，也接受使用者拖檔案提問' },
@@ -56,7 +56,7 @@
         ratio: '橫式卡 1.36:1；圓角 ≈3% 卡寬；間距一致；圖片占比 35–47%；≤200px／功能',
         scope: '4 分頁（商務／創意／遊戲／個人化）× 7–9 個 AIS app',
         asset: '每個 app 情境照合成 UI ×1，1712×1262 @2x；v1 圖可沿用或改版',
-        story: '置中小標＋置中提問式大標（「Can your phone do that?」的 Acer 版），與 L1-2 一致；卡片 = 功能標題＋2–3 行說明' },
+        story: '置中小標＋置中提問式大標（「Can your phone do that?」的 Acer 版），與 02 一致；卡片 = 功能標題＋2–3 行說明' },
       { id: 'L1-4', seg: '選機：依裝置類別', ref: { page: 'samsung', region: 'selling', label: 'Samsung · 機種探索' },
         goal: '從「想用的功能」導到 acer.com 裝置分類頁；已有 Acer 電腦 → 下載',
         material: '去背商品照',
@@ -78,7 +78,7 @@
       { dim: '素材', apple: 'UI 操作介面與精美視覺大圖（圖片中 92% 為可讀介面）', samsung: '沉浸感的情境照結合 UI＋去背商品照', acer: '白底產品＋Qubi 動畫（Hero）＋情境照卡片（Qubi 章）＋生活照合成 UI（情境）＋去背照（選機）' },
       { dim: '比例', apple: '首屏圖片 29%；卡片 0.83:1、圓角 ≈24px', samsung: '首屏圖片 62%；卡片 1.36:1、圓角 ≈24px', acer: 'Hero 全白底 16:9、Qubi 章 2:1（卡片 3:2）、情境卡 1.36:1；內容約 4,400px，含導覽與頁尾約 5,600px' },
       { dim: '範圍', apple: '6 章約 30 個功能；4 類裝置；約 30 個機型', samsung: '5 分頁 14 個功能；4 類裝置', acer: 'Qubi 章 3 組對話；4 分頁 × 7–9 app；4 類裝置 × 3 系列' },
-      { dim: '資產', apple: '36 張 UI／情境圖＋2 支影片＋15 張商品去背', samsung: '18 張情境照／KV＋11 張商品去背，無影片', acer: 'Qubi 探頭動畫 1、筆電去背圖 1、Qubi 章情境照 3、情境圖 7–9、系列去背照約 12' },
+      { dim: '資產', apple: '36 張 UI／情境圖＋2 支影片＋15 張商品去背', samsung: '18 張情境照／KV＋11 張商品去背，無影片', acer: 'Qubi 3D 動畫 1、筆電去背圖 1（B 版）、Qubi 章情境照 3、情境圖 7–9、系列去背照約 12' },
       { dim: '敘事', apple: '角色（Siri）開場；「這是你的螢幕」', samsung: '提問開場；「它出現在你生活的某個時刻」', acer: 'Qubi 開場＋提問式情境＋「哪一台跑得動你的 AI？」' },
     ],
 
@@ -88,10 +88,10 @@
       width: 1440,
       segments: [
         { id: 'L1-1', h: 810, boxes: [
-          { k: 'line', x: 420, y: 74, w: 600, h: 90, t: 'Acer Qubi 全新亮相!（主標）' },
-          { k: 'line', x: 440, y: 212, w: 560, h: 26, t: '副標' },
-          { k: 'asset', a: 'A01', x: 640, y: 298, w: 160, h: 185 },
-          { k: 'asset', a: 'A02', x: 485, y: 410, w: 470, h: 343 },
+          // A 版的最後畫面：Qubi 置中，主標（由 Qubi 字樣縮成）與副標在下；B 版的筆電（A02）不在此版面
+          { k: 'asset', a: 'A01', x: 630, y: 250, w: 180, h: 260 },
+          { k: 'line', x: 400, y: 560, w: 640, h: 80, t: 'Acer Qubi 全新亮相!（主標）' },
+          { k: 'line', x: 360, y: 672, w: 720, h: 26, t: '副標' },
         ] },
         { id: 'L1-2', h: 720, boxes: [
           { k: 'line', x: 630, y: 38, w: 180, h: 24, t: 'Acer Qubi' },
@@ -185,10 +185,10 @@
     },
 
     // Acer L1, section by section: suggested copy (draft) and image assets, for the summary sheet
-    acerSheet: { name: 'Acer', conclusion: '開場的敘事框架參考 Apple，其餘細節與影像素材參考 Samsung', src: 'Level 1 landing page 建議・文案為草稿',
+    acerSheet: { name: 'Acer', conclusion: '開場的敘事框架參考 Apple，其餘細節與影像素材參考 Samsung', src: 'Milestone 1 landing page 建議・文案為草稿',
       totals: [['Image', '10–12'], ['商品去背', '約 13'], ['動畫', 1], ['Icon', 0]],
       rows: [
-        { ref: 'Apple', seg: 'Hero', title: 'Acer Qubi 全新亮相!', sub: '副標：新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。', assets: 'A01 探頭動畫＋A02 筆電圖' },
+        { ref: 'Apple', seg: 'Hero', title: 'Acer Qubi 全新亮相!', sub: '副標：新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。', assets: 'A01 Qubi 3D 動畫（B 版＋A02 筆電圖）' },
         { ref: 'Apple', seg: 'Qubi 章', title: '個人 AI 助理，Qubi 比你更懂你', sub: '小標 Acer Qubi；對話：郵件摘要・人物去背・會議摘要', assets: 'A03 情境照 ×3＋A04 腳本 ×3' },
         { ref: 'Samsung', seg: '情境功能', title: '你的電腦，也做得到嗎？', sub: '分頁：商務・創意・遊戲・個人化；7–9 則功能標題', assets: 'A05 情境圖 ×7–9' },
         { ref: 'Samsung', seg: '選機', title: '哪一台跑得動你的 AI？', sub: '筆電・桌機・AIO・掌機；CTA 進一步了解・下載 AIS', assets: 'A06 系列去背照 ×約 12' },
@@ -198,7 +198,7 @@
     // copy table: every L1 section item by item, next to the reference brand's copy (Hero / Qubi → Apple, the rest → Samsung).
     // Reference copy read from the live pages on 2026-09-26 (Samsung footnote markers removed, long descriptions trimmed);
     // Acer copy is a draft (scenario cards from the v1 mockup). Cells may hold html (<b>, <i>, <br>).
-    copyTable: [{"seg":"Hero","ref":"Apple","assets":["Image ×6（iPhone＋UI 拼貼）","A01 Qubi 探頭動畫＋A02 筆電去背圖"],"rows":[["眉標","Apple Intelligence 與 Siri","Acer Intelligence Space"],
+    copyTable: [{"seg":"Hero","ref":"Apple","assets":["Image ×6（iPhone＋UI 拼貼）","A01 Qubi 3D 動畫（A、B 版）＋A02 筆電去背圖（B 版）"],"rows":[["眉標","Apple Intelligence 與 Siri","Acer Intelligence Space"],
         ["主標","全新 Siri AI 亮相。真能幫助你，真的很懂你。","Acer Qubi 全新亮相"],
         ["內文","新一代 Apple Intelligence 與 Siri 聯手亮相，帶來真能幫助你的 AI，一切以你和你的需求為核心。","新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。"]]},
       {"seg":"Qubi 章","ref":"Apple","assets":["Image ×7（UI 操作介面）＋Video ×2","A03 情境照 ×3＋A04 對話腳本 ×3"],"rows":[["眉標","Siri AI","Acer Qubi"],
@@ -254,7 +254,7 @@
         { seg: 'FAQ', apple: '無此區塊（只有註腳）', samsung: '「Frequently Asked Questions」11 題', pick: 'Samsung', why: '集中免責與長尾 SEO' },
       ],
       assets: [
-        { seg: 'Hero', apple: 'Image ×6：iPhone 框＋UI 拼貼，白底', samsung: 'Image ×1：手持折疊機 KV，滿版', pick: 'Apple', why: '白底只放一個主角，換成筆電＋Qubi 動畫' },
+        { seg: 'Hero', apple: 'Image ×6：iPhone 框＋UI 拼貼，白底', samsung: 'Image ×1：手持折疊機 KV，滿版', pick: 'Apple', why: '白底只放一個主角：Qubi 字樣或筆電，搭配 Qubi 3D 動畫' },
         { seg: '助理', apple: 'Image ×7 UI 截圖卡＋精選 Video ×2', samsung: 'Image ×1 Bixby UI 實拍', pick: 'Apple', why: '一句對話配一張畫面；Acer 改以沉浸感的情境照結合 UI呈現' },
         { seg: '情境功能', apple: 'Image ×19 UI 操作介面與精美視覺大圖', samsung: 'Image ×14 沉浸感的情境照結合 UI', pick: 'Samsung', why: '沉浸感的情境照結合 UI，一張圖講一個使用時刻' },
         { seg: '選機', apple: '商品去背 ×15（iPhone・iPad・Mac）', samsung: '商品去背 ×11（手機・平板・手錶・耳機）', pick: '兩者', why: '都用去背商品照；Acer 以系列去背照呈現' },
@@ -264,8 +264,8 @@
     },
 
     assets: [
-      { no: 'A01', name: 'Qubi 探頭動畫', seg: 'L1-1', file: 'hero-qubi.mp4（或 .json）', spec: 'Qubi 從螢幕後探頭＋點頭，約 3 秒；白底或透明底', qty: '1', owner: 'Qubi 團隊／設計', status: '待製作' },
-      { no: 'A02', name: '筆電去背圖', seg: 'L1-1', file: 'hero-laptop.png', spec: '筆電正面去背，透明底 PNG @2x', qty: '1', owner: 'PM', status: '官網現有' },
+      { no: 'A01', name: 'Qubi 3D 角色動畫', seg: 'L1-1', file: 'hero-qubi（即時 3D，或輸出 MP4）', spec: '依影片中 Qubi 造型的 3D 角色；A 版從 Q 探頭→跳出→揮手約 7 秒，B 版從筆電螢幕內探頭揮手約 5 秒；透明底', qty: '1', owner: 'Qubi 團隊／設計', status: '畫面提案已有示意' },
+      { no: 'A02', name: '筆電去背圖', seg: 'L1-1', file: 'hero-laptop.png', spec: '筆電正面去背，透明底 PNG @2x（僅 B 版）', qty: '1', owner: 'PM', status: '官網現有', only: 'B 版' },
       { no: 'A03', name: '情境照 1440×960@2x', seg: 'L1-2', file: 'qubi-scene-mail／cutout／meeting.jpg', spec: '情境照，3:2，1440×960 @2x', qty: '3', owner: '設計', status: '示意圖已提供' },
       { no: 'A04', name: '對話腳本', seg: 'L1-2', file: 'qubi-dialogs.xlsx', spec: '3 組對話（誰說、文字、回覆選項）；去背組含裁切框動態', qty: '3 組', owner: 'PM', status: '初稿見畫面提案' },
       { no: 'A05', name: '情境圖 1712×1262@2x', seg: 'L1-3', file: 'scene-<app>.png', spec: '沉浸感的情境照結合 UI，1712×1262 @2x', qty: '7–9', owner: '設計', status: 'v1 可沿用 4 張' },

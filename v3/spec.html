@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>AIS L1 Spec 附錄</title>
+<title>AIS Milestone 1 Spec 附錄</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -39,30 +39,31 @@
 <body>
 <main>
   <small class="k">APPENDIX · PROPOSAL v3</small>
-  <h1>Acer Intelligence Space — L1 Landing Page Spec</h1>
-  <p class="lead">Apple／Samsung 面積比例引用 2026-09-23 拆解，像素值為本版 1920px CSS px、1× 截圖實測；Acer L1 為本提案建議值。說明文字為草稿。</p>
+  <h1>Acer Intelligence Space — Milestone 1 Landing Page Spec</h1>
+  <p class="lead">Apple／Samsung 面積比例引用 2026-09-23 拆解，像素值為本版 1920px CSS px、1× 截圖實測；Acer Milestone 1 為本提案建議值。說明文字為草稿。</p>
   <a class="back" href="./">← 回到簡報</a>
   <section id="l1"></section>
   <section id="copy"></section>
   <section id="assets"></section>
   <section id="bench"></section>
 </main>
-<script src="spec-data.js?v=20260929-11"></script>
-<script src="wireframe.js?v=20260929-11"></script>
+<script src="spec-data.js?v=20260929-12"></script>
+<script src="wireframe.js?v=20260929-12"></script>
 <script>
   const S = window.SPEC, WF = window.Wireframe;
   const DIMS = S.dims.filter(([k]) => k !== 'material'); // the detail tables leave out 素材
+  const no = id => id.replace(/^L1-/, '0'); // L1-1 → 01 on screen, as in the deck
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const table = (head, rows) => `<div class="wrap"><table><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
   const dimCells = r => r.none ? `<td class="none" colspan="${DIMS.length}">無此區塊</td>` : DIMS.map(([k]) => `<td>${esc(r[k])}</td>`).join('');
-  document.getElementById('l1').innerHTML = `<h2>1. L1 <em>逐段 Spec</em></h2>` +
-    table(['#', '段落', '參照', ...DIMS.map(([, l]) => l)], S.l1.map(r => `<tr><td class="seg">${r.id}</td><td class="seg">${esc(r.seg)}</td><td>${esc(r.ref.label)}</td>${dimCells(r)}</tr>`));
+  document.getElementById('l1').innerHTML = `<h2>1. 逐段 <em>Spec</em></h2>` +
+    table(['#', '段落', '參照', ...DIMS.map(([, l]) => l)], S.l1.map(r => `<tr><td class="seg">${no(r.id)}</td><td class="seg">${esc(r.seg)}</td><td>${esc(r.ref.label)}</td>${dimCells(r)}</tr>`));
   document.head.insertAdjacentHTML('beforeend', `<style>${WF.css}</style>`);
   document.getElementById('assets').innerHTML = `<h2>3. <em>資產清單</em>與位置</h2>` +
-    `<div class="wf-page"><div class="wf-stack">` + S.l1.map(s => `<small>${s.id} ${esc(s.seg)}<i>≈${WF.height(s.id).toLocaleString('en-US')}px</i></small>` + WF.segment(s.id, '100%')).join('') + `</div>` +
-    `<div class="wf-legend"><p>L1 整頁 wireframe，以 1440 寬為準，不含全域導覽與頁尾。綠框＝資產編號，灰色＝文字與按鈕位置；不代表最終視覺。</p><ul>` +
-    S.assets.map(a => `<li><b>${a.no}</b>${esc(a.name)}・${esc(a.seg)}</li>`).join('') + `</ul></div></div>` +
-    table(['編號', '段落', '檔名', '規格', '數量', '提供者', '狀態'], S.assets.map(a => `<tr>${['no', 'seg', 'file', 'spec', 'qty', 'owner', 'status'].map(k => `<td>${esc(a[k])}</td>`).join('')}</tr>`));
+    `<div class="wf-page"><div class="wf-stack">` + S.l1.map(s => `<small>${no(s.id)} ${esc(s.seg)}<i>≈${WF.height(s.id).toLocaleString('en-US')}px</i></small>` + WF.segment(s.id, '100%')).join('') + `</div>` +
+    `<div class="wf-legend"><p>整頁 wireframe，以 1440 寬為準；Hero 畫的是 A 版最後畫面，不含全域導覽與頁尾。綠框＝資產編號，灰色＝文字與按鈕位置；不代表最終視覺。</p><ul>` +
+    S.assets.map(a => `<li><b>${a.no}</b>${esc(a.name)}・${no(a.seg)}${a.only ? `（${a.only}）` : ''}</li>`).join('') + `</ul></div></div>` +
+    table(['編號', '段落', '檔名', '規格', '數量', '提供者', '狀態'], S.assets.map(a => `<tr>${['no', 'seg', 'file', 'spec', 'qty', 'owner', 'status'].map(k => `<td>${esc(k === 'seg' ? no(a[k]) : a[k])}</td>`).join('')}</tr>`));
   // copy table: reference brand next to the Acer draft; html entities in the data are kept, the rest escaped
   const keep = s => String(s).replace(/&(?!#?w+;)/g, '&amp;').replace(/</g, '&lt;');
   document.getElementById('copy').innerHTML = `<h2>2. Layout and Assets <em>對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；Acer 文案為草稿。</p>` +
