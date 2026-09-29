@@ -7,17 +7,19 @@
 <title>Hero D2 · 字體主視覺</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hero-base.css?v=20260929-6">
+<link rel="stylesheet" href="hero-base.css?v=20260929-7">
 <style>
-  /* D2: type-led, no laptop. A huge green "Qubi" wordmark drops in letter by letter; the counter of the Q lights up
-     and the 3D Qubi rises in it with its head leaning out over the Q's frame, like out of a window. Qubi jumps out to
-     the centre while the wordmark shrinks down into the "Qubi" of the headline below it */
+  /* D2: type-led, no laptop. A huge green "Qubi" wordmark (the same Montserrat glyphs as the headline) drops in letter
+     by letter; the counter of the Q lights up and the 3D Qubi rises in it with its head leaning out over the Q's frame,
+     like out of a window. It looks around and jumps out to the centre while the wordmark shrinks down into the "Qubi"
+     of the headline; the rest of the headline fades in as Qubi waves */
   .word{position:absolute;left:170px;top:120px;width:1100px;height:420px;transform-origin:0 0;transition:transform 1.1s cubic-bezier(.3,.8,.2,1),opacity .35s}
   .word svg{width:100%;height:100%;overflow:visible}
   .word .l{transform-box:fill-box;transform-origin:50% 100%;transform:translateY(-260px);opacity:0;transition:transform .7s cubic-bezier(.3,1.4,.5,1),opacity .3s}
   .word .l.in{transform:none;opacity:1}
   .word.gone{opacity:0}
   .hole{transition:fill .5s}
+  .word text{font:900 400px Montserrat,sans-serif;fill:#83b81a}
   .copy{position:absolute;left:0;right:0;top:596px;text-align:center}
   .copy h1{font-size:72px}
   .copy em{opacity:0}
@@ -31,14 +33,8 @@
 <div class="stage">
   <div class="word" id="word">
     <svg viewBox="0 0 1100 420">
-      <g class="l" id="lq">
-        <circle cx="210" cy="215" r="158" fill="#83b81a"/>
-        <circle class="hole" id="hole" cx="210" cy="215" r="98" fill="#fff"/>
-        <path d="M285 300 L385 395 L330 410 L240 330 Z" fill="#83b81a"/>
-      </g>
-      <text class="l" x="400" y="370" style="font:900 400px Montserrat,sans-serif;fill:#83b81a">u</text>
-      <text class="l" x="660" y="370" style="font:900 400px Montserrat,sans-serif;fill:#83b81a">b</text>
-      <text class="l" x="920" y="370" style="font:900 400px Montserrat,sans-serif;fill:#83b81a">i</text>
+      <ellipse class="hole" id="hole" fill="#fff"/>
+      <text class="l">Q</text><text class="l">u</text><text class="l">b</text><text class="l">i</text>
     </svg>
   </div>
   <canvas id="c"></canvas>
@@ -47,42 +43,64 @@
   <span class="tag">D2 · 字體主視覺</span>
 </div>
 <script type="module">
-  import { createStage, loopScene } from './qubi3d.js?v=20260929-6';
+  import { createStage, loopScene } from './qubi3d.js?v=20260929-7';
   const $ = id => document.getElementById(id), cv = $('c'), word = $('word');
   const letters = [...document.querySelectorAll('.l')];
-  // Q counter in page px: word box (170,120) + svg (210,215), r 98
-  const QX = 380, QY = 335, QR = 98;
+  await document.fonts.load('900 400px Montserrat');
+  // lay the four glyphs out exactly like the headline's "Qubi": same font, letter-spacing scaled to 400px, baseline 370
+  const BASE = 370, em = $('qw'), emFs = parseFloat(getComputedStyle(em).fontSize);
+  const ls = (parseFloat(getComputedStyle(em).letterSpacing) || 0) * 400 / emFs;
+  const probe = document.createElementNS('http://www.w3.org/2000/svg', 'text'); probe.textContent = 'Qubi';
+  probe.style.letterSpacing = ls + 'px'; letters[0].parentNode.appendChild(probe);
+  const X0 = (1100 - probe.getComputedTextLength()) / 2;
+  letters.forEach((l, i) => { l.setAttribute('x', X0 + probe.getStartPositionOfChar(i).x); l.setAttribute('y', BASE); });
+  probe.remove();
+  // find the Q's counter (the window Qubi rises in): draw the Q and flood the white inside it
+  const counter = (() => {
+    const k = document.createElement('canvas'); k.width = 1100; k.height = 420; const x = k.getContext('2d', { willReadFrequently: true });
+    x.font = '900 400px Montserrat'; x.fillText('Q', X0, BASE);
+    const d = x.getImageData(0, 0, 1100, 420).data, ink = i => d[i * 4 + 3] > 128;
+    let L = 1100, R = 0, T = 420; for (let i = 0; i < 1100 * 420; i++) if (ink(i)) { const px = i % 1100, py = (i / 1100) | 0; L = Math.min(L, px); R = Math.max(R, px); T = Math.min(T, py); }
+    const seed = Math.round((T + BASE) / 2) * 1100 + Math.round(L + (R - L) * .45), seen = new Uint8Array(1100 * 420), st = [seed];
+    let a = 1100, b = 0, t = 420, u = 0;
+    while (st.length) { const i = st.pop(); if (seen[i] || ink(i)) continue; seen[i] = 1; const px = i % 1100, py = (i / 1100) | 0;
+      a = Math.min(a, px); b = Math.max(b, px); t = Math.min(t, py); u = Math.max(u, py); st.push(i - 1, i + 1, i - 1100, i + 1100); }
+    return { cx: (a + b) / 2, cy: (t + u) / 2, rx: (b - a) / 2, ry: (u - t) / 2 };
+  })();
+  Object.entries({ cx: counter.cx, cy: counter.cy, rx: counter.rx + 6, ry: counter.ry + 6 }).forEach(([k, v]) => $('hole').setAttribute(k, v));
+  // the counter in page px (word box at 170,120)
+  const QX = 170 + counter.cx, QY = 120 + counter.cy, RX = counter.rx, RY = counter.ry;
   // clip for Qubi inside the Q: everything above the counter's centre line (the head leans out over the frame)
   // plus the lower half of the counter (the body stays inside the window)
-  const arc = Array.from({ length: 25 }, (_, i) => { const a = Math.PI * i / 24; return `${(QX + QR * Math.cos(a)).toFixed(1)}px ${(QY + QR * Math.sin(a)).toFixed(1)}px`; });
+  const arc = Array.from({ length: 25 }, (_, i) => { const a = Math.PI * i / 24; return `${(QX + RX * Math.cos(a)).toFixed(1)}px ${(QY + RY * Math.sin(a)).toFixed(1)}px`; });
   const WINDOW = `polygon(0 0, 1440px 0, 1440px ${QY}px, ${arc.join(', ')}, 0 ${QY}px)`;
-  // transform that lays the wordmark exactly over the "Qubi" of the headline (same font size, same baseline)
+  // transform that lays the wordmark exactly over the "Qubi" of the headline (same glyphs, scaled; same start and baseline)
   const toHeadline = () => {
-    const em = $('qw'), r = em.getBoundingClientRect(), fs = parseFloat(getComputedStyle(em).fontSize);
-    const s = fs / 400, left = 52, right = letters[3].getBBox().x + letters[3].getBBox().width;
-    const tx = r.left + r.width / 2 - 170 - s * (left + right) / 2, ty = r.top + .968 * fs - 120 - s * 370;
-    return `translate(${tx}px, ${ty}px) scale(${s})`;
+    const r = em.getBoundingClientRect(), s = emFs / 400;
+    return `translate(${r.left - 170 - s * X0}px, ${r.top + .968 * emFs - 120 - s * BASE}px) scale(${s})`;
   };
-  const q = createStage(cv).add({ x: QX, y: 720, size: 250 });
+  // Qubi sized so its head is wider than the window; feet low enough that the neck sits on the centre line
+  const SIZE = Math.round(RX * 2 * 1.9), UP = QY + SIZE * .3, BIG = 230;
+  const q = createStage(cv).add({ x: QX, y: 780, size: SIZE });
   loopScene(() => {
     letters.forEach(l => l.classList.remove('in'));
     word.style.transition = 'none'; word.style.transform = ''; word.classList.remove('gone'); word.offsetWidth; word.style.transition = '';
     $('hole').setAttribute('fill', '#fff'); $('qw').classList.remove('on');
     ['s1', 's2', 'sub'].forEach(id => $(id).classList.add('hide'));
-    q.reset(QX, 720); cv.style.clipPath = WINDOW;
+    q.reset(QX, 780); q.setSize(SIZE); cv.style.clipPath = WINDOW;
   }, async (wait, live) => {
     for (const l of letters) { await wait(180); l.classList.add('in'); }      // green letters drop in
     await wait(700); $('hole').setAttribute('fill', '#f1f8e6');               // the Q's window lights up
-    await wait(250); await q.rise(404, .9); if (!live()) return;              // Qubi leans out of the Q
-    await q.lookAround(); if (!live()) return;
-    await q.wave(2); if (!live()) return;
+    await wait(250); await q.rise(UP, .9); if (!live()) return;               // Qubi leans out of the Q
+    await q.lookAround(); if (!live()) return;                                // looks around, then jumps out
     cv.style.clipPath = '';
     setTimeout(() => { if (live()) word.style.transform = toHeadline(); }, 200);   // the wordmark shrinks into the headline
+    q.tween(1.05, t => q.setSize(SIZE + (BIG - SIZE) * t));                     // grows to full size on the way
     await q.jumpTo(720, 548, { height: 170, dur: .9 }); if (!live()) return;
     $('qw').classList.add('on'); word.classList.add('gone');
     $('s1').classList.remove('hide'); $('s2').classList.remove('hide');
+    q.wave(3);                                                                 // waves while the headline comes in
     await wait(300); $('sub').classList.remove('hide');
-    await q.nod();
   }, 12000);
 </script>
 </body>
