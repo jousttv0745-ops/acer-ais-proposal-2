@@ -113,6 +113,7 @@ window.DECK = {
       .road .dir{border-style:dashed}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
+      .grid.rcp > div{white-space:nowrap}
       .fw-col{position:absolute;top:100px;width:640px}
       .fw-tag{display:inline-block;margin-bottom:12px;padding:6px 16px;border-radius:999px;color:#fff;font:800 18px Montserrat,'Noto Sans TC',sans-serif}
       .fw-tag.ap{background:#1a1d23}.fw-tag.ss{background:#1428a0}
@@ -363,13 +364,13 @@ window.DECK = {
 
       // ===== 00 Recap =====
       d.panel(0, 130,
-        `<h3>v1 報告後的<em>四個調整</em></h3>` +
+        STYLE + `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
           ['01', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark'],
           ['02', '不提 mockup，只出 spec', '03 Spec'],
           ['03', '不直接導流 EC，而是可落地執行的版本', '01 Milestone'],
           ['04', '參照 Apple 怎麼擺 Siri', '03 Spec'],
-        ], '120px 1fr 1fr') +
+        ], '90px 1fr 340px').replace('<div class="grid"', '<div class="grid rcp"') +
         `<p class="note">v1：Benchmark → Opening → Scenario → AI Companion → Recommendation → Recommendation logic（<a href="../" target="_blank" rel="noopener">開啟 v1</a>）</p>`),
 
       // ===== 01 Roadmap =====
