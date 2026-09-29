@@ -95,11 +95,15 @@ window.DECK = {
     const STYLE = `<style>
       .road{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;align-items:stretch;margin-top:40px}
       .road div{position:relative;padding:26px 26px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
-      .road div{min-height:360px}
+      .road div{min-height:520px}
       .road div:not(:last-child)::after{content:'';position:absolute;right:-38px;top:50%;width:28px;height:28px;margin-top:-14px;
         background:no-repeat center/28px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 12h14M12 5l7 7-7 7' fill='none' stroke='%2383b81a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
-      .road b{font:800 38px Montserrat,sans-serif;color:var(--green-d)}
-      .road strong{display:block;margin-top:8px;font-size:28px}
+      .road b{font:800 30px Montserrat,sans-serif;color:var(--green-d)}
+      .road strong{display:block;margin-top:10px;font:800 34px/1.25 Montserrat,'Noto Sans TC',sans-serif}
+      .road dl{display:grid;grid-template-columns:auto 1fr;gap:14px 16px;margin:26px 0 0;font-size:24px;line-height:1.45}
+      .road dt{font:800 17px Montserrat,sans-serif;letter-spacing:1px;text-transform:uppercase;padding-top:5px;color:var(--muted)}
+      .road dd{margin:0;color:var(--ink)}
+      .road .go dt{color:#eef7dd}.road .go dd{color:#fff}
       .road span{display:block;margin-top:10px;font-size:20px;line-height:1.55;color:var(--muted)}
       .road i{position:absolute;top:-18px;left:22px;padding:4px 14px;border-radius:999px;font:700 16px 'Noto Sans TC',sans-serif;font-style:normal}
       .road .now i{background:#9ca3af;color:#fff}
@@ -121,9 +125,29 @@ window.DECK = {
       .concl{position:absolute;left:0;right:0;margin:0;padding:18px 26px;border-radius:14px;background:var(--green);color:#fff;font-size:26px;font-weight:900}
       .ap-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px}
       .ap-card{padding:24px;border:1px solid var(--line);border-radius:18px;background:#fff}
-      .ap-img{height:470px;display:flex;align-items:center;justify-content:center;background:#f6f7f9;border-radius:12px;overflow:hidden}
+      .ap-img{height:390px;display:flex;align-items:center;justify-content:center;background:#f6f7f9;border-radius:12px;overflow:hidden}
       .ap-img img{max-width:100%;max-height:100%;border-radius:10px}
       .ap-card strong{display:block;margin:16px 0 6px;font-size:26px;font-weight:900}
+      .fw-two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+      .fw-dia{padding:22px 26px;border:1px solid var(--line);border-radius:18px;background:#fff}
+      .fw-order{margin:4px 0 14px;font:800 22px Montserrat,sans-serif;color:var(--ink)}
+      .fw-blk,.fw-ctx{border-radius:14px;padding:14px 18px}
+      .fw-blk em,.fw-ctx em{display:flex;align-items:baseline;gap:12px;font:800 24px Montserrat,sans-serif;font-style:normal}
+      .fw-blk small,.fw-ctx small{font:700 17px 'Noto Sans TC',sans-serif;opacity:.8}
+      .fw-blk.hero{background:#eceef2;color:var(--ink)}
+      .fw-blk.assistant{background:var(--green);color:#fff}
+      .fw-ctx{background:var(--green-soft);color:var(--green-d)}
+      .fw-ctx > div{display:flex;gap:10px;margin-top:10px}
+      .fw-ctx.vertical > div{flex-direction:column}
+      .fw-ctx span{padding:9px 14px;border-radius:10px;background:#fff;border:1px solid #cfe6a9;color:var(--ink);font-size:18px;font-weight:700}
+      .fw-ctx.horizontal span{flex:1;text-align:center;font-size:15px;padding:12px 4px}
+      .fw-arrow{display:block;text-align:center;font-style:normal;font-size:22px;line-height:1.4;color:var(--faint)}
+      .fw-note{margin:14px 0 0;font-size:21px;font-weight:700;color:var(--ink)}
+      .ap-count{display:flex;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+      .ap-count span{display:flex;align-items:baseline;gap:6px;font-size:18px;color:var(--ink-2)}
+      .ap-count b{font:800 30px Montserrat,sans-serif;color:var(--green-d)}
+      .grid.ba .k .ref{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:999px;color:#fff;font:800 13px Montserrat,'Noto Sans TC',sans-serif;width:max-content}
+      .grid.ba .k .ref.ap{background:#1a1d23}.grid.ba .k .ref.ss{background:#1428a0}
       .ap-card ul{margin:0;padding-left:22px;font-size:20px;line-height:1.6;color:var(--ink-2)}
       .road .dir .demo{margin:22px 0 0;padding:10px 24px;font-size:20px}
       .ct-head{display:flex;align-items:center;gap:18px;margin-bottom:14px}
@@ -221,13 +245,14 @@ window.DECK = {
     </style>`;
     // the L0–L3 ladder (01 Roadmap, 04 L2・L3); o[level] overrides { cls, tag, body }
     const LEVELS = [
-      ['M1', 'go', '▶ 本次定案', 'AIS 品牌 landing page', 'AIS＋Qubi 一頁講完<br>依裝置類別 → acer.com 分類頁'],
-      ['M2', 'dir', '下一步', '產品頁 AIS 區塊', '這台能用哪些 AIS app<br>導流終點：單一機型'],
-      ['M3', 'dir', '方向 · v1 已試做', '商城情境推薦', '情境 → 推薦 SKU<br>導流終點：購買'],
+      ['M1', 'go', '▶ 本次定案', 'AIS Landing Page Renewal', 'Landing page', 'Guide users to product category pages for more information'],
+      ['M2', 'dir', 'Next', 'Recommendations on Product Pages', 'Product pages', 'Guide users to specific product pages for more details'],
+      ['M3', 'dir', 'Future・v1 prototype', 'Recommendations on the Online Store', 'Online store (EC)', 'Take users directly to product pages on the online store'],
     ];
-    const road = (o = {}) => `<div class="road">` + LEVELS.map(([lv, cls, tag, title, body]) => {
-      const x = { cls, tag, body, ...o[lv] };
-      return `<div class="${x.cls}"><i>${x.tag}</i><b>Milestone ${lv.slice(1)}</b><strong>${title}</strong><span>${x.body}</span>${x.extra || ''}</div>`;
+    const road = (o = {}) => `<div class="road">` + LEVELS.map(([lv, cls, tag, title, target, goal]) => {
+      const x = { cls, tag, ...o[lv] };
+      return `<div class="${x.cls}"><i>${x.tag}</i><b>Milestone ${lv.slice(1)}</b><strong>${title}</strong>` +
+        `<dl><dt>Target</dt><dd>${target}</dd><dt>Goal</dt><dd>${goal}</dd></dl>${x.extra || ''}</div>`;
     }).join('') + `</div>`;
     // layout and assets sheet: the page on the left with a dashed box per section, the table on the right,
     // one line from each box to its row. Geometry mirrors the engine's fit() so the lines land on the boxes.
@@ -245,7 +270,7 @@ window.DECK = {
         b.totals.map(([k, n]) => `<span><b>${n}</b>${k}</span>`).join('') + `</div></div>` +
         `<div class="grid ba" style="grid-template-columns:52px 150px 1fr 330px;grid-template-rows:${SHEET.thH}px repeat(${b.rows.length},${rowH}px)">` +
         `<div class="h"></div><div class="h">區塊</div><div class="h">文字文案</div><div class="h">影像檔案</div>` +
-        b.rows.map((r, i) => `<div class="n"><b>${i + 1}</b></div><div class="k">${r.seg}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
+        b.rows.map((r, i) => `<div class="n"><b>${i + 1}</b></div><div class="k">${r.seg}${r.ref ? `<span class="ref ${r.ref === 'Apple' ? 'ap' : 'ss'}">參考 ${r.ref}</span>` : ''}</div><div><strong>${r.title}</strong><small>${r.sub}</small></div><div>${r.assets}</div>`).join('') + `</div>` +
         (b.conclusion ? `<p class="concl" style="position:static;margin-top:18px">${b.conclusion}</p>` : '') +
         `<p class="ba-src">${foot}</p></div>`;
       return { chapter, wins: { [page]: { rect: SHEET.rect, focus: 'full', marks: 'secs' } }, panel: { top: SHEET.rect[1], html: STYLE + html } };
@@ -277,24 +302,24 @@ window.DECK = {
       groups.map(g => S.copyTable[g]).map(g => g.rows.map(([item, refCopy, acer], i) =>
         `<div class="k${i ? ' cont' : ' first'}">${i ? '' : g.seg}</div><div class="it${i ? '' : ' first'}">${item}</div><div class="${i ? '' : 'first'}">${refCopy}</div><div class="a${i ? '' : ' first'}">${acer}</div>`).join('')).join('') +
       `</div>`);
-    // layout and framework for Acer: each brand's opening sections, grouped, with the page strip beside them
-    const FW_WIN = { apple: [80, 200, 230, 700], samsungLive: [980, 200, 230, 392] };
-    const fwCol = (key, page, x) => { const f = S.framework[key], rows = S.benchAssets[key].rows.slice(0, f.take);
-      return `<div class="fw-col" style="left:${x}px"><span class="fw-tag ${key === 'apple' ? 'ap' : 'ss'}">${S.benchAssets[key].name}・區塊 01–0${f.take}</span>` +
-        f.groups.map(([a, b, label]) => `<div class="fw-group"><em>${label}</em>` + rows.slice(a, b + 1).map((r, k) =>
-          `<div class="fw-row"><b>${String(a + k + 1).padStart(2, '0')}</b><div><strong>${r.seg}</strong><small>${r.title === r.seg ? r.sub.split('／').slice(0, 2).join('／') : r.title}</small></div></div>`).join('') + `</div>`).join('') + `</div>`; };
-    const frameworkStep = () => ({ chapter: 2,
-      wins: {
-        apple: { rect: FW_WIN.apple, focus: [0, 0, 1920, S.benchAssets.apple && window.DECK.pages.apple.marks.secs[6][1] + window.DECK.pages.apple.marks.secs[6][3]], marks: 'secs' },
-        samsungLive: { rect: FW_WIN.samsungLive, focus: [0, 0, 1920, window.DECK.pages.samsungLive.marks.secs[2][1] + window.DECK.pages.samsungLive.marks.secs[2][3]], marks: 'secs' },
-      },
-      panel: { top: 100, html: STYLE + `<h3>Layout and framework <em>for Acer</em></h3>` + fwCol('apple', 'apple', 250) + fwCol('samsung', 'samsungLive', 1150) +
-        `<p class="concl" style="top:830px">${S.framework.conclusion}</p>` } });
+    // layout and framework for Acer: each brand's section order drawn as a structure diagram
+    const FW_LABEL = { hero: 'Hero', assistant: 'Assistant', context: 'Context' };
+    const fwDiagram = key => { const g = S.framework.diagram[key], name = S.benchAssets[key].name;
+      const block = part => {
+        if (part === 'context') return `<div class="fw-ctx ${g.layout}"><em>${FW_LABEL.context}<small>情境</small></em><div>` + g.contexts.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
+        return `<div class="fw-blk ${part}"><em>${FW_LABEL[part]}<small>${part === 'hero' ? '主視覺' : '助理：' + (key === 'apple' ? 'Siri' : 'Bixby')}</small></em></div>`; };
+      return `<div class="fw-dia"><span class="fw-tag ${key === 'apple' ? 'ap' : 'ss'}">${name}</span>` +
+        `<p class="fw-order">${g.order.map(p => FW_LABEL[p]).join(' → ')}</p>` +
+        g.order.map(block).join('<i class="fw-arrow">↓</i>') + `<p class="fw-note">${g.note}</p></div>`; };
+    const frameworkStep = () => d.panel(2, 100, STYLE + `<h3>Layout and framework <em>for Acer</em></h3>` +
+      `<div class="fw-two">${fwDiagram('apple')}${fwDiagram('samsung')}</div>` +
+      `<p class="concl" style="position:static;margin-top:22px">${S.framework.conclusion}</p>`);
     // assets for Acer: one representative image per brand, side by side
     const assetsStep = () => d.panel(2, 100, STYLE + `<h3>Assets <em>for Acer</em></h3><div class="ap-row">` +
       ['apple', 'samsung'].map(k => { const a = S.assetPick[k];
         return `<div class="ap-card"><span class="fw-tag ${k === 'apple' ? 'ap' : 'ss'}">${S.benchAssets[k].name}</span><div class="ap-img"><img src="${a.src}" alt=""></div>` +
-          `<strong>${a.title}</strong><ul>${a.points.map(p => `<li>${p}</li>`).join('')}</ul></div>`; }).join('') +
+          `<strong>${a.title}</strong><ul>${a.points.map(p => `<li>${p}</li>`).join('')}</ul>` +
+          `<div class="ap-count">${a.counts.map(([k, n]) => `<span><b>${n}</b>${k}</span>`).join('')}</div></div>`; }).join('') +
       `</div><p class="concl" style="position:static;margin-top:26px">${S.assetPick.conclusion}</p>`);
     const BENCH = ['apple', 'samsungLive'];
     const DIMS = S.dims;
@@ -342,8 +367,8 @@ window.DECK = {
 
       // ===== 01 Roadmap =====
       d.panel(1, 120, STYLE +
-        `<h3>Milestones：本次定案 <em>Milestone 1</em></h3>` +
-        road({ M3: { extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">看 v1 試做 ↗</a>` } })),
+        `<h3>本次定案 <em>Milestone 1</em></h3>` +
+        road({ M3: { extra: `<a class="demo" href="../#22" target="_blank" rel="noopener">See more ↗</a>` } })),
 
       // ===== 02 Benchmark =====
       d.intro(2, { num: '02', title: 'Benchmark', sub: 'Apple Intelligence ・ Samsung Galaxy AI', p: '版面 ・ Assets ・ 敘事包裝' }),
