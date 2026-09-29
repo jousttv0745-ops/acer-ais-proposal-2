@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="hero-base.css?v=20260929-6">
 <style>
   /* A2: front view. The lid of the real Acer laptop opens towards us, the screen glows, and the 3D Qubi pops up
-     from behind the screen and waves at us over the top of it */
+     from inside the screen (clipped to the display) and waves at us */
   .copy{position:absolute;left:110px;top:300px;width:560px;z-index:4}
   .copy.hide{transform:translateX(-40px)}
   .scene{position:absolute;left:690px;top:250px;width:620px;height:452px;perspective:1800px;perspective-origin:50% 20%;z-index:2}
@@ -22,7 +22,8 @@
     background:radial-gradient(60% 70% at 50% 45%,rgba(160,236,230,.9),rgba(90,200,200,.25) 70%,transparent),#0f1a1c;opacity:0;transition:opacity 1s}
   .lid.lit .glow{opacity:.92}
   .shadow{position:absolute;left:700px;top:688px;width:600px;height:26px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.15),transparent 70%)}
-  canvas{position:absolute;left:0;top:0;width:1440px;height:810px;z-index:1}
+  /* Qubi is drawn over the laptop but only inside its display: scene (690,250) + display (64,14) 491×302 */
+  canvas{position:absolute;left:0;top:0;width:1440px;height:810px;z-index:3;clip-path:inset(264px 195px 244px 754px round 4px)}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
@@ -38,16 +39,16 @@
 <script type="module">
   import { createStage, loopScene } from './qubi3d.js?v=20260929-6';
   const $ = id => document.getElementById(id), cv = $('c');
-  const q = createStage(cv).add({ x: 1000, y: 520, size: 220 });
+  const q = createStage(cv).add({ x: 1000, y: 830, size: 220 });
   loopScene(() => {
-    q.reset(1000, 520); q.root.visible = false;
+    q.reset(1000, 830); q.root.visible = false;
     $('lid').className = 'lid'; $('copy').classList.add('hide');
   }, async (wait, live) => {
     await wait(400); $('lid').classList.add('open');                 // the lid opens towards us
     await wait(1100); $('lid').classList.add('lit');                 // the screen glows
-    await wait(400); q.root.visible = true; await q.rise(270, .9);   // Qubi pops up from behind the screen
+    await wait(400); q.root.visible = true; await q.rise(598, .9);   // Qubi pops up from inside the screen
     if (!live()) return; $('copy').classList.remove('hide');
-    await q.wave(3); if (!live()) return;                            // and waves over the top of it
+    await q.wave(3); if (!live()) return;                            // and waves at us
     await q.tilt(-1, .5); if (!live()) return;
     await q.nod();
   }, 10000);
