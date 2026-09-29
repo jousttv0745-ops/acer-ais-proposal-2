@@ -236,9 +236,9 @@
     },
     // assets page: one representative image per brand
     assetPick: {
-      apple: { src: 'content/assets-pick/apple-siri-card.png', title: 'UI 操作介面與精美視覺大圖', points: ['介面清楚可讀，卡片上是一句真實指令', '大尺寸視覺圖，畫面精緻', '證明「它做得到」，但看不到使用情境'],
+      apple: { src: 'content/assets-pick/apple-siri-card.png', title: 'UI 操作介面與精美視覺大圖', points: ['介面清晰可讀，直接呈現真實指令', '大尺寸精緻視覺圖，彰顯 Apple 強大品牌力', '多格 UI 操作介面，彰顯軟硬體深度結合'],
         counts: [['Image', 36], ['商品去背', 15], ['Video', 2], ['Icon', 6]] },
-      samsung: { src: 'content/assets-pick/samsung-now-brief.jpg', title: '沉浸感的情境照結合 UI', points: ['真實生活場景，UI 浮在畫面上', '一張圖講一個使用時刻', '讀者容易代入「上次我也遇過」'],
+      samsung: { src: 'content/assets-pick/samsung-now-brief.jpg', title: '沉浸感的情境照結合 UI', points: ['真實生活場景，UI 浮在畫面上', '一張圖描述一個沉浸式場景', '使用者容易代入日常生活裡'],
         counts: [['Image', 18], ['商品去背', 11], ['Video', 0], ['Icon', 0]] },
       conclusion: 'Acer 更適合 Samsung 的影像呈現：沉浸感的情境照結合 UI，讓讀者看到 AI 出現在自己的一天裡',
     },
@@ -256,7 +256,7 @@
       assets: [
         { seg: 'Hero', apple: 'Image ×6：iPhone 框＋UI 拼貼，白底', samsung: 'Image ×1：手持折疊機 KV，滿版', pick: 'Apple', why: '白底只放一個主角：Qubi 字樣或筆電，搭配 Qubi 3D 動畫' },
         { seg: '助理', apple: 'Image ×7 UI 截圖卡＋精選 Video ×2', samsung: 'Image ×1 Bixby UI 實拍', pick: 'Apple', why: '一句對話配一張畫面；Acer 改以沉浸感的情境照結合 UI呈現' },
-        { seg: '情境功能', apple: 'Image ×19 UI 操作介面與精美視覺大圖', samsung: 'Image ×14 沉浸感的情境照結合 UI', pick: 'Samsung', why: '沉浸感的情境照結合 UI，一張圖講一個使用時刻' },
+        { seg: '情境功能', apple: 'Image ×19 UI 操作介面與精美視覺大圖', samsung: 'Image ×14 沉浸感的情境照結合 UI', pick: 'Samsung', why: '沉浸感的情境照結合 UI，一張圖描述一個沉浸式場景' },
         { seg: '選機', apple: '商品去背 ×15（iPhone・iPad・Mac）', samsung: '商品去背 ×11（手機・平板・手錶・耳機）', pick: '兩者', why: '都用去背商品照；Acer 以系列去背照呈現' },
         { seg: '相容清單', apple: '純文字清單', samsung: '無此區塊', pick: 'Samsung', why: '不另做清單，FAQ 以文字回答' },
         { seg: 'FAQ', apple: '無此區塊', samsung: '純文字手風琴', pick: 'Samsung', why: '不需圖片' },
