@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260929-12', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260929-13', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -110,7 +110,7 @@ window.DECK = {
       .road .go{background:var(--green);border-color:var(--green)}
       .road .go b,.road .go strong,.road .go span{color:#fff}
       .road .go i{background:#f59e0b;color:#fff}
-      .road .dir{border-style:dashed}
+      .road .dir{border:2px dashed #aab1bd;box-shadow:0 8px 22px rgba(26,29,35,.06)}
       .road .dir i{background:var(--green-soft);color:var(--green-d)}
       .road .fade{opacity:.35}
       .grid.rcp > div{white-space:nowrap}
@@ -125,12 +125,12 @@ window.DECK = {
       .fw-row small{display:block;font-size:17px;color:var(--muted)}
       .concl{position:absolute;left:0;right:0;margin:0;padding:18px 26px;border-radius:14px;background:var(--green);color:#fff;font-size:26px;font-weight:900}
       .ap-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px}
-      .ap-card{padding:24px;border:1px solid var(--line);border-radius:18px;background:#fff}
+      .ap-card{padding:24px;border:2px solid #cfd4db;border-radius:18px;background:#fff;box-shadow:0 8px 22px rgba(26,29,35,.06)}
       .ap-img{height:390px;display:flex;align-items:center;justify-content:center;background:#f6f7f9;border-radius:12px;overflow:hidden}
       .ap-img img{max-width:100%;max-height:100%;border-radius:10px}
       .ap-card strong{display:block;margin:16px 0 6px;font-size:26px;font-weight:900}
       .fw-two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
-      .fw-dia{padding:22px 26px;border:1px solid var(--line);border-radius:18px;background:#fff}
+      .fw-dia{padding:22px 26px;border:2px solid #cfd4db;border-radius:18px;background:#fff;box-shadow:0 8px 22px rgba(26,29,35,.06)}
       .fw-order{margin:4px 0 14px;font:800 22px Montserrat,sans-serif;color:var(--ink)}
       .fw-order span{font:900 22px 'Noto Sans TC',sans-serif;color:var(--ink)}
       .fw-blk p{margin:6px 0 0;font-size:18px;line-height:1.45}
