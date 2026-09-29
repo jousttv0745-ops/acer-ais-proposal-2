@@ -316,6 +316,8 @@ export function loopScene(reset, scene, loopMs) {
     timer = setTimeout(play, loopMs);
   };
   addEventListener('message', e => { if (e.data && e.data.deck === 'play' && e.data.at === 'land') play(); });
-  play();
+  // inside the deck (?deck) the scene waits at its first frame until the player says play, so it starts only once
+  if (new URLSearchParams(location.search).has('deck')) { reset(); parent.postMessage({ deck: 'ready' }, '*'); }
+  else play();
 }
 export { ease };

@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260929-8', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260929-9', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -356,10 +356,10 @@ window.DECK = {
           `<p class="l1s-goal"><b>目標</b>${seg.goal}</p>` +
           `<div class="l1s-mock" style="width:${w}px">` + WF.filled(seg.id, w) + `</div></div>`;
       }
-      return { chapter: 3, wins, panel: { top: 100, html: STYLE + html } };
+      return { chapter: 3, wins, panel: { top: 100, html: STYLE + html, instant: true } };
     };
     return [
-      d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Level 1',
+      d.cover({ kicker: 'PROPOSAL v3 · 2026.09', title: 'Acer Intelligence Space', subtitle: 'Landing Page Spec — Milestone 1',
         chips: [['00', 'Recap'], ['01', 'Milestone'], ['02', 'Benchmark'], ['03', 'Spec'], ['04', 'Summary']] }),
 
       // ===== 00 Recap =====
@@ -387,7 +387,7 @@ window.DECK = {
       assetsStep(),
 
       // ===== 03 Spec =====
-      d.intro(3, { num: '03', title: 'Spec', sub: 'AIS 品牌 landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
+      d.intro(3, { num: '03', title: 'Spec', sub: 'AIS landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
       // the whole L1 page: sections, their copy and image assets (the chapter's overview)
       sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
