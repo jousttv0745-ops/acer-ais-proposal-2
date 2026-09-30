@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260930-1', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260930-2', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -253,7 +253,7 @@ window.DECK = {
     </style>`;
     // the L0–L3 ladder (01 Roadmap, 04 L2・L3); o[level] overrides { cls, tag, body }
     const LEVELS = [
-      ['M1', 'go', '▶ 本次定案', 'AIS Landing Page Renewal', 'Landing page', '豐富化影像素材及串聯軟硬體的關係'],
+      ['M1', 'go', '▶ 本次定案', 'AIS Landing Page Renewal', 'Landing page', 'Enrich visual assets and connect software with hardware'],
       ['M2', 'dir', 'Next', 'Renewal + Recommend Product Pages', 'Landing page', 'Guide users to specific product pages for more details'],
       ['M3', 'dir', 'Future・v1 prototype', 'Renewal + Recommend Online Store', 'Landing page', 'Take users directly to product pages on the online store'],
     ];
