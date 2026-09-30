@@ -156,6 +156,7 @@
     benchAssets: {
       date: '2026-09-24',
       apple: { name: 'Apple Intelligence', url: 'apple.com/tw/apple-intelligence',
+        conclusion: '1. 以 Siri 開場進入敘事　　2. 用多影像凸顯強大品牌力',
         totals: [['Image', 36], ['商品去背', 15], ['Video', 2], ['Icon', 6]],
         rows: [
           { cat: 'brand', seg: 'Hero', title: '全新 Siri AI 亮相。真能幫助你，真的很懂你。', sub: '眉標：Apple Intelligence 與 Siri', assets: 'Image ×6（iPhone＋UI 拼貼）' },
@@ -172,6 +173,7 @@
           { cat: 'brand', seg: 'SDK', title: '為常用 App，帶來更多新可能。', sub: '開發者 SDK', assets: 'Icon ×1' },
         ] },
       samsung: { name: 'Samsung Galaxy AI', url: 'samsung.com/us/galaxy-ai',
+        conclusion: '1. 以情境提問進入敘事　　2. 用沉浸式影像代入使用者日常',
         totals: [['Image', 18], ['商品去背', 11], ['Video', 0], ['Icon', 0]],
         rows: [
           { cat: 'brand', seg: 'Hero', title: 'Galaxy AI. Make life more seamless.', sub: '手持折疊機主視覺', assets: 'Image ×1（KV）' },

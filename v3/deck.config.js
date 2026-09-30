@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260929-16', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20260930-1', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -253,7 +253,7 @@ window.DECK = {
     </style>`;
     // the L0–L3 ladder (01 Roadmap, 04 L2・L3); o[level] overrides { cls, tag, body }
     const LEVELS = [
-      ['M1', 'go', '▶ 本次定案', 'AIS Landing Page Renewal', 'Landing page', 'Guide users to product category pages for more information'],
+      ['M1', 'go', '▶ 本次定案', 'AIS Landing Page Renewal', 'Landing page', '豐富化影像素材及串聯軟硬體的關係'],
       ['M2', 'dir', 'Next', 'Renewal + Recommend Product Pages', 'Landing page', 'Guide users to specific product pages for more details'],
       ['M3', 'dir', 'Future・v1 prototype', 'Renewal + Recommend Online Store', 'Landing page', 'Take users directly to product pages on the online store'],
     ];
@@ -264,7 +264,7 @@ window.DECK = {
     }).join('') + `</div>`;
     // layout and assets sheet: the page on the left with a dashed box per section, the table on the right,
     // one line from each box to its row. Geometry mirrors the engine's fit() so the lines land on the boxes.
-    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 38, rowH: { apple: 62, samsung: 96, acer: 112 } };
+    const SHEET = { rect: [80, 100, 300, 900], left: 410, headH: 64, gap: 16, thH: 38, rowH: { apple: 54, samsung: 86, acer: 112 } };
     const benchAssetStep = (key, page) => sheetStep(S.benchAssets[key], key, page, 2, `${S.benchAssets[key].url}・${S.benchAssets.date} 線上頁面讀取`);
     const sheetStep = (b, key, page, chapter, foot) => {
       const p = window.DECK.pages[page], [rx, ry, rw, rh] = SHEET.rect, rowH = SHEET.rowH[key];
@@ -311,7 +311,7 @@ window.DECK = {
         `<div class="k${i ? ' cont' : ' first'}">${i ? '' : g.seg}</div><div class="it${i ? '' : ' first'}">${item}</div><div class="${i ? '' : 'first'}">${refCopy}</div><div class="a${i ? '' : ' first'}">${acer}</div>`).join('')).join('') +
       `</div>`);
     // layout and framework for Acer: each brand's section order drawn as a structure diagram
-    const FW_LABEL = { hero: 'Hero', assistant: 'Assistant', context: 'Context' };
+    const FW_LABEL = { hero: 'Hero', assistant: 'Assistant', context: 'Scenario' };
     const fwDiagram = key => { const g = S.framework.diagram[key], name = S.benchAssets[key].name;
       const block = part => {
         if (part === 'context') return `<div class="fw-ctx ${g.layout}"><em>${FW_LABEL.context}<small>情境</small></em><div>` + g.contexts.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
@@ -367,7 +367,7 @@ window.DECK = {
       d.panel(0, 130,
         STYLE + `<h3>v1 報告後的<em>四個調整</em></h3>` +
         d.table(['回饋', '本版'], [
-          ['01', '不直接導流 EC，而是可落地執行的版本', '01 Milestone'],
+          ['01', '先不導流 EC，而是可落地執行的版本', '01 Milestone'],
           ['02', 'Benchmark 改做 Apple Intelligence 與 Samsung，含 assets 與敘事包裝', '02 Benchmark'],
           ['03', '不提 mockup，只出 spec', '03 Spec'],
           ['04', '參照 Apple 怎麼擺 Siri', '03 Spec'],
