@@ -56,7 +56,7 @@
         ratio: '橫式卡 1.36:1；圓角 ≈3% 卡寬；間距一致；圖片占比 35–47%；≤200px／功能',
         scope: '4 分頁（商務／創意／遊戲／個人化）× 7–9 個 AIS app',
         asset: '每個 app 情境照合成 UI ×1，1712×1262 @2x；v1 圖可沿用或改版',
-        story: '置中小標＋置中提問式大標（「Can your phone do that?」的 Acer 版），與 02 一致；卡片 = 功能標題＋2–3 行說明' },
+        story: '置中小標＋置中大標（把 Samsung「Can your phone do that?」改寫成肯定句），與 02 一致；卡片 = 功能標題＋2–3 行說明' },
       { id: 'L1-4', seg: '選機：依裝置類別', ref: { page: 'samsung', region: 'selling', label: 'Samsung · 機種探索' },
         goal: '從「想用的功能」導到 acer.com 裝置分類頁；已有 Acer 電腦 → 下載',
         material: '去背商品照',
@@ -79,7 +79,7 @@
       { dim: '比例', apple: '首屏圖片 29%；卡片 0.83:1、圓角 ≈24px', samsung: '首屏圖片 62%；卡片 1.36:1、圓角 ≈24px', acer: 'Hero 全白底 16:9、Qubi 章 2:1（卡片 3:2）、情境卡 1.36:1；內容約 4,400px，含導覽與頁尾約 5,600px' },
       { dim: '範圍', apple: '6 章約 30 個功能；4 類裝置；約 30 個機型', samsung: '5 分頁 14 個功能；4 類裝置', acer: 'Qubi 章 3 組對話；4 分頁 × 7–9 app；4 類裝置 × 3 系列' },
       { dim: '資產', apple: '36 張 UI／情境圖＋2 支影片＋15 張商品去背', samsung: '18 張情境照／KV＋11 張商品去背，無影片', acer: 'Qubi 3D 動畫 1、筆電去背圖 1（B 版）、Qubi 章情境照 3、情境圖 7–9、系列去背照約 12' },
-      { dim: '敘事', apple: '角色（Siri）開場；「這是你的螢幕」', samsung: '提問開場；「它出現在你生活的某個時刻」', acer: 'Qubi 開場＋提問式情境＋「哪一台跑得動你的 AI？」' },
+      { dim: '敘事', apple: '角色（Siri）開場；「這是你的螢幕」', samsung: '提問開場；「它出現在你生活的某個時刻」', acer: 'Qubi 開場＋「你的電腦也做得到」情境＋「哪一台跑得動你的 AI？」' },
     ],
 
     // L1 wireframe, page px at 1440 wide; y is relative to each segment. k: line | block | card | asset | cta | tab.
@@ -103,7 +103,7 @@
         ] },
         { id: 'L1-3', h: 1000, boxes: [
           { k: 'line', x: 620, y: 52, w: 200, h: 28, t: '情境', fill: 'AI 應用' },
-          { k: 'line', x: 360, y: 92, w: 720, h: 56, t: '提問式大標', fill: '你的電腦，也做得到嗎？' },
+          { k: 'line', x: 360, y: 92, w: 720, h: 56, t: '大標', fill: '你的電腦也做得到' },
           { k: 'tab', x: 430, y: 180, w: 130, h: 42, t: '商務' },
           { k: 'tab', x: 575, y: 180, w: 130, h: 42, t: '創意' },
           { k: 'tab', x: 720, y: 180, w: 130, h: 42, t: '遊戲' },
@@ -190,7 +190,7 @@
       rows: [
         { ref: 'Apple', seg: 'Hero', title: 'Acer Qubi 全新亮相!', sub: '副標：新一代 Acer Intelligence Space 與 Acer Qubi 就在你的電腦裡，幫你做得更多、更懂你。', assets: 'A01 Qubi 3D 動畫（B 版＋A02 筆電圖）' },
         { ref: 'Apple', seg: 'Qubi 章', title: '個人 AI 助理，Qubi 比你更懂你', sub: '小標 Acer Qubi；對話：郵件摘要・人物去背・會議摘要', assets: 'A03 情境照 ×3＋A04 腳本 ×3' },
-        { ref: 'Samsung', seg: '情境功能', title: '你的電腦，也做得到嗎？', sub: '分頁：商務・創意・遊戲・個人化；7–9 則功能標題', assets: 'A05 情境圖 ×7–9' },
+        { ref: 'Samsung', seg: '情境功能', title: '你的電腦也做得到', sub: '分頁：商務・創意・遊戲・個人化；7–9 則功能標題', assets: 'A05 情境圖 ×7–9' },
         { ref: 'Samsung', seg: '選機', title: '哪一台跑得動你的 AI？', sub: '筆電・桌機・AIO・掌機；CTA 進一步了解・下載 AIS', assets: 'A06 系列去背照 ×約 12' },
         { ref: 'Samsung', seg: 'FAQ', title: '常見問題', sub: '5–8 題，含支援機型、語言、費用、資料處理', assets: 'A07 FAQ 文案（純文字）' },
       ] },
@@ -207,7 +207,7 @@
         ["卡片 / 對話 #1","儘管開口問 Siri。","Qubi：要幫你做郵件摘要嗎？"],
         ["卡片 / 對話 #2","Siri 了解你的個人情況。","你：可以幫我把人物去背嗎？"],
         ["卡片 / 對話 #3","在更多 App 中進行操作。","Qubi：要幫你做會議摘要嗎？"]]},
-      {"seg":"情境功能","ref":"Samsung","assets":["Image ×2","A05 情境圖 ×3"],"rows":[["主標","Can your phone do that?","你的電腦，也做得到嗎？"],["內文","Galaxy AI offers a wide variety of already-available features that you can jump right into.","從會議到創作，讓它為你多做一點。"],["情境 #1","<b class=\"tab\">Productivity</b>","<b class=\"tab\">商務｜掌握對話，推進工作。</b>"],["1","<b>Get clean scans in a snap</b><i>Document Scan</i><br>Document Scan can detect documents and lets you capture them with your phone, and then it can clean them up for you by removing unwanted distortions, corner folds, stray fingers and more. Perfect for receipts or forms, and way faster than running to the scanner.","<b>聽的同時，也能看見對話。</b><i>即時字幕</i><br>參與多語言會議時，透過即時字幕輔助掌握對話。想確認剛才的一句，也能查看字幕歷史，接著參與討論。"],["2","<b>Written and formatted your way</b><i>Writing Assist</i><br>Writing Assist is a handy editor on your Galaxy phone or tablet. Take any written or selected text on your device and have Writing Assist proofread it, reformat it, tweak the wording or summarize everything into key points.","<b>專心談，重點留著回頭看。</b><i>會議逐字稿與摘要</i><br>討論時，把注意力留給溝通與提問。會後透過逐字稿與摘要回顧內容，整理下一步需要確認的事。"],["3","—","<b>接手新專案，從一個問題開始。</b><i>本機文件問答</i><br>面對不熟悉的專案文件，先問你想了解的事。透過本機文件問答掌握內容，再進一步查閱與確認。"]]},
+      {"seg":"情境功能","ref":"Samsung","assets":["Image ×2","A05 情境圖 ×3"],"rows":[["主標","Can your phone do that?","你的電腦也做得到"],["內文","Galaxy AI offers a wide variety of already-available features that you can jump right into.","從會議到創作，讓它為你多做一點。"],["情境 #1","<b class=\"tab\">Productivity</b>","<b class=\"tab\">商務｜掌握對話，推進工作。</b>"],["1","<b>Get clean scans in a snap</b><i>Document Scan</i><br>Document Scan can detect documents and lets you capture them with your phone, and then it can clean them up for you by removing unwanted distortions, corner folds, stray fingers and more. Perfect for receipts or forms, and way faster than running to the scanner.","<b>聽的同時，也能看見對話。</b><i>即時字幕</i><br>參與多語言會議時，透過即時字幕輔助掌握對話。想確認剛才的一句，也能查看字幕歷史，接著參與討論。"],["2","<b>Written and formatted your way</b><i>Writing Assist</i><br>Writing Assist is a handy editor on your Galaxy phone or tablet. Take any written or selected text on your device and have Writing Assist proofread it, reformat it, tweak the wording or summarize everything into key points.","<b>專心談，重點留著回頭看。</b><i>會議逐字稿與摘要</i><br>討論時，把注意力留給溝通與提問。會後透過逐字稿與摘要回顧內容，整理下一步需要確認的事。"],["3","—","<b>接手新專案，從一個問題開始。</b><i>本機文件問答</i><br>面對不熟悉的專案文件，先問你想了解的事。透過本機文件問答掌握內容，再進一步查閱與確認。"]]},
       {"seg":"情境功能","ref":"Samsung","assets":["Image ×5","A05 情境圖 ×3"],"rows":[["情境 #2","<b class=\"tab\">Creativity</b>","<b class=\"tab\">創意｜把腦中的畫面，快速變成作品。</b>"],["1","<b>Refine your framing without reshooting</b><i>My FanCam</i><br>Change your wide-angle video into a subject-centered tracking shot cropped to your choice of aspect ratio — putting the spotlight on someone in the crowd.","<b>隨手一張草圖，就能生成完整作品。</b><i>草圖生圖</i><br>把手繪草圖交給 AI，快速生成細節豐富的圖片，保留你原本的構圖與想法。"],["2","<b>Make your picture perfect in seconds</b><i>Photo Assist</i><br>Move, resize or delete objects by hand and have AI fill in the gaps for a seamless look. You can also enter a prompt or reference image to add new elements into the image, like putting a hat on a subject.","<b>同一個畫面，換個風格再看看。</b><i>風格轉換</i><br>素描、水墨、幾何一鍵轉換，多試幾種風格，找到最適合作品的樣子。"],["3","<b>Design your feed with Creative Studio</b><i>Creative Studio</i><br>Create your own personalized designs for greeting cards, wallpapers and more by combining text with drawings or images. Generate sticker sets in the styles and concepts you want.","<b>忘了檔名，描述畫面就找得到。</b><i>本機素材搜尋</i><br>記得照片裡有雪山和湖，卻想不起檔名？用一句描述搜尋本機素材，馬上找到。"],["4","<b>Filter out the noise and crank up the vibes</b><i>Audio Eraser</i><br>Audio Eraser removes background noise from videos to clean up audio in just a couple of taps, from concerts you have attended to travel videos filmed on the go.","—"],["5","<b>Instantly compile your best moments</b><i>Auto Trim</i><br>Auto Trim extracts key moments in your videos to create a clip of highlights centered around a specific activity — beautifully edited videos without the work of actual editing.","—"]]},
       {"seg":"情境功能","ref":"Samsung","assets":["Image ×3","A05 情境圖 ×3"],"rows":[["情境 #3","<b class=\"tab\">Communication</b>","<b class=\"tab\">遊戲｜看得更清楚，打得更準。</b>"],["1","<b>Let AI handle unwanted calls for you</b><i>Call Screening</i><br>Call Screening filters calls from unknown numbers and displays a quick text preview of why they are calling, so you can decide whether to pick up or not. For spam and scams, it can just end the call for you.","<b>準星自動變色，暗處也看得見。</b><i>智慧準星</i><br>依照遊戲畫面自動調整準星顏色，不管場景明暗，目標都能清楚鎖定。"],["2","<b>Turn long recordings into short summaries</b><i>Transcript Assist</i><br>Transcript Assist converts your recordings into text, then lets you summarize or translate them with a tap. Review complex conversations with ease, or take lecture notes by recording your class and tapping Summarize.","<b>遠方細節放大看，夜裡也清楚。</b><i>放大與夜視</i><br>放大與夜視輔助讓遠處敵人和陰暗角落一目了然，搶先一步做出反應。"],["3","<b>Don&#39;t let language be a barrier</b><i>Interpreter</i><br>With a long press on your Galaxy Buds, Interpreter can translate speech in real time for smooth listening in your own language, with the translated text displayed on your Galaxy phone.","<b>精彩時刻自動剪好，馬上分享。</b><i>精彩片段</i><br>AI 自動擷取擊殺與關鍵片段，時間軸上直接挑選剪輯，打完就能分享。"]]},
       {"seg":"情境功能","ref":"Samsung","assets":["Image ×2","A05 情境圖 ×2"],"rows":[["情境 #4","<b class=\"tab\">Personalization</b>","<b class=\"tab\">個人化｜讓電腦更懂你的日常。</b>"],["1","<b>A little nudge to your next action keeps you focused</b><i>Now Nudge</i><br>Now Nudge recognizes what is happening on your screen and provides relevant suggestions based on the context — like prompts to view the Calendar app while you are making plans with a friend via text.","<b>回信不卡關，語氣一鍵調整。</b><i>郵件語氣改寫</i><br>收到邀請不知道怎麼回？選好想要的語氣，AI 幫你寫好草稿，改一改就能送出。"],["2","<b>Get personalized insights tailored to you</b><i>Now Brief</i><br>Customize Now Brief by writing prompts for briefings you would like to receive based on your interests. Action buttons help you stay connected, like requesting a ride to plans saved in your calendar.","<b>信件自動分類，重要的先看。</b><i>郵件分類</i><br>購物通知、訂閱內容、日常往來自動整理，打開信箱就知道該先處理哪一封。"]]},
@@ -248,7 +248,7 @@
       copy: [
         { seg: 'Hero', apple: '「全新 Siri AI 亮相。真能幫助你，真的很懂你。」宣言型，角色先登場', samsung: '「Galaxy AI. Make life more seamless.」定義型品牌標語', pick: 'Apple', why: '以角色開場，對應「Acer Qubi 全新亮相!」' },
         { seg: '助理', apple: '「你的 AI 助理，更個人化，更強大。」＋7 則小標，卡上是一句指令', samsung: '「Smart assistance that&#39;s always available」單段說明 Bixby', pick: 'Apple', why: 'Qubi 章用「主標＋一句能說的話」' },
-        { seg: '情境功能', apple: '章節小標（視覺智慧／照片與影像…）＋逐條功能句', samsung: '提問式「Can your phone do that?」＋5 分頁 14 則功能標題', pick: 'Samsung', why: '提問式大標＋分頁，一屏看完' },
+        { seg: '情境功能', apple: '章節小標（視覺智慧／照片與影像…）＋逐條功能句', samsung: '提問式「Can your phone do that?」＋5 分頁 14 則功能標題', pick: 'Samsung', why: '大標＋分頁，一屏看完；Acer 改用肯定句' },
         { seg: '選機', apple: '「體驗 Apple Intelligence 的實力」', samsung: '「Explore our range of Galaxy AI devices」', pick: 'Samsung', why: '直接以裝置類別導購；Acer 改問「哪一台跑得動你的 AI？」' },
         { seg: '相容清單', apple: '「與 Apple Intelligence 相容的裝置」機型後附晶片', samsung: '無此區塊（放在 FAQ）', pick: 'Samsung', why: 'L1 不另設專區，支援機型放進 FAQ 回答' },
         { seg: 'FAQ', apple: '無此區塊（只有註腳）', samsung: '「Frequently Asked Questions」11 題', pick: 'Samsung', why: '集中免責與長尾 SEO' },
