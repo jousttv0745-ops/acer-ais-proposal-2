@@ -224,6 +224,57 @@
         ["Q4","How do I use Galaxy AI on my Samsung phone?","如何下載與更新？"],
         ["Q5","—","Qubi 是什麼？需要付費嗎？"]]}],
 
+    // English draft of the Acer copy, one entry per copyTable group and row (same order); written as native copy,
+    // not a literal translation. The spec appendix shows it as an extra column.
+    copyTableEn: [
+      { assets: 'A01 Qubi 3D animation (versions A and B) + A02 laptop cutout (version B)', rows: [
+        'Acer Intelligence Space',
+        'Meet Acer Qubi.',
+        'The new Acer Intelligence Space and Acer Qubi live right on your PC, helping you get more done and getting to know you along the way.'] },
+      { assets: 'A03 lifestyle photos ×3 + A04 chat scripts ×3', rows: [
+        'Acer Qubi',
+        'Your personal AI assistant. It knows what you need, sometimes before you do.',
+        'Qubi sees what you&#39;re working on, suggests what to do next, and brings in the right assistant from Acer Intelligence Space. Just say the word.',
+        'Qubi: Want me to summarize these emails?',
+        'You: Can you remove the background from this photo?',
+        'Qubi: Want a summary of this meeting?'] },
+      { assets: 'A05 scenario images ×3', rows: [
+        'Your PC can do that, too.',
+        'From meetings to creative projects, let it take a little more off your plate.',
+        '<b class="tab">Work | Stay on top of the conversation. Keep work moving.</b>',
+        '<b>Follow every word as it&#39;s spoken.</b><i>Live Captions</i><br>Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.',
+        '<b>Stay in the conversation. Catch the details later.</b><i>Meeting Transcripts &amp; Summaries</i><br>Focus on the discussion while it&#39;s happening. Afterward, review the transcript and summary to line up your next steps.',
+        '<b>New project? Start with a question.</b><i>On-device Document Q&amp;A</i><br>Facing unfamiliar project files? Ask what you need to know first, get the gist, then dig into the details.'] },
+      { assets: 'A05 scenario images ×3', rows: [
+        '<b class="tab">Create | Turn the picture in your head into finished work, fast.</b>',
+        '<b>From rough sketch to finished artwork.</b><i>Sketch to Image</i><br>Hand your sketch to AI and get a richly detailed image in seconds, with your composition and ideas intact.',
+        '<b>Same scene, new style.</b><i>Style Transfer</i><br>Switch between pencil, ink wash and geometric styles in one click. Try a few until one feels right.',
+        '<b>Forgot the file name? Just describe the photo.</b><i>On-device Media Search</i><br>Remember the snowy peaks and the lake, but not the file name? Describe it in a sentence and find it on your PC instantly.',
+        '—',
+        '—'] },
+      { assets: 'A05 scenario images ×3', rows: [
+        '<b class="tab">Game | See more. Aim better.</b>',
+        '<b>A crosshair that stands out, even in the dark.</b><i>Smart Crosshair</i><br>Your crosshair changes color to match the scene, so your target stays clear in bright light or deep shadow.',
+        '<b>Spot distant details, even at night.</b><i>Zoom &amp; Night Vision</i><br>Zoom and night vision bring far-off enemies and dark corners into view, so you can react first.',
+        '<b>Highlights, clipped and ready to share.</b><i>Highlights</i><br>AI captures your kills and key plays automatically. Pick your clips right from the timeline and share them as soon as the match ends.'] },
+      { assets: 'A05 scenario images ×2', rows: [
+        '<b class="tab">Personal | A PC that fits the way you live.</b>',
+        '<b>Never get stuck on a reply. Set the tone in one click.</b><i>Email Tone Rewrite</i><br>Not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.',
+        '<b>A sorted inbox. What matters comes first.</b><i>Smart Email Sorting</i><br>Order updates, newsletters and everyday messages are organized for you, so you know what to open first.'] },
+      { assets: 'A06 series cutouts ×~12', rows: [
+        'Which Acer PC is ready for your AI?',
+        '<ul><li>Find the right Acer AI PC for the way you work and play</li><li>Tabs: Laptops · Desktops · All-in-Ones · Handhelds</li></ul>',
+        '<ul><li>Swift Go 14 | Thin, light and built to last all day, with AI wherever you go</li><li>Predator Helios Neo 16S | On-device AI at full speed for gaming and creating</li><li>Aspire Lite 14 | A great first AI PC, with everything you need for every day</li></ul>',
+        '<ul><li>Learn more (→ category page)</li><li>Download Acer Intelligence Space</li></ul>'] },
+      { assets: 'A07 FAQ copy (text only)', rows: [
+        'Frequently asked questions',
+        'Which Acer PCs support Acer Intelligence Space?',
+        'Which languages are supported?',
+        'Is my data uploaded to the cloud?',
+        'How do I download and update it?',
+        'What is Qubi, and is it free?'] },
+    ],
+
     // framework page: which opening sections each brand uses, and the order of assistant vs scenarios
     framework: {
       apple: { take: 7, groups: [[0, 2, '角色：Siri 個人助理'], [3, 6, '情境章節']] },

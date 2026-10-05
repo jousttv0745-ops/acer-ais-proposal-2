@@ -44,6 +44,10 @@ if ((SPEC.bench?.apple || []).length !== 6 || (SPEC.bench?.samsung || []).length
 if ((SPEC.l1 || []).length !== 5) err('SPEC.l1 must have 5 segments');
 if ((SPEC.overview || []).length !== 6) err('SPEC.overview must have 6 rows');
 if (!(SPEC.assets || []).length) err('SPEC.assets is empty');
+// English copy draft: one entry per copy-table group, one line per row
+const EN = SPEC.copyTableEn || [];
+if (EN.length !== (SPEC.copyTable || []).length) err(`SPEC.copyTableEn has ${EN.length} groups, copyTable has ${(SPEC.copyTable || []).length}`);
+(SPEC.copyTable || []).forEach((g, i) => { if (EN[i] && (EN[i].rows.length !== g.rows.length || !EN[i].assets)) err(`copyTableEn[${i}] (${g.seg}): ${EN[i].rows.length} rows for ${g.rows.length}, or no assets line`); });
 for (const s of SPEC.l1 || []) if (!DECK.regions[s.ref?.page]?.[s.ref?.region]) err(`SPEC.l1 ${s.id}: unknown ref ${s.ref?.page}.${s.ref?.region}`);
 // wireframe: one segment per L1 segment, boxes inside the page, asset numbers match the asset list both ways
 const WF = SPEC.wireframe || { segments: [] }, assetNos = new Set((SPEC.assets || []).map(a => a.no)), drawn = new Set();

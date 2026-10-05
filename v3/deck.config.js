@@ -31,7 +31,7 @@ window.DECK = {
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20260930-2', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20261005-1', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
