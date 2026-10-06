@@ -24,6 +24,16 @@
   td.seg{font-weight:700;white-space:nowrap}
   td.none{color:#9aa0ad;text-align:center}
   .back{display:inline-block;margin-top:14px;color:var(--green-d);font-weight:700}
+  td.sa{min-width:340px;font-size:13px;line-height:1.55}
+  td.sa .f{display:block;color:var(--muted);font-size:12px;word-break:break-all}
+  td.sa dl{margin:6px 0}
+  td.sa dt{font-weight:700;color:var(--green-d);margin-top:6px}
+  td.sa dd{margin:0}
+  td.sa ul{margin:2px 0 0;padding-left:18px}
+  td.sa details{margin-top:8px}
+  td.sa summary{cursor:pointer;font-weight:700;color:var(--green-d)}
+  td.sa pre{margin:6px 0 0;padding:8px;background:#f6f7f9;border:1px solid var(--line);font:11.5px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;max-height:280px;overflow:auto}
+  td.sa .g{margin:6px 0 0;color:var(--muted);font-size:12px}
   .wf-page{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:28px;align-items:start;margin-bottom:28px}
   .wf-stack{display:flex;flex-direction:column;gap:6px}
   .wf-stack small{display:block;margin-top:10px;font-weight:700}
@@ -33,7 +43,7 @@
   .wf-legend li{margin:4px 0}
   .wf-legend b{display:inline-block;min-width:38px;padding:1px 6px;margin-right:8px;border-radius:4px;background:var(--green-d);color:#fff;font-size:12px;text-align:center}
   @media (max-width:760px){.wf-page{grid-template-columns:1fr}.wf-legend{position:static}}
-  @media print{.wf-page{grid-template-columns:320px 1fr;break-after:page}.wf-legend{position:static}body{padding:0}h2{break-before:page}.wrap{border:0;overflow:visible}table{min-width:0;font-size:11px}.back{display:none}}
+  @media print{.wf-page{grid-template-columns:320px 1fr;break-after:page}.wf-legend{position:static}body{padding:0}h2{break-before:page}.wrap{border:0;overflow:visible}table{min-width:0;font-size:11px}.back{display:none}td.sa pre{max-height:none;font-size:9px}}
 </style>
 </head>
 <body>
@@ -49,8 +59,9 @@
 </main>
 <script src="spec-data.js?v=20261005-2"></script>
 <script src="wireframe.js?v=20261005-2"></script>
+<script src="scene-assets.js?v=20261006-1"></script>
 <script>
-  const S = window.SPEC, WF = window.Wireframe;
+  const S = window.SPEC, WF = window.Wireframe, SA = window.SCENE_ASSETS;
   const DIMS = S.dims.filter(([k]) => k !== 'material'); // the detail tables leave out 素材
   const no = id => id.replace(/^L1-/, '0'); // L1-1 → 01 on screen, as in the deck
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -68,9 +79,17 @@
   const keep = s => String(s).replace(/&(?!#?w+;)/g, '&amp;').replace(/</g, '&lt;');
   // the last column is the English draft of the Acer copy (SPEC.copyTableEn, same groups and rows)
   document.getElementById('copy').innerHTML = `<h2>2. Layout and Assets <em>對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；Acer 中英文案皆為草稿，英文版依母語用法改寫，非逐字翻譯。</p>` +
-    table(['區塊', '項目', '參照', '參照文案', 'Acer 文案（草稿）', 'Acer 英文文案（草稿）'], S.copyTable.flatMap((g, gi) => [...g.rows, ['Assets', g.assets[0], g.assets[1]]].map(([it, r, a], i) =>
+    table(['區塊', '項目', '參照', '參照文案', 'Acer 文案（草稿）', 'Acer 英文文案（草稿）', '素材說明：元素・使用裝置・Prompt'], S.copyTable.flatMap((g, gi) => [...g.rows, ['Assets', g.assets[0], g.assets[1]]].map(([it, r, a], i) =>
       `<tr><td class="seg">${i ? '' : esc(g.seg)}</td><td class="seg">${esc(it)}</td><td>${i ? '' : g.ref}</td><td>${r}</td><td>${a}</td>` +
-      `<td lang="en">${i < g.rows.length ? S.copyTableEn[gi].rows[i] : S.copyTableEn[gi].assets}</td></tr>`)));
+      `<td lang="en">${i < g.rows.length ? S.copyTableEn[gi].rows[i] : S.copyTableEn[gi].assets}</td>` +
+      `<td class="sa">${sceneAsset(gi + '-' + i)}</td></tr>`)));
+  // scenario-image notes (scene-assets.js): file, device, on-screen elements and the generation prompt, in a collapsible block
+  function sceneAsset(key) {
+    const a = SA.items[key];
+    return a ? `<b>${esc(a.name)}</b><span class="f">${esc(a.file)}</span><dl><dt>使用裝置</dt><dd>${esc(a.device)}</dd><dt>畫面元素</dt><dd><ul>${a.elements.map(e => `<li>${esc(e)}</li>`).join('')}</ul></dd></dl>` +
+      `<details><summary>Prompt（${esc(a.promptFile)}）</summary><pre lang="en">${esc(a.prompt)}</pre><p class="g">${esc(SA.generator)}</p></details>` : '';
+  }
+  window.addEventListener('beforeprint', () => document.querySelectorAll('td.sa details').forEach(d => d.open = true));
   document.getElementById('bench').innerHTML = `<h2>4. Benchmark <em>Spec</em>（參照）</h2>` +
     [['Apple Intelligence', S.bench.apple], ['Samsung Galaxy AI', S.bench.samsung]].map(([name, rows]) =>
       `<h3>${name}</h3>` + table(['段落', ...DIMS.map(([, l]) => l)], rows.map(r => `<tr><td class="seg">${esc(r.seg)}</td>${dimCells(r)}</tr>`))).join('');
