@@ -57,7 +57,7 @@
   <section id="assets"></section>
   <section id="bench"></section>
 </main>
-<script src="spec-data.js?v=20261005-2"></script>
+<script src="spec-data.js?v=20261007-1"></script>
 <script src="wireframe.js?v=20261005-2"></script>
 <script src="scene-assets.js?v=20261006-1"></script>
 <script>
@@ -78,7 +78,7 @@
   // copy table: reference brand next to the Acer draft; html entities in the data are kept, the rest escaped
   const keep = s => String(s).replace(/&(?!#?w+;)/g, '&amp;').replace(/</g, '&lt;');
   // the last column is the English draft of the Acer copy (SPEC.copyTableEn, same groups and rows)
-  document.getElementById('copy').innerHTML = `<h2>2. Layout and Assets <em>對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；Acer 中英文案皆為草稿，英文版依母語用法改寫，非逐字翻譯。</p>` +
+  document.getElementById('copy').innerHTML = `<h2>2. Layout and Assets <em>對照表</em></h2><p class="lead">區塊一、二參照 Apple，區塊三到五參照 Samsung；英文文案同步自 Figma「A · Soft Light / 冷霧光感 -EN -1」，中文為對應草稿。</p>` +
     table(['區塊', '項目', '參照', '參照文案', 'Acer 文案（草稿）', 'Acer 英文文案（草稿）', '素材說明：元素・使用裝置・Prompt'], S.copyTable.flatMap((g, gi) => [...g.rows, ['Assets', g.assets[0], g.assets[1]]].map(([it, r, a], i) =>
       `<tr><td class="seg">${i ? '' : esc(g.seg)}</td><td class="seg">${esc(it)}</td><td>${i ? '' : g.ref}</td><td>${r}</td><td>${a}</td>` +
       `<td lang="en">${i < g.rows.length ? S.copyTableEn[gi].rows[i] : S.copyTableEn[gi].assets}</td>` +
