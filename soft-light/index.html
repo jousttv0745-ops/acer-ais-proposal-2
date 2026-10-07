@@ -121,10 +121,20 @@
   .dlg.solid .no{background:#f3f5f7;color:var(--ink)}
   .dlg.solid .no:hover{background:#e8ecef}
   .dlg.solid .done{color:var(--ink)}
-  .dots{display:flex;justify-content:center;gap:4px;margin-top:2px}
-  .dots button{width:30px;height:24px;display:grid;place-items:center}
+  .dots{--ap:5500ms;display:flex;justify-content:center;align-items:center;gap:2px;margin-top:2px}
+  .dots button{position:relative;width:34px;height:24px;display:grid;place-items:center}
   .dots button::before{content:"";width:6px;height:4px;border-radius:2px;background:#c5d5de;transition:width .3s,background .3s}
-  .dots button[aria-current="true"]::before{width:18px;background:var(--navy)}
+  .dots button[aria-current="true"]::before{width:28px}
+  .dots button[aria-current="true"]::after{content:"";position:absolute;left:50%;top:50%;width:28px;height:4px;margin:-2px 0 0 -14px;border-radius:2px;background:var(--navy);transform-origin:left center}
+  .dots.run button[aria-current="true"]::after{animation:dotfill var(--ap) linear forwards}
+  @keyframes dotfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .dots .pp{width:28px;height:28px;margin-left:8px;border-radius:50%;color:var(--navy);display:grid;place-items:center;transition:background .2s}
+  .dots .pp::before,.dots .pp::after{display:none}
+  .dots .pp:hover{background:rgba(36,60,73,.08)}
+  .dots .pp svg{width:12px;height:12px}
+  .dots .pp .i-play{display:none}
+  .dots .pp[aria-pressed="true"] .i-play{display:block}
+  .dots .pp[aria-pressed="true"] .i-pause{display:none}
 
   /* ---------- Ready for your AI ---------- */
   .ready{margin-top:1px;overflow-x:clip;background:var(--bg-2);padding:78px 0 61px;text-align:center}
@@ -329,9 +339,13 @@
       </div>
     </div>
     <div class="dots" id="dots" role="group" aria-label="Choose slide">
-      <button type="button" aria-label="Slide 1" aria-current="true"></button>
-      <button type="button" aria-label="Slide 2"></button>
-      <button type="button" aria-label="Slide 3"></button>
+      <button type="button" class="d" aria-label="Slide 1" aria-current="true"></button>
+      <button type="button" class="d" aria-label="Slide 2"></button>
+      <button type="button" class="d" aria-label="Slide 3"></button>
+      <button type="button" class="pp" aria-label="Pause slideshow" aria-pressed="false">
+        <svg class="i-pause" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="3" height="10" rx="1"/><rect x="7" y="1" width="3" height="10" rx="1"/></svg>
+        <svg class="i-play" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 1.5v9a.5.5 0 0 0 .76.43l7.2-4.5a.5.5 0 0 0 0-.86l-7.2-4.5A.5.5 0 0 0 3 1.5z"/></svg>
+      </button>
     </div>
   </section>
 
@@ -415,41 +429,74 @@
   }
   bindTabs(tabs, t => showScen(t.dataset.k));
 
-  /* ----- Qubi carousel ----- */
-  const stage = $('#stage'), slides = $$('.slide', stage), dots = $$('#dots button');
-  let cur = 0;
+  /* ----- Qubi carousel (auto-advances; pauses on hover, focus, dialog use, off-screen, hidden tab) ----- */
+  const stage = $('#stage'), slides = $$('.slide', stage), dotsEl = $('#dots'), dots = $$('.d', dotsEl), pp = $('.pp', dotsEl);
+  const INTERVAL = 5500;
+  let cur = 0, timer = 0, userPaused = false, hover = false, focused = false, engaged = false, inView = true;
+  dotsEl.style.setProperty('--ap', INTERVAL + 'ms');
+  const playing = () => !reduce && !userPaused && !hover && !focused && !engaged && inView && !document.hidden;
+  function schedule() {
+    clearTimeout(timer);
+    dotsEl.classList.remove('run');
+    if (!playing()) return;
+    void dotsEl.offsetWidth;                 // restart the progress animation
+    dotsEl.classList.add('run');
+    timer = setTimeout(() => go(cur + 1), INTERVAL);
+  }
   function place() {
-    slides.forEach((s, i) => { const d = ((i - cur + 4) % 3) - 1; s.dataset.pos = d; s.setAttribute('aria-hidden', d !== 0); });
+    slides.forEach((s, i) => {
+      const old = +s.dataset.pos, d = ((i - cur + 4) % 3) - 1;
+      if (Math.abs(d - old) === 2) {          // the slide wrapping around the back jumps instead of flying across
+        s.style.transition = 'none'; s.dataset.pos = d; void s.offsetWidth; s.style.transition = '';
+      } else s.dataset.pos = d;
+      s.setAttribute('aria-hidden', d !== 0);
+    });
     dots.forEach((b, i) => b.setAttribute('aria-current', i === cur));
   }
-  function go(i) { cur = (i + 3) % 3; place(); }
+  function go(i, manual) { cur = (i + 3) % 3; place(); schedule(); }
   dots.forEach((b, i) => b.addEventListener('click', () => go(i)));
-  slides.forEach((s, i) => s.addEventListener('click', e => { if (s.dataset.pos !== '0') go(i); }));
+  slides.forEach((s, i) => s.addEventListener('click', () => { if (s.dataset.pos !== '0') go(i); }));
   stage.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
   let sx = null;
   stage.addEventListener('pointerdown', e => { sx = e.clientX; });
   stage.addEventListener('pointerup', e => { if (sx !== null && Math.abs(e.clientX - sx) > 50) go(cur + (e.clientX < sx ? 1 : -1)); sx = null; });
+  stage.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hover = true; schedule(); } });
+  stage.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hover = false; schedule(); } });
+  stage.addEventListener('focusin', () => { focused = true; schedule(); });
+  stage.addEventListener('focusout', () => { focused = false; schedule(); });
+  pp.addEventListener('click', () => {
+    userPaused = !userPaused;
+    pp.setAttribute('aria-pressed', userPaused);
+    pp.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+    schedule();
+  });
+  new IntersectionObserver(([en]) => { inView = en.isIntersecting; schedule(); }, { threshold: 0.35 }).observe(stage);
+  document.addEventListener('visibilitychange', schedule);
   $$('.dlg', stage).forEach(dlg => {
     const done = $('.done', dlg);
-    let timer;
-    const set = s => { dlg.dataset.state = s; done.textContent = s === 'yes' ? dlg.dataset.yes : s === 'no' ? dlg.dataset.no : ''; clearTimeout(timer); if (s !== 'ask') timer = setTimeout(() => set('ask'), 3200); };
+    let t;
+    const set = st => {
+      dlg.dataset.state = st; done.textContent = st === 'yes' ? dlg.dataset.yes : st === 'no' ? dlg.dataset.no : '';
+      clearTimeout(t); engaged = st !== 'ask'; schedule();
+      if (st !== 'ask') t = setTimeout(() => set('ask'), 3200);
+    };
     $('.yes', dlg).addEventListener('click', e => { e.stopPropagation(); set('yes'); });
     $('.no', dlg).addEventListener('click', e => { e.stopPropagation(); set('no'); });
     dlg.addEventListener('pointerup', e => e.stopPropagation());
   });
-  place();
+  place(); schedule();
 
   /* ----- products ----- */
-  const S = 'https://store.acer.com/en-us/';
+  const A = 'https://www.acer.com/us-en/';
   const P = {
     laptops: [
-      { img: 'product-real-sfg14.png', n: 'Swift Go 14', d: 'Thin, light and built to last all day, with AI wherever you go', u: 'sfg14-75-5948' },
-      { img: 'product-real-phn16s.png', n: 'Predator Helios Neo 16S', d: 'On-device AI at full speed for gaming and creating', u: 'phn16s-71-90td' },
-      { img: 'product-real-al14.png', n: 'Aspire Lite 14', d: 'A great first AI PC, with everything you need for every day', u: 'al14-56p-79y2' } ],
+      { img: 'product-real-sfg14.png', n: 'Swift Go 14', d: 'Thin, light and built to last all day, with AI wherever you go', u: 'laptops/swift/swift-go-14-ai-intel' },
+      { img: 'product-real-phn16s.png', n: 'Predator Helios Neo 16S', d: 'On-device AI at full speed for gaming and creating', u: 'predator/laptops/helios/helios-neo-16s-ai' },
+      { img: 'product-real-al14.png', n: 'Aspire Lite 14', d: 'A great first AI PC, with everything you need for every day', u: 'laptops/aspire/aspire-lite' } ],
     desktops: [
-      { img: 'product-real-po3.png', n: 'Predator Orion 3000', d: '12GB of graphics memory for faster, larger image generation', u: 'po3-665-u5-225f' },
-      { img: 'product-real-po7.png', n: 'Predator Orion 7000', d: 'RTX 5080 with 64GB, the top spec available today', u: 'po7-665-u7-265kf' },
-      { img: 'product-real-n30.png', n: 'Nitro N30', d: '16GB of graphics memory, the best balance of performance and price in gaming desktops', u: 'n30-100-16g-16g' } ],
+      { img: 'product-real-po3.png', n: 'Predator Orion 3000', d: '12GB of graphics memory for faster, larger image generation', u: 'predator/desktops-and-all-in-ones/predator-orion/orion-3000' },
+      { img: 'product-real-po7.png', n: 'Predator Orion 7000', d: 'RTX 5080 with 64GB, the top spec available today', u: 'predator/desktops-and-all-in-ones/predator-orion/orion-7000' },
+      { img: 'product-real-n30.png', n: 'Nitro N30', d: '16GB of graphics memory, the best balance of performance and price in gaming desktops', u: 'desktops-and-all-in-ones/nitro-desktops/acer-nitro-30-amd' } ],
     aio: [], handhelds: []
   };
   const grid = $('#prods'), ptabs = $$('.ready [role=tab]');
@@ -460,7 +507,7 @@
       <article class="prod">
         <div class="img"><img src="images/${p.img}" alt="${esc(p.n)}" loading="lazy" width="1040" height="480"></div>
         <h3>${esc(p.n)}</h3><p>${esc(p.d)}</p>
-        <a class="btn" href="${S}${p.u}" target="_blank" rel="noopener">Learn more<span class="sr"> about ${esc(p.n)}</span></a>
+        <a class="btn" href="${A}${p.u}" target="_blank" rel="noopener">Learn more<span class="sr"> about ${esc(p.n)}</span></a>
       </article>`).join('') : '<div class="empty"><p>More Acer AI PCs in this category are coming soon.</p></div>';
   }
   let pBusy = 0;
