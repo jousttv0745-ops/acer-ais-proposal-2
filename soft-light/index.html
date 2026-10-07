@@ -37,18 +37,26 @@
   .nav li a{display:block;font-weight:500;font-size:18px;padding:8px 0;margin-right:67px;color:var(--navy);transition:color .2s}
   .nav li a:hover{color:var(--green)}
   .nav .search{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:18px;font-weight:500;color:var(--slate);margin-right:83px}
-  .nav .burger{display:none}
+  .nav .burger{display:none;width:44px;height:44px;margin-right:-10px;place-items:center;border-radius:12px}
+  .nav .burger span,.nav .burger span::before,.nav .burger span::after{display:block;width:22px;height:2px;border-radius:2px;background:var(--navy);transition:transform .25s,opacity .2s}
+  .nav .burger span{position:relative}
+  .nav .burger span::before,.nav .burger span::after{content:"";position:absolute;left:0}
+  .nav .burger span::before{top:-7px}.nav .burger span::after{top:7px}
+  .nav.open .burger span{background:transparent}
+  .nav.open .burger span::before{transform:translateY(7px) rotate(45deg)}
+  .nav.open .burger span::after{transform:translateY(-7px) rotate(-45deg)}
 
   /* ---------- Hero ---------- */
   .hero{position:relative;container-type:inline-size;max-width:1440px;margin:0 auto;aspect-ratio:1440/809;overflow:hidden;--u:calc(100cqw/1440)}
   .hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .hero .t{position:absolute;left:0;right:0;text-align:center;color:var(--ink)}
   .hero .tag{top:calc(80*var(--u));font-size:max(13px,calc(18*var(--u)));font-weight:500;letter-spacing:.01em;color:#2b2f36}
-  .hero h1{top:calc(573*var(--u));font-size:calc(67.2*var(--u));line-height:1.1;font-weight:700;letter-spacing:-.002em}
-  .hero .lead{top:calc(653*var(--u));font-size:max(14px,calc(20*var(--u)));line-height:calc(30*var(--u));font-weight:400;padding-inline:16px;min-height:calc(60*var(--u))}
+  .hero .txt{top:calc(573*var(--u))}
+  .hero h1{font-size:calc(67.2*var(--u));line-height:1.1;font-weight:700;letter-spacing:-.002em;margin-bottom:calc(6*var(--u))}
+  .hero .lead{font-size:max(14px,calc(20*var(--u)));line-height:calc(30*var(--u));font-weight:400;padding-inline:16px}
   .hero .lead span{display:block}
-  .hero .t, .hero .tag{opacity:0;transform:translateY(8px);animation:rise .9s .1s cubic-bezier(.2,.7,.2,1) forwards}
-  .hero h1{animation-delay:.2s}.hero .lead{animation-delay:.35s}
+  .hero .t{opacity:0;transform:translateY(8px);animation:rise .9s .1s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero .txt{animation-delay:.25s}
   @keyframes rise{to{opacity:1;transform:none}}
 
   /* ---------- Section A : scenarios ---------- */
@@ -119,13 +127,13 @@
   .dots button[aria-current="true"]::before{width:18px;background:var(--navy)}
 
   /* ---------- Ready for your AI ---------- */
-  .ready{margin-top:1px;background:var(--bg-2);padding:78px 0 61px;text-align:center}
+  .ready{margin-top:1px;overflow-x:clip;background:var(--bg-2);padding:78px 0 61px;text-align:center}
   .ready .h2{color:var(--ink)}
   .ready .sub{margin-top:16px;color:var(--ink-2)}
   .ready .pills{margin-top:30px;gap:15px}
   .ready .pill{min-width:92px;height:44px;padding:0 6px;font-size:18px}
   .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:23px;max-width:1204px;margin:50px auto 0;padding-inline:24px;text-align:left}
-  .prod{background:#fff;border-radius:24px;padding:48px 25px 32px;display:flex;flex-direction:column;min-height:486px;transition:transform .3s,box-shadow .3s}
+  .prod{position:relative;background:#fff;border-radius:24px;padding:48px 25px 32px;display:flex;flex-direction:column;min-height:486px;transition:transform .3s,box-shadow .3s}
   .prod:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(36,60,73,.1)}
   .prod .img{height:170px;display:grid;place-items:center;margin-inline:-6px}
   .prod .img img{width:100%;height:100%;object-fit:contain}
@@ -143,8 +151,7 @@
   .faq .h2{color:var(--ink)}
   .faq .list{max-width:948px;margin:80px auto 0;padding-inline:24px;text-align:left}
   details{border-bottom:1px solid var(--rule)}
-  summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;height:57px;padding:0 0 1px;align-items:flex-end;line-height:28px;font-size:20px;color:var(--ink)}
-  details[open] summary{height:57px}
+  summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:57px;padding:12px 0 1px;align-items:flex-end;line-height:28px;font-size:20px;color:var(--ink)}
   summary::-webkit-details-marker{display:none}
   summary svg{flex:none;width:18px;height:18px;margin-bottom:5px;color:var(--ink-2);transition:transform .3s}
   details[open] summary svg{transform:rotate(45deg)}
@@ -157,48 +164,87 @@
   footer .c{font-size:16px;color:var(--slate)}
 
   /* ---------- Responsive ---------- */
+  @media (min-width:1441px){
+    .hero > img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+    .stage{-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+  }
   @media (max-width:1100px){
+    .nav .in{padding-inline:32px}
     .nav .search{margin-right:0}
     .nav li a{margin-right:36px}
     .nav ul{margin-left:40px}
   }
   @media (max-width:900px){
     .nav .in{padding-inline:20px}
-    .nav ul{display:none}
-    .h2{font-size:38px;line-height:44px}
-    .scen-cards{grid-template-columns:1fr;gap:40px}
-    .prods{grid-template-columns:1fr;max-width:480px}
+    .nav .search{margin-right:12px}
+    .nav .burger{display:grid}
+    .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;margin:0;padding:6px 20px 14px;background:rgba(247,251,253,.98);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(36,60,73,.08)}
+    .nav.open ul{display:flex}
+    .nav li a{margin:0;padding:15px 0;font-size:18px;border-bottom:1px solid #e3ebf0}
+    .nav li:last-child a{border-bottom:0}
+    .h2{font-size:clamp(30px,5.4vw,40px);line-height:1.15}
+    /* hero: text anchored to the bottom, image cropped around Qubi */
+    .hero{aspect-ratio:auto;height:clamp(560px,78vw,700px)}
+    .hero > img{object-position:50% 30%}
+    .hero .tag{top:36px;font-size:15px}
+    .hero .txt{top:auto;bottom:34px;padding-inline:20px}
+    .hero h1{font-size:clamp(34px,6.4vw,56px);margin-bottom:14px;text-wrap:balance}
+    .hero .lead{font-size:clamp(16px,2.3vw,19px);line-height:1.5;padding-inline:0;max-width:720px;margin-inline:auto}
+    .hero .lead span{text-wrap:balance}
     .intro,.qubi,.ready{padding-inline:20px}
-    .scen-cards,.prods,.faq .list{padding-inline:0}
-    .stage{margin-inline:-20px}
-    .prod{min-height:0}
+    .intro{padding-top:56px}
+    .scen-cards,.faq .list{padding-inline:0}
+    .faq{padding-inline:24px}
+    .ready{padding-block:70px 56px}
+    /* products become a swipeable row */
+    .prods{display:flex;gap:16px;max-width:none;margin-inline:-20px;padding:6px 20px 18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .prods::-webkit-scrollbar{display:none}
+    .prod{flex:0 0 min(320px,78%);scroll-snap-align:start;min-height:0}
     .prod .img{height:150px}
+    .empty{flex:1 0 100%}
+  }
+  @media (max-width:820px){
+    /* carousel: one big slide, swipe or tap the dots */
+    .stage{max-width:560px;height:auto;aspect-ratio:1/1;margin:24px auto 0;-webkit-mask-image:none;mask-image:none;border-radius:24px}
+    .slide{left:0;top:0;width:100%;height:100%;border-radius:24px}
+    .slide[data-pos="1"]{transform:translateX(104%);opacity:0;pointer-events:none}
+    .slide[data-pos="-1"]{transform:translateX(-104%);opacity:0;pointer-events:none}
+    .slide:nth-child(2) img.full{object-position:85% 50%}
+    .dlg,.dlg.solid{left:0;right:0;width:auto;top:30%;height:auto;min-height:max(44%,152px);margin:0;padding:16px 20px 18px;border-radius:0;border-inline:0;display:flex;flex-direction:column;justify-content:center}
+    .dlg .who{font-size:14px}
+    .dlg .who img{width:26px;height:26px}
+    .dlg .q,.dlg.solid .q{margin-top:10px;font-size:clamp(17px,5.4cqw,24px);line-height:1.22}
+    .dlg .btns,.dlg.solid .btns{gap:10px;margin-top:14px}
+    .dlg .btns button{flex:1 1 0;height:42px;border-radius:21px;font-size:15px}
+    .dlg .done{font-size:17px;margin-top:12px}
+    .dots{margin-top:10px}
+  }
+  @media (max-width:700px){
+    .scen-cards{grid-template-columns:1fr;gap:40px}
   }
   @media (max-width:760px){
     body{font-size:18px}
-    .hero{aspect-ratio:auto;min-height:520px;height:calc(100svh - 72px);max-height:760px}
-    .hero > img{object-position:50% 40%}
-    .hero .tag{top:48px}
-    .hero h1{top:auto;bottom:130px;font-size:clamp(34px,10vw,52px);padding-inline:16px}
-    .hero .lead{top:auto;bottom:24px;font-size:16px;line-height:24px}
-    .h2{font-size:32px;line-height:38px}
-    .intro{padding-top:40px}
+    .hero{height:clamp(540px,calc(100svh - 72px),760px)}
+    .hero > img{object-position:50% 35%}
+    .hero .lead{font-size:16px}
+    .h2{font-size:clamp(28px,8vw,34px)}
     .pill{min-width:0;flex:1 1 40%}
+    .ready .pill{flex:1 1 40%}
     .qubi{padding-top:70px}
-    .stage{--u:calc(100cqw/760);height:calc(500*var(--u));margin-top:24px}
-    .slide{left:calc(20*var(--u));height:calc(480*var(--u))}
-    .slide[data-pos="-1"],.slide[data-pos="1"]{opacity:0;pointer-events:none}
-    .dlg{left:6%;width:88%;top:30%;height:auto;padding:14px 16px 16px}
     .ready{padding-block:64px 56px}
     .faq{padding-block:70px 80px;padding-inline:20px}
     .faq .list{margin-top:36px}
     footer .in{padding:40px 24px 0;flex-direction:column;gap:6px}
     summary{font-size:18px}
   }
+  @media (max-width:380px){
+    .nav .search{display:none}
+    .hero h1{font-size:32px}
+  }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-    .hero .t,.hero .tag{opacity:1;transform:none}
+    .hero .t{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -207,7 +253,7 @@
 <header class="nav">
   <div class="in">
     <a class="logo" href="https://www.acer.com/" aria-label="Acer home"><img src="images/logo.png" alt="acer" width="150" height="54"></a>
-    <ul>
+    <ul id="mainnav">
       <li><a href="https://www.acer.com/" >Products</a></li>
       <li><a href="https://www.acer.com/">AI</a></li>
       <li><a href="https://www.acer.com/">Explore Acer</a></li>
@@ -216,6 +262,7 @@
     <a class="search" href="https://www.acer.com/" aria-label="Search Acer">
       <span>Search Acer</span>
     </a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mainnav"><span></span></button>
   </div>
 </header>
 
@@ -223,8 +270,8 @@
   <section class="hero" aria-labelledby="h1">
     <img src="images/hero-bg.jpg" alt="Acer Qubi, a friendly white robot, raising a hand inside a ring of frosted light, with soft circuit lines and blurred briefcases behind it" width="2880" height="1618" fetchpriority="high">
     <p class="t tag">Acer Intelligence Space and Acer Qubi</p>
-    <h1 class="t" id="h1">Your everyday AI, all in one space.</h1>
-    <p class="t lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p>
+    <div class="t txt"><h1 id="h1">Your everyday AI, all in one space.</h1>
+    <p class="lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p></div>
   </section>
 
   <section class="intro" id="scenarios" aria-labelledby="scen-h">
@@ -317,7 +364,14 @@
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ----- hero lead line breaks on narrow screens ----- */
+  /* ----- mobile nav ----- */
+  const nav = $('.nav'), burger = $('.burger');
+  const setNav = o => { nav.classList.toggle('open', o); burger.setAttribute('aria-expanded', o); };
+  burger.addEventListener('click', () => setNav(!nav.classList.contains('open')));
+  nav.addEventListener('click', e => { if (e.target.closest('li a')) setNav(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setNav(false); });
+  matchMedia('(min-width: 901px)').addEventListener('change', () => setNav(false));
+
   /* ----- scenario tabs ----- */
   const SCEN = {
     work: { cap: 'Work smart, and fast.', cards: [
