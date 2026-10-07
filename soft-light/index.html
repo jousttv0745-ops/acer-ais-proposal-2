@@ -121,7 +121,7 @@
   .dlg.solid .no{background:#f3f5f7;color:var(--ink)}
   .dlg.solid .no:hover{background:#e8ecef}
   .dlg.solid .done{color:var(--ink)}
-  .dots{--ap:5500ms;display:flex;justify-content:center;align-items:center;gap:2px;margin-top:2px}
+  .dots{--ap:3500ms;display:flex;justify-content:center;align-items:center;gap:2px;margin-top:2px}
   .dots button{position:relative;width:34px;height:24px;display:grid;place-items:center}
   .dots button::before{content:"";width:6px;height:4px;border-radius:2px;background:#c5d5de;transition:width .3s,background .3s}
   .dots button[aria-current="true"]::before{width:28px}
@@ -429,12 +429,12 @@
   }
   bindTabs(tabs, t => showScen(t.dataset.k));
 
-  /* ----- Qubi carousel (auto-advances; pauses on hover, focus, dialog use, off-screen, hidden tab) ----- */
+  /* ----- Qubi carousel: advances every 3.5s without interruption; only the pause button stops it ----- */
   const stage = $('#stage'), slides = $$('.slide', stage), dotsEl = $('#dots'), dots = $$('.d', dotsEl), pp = $('.pp', dotsEl);
-  const INTERVAL = 5500;
-  let cur = 0, timer = 0, userPaused = false, hover = false, focused = false, engaged = false, inView = true;
+  const INTERVAL = 3500;
+  let cur = 0, timer = 0, userPaused = false;
   dotsEl.style.setProperty('--ap', INTERVAL + 'ms');
-  const playing = () => !reduce && !userPaused && !hover && !focused && !engaged && inView && !document.hidden;
+  const playing = () => !userPaused;
   function schedule() {
     clearTimeout(timer);
     dotsEl.classList.remove('run');
@@ -460,24 +460,18 @@
   let sx = null;
   stage.addEventListener('pointerdown', e => { sx = e.clientX; });
   stage.addEventListener('pointerup', e => { if (sx !== null && Math.abs(e.clientX - sx) > 50) go(cur + (e.clientX < sx ? 1 : -1)); sx = null; });
-  stage.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hover = true; schedule(); } });
-  stage.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hover = false; schedule(); } });
-  stage.addEventListener('focusin', () => { focused = true; schedule(); });
-  stage.addEventListener('focusout', () => { focused = false; schedule(); });
   pp.addEventListener('click', () => {
     userPaused = !userPaused;
     pp.setAttribute('aria-pressed', userPaused);
     pp.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
     schedule();
   });
-  new IntersectionObserver(([en]) => { inView = en.isIntersecting; schedule(); }, { threshold: 0.35 }).observe(stage);
-  document.addEventListener('visibilitychange', schedule);
   $$('.dlg', stage).forEach(dlg => {
     const done = $('.done', dlg);
     let t;
     const set = st => {
       dlg.dataset.state = st; done.textContent = st === 'yes' ? dlg.dataset.yes : st === 'no' ? dlg.dataset.no : '';
-      clearTimeout(t); engaged = st !== 'ask'; schedule();
+      clearTimeout(t);
       if (st !== 'ask') t = setTimeout(() => set('ask'), 3200);
     };
     $('.yes', dlg).addEventListener('click', e => { e.stopPropagation(); set('yes'); });
