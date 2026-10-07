@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Acer Intelligence Space | Soft Light</title>
+<meta name="description" content="Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life. Acer Qubi helps you find, launch and use the right tool.">
+<link rel="icon" href="images/qubi-avatar.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7fbfd; --bg-2:#f6f7f9; --white:#fff;
+    --navy:#243c49; --pale:#dce8ee; --slate:#587080; --line:#c1d2de;
+    --green:#3f7d0a; --green-t:#467122;
+    --ink:#1a1d23; --ink-2:#626971; --rule:#e3e5e8;
+    --font:"Source Sans 3","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--navy);font:400 20px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  h1,h2,h3,p{margin:0}
+  :focus-visible{outline:3px solid #2f7ec2;outline-offset:3px;border-radius:8px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .wrap{max-width:1156px;margin:0 auto;padding-inline:24px}
+
+  /* ---------- Nav ---------- */
+  .nav{position:sticky;top:0;z-index:30;height:72px;background:rgba(247,251,253,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav .in{height:100%;max-width:1440px;margin:0 auto;padding-inline:57px;display:flex;align-items:center}
+  .nav .logo img{height:36px;width:auto}
+  .nav ul{display:flex;list-style:none;margin:0 0 0 91px;padding:0;gap:0}
+  .nav li a{display:block;font-weight:500;font-size:18px;padding:8px 0;margin-right:67px;color:var(--navy);transition:color .2s}
+  .nav li a:hover{color:var(--green)}
+  .nav .search{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:18px;font-weight:500;color:var(--slate);margin-right:83px}
+  .nav .burger{display:none}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;container-type:inline-size;max-width:1440px;margin:0 auto;aspect-ratio:1440/809;overflow:hidden;--u:calc(100cqw/1440)}
+  .hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero .t{position:absolute;left:0;right:0;text-align:center;color:var(--ink)}
+  .hero .tag{top:calc(80*var(--u));font-size:max(13px,calc(18*var(--u)));font-weight:500;letter-spacing:.01em;color:#2b2f36}
+  .hero h1{top:calc(573*var(--u));font-size:calc(67.2*var(--u));line-height:1.1;font-weight:700;letter-spacing:-.002em}
+  .hero .lead{top:calc(653*var(--u));font-size:max(14px,calc(20*var(--u)));line-height:calc(30*var(--u));font-weight:400;padding-inline:16px;min-height:calc(60*var(--u))}
+  .hero .lead span{display:block}
+  .hero .t, .hero .tag{opacity:0;transform:translateY(8px);animation:rise .9s .1s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero h1{animation-delay:.2s}.hero .lead{animation-delay:.35s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ---------- Section A : scenarios ---------- */
+  .intro{text-align:center;padding-top:50px}
+  .eyebrow{font-size:16px;font-weight:500;color:var(--green-t);line-height:24px}
+  .h2{font-size:49px;line-height:56px;font-weight:700;letter-spacing:-.002em;color:var(--navy)}
+  .intro .h2{margin-top:13px}
+  .intro .sub{max-width:800px;margin:29px auto 0;color:var(--slate)}
+  .pills{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
+  .pill{height:44px;min-width:160px;padding:0 24px;border-radius:22px;background:var(--pale);color:var(--navy);font-size:18px;font-weight:500;transition:background .25s,color .25s,transform .15s}
+  .pill:hover{background:#cddde6}
+  .pill:active{transform:scale(.97)}
+  .pill[aria-selected="true"]{background:var(--navy);color:var(--bg)}
+  .scen-tabs{margin-top:29px}
+  .scen-cap{margin-top:20px;font-size:18px;line-height:28px;color:var(--slate);min-height:28px}
+  .scen-cards{display:grid;grid-template-columns:1fr 1fr;gap:36px;max-width:1204px;margin:35px auto 0;padding-inline:24px;text-align:left}
+  .scen-card .ph{border-radius:24px;overflow:hidden;aspect-ratio:560/410;background:var(--pale)}
+  .scen-card .ph img{width:100%;height:100%;object-fit:cover}
+  .scen-card .k{margin-top:25px;font-size:15px;line-height:22px;font-weight:500;color:var(--green-t)}
+  .scen-card h3{margin-top:10px;font-size:28px;line-height:36px;font-weight:700;color:var(--navy)}
+  .scen-card p{margin-top:12px;color:var(--slate);line-height:30px}
+  .swap{transition:opacity .28s ease,transform .28s ease}
+  .swap.out{opacity:0;transform:translateY(6px)}
+
+  /* ---------- Qubi carousel ---------- */
+  .qubi{text-align:center;padding-top:96px}
+  .qubi .h2{margin-top:15px}
+  .qubi .sub{max-width:930px;margin:11px auto 0;color:var(--slate);line-height:30px}
+  .stage{position:relative;container-type:inline-size;max-width:1440px;margin:16px auto 0;--u:calc(100cqw/1440);height:calc(480*var(--u));overflow:hidden;touch-action:pan-y}
+  .slide{position:absolute;left:calc(360*var(--u));top:0;width:calc(720*var(--u));height:calc(480*var(--u));border-radius:calc(32*var(--u));overflow:hidden;background:var(--pale);
+    transition:transform .6s cubic-bezier(.3,.7,.2,1),opacity .4s;will-change:transform}
+  .slide img.full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .slide[data-pos="0"]{transform:none;z-index:2}
+  .slide[data-pos="-1"]{transform:translate(calc(-697*var(--u)),calc(-9*var(--u))) scale(.72);z-index:1;cursor:pointer}
+  .slide[data-pos="1"]{transform:translate(calc(697*var(--u)),calc(-9*var(--u))) scale(.72);z-index:1;cursor:pointer}
+  .slide:not([data-pos="0"]) .dlg{opacity:0;pointer-events:none}
+
+  .dlg{position:absolute;left:12.5%;top:36.67%;width:75%;height:37.08%;border-radius:calc(28*var(--u));
+    background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(236,238,238,.52));
+    -webkit-backdrop-filter:blur(22px) saturate(1.1);backdrop-filter:blur(22px) saturate(1.1);
+    border:1.5px solid rgba(255,255,255,.85);box-shadow:0 10px 40px rgba(36,60,73,.12);
+    text-align:left;padding:calc(21*var(--u)) calc(24*var(--u));transition:opacity .3s}
+  .dlg .who{display:flex;align-items:center;gap:calc(14*var(--u));font-size:max(11px,calc(16*var(--u)));color:var(--green-t);font-weight:500;line-height:1}
+  .dlg .who img{width:calc(30*var(--u));height:calc(30*var(--u));border-radius:50%;min-width:20px;min-height:20px}
+  .dlg .q{margin-top:calc(14*var(--u));font-size:max(14px,calc(28*var(--u)));line-height:1.2;font-weight:700;color:var(--navy)}
+  .dlg .btns{display:flex;gap:calc(13*var(--u));margin-top:calc(14*var(--u))}
+  .dlg .btns button{flex:0 0 calc(210*var(--u))}
+  .dlg .btns button{height:max(30px,calc(40*var(--u)));border-radius:calc(20*var(--u));font-size:max(12px,calc(16*var(--u)));font-weight:500;transition:transform .15s,background .2s}
+  .dlg .btns button:active{transform:scale(.97)}
+  .dlg .yes{background:var(--navy);color:#fff}
+  .dlg .yes:hover{background:#1b2f3a}
+  .dlg .no{background:rgba(220,232,238,.72);color:var(--navy)}
+  .dlg .no:hover{background:rgba(220,232,238,.95)}
+  .dlg .done{display:none;margin-top:calc(16*var(--u));font-size:max(13px,calc(22*var(--u)));line-height:1.35;color:var(--navy)}
+  .dlg[data-state="yes"] .btns,.dlg[data-state="no"] .btns{display:none}
+  .dlg[data-state="yes"] .done,.dlg[data-state="no"] .done{display:block}
+  .dlg.solid{left:12.5%;top:36.67%;width:75%;height:34.8%;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-radius:calc(24*var(--u));box-shadow:none;padding:calc(25*var(--u)) calc(24*var(--u)) 0;margin:-1px}
+  .dlg.solid .q{margin-top:calc(18*var(--u));color:var(--ink)}
+  .dlg.solid .btns{margin-top:calc(12*var(--u))}
+  .dlg.solid .yes{background:var(--ink)}
+  .dlg.solid .yes:hover{background:#000}
+  .dlg.solid .no{background:#f3f5f7;color:var(--ink)}
+  .dlg.solid .no:hover{background:#e8ecef}
+  .dlg.solid .done{color:var(--ink)}
+  .dots{display:flex;justify-content:center;gap:4px;margin-top:2px}
+  .dots button{width:30px;height:24px;display:grid;place-items:center}
+  .dots button::before{content:"";width:6px;height:4px;border-radius:2px;background:#c5d5de;transition:width .3s,background .3s}
+  .dots button[aria-current="true"]::before{width:18px;background:var(--navy)}
+
+  /* ---------- Ready for your AI ---------- */
+  .ready{margin-top:1px;background:var(--bg-2);padding:78px 0 61px;text-align:center}
+  .ready .h2{color:var(--ink)}
+  .ready .sub{margin-top:16px;color:var(--ink-2)}
+  .ready .pills{margin-top:30px;gap:15px}
+  .ready .pill{min-width:92px;height:44px;padding:0 6px;font-size:18px}
+  .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:23px;max-width:1204px;margin:50px auto 0;padding-inline:24px;text-align:left}
+  .prod{background:#fff;border-radius:24px;padding:48px 25px 32px;display:flex;flex-direction:column;min-height:490px;transition:transform .3s,box-shadow .3s}
+  .prod:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(36,60,73,.1)}
+  .prod .img{height:170px;display:grid;place-items:center;margin-inline:-6px}
+  .prod .img img{width:100%;height:100%;object-fit:contain}
+  .prod h3{margin-top:54px;font-size:28px;line-height:36px;font-weight:700;color:var(--ink)}
+  .prod p{margin-top:22px;color:var(--ink-2);line-height:30px;flex:1}
+  .btn{align-self:flex-start;margin-top:22px;height:48px;padding:0 31px;border-radius:24px;background:var(--green);color:#fff;font-size:18px;font-weight:500;display:inline-grid;place-items:center;transition:background .2s,transform .15s}
+  .btn:hover{background:#336808}
+  .btn:active{transform:scale(.97)}
+  .empty{grid-column:1/-1;background:#fff;border-radius:24px;padding:70px 24px;text-align:center;color:var(--ink-2)}
+  .dl{display:inline-flex;align-items:center;gap:10px;margin-top:18px;font-size:18px;font-weight:500;color:var(--green)}
+  .dl:hover{text-decoration:underline}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:93px 0 180px;background:#fff;text-align:center}
+  .faq .h2{color:var(--ink)}
+  .faq .list{max-width:948px;margin:80px auto 0;padding-inline:24px;text-align:left}
+  details{border-bottom:1px solid var(--rule)}
+  summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;height:57px;padding:0 0 1px;align-items:flex-end;line-height:28px;font-size:20px;color:var(--ink)}
+  details[open] summary{height:57px}
+  summary::-webkit-details-marker{display:none}
+  summary svg{flex:none;width:18px;height:18px;margin-bottom:5px;color:var(--ink-2);transition:transform .3s}
+  details[open] summary svg{transform:rotate(45deg)}
+  details .a{overflow:hidden;color:var(--ink-2);line-height:30px;padding:0 40px 20px 0}
+  details .a p{padding-top:4px}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--pale);height:148px}
+  footer .in{max-width:1440px;margin:0 auto;padding:45px 80px 0 70px;display:flex;justify-content:space-between;align-items:flex-start;font-size:18px}
+  footer .c{font-size:16px;color:var(--slate)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px){
+    .nav .search{margin-right:0}
+    .nav li a{margin-right:36px}
+    .nav ul{margin-left:40px}
+  }
+  @media (max-width:900px){
+    .nav .in{padding-inline:20px}
+    .nav ul{display:none}
+    .h2{font-size:38px;line-height:44px}
+    .scen-cards{grid-template-columns:1fr;gap:40px}
+    .prods{grid-template-columns:1fr;max-width:480px}
+    .intro,.qubi,.ready{padding-inline:20px}
+    .scen-cards,.prods,.faq .list{padding-inline:0}
+    .stage{margin-inline:-20px}
+    .prod{min-height:0}
+    .prod .img{height:150px}
+  }
+  @media (max-width:760px){
+    body{font-size:18px}
+    .hero{aspect-ratio:auto;min-height:520px;height:calc(100svh - 72px);max-height:760px}
+    .hero > img{object-position:50% 40%}
+    .hero .tag{top:48px}
+    .hero h1{top:auto;bottom:130px;font-size:clamp(34px,10vw,52px);padding-inline:16px}
+    .hero .lead{top:auto;bottom:24px;font-size:16px;line-height:24px}
+    .h2{font-size:32px;line-height:38px}
+    .intro{padding-top:40px}
+    .pill{min-width:0;flex:1 1 40%}
+    .qubi{padding-top:70px}
+    .stage{--u:calc(100cqw/760);height:calc(500*var(--u));margin-top:24px}
+    .slide{left:calc(20*var(--u));height:calc(480*var(--u))}
+    .slide[data-pos="-1"],.slide[data-pos="1"]{opacity:0;pointer-events:none}
+    .dlg{left:6%;width:88%;top:30%;height:auto;padding:14px 16px 16px}
+    .ready{padding-block:64px 56px}
+    .faq{padding-block:70px 80px;padding-inline:20px}
+    .faq .list{margin-top:36px}
+    footer .in{padding:40px 24px 0;flex-direction:column;gap:6px}
+    summary{font-size:18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+    .hero .t,.hero .tag{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="in">
+    <a class="logo" href="https://www.acer.com/" aria-label="Acer home"><img src="images/logo.png" alt="acer" width="150" height="54"></a>
+    <ul>
+      <li><a href="https://www.acer.com/" >Products</a></li>
+      <li><a href="https://www.acer.com/">AI</a></li>
+      <li><a href="https://www.acer.com/">Explore Acer</a></li>
+      <li><a href="https://www.acer.com/">Support</a></li>
+    </ul>
+    <a class="search" href="https://www.acer.com/" aria-label="Search Acer">
+      <span>Search Acer</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <img src="images/hero-bg.jpg" alt="Acer Qubi, a friendly white robot, raising a hand inside a ring of frosted light, with soft circuit lines and blurred briefcases behind it" width="2880" height="1618" fetchpriority="high">
+    <p class="t tag">Acer Intelligence Space and Acer Qubi</p>
+    <h1 class="t" id="h1">Your everyday AI, all in one space.</h1>
+    <p class="t lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p>
+  </section>
+
+  <section class="intro" id="scenarios" aria-labelledby="scen-h">
+    <p class="eyebrow">Acer Intelligence Space</p>
+    <h2 class="h2" id="scen-h">A smarter way through every day.</h2>
+    <p class="sub">From meetings to creativity, gaming and personal tasks, explore AI tools organized around what you want to do—and open the one you need when you need it.</p>
+    <div class="pills scen-tabs" role="tablist" aria-label="Scenarios">
+      <button class="pill" role="tab" id="tab-work" aria-selected="true" aria-controls="scen-panel" data-k="work">Work</button>
+      <button class="pill" role="tab" id="tab-create" aria-selected="false" aria-controls="scen-panel" data-k="create" tabindex="-1">Create</button>
+      <button class="pill" role="tab" id="tab-game" aria-selected="false" aria-controls="scen-panel" data-k="game" tabindex="-1">Game</button>
+      <button class="pill" role="tab" id="tab-personal" aria-selected="false" aria-controls="scen-panel" data-k="personal" tabindex="-1">Personal</button>
+    </div>
+    <p class="scen-cap swap" id="scen-cap" aria-live="polite">Work smart, and fast.</p>
+    <div class="scen-cards swap" id="scen-panel" role="tabpanel" aria-labelledby="tab-work">
+      <article class="scen-card">
+        <div class="ph"><img src="images/work-1.jpg" alt="" width="1120" height="820"></div>
+        <p class="k">Live Captions</p>
+        <h3>Follow every word as it's spoken.</h3>
+        <p>Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.</p>
+      </article>
+      <article class="scen-card">
+        <div class="ph"><img src="images/work-2.jpg" alt="" width="1120" height="824"></div>
+        <p class="k">Transcripts &amp; Summaries</p>
+        <h3>Focus. Catch the details later.</h3>
+        <p>Focus on the discussion while it's happening. Afterward, review the transcript and summary to line up your next steps.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="qubi" aria-labelledby="qubi-h">
+    <p class="eyebrow">Acer Qubi</p>
+    <h2 class="h2" id="qubi-h">Acer Qubi helps you get started.</h2>
+    <p class="sub">A little help at just the right moment. With thoughtful suggestions and useful AI tools close at hand, Acer Qubi makes every day feel lighter, simpler and easier to navigate.</p>
+    <div class="stage" id="stage" role="region" aria-roledescription="carousel" aria-label="Qubi suggestions" tabindex="0">
+      <div class="slide" data-pos="0">
+        <img class="full" src="images/qubi-1.jpg" alt="Someone working at a desk with a laptop, a camera and a cup of tea" width="1440" height="960">
+        <div class="dlg" data-state="ask" data-yes="Done. Your email summary is ready." data-no="No problem. I'll be here when you need me.">
+          <div class="who"><img src="images/qubi-avatar.png" alt="" width="32" height="32">Qubi</div>
+          <p class="q">Want me to summarize these emails?</p>
+          <div class="btns"><button class="yes" type="button">Yes</button><button class="no" type="button">No, thanks.</button></div>
+          <p class="done" role="status"></p>
+        </div>
+      </div>
+      <div class="slide" data-pos="1">
+        <img class="full" src="images/qubi-2.jpg" alt="A couple taking a selfie outdoors, with a chat bubble: You, selfie.jpg, 'Remove the background from this photo.' Qubi: 'Working on it...'" width="720" height="480">
+      </div>
+      <div class="slide" data-pos="-1">
+        <img class="full" src="images/qubi-3.jpg" alt="Colleagues around a wooden meeting table" width="720" height="480">
+        <div class="dlg solid" data-state="ask" data-yes="Done. Your meeting summary is ready." data-no="No problem. I'll be here when you need me.">
+          <div class="who">Qubi</div>
+          <p class="q">Want a summary of this meeting?</p>
+          <div class="btns"><button class="yes" type="button">Yes</button><button class="no" type="button">No, thanks.</button></div>
+          <p class="done" role="status"></p>
+        </div>
+      </div>
+    </div>
+    <div class="dots" id="dots" role="group" aria-label="Choose slide">
+      <button type="button" aria-label="Slide 1" aria-current="true"></button>
+      <button type="button" aria-label="Slide 2"></button>
+      <button type="button" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <section class="ready" id="products" aria-labelledby="ready-h">
+    <h2 class="h2" id="ready-h">Ready for your AI.</h2>
+    <p class="sub">Find the right Acer AI PC for the way you work and play.</p>
+    <div class="pills" role="tablist" aria-label="Product type">
+      <button class="pill" role="tab" aria-selected="true" aria-controls="prods" data-c="laptops">Laptops</button>
+      <button class="pill" role="tab" aria-selected="false" aria-controls="prods" data-c="desktops" tabindex="-1">Desktops</button>
+      <button class="pill" role="tab" aria-selected="false" aria-controls="prods" data-c="aio" tabindex="-1">All-in-ones</button>
+      <button class="pill" role="tab" aria-selected="false" aria-controls="prods" data-c="handhelds" tabindex="-1">Handhelds</button>
+    </div>
+    <div class="prods swap" id="prods" role="tabpanel"></div>
+    <a class="dl" href="https://www.acer.com/" target="_blank" rel="noopener">Download Acer Intelligence Space
+      <svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v13M2.5 9.5 8 15l5.5-5.5"/></svg></a>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-h">
+    <h2 class="h2" id="faq-h">Frequently asked questions</h2>
+    <div class="list" id="faq"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="in"><span>Acer Intelligence Space</span><span class="c">© Acer Inc.</span></div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- hero lead line breaks on narrow screens ----- */
+  /* ----- scenario tabs ----- */
+  const SCEN = {
+    work: { cap: 'Work smart, and fast.', cards: [
+      { img: 'work-1.jpg', k: 'Live Captions', h: "Follow every word as it's spoken.", p: 'Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.' },
+      { img: 'work-2.jpg', k: 'Transcripts & Summaries', h: 'Focus. Catch the details later.', p: "Focus on the discussion while it's happening. Afterward, review the transcript and summary to line up your next steps." } ] },
+    create: { cap: 'Turn the picture in your head into finished work.', cards: [
+      { img: 'creative-1.png', k: 'Sketch to Image', h: 'Turn a quick sketch into finished art.', p: 'Hand your sketch to AI and get a richly detailed image, keeping your original composition and ideas.' },
+      { img: 'creative-2-v4.jpg', k: 'Style Switch', h: 'Same scene, a different style.', p: 'Switch between sketch, ink wash and geometric looks in one click, and find the style that suits your work.' } ] },
+    game: { cap: 'See more. Aim better.', cards: [
+      { img: 'game-1.jpg', k: 'Zoom & Night Vision', h: 'Spot distant details, even at night.', p: 'Zoom and night vision bring far-off enemies and dark corners into view, so you can react first.' },
+      { img: 'game-2.jpg', k: 'Highlights', h: 'Highlights, clipped and ready to share.', p: 'AI captures your kills and key plays automatically. Pick your clips right from the timeline and share them as soon as the match ends.' } ] },
+    personal: { cap: 'A PC that fits the way you live.', cards: [
+      { img: 'personal-1.jpg', k: 'Email Tone Rewrite', h: 'Set the tone in one click.', p: 'Not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.' },
+      { img: 'personal-2.jpg', k: 'Smart Email Sorting', h: 'A sorted inbox. What matters comes first.', p: 'Order updates, newsletters and everyday messages are organized for you, so you know what to open first.' } ] }
+  };
+  const tabs = $$('.scen-tabs [role=tab]'), cap = $('#scen-cap'), panel = $('#scen-panel');
+  const pause = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+  let scenBusy = 0;
+  async function showScen(k) {
+    const my = ++scenBusy, d = SCEN[k];
+    tabs.forEach(t => { const on = t.dataset.k === k; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+    panel.setAttribute('aria-labelledby', 'tab-' + k);
+    cap.classList.add('out'); panel.classList.add('out');
+    await pause(260); if (my !== scenBusy) return;
+    cap.textContent = d.cap;
+    $$('.scen-card', panel).forEach((c, i) => {
+      const x = d.cards[i];
+      $('img', c).src = 'images/' + x.img.replace(/^.*\//, '');
+      $('.k', c).textContent = x.k; $('h3', c).textContent = x.h; $('p:last-child', c).textContent = x.p;
+    });
+    cap.classList.remove('out'); panel.classList.remove('out');
+  }
+  function bindTabs(list, fn) {
+    list.forEach((t, i) => {
+      t.addEventListener('click', () => fn(t));
+      t.addEventListener('keydown', e => {
+        const n = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!n) return;
+        const x = list[(i + n + list.length) % list.length]; x.focus(); fn(x); e.preventDefault();
+      });
+    });
+  }
+  bindTabs(tabs, t => showScen(t.dataset.k));
+
+  /* ----- Qubi carousel ----- */
+  const stage = $('#stage'), slides = $$('.slide', stage), dots = $$('#dots button');
+  let cur = 0;
+  function place() {
+    slides.forEach((s, i) => { const d = ((i - cur + 4) % 3) - 1; s.dataset.pos = d; s.setAttribute('aria-hidden', d !== 0); });
+    dots.forEach((b, i) => b.setAttribute('aria-current', i === cur));
+  }
+  function go(i) { cur = (i + 3) % 3; place(); }
+  dots.forEach((b, i) => b.addEventListener('click', () => go(i)));
+  slides.forEach((s, i) => s.addEventListener('click', e => { if (s.dataset.pos !== '0') go(i); }));
+  stage.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
+  let sx = null;
+  stage.addEventListener('pointerdown', e => { sx = e.clientX; });
+  stage.addEventListener('pointerup', e => { if (sx !== null && Math.abs(e.clientX - sx) > 50) go(cur + (e.clientX < sx ? 1 : -1)); sx = null; });
+  $$('.dlg', stage).forEach(dlg => {
+    const done = $('.done', dlg);
+    let timer;
+    const set = s => { dlg.dataset.state = s; done.textContent = s === 'yes' ? dlg.dataset.yes : s === 'no' ? dlg.dataset.no : ''; clearTimeout(timer); if (s !== 'ask') timer = setTimeout(() => set('ask'), 3200); };
+    $('.yes', dlg).addEventListener('click', e => { e.stopPropagation(); set('yes'); });
+    $('.no', dlg).addEventListener('click', e => { e.stopPropagation(); set('no'); });
+    dlg.addEventListener('pointerup', e => e.stopPropagation());
+  });
+  place();
+
+  /* ----- products ----- */
+  const S = 'https://store.acer.com/en-us/';
+  const P = {
+    laptops: [
+      { img: 'product-real-sfg14.png', n: 'Swift Go 14', d: 'Thin, light and built to last all day, with AI wherever you go', u: 'sfg14-75-5948' },
+      { img: 'product-real-phn16s.png', n: 'Predator Helios Neo 16S', d: 'On-device AI at full speed for gaming and creating', u: 'phn16s-71-90td' },
+      { img: 'product-real-al14.png', n: 'Aspire Lite 14', d: 'A great first AI PC, with everything you need for every day', u: 'al14-56p-79y2' } ],
+    desktops: [
+      { img: 'product-real-po3.png', n: 'Predator Orion 3000', d: '12GB of graphics memory for faster, larger image generation', u: 'po3-665-u5-225f' },
+      { img: 'product-real-po7.png', n: 'Predator Orion 7000', d: 'RTX 5080 with 64GB, the top spec available today', u: 'po7-665-u7-265kf' },
+      { img: 'product-real-n30.png', n: 'Nitro N30', d: '16GB of graphics memory, the best balance of performance and price in gaming desktops', u: 'n30-100-16g-16g' } ],
+    aio: [], handhelds: []
+  };
+  const grid = $('#prods'), ptabs = $$('.ready [role=tab]');
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  function renderProds(c) {
+    const list = P[c];
+    grid.innerHTML = list.length ? list.map(p => `
+      <article class="prod">
+        <div class="img"><img src="images/${p.img}" alt="${esc(p.n)}" loading="lazy" width="1040" height="480"></div>
+        <h3>${esc(p.n)}</h3><p>${esc(p.d)}</p>
+        <a class="btn" href="${S}${p.u}" target="_blank" rel="noopener">Learn more<span class="sr"> about ${esc(p.n)}</span></a>
+      </article>`).join('') : '<div class="empty"><p>More Acer AI PCs in this category are coming soon.</p></div>';
+  }
+  let pBusy = 0;
+  async function showProds(t) {
+    const my = ++pBusy;
+    ptabs.forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; });
+    grid.classList.add('out'); await pause(240); if (my !== pBusy) return;
+    renderProds(t.dataset.c); grid.classList.remove('out');
+  }
+  bindTabs(ptabs, showProds);
+  renderProds('laptops');
+
+  /* ----- FAQ ----- */
+  const FAQ = [
+    ['Which Acer PCs support Acer Intelligence Space?', 'Supported features depend on your model, processor and operating system version. Check the product details for your model.'],
+    ['Which languages are supported?', 'Language support varies by feature and region. Check the feature details for your model.'],
+    ['Is my data uploaded to the cloud?', "Data from on-device features stays on your PC and isn't uploaded to the cloud. Cloud features need an internet connection."],
+    ['How do I download and update it?', 'Download Acer Intelligence Space from the link above. Feature updates and new apps arrive through the app itself.'],
+    ['What is Acer Qubi, and is it free?', "Qubi is Acer's personal assistant. It talks with you across devices, understands your questions and helps you get things done. Availability and pricing can vary by region."]
+  ];
+  $('#faq').innerHTML = FAQ.map(([q, a]) => `<details><summary>${q}<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M9 2v14M2 9h14"/></svg></summary><div class="a"><p>${a}</p></div></details>`).join('');
+  $$('#faq details').forEach(d => d.addEventListener('toggle', () => { if (d.open) $$('#faq details').forEach(o => { if (o !== d) o.open = false; }); }));
+})();
+</script>
+</body>
+</html>
