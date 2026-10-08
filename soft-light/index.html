@@ -61,7 +61,7 @@
 
   /* ---------- Section A : scenarios ---------- */
   .intro{text-align:center;padding-top:50px}
-  .eyebrow{font-size:16px;font-weight:500;color:var(--green-t);line-height:24px}
+  .eyebrow{font-size:20px;font-weight:500;color:var(--green-t);line-height:28px}
   .h2{font-size:49px;line-height:56px;font-weight:700;letter-spacing:-.002em;color:var(--navy)}
   .intro .h2{margin-top:13px}
   .intro .sub{max-width:800px;margin:29px auto 0;color:var(--slate)}
@@ -297,16 +297,16 @@
     <p class="scen-cap swap" id="scen-cap" aria-live="polite">Work smart, and fast.</p>
     <div class="scen-cards swap" id="scen-panel" role="tabpanel" aria-labelledby="tab-work">
       <article class="scen-card">
-        <div class="ph"><img src="images/work-1.jpg" alt="" width="1120" height="820"></div>
-        <p class="k">Live Captions</p>
+        <div class="ph"><img src="images/work-1.jpg" alt="" width="556" height="406"></div>
+        <p class="k">Acer Meeting Assistant</p>
         <h3>Follow every word as it's spoken.</h3>
         <p>Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.</p>
       </article>
       <article class="scen-card">
-        <div class="ph"><img src="images/work-2.jpg" alt="" width="1120" height="824"></div>
-        <p class="k">Transcripts &amp; Summaries</p>
-        <h3>Focus. Catch the details later.</h3>
-        <p>Focus on the discussion while it's happening. Afterward, review the transcript and summary to line up your next steps.</p>
+        <div class="ph"><img src="images/work-2.jpg" alt="" width="556" height="408"></div>
+        <p class="k">Acer AI Workspace</p>
+        <h3>A sorted inbox. What matters comes first.</h3>
+        <p>Order updates, newsletters and everyday messages are organized for you, so you know what to open first.</p>
       </article>
     </div>
   </section>
@@ -389,8 +389,8 @@
   /* ----- scenario tabs ----- */
   const SCEN = {
     work: { cap: 'Work smart, and fast.', cards: [
-      { img: 'work-1.jpg', k: 'Live Captions', h: "Follow every word as it's spoken.", p: 'Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.' },
-      { img: 'work-2.jpg', k: 'Transcripts & Summaries', h: 'Focus. Catch the details later.', p: "Focus on the discussion while it's happening. Afterward, review the transcript and summary to line up your next steps." } ] },
+      { img: 'work-1.jpg', k: 'Acer Meeting Assistant', h: "Follow every word as it's spoken.", p: 'Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.' },
+      { img: 'work-2.jpg', k: 'Acer AI Workspace', h: 'A sorted inbox. What matters comes first.', p: 'Order updates, newsletters and everyday messages are organized for you, so you know what to open first.' } ] },
     create: { cap: 'Turn the picture in your head into finished work, fast.', cards: [
       { img: 'create-1.jpg', k: 'Sketch to Image', h: 'From rough sketch to finished artwork.', p: 'Hand your sketch to AI and get a richly detailed image in seconds, with your composition and ideas intact.' },
       { img: 'create-2.jpg', k: 'On-device Media Search', h: 'Forgot the file name? Just describe it.', p: 'Remember the snowy peaks and the lake, but not the file name? Describe it in a sentence and find it on your PC instantly.' } ] },
@@ -398,8 +398,8 @@
       { img: 'game-1.jpg', k: 'Zoom & Night Vision', h: 'Spot distant details, even at night.', p: 'Zoom and night vision bring far-off enemies and dark corners into view, so you can react first.' },
       { img: 'game-2.jpg', k: 'Highlights', h: 'Highlights, clipped and ready to share.', p: 'AI captures your kills and key plays automatically. Pick your clips right from the timeline and share them as soon as the match ends.' } ] },
     personal: { cap: 'A PC that fits the way you live.', cards: [
-      { img: 'personal-1.jpg', k: 'Email Tone Rewrite', h: 'Set the tone in one click.', p: 'Not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.' },
-      { img: 'personal-2.jpg', k: 'Smart Email Sorting', h: 'A sorted inbox. What matters comes first.', p: 'Order updates, newsletters and everyday messages are organized for you, so you know what to open first.' } ] }
+      { img: 'personal-1.jpg', k: 'Acer Qubi', h: 'Summarize and set the tone in one click.', p: 'Quick summarize the emails, but not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.' },
+      { img: 'personal-2.jpg', k: 'Acer Qubi Claw', h: 'A sorted inbox. What matters comes first.', p: 'Turn your needs into action, flexibly using local or cloud AI to plan, automate and complete everyday tasks—from research and translation to travel planning and creative work.' } ] }
   };
   const tabs = $$('.scen-tabs [role=tab]'), cap = $('#scen-cap'), panel = $('#scen-panel');
   const pause = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
