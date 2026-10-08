@@ -50,7 +50,7 @@
   .hero{position:relative;container-type:inline-size;max-width:1440px;margin:0 auto;aspect-ratio:1440/809;overflow:hidden;--u:calc(100cqw/1440)}
   .hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .hero .t{position:absolute;left:0;right:0;text-align:center;color:var(--ink)}
-  .hero .tag{top:calc(80*var(--u));font-size:max(13px,calc(18*var(--u)));font-weight:500;letter-spacing:.01em;color:#2b2f36}
+  .hero .tag{position:absolute;left:0;right:0;bottom:100%;margin-bottom:calc(13*var(--u));font-size:max(15px,calc(28*var(--u)));line-height:1.25;font-weight:600;letter-spacing:.005em;color:var(--ink)}
   .hero .txt{top:calc(573*var(--u))}
   .hero h1{font-size:calc(67.2*var(--u));line-height:1.1;font-weight:700;letter-spacing:-.002em;margin-bottom:calc(6*var(--u))}
   .hero .lead{font-size:max(14px,calc(20*var(--u)));line-height:calc(30*var(--u));font-weight:400;padding-inline:16px}
@@ -196,7 +196,7 @@
     /* hero: text anchored to the bottom, image cropped around Qubi */
     .hero{aspect-ratio:auto;height:clamp(560px,78vw,700px)}
     .hero > img{object-position:50% 30%}
-    .hero .tag{top:36px;font-size:15px}
+    .hero .tag{margin-bottom:12px;font-size:clamp(16px,2.8vw,20px)}
     .hero .txt{top:auto;bottom:34px;padding-inline:20px}
     .hero h1{font-size:clamp(34px,6.4vw,56px);margin-bottom:14px;text-wrap:balance}
     .hero .lead{font-size:clamp(16px,2.3vw,19px);line-height:1.5;padding-inline:0;max-width:720px;margin-inline:auto}
@@ -279,8 +279,7 @@
 <main>
   <section class="hero" aria-labelledby="h1">
     <img src="images/hero-bg.jpg" alt="Acer Qubi, a friendly white robot, raising a hand inside a ring of frosted light, with soft circuit lines and blurred briefcases behind it" width="2880" height="1618" fetchpriority="high">
-    <p class="t tag">Acer Intelligence Space and Acer Qubi</p>
-    <div class="t txt"><h1 id="h1">Your everyday AI, all in one space.</h1>
+    <div class="t txt"><p class="tag">Acer Intelligence Space x&nbsp; Acer Qubi</p><h1 id="h1">Your everyday AI, all in one space.</h1>
     <p class="lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p></div>
   </section>
 
