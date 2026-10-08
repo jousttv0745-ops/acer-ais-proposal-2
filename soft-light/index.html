@@ -147,7 +147,7 @@
   .prod:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(36,60,73,.1)}
   .prod .img{height:170px;display:grid;place-items:center;margin-inline:-6px}
   .prod .img img{width:100%;height:100%;object-fit:contain}
-  .prod h3{margin-top:54px;font-size:28px;line-height:36px;font-weight:700;color:var(--ink)}
+  .prod h3{text-wrap:balance;margin-top:54px;font-size:28px;line-height:36px;font-weight:700;color:var(--ink)}
   .prod p{margin-top:22px;color:var(--ink-2);line-height:30px;flex:1}
   .btn{align-self:flex-start;margin-top:22px;height:48px;padding:0 31px;border-radius:24px;background:var(--green);color:#fff;font-size:18px;font-weight:500;display:inline-grid;place-items:center;transition:background .2s,transform .15s}
   .btn:hover{background:#336808}
@@ -491,7 +491,14 @@
       { img: 'product-real-po3.png', n: 'Predator Orion 3000', d: '12GB of graphics memory for faster, larger image generation', u: 'predator/desktops-and-all-in-ones/predator-orion/orion-3000' },
       { img: 'product-real-po7.png', n: 'Predator Orion 7000', d: 'RTX 5080 with 64GB, the top spec available today', u: 'predator/desktops-and-all-in-ones/predator-orion/orion-7000' },
       { img: 'product-real-n30.png', n: 'Nitro N30', d: '16GB of graphics memory, the best balance of performance and price in gaming desktops', u: 'desktops-and-all-in-ones/nitro-desktops/acer-nitro-30-amd' } ],
-    aio: [], handhelds: []
+    aio: [
+      { img: 'product-real-aio-v2000.jpg', n: 'Veriton 2000 All-in-One', d: 'Designed for SMB productivity, this all-in-one delivers responsive performance, secure computing, and flexible connectivity for office environments and daily operations.', u: 'desktops-and-all-in-ones/veriton-all-in-ones/veriton-2000-all-in-one' },
+      { img: 'product-real-aio-v4000.jpg', n: 'Veriton 4000 All-in-One', d: 'The Acer Veriton All-in-One for Business is an AIO that considers security and design while delivering outstanding performance.', u: 'desktops-and-all-in-ones/veriton-all-in-ones/veriton-4000-all-in-one' },
+      { img: 'product-real-aio-vv6000.jpg', n: 'Veriton Vero 6000 All-in-One', d: 'A premium business all-in-one with a spacious up to 27-inch display, AI-ready performance, and Intel vPro', u: 'desktops-and-all-in-ones/veriton-all-in-ones/veriton-vero-6000-all-in-one' } ],
+    handhelds: [
+      { img: 'product-real-hh-blaze7.jpg', n: 'Nitro Blaze 7', d: 'Experience handheld gaming with high performance and portability for uninterrupted, top-quality gameplay anywhere you go.', u: 'handheld-gaming/nitro-handheld-gaming/nitro-blaze-7' },
+      { img: 'product-real-hh-blaze8.jpg', n: 'Nitro Blaze 8', d: 'A portable gaming handheld with an 8.8-inch 144Hz display, perfect for gaming anywhere you go.', u: 'handheld-gaming/nitro-handheld-gaming/nitro-blaze-8' },
+      { img: 'product-real-hh-blaze11.jpg', n: 'Nitro Blaze 11', d: 'Enjoy portable gaming with detachable controllers, immersive visuals, fast storage, and seamless connectivity.', u: 'handheld-gaming/nitro-handheld-gaming/nitro-blaze-11' } ]
   };
   const grid = $('#prods'), ptabs = $$('.ready [role=tab]');
   const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
