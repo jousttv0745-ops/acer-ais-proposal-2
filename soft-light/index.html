@@ -47,18 +47,26 @@
   .nav.open .burger span::after{transform:translateY(-7px) rotate(-45deg)}
 
   /* ---------- Hero ---------- */
-  .hero{position:relative;container-type:inline-size;max-width:1440px;margin:0 auto;aspect-ratio:1440/880;overflow:hidden;--u:calc(100cqw/1440)}
-  .hero .bg{position:absolute;left:6%;top:0;width:88%;height:auto;aspect-ratio:720/398;object-fit:cover;display:block;pointer-events:none;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(180deg,#000 72%,transparent);-webkit-mask-composite:source-in;
-    mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(180deg,#000 72%,transparent);mask-composite:intersect}
+  .hero{position:relative;container-type:inline-size;max-width:1440px;margin:0 auto;aspect-ratio:1440/809;overflow:hidden;--u:calc(100cqw/1440)}
+  .hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  /* intro: the scene starts in mist, holds 0.5s, then one tap sends water-like ripples out from the centre and the mist clears */
+  @property --r{syntax:'<percentage>';inherits:false;initial-value:0%}
+  .hero{--ox:38%;--oy:41%}
+  .hero > img.fog{filter:blur(16px) brightness(1.16) contrast(.82) saturate(.6);transform:scale(1.08);
+    -webkit-mask-image:radial-gradient(circle farthest-corner at var(--ox) var(--oy),transparent 0,transparent calc(var(--r) - 34%),rgba(0,0,0,.45) calc(var(--r) - 28%),transparent calc(var(--r) - 21%),rgba(0,0,0,.65) calc(var(--r) - 14%),rgba(0,0,0,.2) calc(var(--r) - 8%),#000 var(--r));
+    mask-image:radial-gradient(circle farthest-corner at var(--ox) var(--oy),transparent 0,transparent calc(var(--r) - 34%),rgba(0,0,0,.45) calc(var(--r) - 28%),transparent calc(var(--r) - 21%),rgba(0,0,0,.65) calc(var(--r) - 14%),rgba(0,0,0,.2) calc(var(--r) - 8%),#000 var(--r));
+    animation:clear 3.2s .6s cubic-bezier(.35,.1,.3,1) both;pointer-events:none}
+  @keyframes clear{from{--r:0%}to{--r:160%}}
+  .hero .tap{position:absolute;left:var(--ox);top:var(--oy);width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;opacity:0;pointer-events:none;animation:tap .9s .5s ease-out both}
+  @keyframes tap{0%{opacity:0;transform:scale(.3)}25%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(255,255,255,.6)}100%{opacity:0;transform:scale(1.4);box-shadow:0 0 0 46px rgba(255,255,255,0)}}
   .hero .t{position:absolute;left:0;right:0;text-align:center;color:var(--ink)}
   .hero .tag{position:absolute;left:0;right:0;bottom:100%;margin-bottom:calc(13*var(--u));font-size:max(15px,calc(28*var(--u)));line-height:1.25;font-weight:600;letter-spacing:.005em;color:var(--ink)}
-  .hero .txt{top:calc(645*var(--u))}
+  .hero .txt{top:calc(573*var(--u))}
   .hero h1{font-size:calc(67.2*var(--u));line-height:1.1;font-weight:700;letter-spacing:-.002em;margin-bottom:calc(6*var(--u))}
   .hero .lead{font-size:max(14px,calc(20*var(--u)));line-height:calc(30*var(--u));font-weight:400;padding-inline:16px}
   .hero .lead span{display:block}
   .hero .t{opacity:0;transform:translateY(8px);animation:rise .9s .1s cubic-bezier(.2,.7,.2,1) forwards}
-  .hero .txt{animation-delay:.25s}
+  .hero .txt{animation-delay:1.3s}
   @keyframes rise{to{opacity:1;transform:none}}
 
   /* ---------- Section A : scenarios ---------- */
@@ -179,6 +187,7 @@
 
   /* ---------- Responsive ---------- */
   @media (min-width:1441px){
+    .hero > img:not(.fog){-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
     .stage{-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
   }
   @media (max-width:1100px){
@@ -197,10 +206,11 @@
     .nav li:last-child a{border-bottom:0}
     .h2{font-size:clamp(30px,5.4vw,40px);line-height:1.15}
     /* hero: text anchored to the bottom, image cropped around Qubi */
-    .hero{aspect-ratio:auto;height:auto;padding-bottom:44px}
-    .hero .bg{position:relative;left:0;width:100%;height:clamp(300px,88vw,560px);aspect-ratio:auto;object-position:46% 50%;-webkit-mask-image:linear-gradient(180deg,#000 80%,transparent);mask-image:linear-gradient(180deg,#000 80%,transparent)}
+    .hero{aspect-ratio:auto;height:clamp(560px,78vw,700px)}
+    .hero{--ox:52%;--oy:42%}
+    .hero > img{object-position:50% 30%}
     .hero .tag{margin-bottom:12px;font-size:clamp(16px,2.8vw,20px)}
-    .hero .txt{position:relative;top:auto;bottom:auto;padding-inline:20px}
+    .hero .txt{top:auto;bottom:34px;padding-inline:20px}
     .hero h1{font-size:clamp(34px,6.4vw,56px);margin-bottom:14px;text-wrap:balance}
     .hero .lead{font-size:clamp(16px,2.3vw,19px);line-height:1.5;padding-inline:0;max-width:720px;margin-inline:auto}
     .hero .lead span{text-wrap:balance}
@@ -237,6 +247,8 @@
   }
   @media (max-width:760px){
     body{font-size:18px}
+    .hero{height:clamp(540px,calc(100svh - 72px),760px)}
+    .hero > img{object-position:50% 35%}
     .hero .lead{font-size:16px}
     .h2{font-size:clamp(28px,8vw,34px)}
     .pill{min-width:0;flex:1 1 40%}
@@ -253,6 +265,7 @@
     .hero h1{font-size:32px}
   }
   @media (prefers-reduced-motion:reduce){
+    .hero .fog,.hero .tap{display:none}
     html{scroll-behavior:auto}
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     .hero .t{opacity:1;transform:none}
@@ -279,7 +292,9 @@
 
 <main>
   <section class="hero" aria-labelledby="h1">
-    <video class="bg" src="video/hero.mp4" poster="video/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Acer Qubi, a friendly white robot, standing between glowing circuit lines and AI app cases" width="720" height="398"></video>
+    <img src="images/hero-bg.jpg" alt="Acer Qubi, a friendly white robot, raising a hand inside a ring of frosted light, with soft circuit lines and blurred briefcases behind it" width="2880" height="1618" fetchpriority="high">
+    <img class="fog" src="images/hero-bg.jpg" alt="" aria-hidden="true" width="2880" height="1618">
+    <span class="tap" aria-hidden="true"></span>
     <div class="t txt"><p class="tag">Acer Intelligence Space x&nbsp; Acer Qubi</p><h1 id="h1">Your everyday AI, all in one space.</h1>
     <p class="lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p></div>
   </section>
