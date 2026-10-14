@@ -298,14 +298,14 @@
       <article class="scen-card">
         <div class="ph"><img src="images/work-1.jpg" alt="" width="556" height="406"></div>
         <p class="k">Acer Meeting Assistant</p>
-        <h3>Follow every word as it's spoken.</h3>
+        <h3>See every word as it's spoken.</h3>
         <p>Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.</p>
       </article>
       <article class="scen-card">
         <div class="ph"><img src="images/work-2.jpg" alt="" width="556" height="408"></div>
         <p class="k">Acer AI Workspace</p>
-        <h3>A sorted inbox. What matters comes first.</h3>
-        <p>Order updates, newsletters and everyday messages are organized for you, so you know what to open first.</p>
+        <h3>Pick the right tone in one click.</h3>
+        <p>Not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.</p>
       </article>
     </div>
   </section>
@@ -376,16 +376,16 @@
   /* ----- scenario tabs ----- */
   const SCEN = {
     work: { cap: 'Work smart, and fast.', cards: [
-      { img: 'work-1.jpg', k: 'Acer Meeting Assistant', h: "Follow every word as it's spoken.", p: 'Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.' },
-      { img: 'work-2.jpg', k: 'Acer AI Workspace', h: 'A sorted inbox. What matters comes first.', p: 'Order updates, newsletters and everyday messages are organized for you, so you know what to open first.' } ] },
+      { img: 'work-1.jpg', k: 'Acer Meeting Assistant', h: "See every word as it's spoken.", p: 'Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.' },
+      { img: 'work-2.jpg', k: 'Acer AI Workspace', h: 'Pick the right tone in one click.', p: 'Not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.' } ] },
     create: { cap: 'Turn the picture in your head into finished work, fast.', cards: [
-      { img: 'create-1.jpg', k: 'Sketch to Image', h: 'From rough sketch to finished artwork.', p: 'Hand your sketch to AI and get a richly detailed image in seconds, with your composition and ideas intact.' },
-      { img: 'create-2.jpg', k: 'On-device Media Search', h: 'Forgot the file name? Just describe it.', p: 'Remember the snowy peaks and the lake, but not the file name? Describe it in a sentence and find it on your PC instantly.' } ] },
+      { img: 'create-1.jpg', k: 'Acer Drawing Assistant', h: 'Sketch a stroke. Spark a new idea.', p: 'AI generates inspiring visual details with every stroke, helping you explore new possibilities while preserving your composition and creative intent.' },
+      { img: 'create-2.jpg', k: 'Acer Media Assistant', h: 'Forgot the file name? Just describe it.', p: 'Remember the snowy peaks and the lake, but not the file name? Describe it in a sentence and find it on your PC instantly.' } ] },
     game: { cap: 'See more. Aim better.', cards: [
-      { img: 'game-1.jpg', k: 'Zoom & Night Vision', h: 'Spot distant details, even at night.', p: 'Zoom and night vision bring far-off enemies and dark corners into view, so you can react first.' },
-      { img: 'game-2.jpg', k: 'Highlights', h: 'Highlights, clipped and ready to share.', p: 'AI captures your kills and key plays automatically. Pick your clips right from the timeline and share them as soon as the match ends.' } ] },
+      { img: 'game-1.jpg', k: 'Acer Game Assistant', h: 'Spot distant details, even at night.', p: 'Zoom and night vision bring far-off enemies and dark corners into view, so you can react first.' },
+      { img: 'game-2.jpg', k: 'Acer ProCam', h: 'Highlights, clipped and ready to share.', p: 'AI captures your kills and key plays automatically. Pick your clips right from the timeline and share them as soon as the match ends.' } ] },
     personal: { cap: 'A PC that fits the way you live.', cards: [
-      { img: 'personal-1.jpg', k: 'Acer Qubi', h: 'Summarize and set the tone in one click.', p: 'Quick summarize the emails, but not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.' },
+      { img: 'personal-1.jpg', k: 'Acer Qubi', h: 'Drop it in. Let Acer Qubi handle the rest.', p: 'Drag in an image or document, and Qubi gets to work—removing backgrounds, understanding content, and turning files into ready-to-use results.' },
       { img: 'personal-2.jpg', k: 'Acer Qubi Claw', u: 'https://www.acer.com/acer-qubi-claw', h: 'Your AI, Your Way—Local or Cloud.', p: 'Turn your needs into action, flexibly using local or cloud AI to plan, automate and complete everyday tasks—from research and translation to travel planning and creative work.' } ] }
   };
   const tabs = $$('.scen-tabs [role=tab]'), cap = $('#scen-cap'), panel = $('#scen-panel');
