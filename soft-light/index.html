@@ -92,7 +92,7 @@
   .stage{position:relative;container-type:inline-size;max-width:1440px;margin:16px auto 0;--u:calc(100cqw/1440);aspect-ratio:3/1;overflow:hidden;touch-action:pan-y}
   .slide{position:absolute;left:calc(360*var(--u));top:0;width:calc(720*var(--u));height:calc(480*var(--u));border-radius:calc(32*var(--u));overflow:hidden;background:var(--pale);
     transition:transform .6s cubic-bezier(.3,.7,.2,1),opacity .4s;will-change:transform}
-  .slide img.full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .slide .full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .slide[data-pos="0"]{transform:none;z-index:2}
   .slide[data-pos="-1"]{transform:translate(calc(-697*var(--u)),calc(-9*var(--u))) scale(.72);z-index:1;cursor:pointer}
   .slide[data-pos="1"]{transform:translate(calc(697*var(--u)),calc(-9*var(--u))) scale(.72);z-index:1;cursor:pointer}
@@ -218,11 +218,10 @@
   }
   @media (max-width:820px){
     /* carousel: one big slide, swipe or tap the dots */
-    .stage{max-width:560px;height:auto;aspect-ratio:1/1;margin:24px auto 0;-webkit-mask-image:none;mask-image:none;border-radius:24px}
+    .stage{max-width:560px;height:auto;aspect-ratio:3/2;margin:24px auto 0;-webkit-mask-image:none;mask-image:none;border-radius:24px}
     .slide{left:0;top:0;width:100%;height:100%;border-radius:24px}
     .slide[data-pos="1"]{transform:translateX(104%);opacity:0;pointer-events:none}
     .slide[data-pos="-1"]{transform:translateX(-104%);opacity:0;pointer-events:none}
-    .slide:nth-child(2) img.full{object-position:85% 50%}
     .dlg,.dlg.solid{left:0;right:0;width:auto;top:30%;height:auto;min-height:max(44%,152px);margin:0;padding:16px 20px 18px;border-radius:0;border-inline:0;display:flex;flex-direction:column;justify-content:center}
     .dlg .who{font-size:14px}
     .dlg .who img{width:26px;height:26px}
@@ -317,25 +316,13 @@
     <p class="sub">A little help at just the right moment. With thoughtful suggestions and useful AI tools close at hand, Acer Qubi makes every day feel lighter, simpler and easier to navigate.</p>
     <div class="stage" id="stage" role="region" aria-roledescription="carousel" aria-label="Qubi suggestions" tabindex="0">
       <div class="slide" data-pos="0">
-        <img class="full" src="images/qubi-1.jpg" alt="Someone working at a desk with a laptop, a camera and a cup of tea" width="1440" height="960">
-        <div class="dlg" data-state="ask" data-yes="Done. Your email summary is ready." data-no="No problem. I'll be here when you need me.">
-          <div class="who"><img src="images/qubi-avatar.png" alt="" width="32" height="32">Qubi</div>
-          <p class="q">Want me to summarize these emails?</p>
-          <div class="btns"><button class="yes" type="button">Yes</button><button class="no" type="button">No, thanks.</button></div>
-          <p class="done" role="status"></p>
-        </div>
+        <video class="full" src="video/qubi-1.mp4" poster="video/qubi-1.jpg" muted playsinline preload="auto" width="720" height="480" aria-label="Qubi at a desk: the request &quot;Remove the background from this photo.&quot; is typed into the input field"></video>
       </div>
       <div class="slide" data-pos="1">
-        <img class="full" src="images/qubi-2.jpg" alt="A couple taking a selfie outdoors, with a chat bubble: You, selfie.jpg, 'Remove the background from this photo.' Qubi: 'Working on it...'" width="720" height="480">
+        <video class="full" src="video/qubi-2.mp4" poster="video/qubi-2.jpg" muted playsinline preload="auto" width="720" height="480" aria-label="Qubi: a photo is dragged into the drop field"></video>
       </div>
       <div class="slide" data-pos="-1">
-        <img class="full" src="images/qubi-3.jpg" alt="Colleagues around a wooden meeting table" width="720" height="480">
-        <div class="dlg solid" data-state="ask" data-yes="Done. Your meeting summary is ready." data-no="No problem. I'll be here when you need me.">
-          <div class="who">Qubi</div>
-          <p class="q">Want a summary of this meeting?</p>
-          <div class="btns"><button class="yes" type="button">Yes</button><button class="no" type="button">No, thanks.</button></div>
-          <p class="done" role="status"></p>
-        </div>
+        <video class="full" src="video/qubi-3.mp4" poster="video/qubi-3.jpg" muted playsinline preload="auto" width="720" height="480" aria-label="Qubi shows &quot;Removing background...&quot; while a couple's selfie is cut out from the outdoor background"></video>
       </div>
     </div>
     <div class="dots" id="dots" role="group" aria-label="Choose slide">
@@ -452,6 +439,10 @@
         s.style.transition = 'none'; s.dataset.pos = d; void s.offsetWidth; s.style.transition = '';
       } else s.dataset.pos = d;
       s.setAttribute('aria-hidden', d !== 0);
+    });
+    slides.forEach((s, i) => {                 // each clip plays once from the start when its slide comes to the front
+      const v = $('video', s); if (!v) return;
+      if (+s.dataset.pos === 0) { v.currentTime = 0; v.play().catch(() => {}); } else { v.pause(); v.currentTime = 0; }
     });
     dots.forEach((b, i) => b.setAttribute('aria-current', i === cur));
   }
