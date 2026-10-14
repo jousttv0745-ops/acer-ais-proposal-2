@@ -73,8 +73,7 @@
   .pill:active{transform:scale(.97)}
   .pill[aria-selected="true"]{background:var(--navy);color:var(--bg)}
   .scen-tabs{margin-top:29px}
-  .scen-cap{margin-top:20px;font-size:18px;line-height:28px;color:var(--slate);min-height:28px}
-  .scen-cards{display:grid;grid-template-columns:1fr 1fr;gap:36px;max-width:1204px;margin:35px auto 0;padding-inline:24px;text-align:left}
+  .scen-cards{display:grid;grid-template-columns:1fr 1fr;gap:36px;max-width:1204px;margin:58px auto 0;padding-inline:24px;text-align:left}
   .scen-card .ph{border-radius:24px;overflow:hidden;aspect-ratio:560/410;background:var(--pale)}
   .scen-card .ph img{width:100%;height:100%;object-fit:cover}
   .scen-card .k{margin-top:25px;font-size:15px;line-height:22px;font-weight:500;color:var(--green-t)}
@@ -279,7 +278,7 @@
 <main>
   <section class="hero" aria-labelledby="h1">
     <video class="bg" src="video/hero.mp4" poster="video/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Acer Qubi, a friendly white robot, standing between glowing circuit lines and AI app cases" width="720" height="398"></video>
-    <div class="t txt"><p class="tag">Acer Intelligence Space x&nbsp; Acer Qubi</p><h1 id="h1">Your everyday AI, all in one space.</h1>
+    <div class="t txt"><p class="tag">Acer Intelligence Space and&nbsp; Acer Qubi</p><h1 id="h1">Your everyday AI, all in one space.</h1>
     <p class="lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p></div>
   </section>
 
@@ -293,7 +292,6 @@
       <button class="pill" role="tab" id="tab-game" aria-selected="false" aria-controls="scen-panel" data-k="game" tabindex="-1">Game</button>
       <button class="pill" role="tab" id="tab-personal" aria-selected="false" aria-controls="scen-panel" data-k="personal" tabindex="-1">Personal</button>
     </div>
-    <p class="scen-cap swap" id="scen-cap" aria-live="polite">Work smart, and fast.</p>
     <div class="scen-cards swap" id="scen-panel" role="tabpanel" aria-labelledby="tab-work">
       <article class="scen-card">
         <div class="ph"><img src="images/work-1.jpg" alt="" width="556" height="406"></div>
@@ -375,29 +373,28 @@
 
   /* ----- scenario tabs ----- */
   const SCEN = {
-    work: { cap: 'Work smart, and fast.', cards: [
+    work: { cards: [
       { img: 'work-1.jpg', k: 'Acer Meeting Assistant', h: "See every word as it's spoken.", p: 'Live captions help you keep up in multilingual meetings. Missed something? Scroll back through the caption history and jump right back in.' },
       { img: 'work-2.jpg', k: 'Acer AI Workspace', h: 'Pick the right tone in one click.', p: 'Not sure how to answer an invite? Pick a tone, let AI draft the reply, tweak it and hit send.' } ] },
-    create: { cap: 'Turn the picture in your head into finished work, fast.', cards: [
+    create: { cards: [
       { img: 'create-1.jpg', k: 'Acer Drawing Assistant', h: 'Sketch a stroke. Spark a new idea.', p: 'AI generates inspiring visual details with every stroke, helping you explore new possibilities while preserving your composition and creative intent.' },
       { img: 'create-2.jpg', k: 'Acer Media Assistant', h: 'Forgot the file name? Just describe it.', p: 'Remember the snowy peaks and the lake, but not the file name? Describe it in a sentence and find it on your PC instantly.' } ] },
-    game: { cap: 'See more. Aim better.', cards: [
+    game: { cards: [
       { img: 'game-1.jpg', k: 'Acer Game Assistant', h: 'Spot distant details, even at night.', p: 'Zoom and night vision bring far-off enemies and dark corners into view, so you can react first.' },
       { img: 'game-2.jpg', k: 'Acer ProCam', h: 'Highlights, clipped and ready to share.', p: 'AI captures your kills and key plays automatically. Pick your clips right from the timeline and share them as soon as the match ends.' } ] },
-    personal: { cap: 'A PC that fits the way you live.', cards: [
+    personal: { cards: [
       { img: 'personal-1.jpg', k: 'Acer Qubi', h: 'Drop it in. Let Acer Qubi handle the rest.', p: 'Drag in an image or document, and Qubi gets to work—removing backgrounds, understanding content, and turning files into ready-to-use results.' },
       { img: 'personal-2.jpg', k: 'Acer Qubi Claw', u: 'https://www.acer.com/acer-qubi-claw', h: 'Your AI, Your Way—Local or Cloud.', p: 'Turn your needs into action, flexibly using local or cloud AI to plan, automate and complete everyday tasks—from research and translation to travel planning and creative work.' } ] }
   };
-  const tabs = $$('.scen-tabs [role=tab]'), cap = $('#scen-cap'), panel = $('#scen-panel');
+  const tabs = $$('.scen-tabs [role=tab]'), panel = $('#scen-panel');
   const pause = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
   let scenBusy = 0;
   async function showScen(k) {
     const my = ++scenBusy, d = SCEN[k];
     tabs.forEach(t => { const on = t.dataset.k === k; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
     panel.setAttribute('aria-labelledby', 'tab-' + k);
-    cap.classList.add('out'); panel.classList.add('out');
+    panel.classList.add('out');
     await pause(260); if (my !== scenBusy) return;
-    cap.textContent = d.cap;
     $$('.scen-card', panel).forEach((c, i) => {
       const x = d.cards[i];
       $('img', c).src = 'images/' + x.img.replace(/^.*\//, '');
@@ -405,7 +402,7 @@
       if (x.u) { const a = document.createElement('a'); a.className = 'ext'; a.href = x.u; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('aria-label', x.k + ' on acer.com (opens in a new tab)'); a.innerHTML = '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5M12 9v3.5a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1H7"/></svg>'; kk.append(a); }
        $('h3', c).textContent = x.h; $('p:last-child', c).textContent = x.p;
     });
-    cap.classList.remove('out'); panel.classList.remove('out');
+    panel.classList.remove('out');
   }
   function bindTabs(list, fn) {
     list.forEach((t, i) => {
