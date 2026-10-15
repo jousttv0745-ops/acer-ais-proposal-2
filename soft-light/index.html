@@ -19,7 +19,7 @@
     --font:"Source Sans 3","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--bg);color:var(--navy);font:400 20px/1.5 var(--font);-webkit-font-smoothing:antialiased}
   img{display:block;max-width:100%}
   a{color:inherit;text-decoration:none}
@@ -30,21 +30,28 @@
   .wrap{max-width:1156px;margin:0 auto;padding-inline:24px}
 
   /* ---------- Nav ---------- */
-  .nav{position:sticky;top:0;z-index:30;height:60px;background:rgba(247,251,253,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-  .nav .in{height:100%;max-width:1440px;margin:0 auto;padding-inline:57px;display:flex;align-items:center}
+  .nav{position:sticky;top:0;z-index:30;height:60px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #edf0f4}
+  .nav .in{height:100%;width:calc(100% - 40px);margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+  .nav .logo{justify-self:start}
   .nav .logo img{height:36px;width:auto}
-  .nav ul{display:flex;list-style:none;margin:0 0 0 91px;padding:0;gap:0}
-  .nav li a{display:block;font-weight:500;font-size:18px;padding:8px 0;margin-right:67px;color:var(--navy);transition:color .2s}
-  .nav li a:hover{color:var(--green)}
-  .nav .search{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:18px;font-weight:500;color:var(--slate);margin-right:83px}
-  .nav .burger{display:none;width:44px;height:44px;margin-right:-10px;place-items:center;border-radius:12px}
-  .nav .burger span,.nav .burger span::before,.nav .burger span::after{display:block;width:22px;height:2px;border-radius:2px;background:var(--navy);transition:transform .25s,opacity .2s}
+  .dnav{display:flex;align-items:center;gap:48px}
+  .dnav a{font-size:16px;line-height:22px;font-weight:500;letter-spacing:.16px;color:var(--ink);transition:color .2s}
+  .dnav a:hover,.dnav a.on{color:var(--green)}
+  .nav-act{justify-self:end;display:flex;align-items:center;gap:8px}
+  .nav .cta{display:inline-grid;place-items:center;width:102px;height:38px;border-radius:8px;background:var(--green);color:#fff;font-size:16px;line-height:22px;font-weight:700;letter-spacing:.16px;transition:background .2s}
+  .nav .cta:hover{background:#346a07}
+  .nav .burger{display:none;width:42px;height:42px;place-items:center;border-radius:12px}
+  .nav .burger span,.nav .burger span::before,.nav .burger span::after{display:block;width:23px;height:2px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .2s}
   .nav .burger span{position:relative}
   .nav .burger span::before,.nav .burger span::after{content:"";position:absolute;left:0}
   .nav .burger span::before{top:-7px}.nav .burger span::after{top:7px}
   .nav.open .burger span{background:transparent}
   .nav.open .burger span::before{transform:translateY(7px) rotate(45deg)}
   .nav.open .burger span::after{transform:translateY(-7px) rotate(-45deg)}
+  .mnav{position:absolute;top:100%;left:0;right:0;display:grid;padding:8px 24px 20px;background:#fff;border-bottom:1px solid #dce2ea;box-shadow:0 14px 24px rgba(17,20,33,.1);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .2s,transform .2s,visibility .2s}
+  .nav.open .mnav{opacity:1;visibility:visible;transform:none}
+  .mnav a{min-height:45px;display:flex;align-items:center;border-bottom:1px solid #e4e7ec;font-size:16px;font-weight:500;color:var(--ink)}
+  .mnav a:last-child{border-bottom:0}
 
   /* ---------- Hero ---------- */
   .hero{position:relative;container-type:inline-size;max-width:1440px;margin:0 auto;aspect-ratio:1440/880;overflow:hidden;--u:calc(100cqw/1440)}
@@ -172,28 +179,34 @@
   details .a p{padding-top:4px}
 
   /* ---------- Footer ---------- */
-  footer{background:var(--pale);height:148px}
-  footer .in{max-width:1440px;margin:0 auto;padding:45px 80px 0 70px;display:flex;justify-content:space-between;align-items:flex-start;font-size:18px}
-  footer .c{font-size:16px;color:var(--slate)}
+  .site-footer{background:#f5f5f7;color:#000}
+  .footer-back-to-top{display:flex;align-items:center;justify-content:center;width:100%;height:48px;background:#fbfbfb;font-size:12px;line-height:26px;font-weight:500}
+  .footer-back-to-top:hover,.footer-back-to-top:focus-visible{text-decoration:underline}
+  .footer-shell{width:min(calc(100% - 76px),1205px);margin:0 auto;padding:clamp(28px,calc(2.32vw + 19.3px),49px) 0 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(24px,3vw,45px)}
+  .footer-brand strong{display:block;font-size:clamp(18px,calc(.663vw + 15.51px),24px);line-height:clamp(26px,calc(2.43vw + 16.89px),48px);font-weight:700}
+  .footer-brand p{max-width:267px;margin-top:8px;font-size:clamp(12px,calc(.221vw + 11.17px),14px);line-height:clamp(17px,calc(.221vw + 16.17px),19px);font-weight:700;color:rgba(0,0,0,.6)}
+  .footer-links{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,calc(3.536vw + 6.74px),52px);margin-top:37px}
+  .footer-links a{display:inline-flex;align-items:center;min-height:32px;font-size:clamp(14px,calc(.221vw + 13.17px),16px);line-height:22px;font-weight:500;letter-spacing:.16px;color:#000}
+  .footer-links a:hover{color:var(--green)}
 
   /* ---------- Responsive ---------- */
   @media (min-width:1441px){
     .stage{-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
   }
-  @media (max-width:1100px){
-    .nav .in{padding-inline:32px}
-    .nav .search{margin-right:0}
-    .nav li a{margin-right:36px}
-    .nav ul{margin-left:40px}
+  @media (max-width:1020px){
+    .dnav{display:none}
+    .nav .in{display:flex;justify-content:space-between}
+    .nav .burger{display:grid}
+  }
+  @media (max-width:760px){
+    .footer-shell{flex-direction:column;width:calc(100% - 32px);padding:40px 0 48px;gap:0}
+    .footer-links{order:1;margin-top:0;flex-direction:column;align-items:flex-start;gap:12px}
+    .footer-links a{font-size:16px}
+    .footer-brand{order:2;margin-top:50px}
+    .footer-brand strong{font-size:24px;line-height:32px}
+    .footer-brand p{font-size:14px;line-height:19px}
   }
   @media (max-width:900px){
-    .nav .in{padding-inline:20px}
-    .nav .search{margin-right:12px}
-    .nav .burger{display:grid}
-    .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;margin:0;padding:6px 20px 14px;background:rgba(247,251,253,.98);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(36,60,73,.08)}
-    .nav.open ul{display:flex}
-    .nav li a{margin:0;padding:15px 0;font-size:18px;border-bottom:1px solid #e3ebf0}
-    .nav li:last-child a{border-bottom:0}
     .h2{font-size:clamp(30px,5.4vw,40px);line-height:1.15}
     /* hero: text anchored to the bottom, image cropped around Qubi */
     .hero{aspect-ratio:auto;height:auto;padding-bottom:44px}
@@ -243,11 +256,10 @@
     .ready{padding-block:64px 56px}
     .faq{padding-block:70px 80px;padding-inline:20px}
     .faq .list{margin-top:36px}
-    footer .in{padding:40px 24px 0;flex-direction:column;gap:6px}
     summary{font-size:18px}
   }
   @media (max-width:380px){
-    .nav .search{display:none}
+    .nav .cta{width:88px;height:36px;font-size:14px}
     .hero h1{font-size:32px}
   }
   @media (prefers-reduced-motion:reduce){
@@ -261,22 +273,22 @@
 
 <header class="nav">
   <div class="in">
-    <a class="logo" href="https://www.acer.com/" aria-label="Acer home"><img src="images/logo.png" alt="acer" width="150" height="54"></a>
-    <ul id="mainnav">
-      <li><a href="https://www.acer.com/" >Products</a></li>
-      <li><a href="https://www.acer.com/">AI</a></li>
-      <li><a href="https://www.acer.com/">Explore Acer</a></li>
-      <li><a href="https://www.acer.com/">Support</a></li>
-    </ul>
-    <a class="search" href="https://www.acer.com/" aria-label="Search Acer">
-      <span>Search Acer</span>
-    </a>
-    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mainnav"><span></span></button>
+    <a class="logo" href="#intro" aria-label="Acer Intelligence Space home"><img src="images/logo.png" alt="acer" width="150" height="54"></a>
+    <nav class="dnav" aria-label="Primary navigation">
+      <a href="#intro">Intro</a><a href="#scenarios">Scenarios</a><a href="#qubi">Acer Qubi</a><a href="#products">Products</a><a href="#faq-section">FAQ</a>
+    </nav>
+    <div class="nav-act">
+      <a class="cta" href="https://www.acer.com/" target="_blank" rel="noopener">Download</a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button>
+    </div>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Primary navigation">
+    <a href="#intro">Intro</a><a href="#scenarios">Scenarios</a><a href="#qubi">Acer Qubi</a><a href="#products">Products</a><a href="#faq-section">FAQ</a>
+  </nav>
 </header>
 
 <main>
-  <section class="hero" aria-labelledby="h1">
+  <section class="hero" id="intro" aria-labelledby="h1">
     <video class="bg" src="video/hero.mp4" poster="video/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Acer Qubi, a friendly white robot, standing between glowing circuit lines and AI app cases" width="720" height="398"></video>
     <div class="t txt"><p class="tag">Acer Intelligence Space and&nbsp; Acer Qubi</p><h1 id="h1">Your everyday AI, all in one space.</h1>
     <p class="lead"><span>Acer Intelligence Space brings together AI apps for work, creativity, gaming and daily life.</span><span>Acer Qubi is your interface for working with them—helping you find, launch and use the right tool.</span></p></div>
@@ -308,7 +320,7 @@
     </div>
   </section>
 
-  <section class="qubi" aria-labelledby="qubi-h">
+  <section class="qubi" id="qubi" aria-labelledby="qubi-h">
     <p class="eyebrow">Acer Qubi</p>
     <h2 class="h2" id="qubi-h">Acer Qubi helps you get started.</h2>
     <p class="sub">A little help at just the right moment. With thoughtful suggestions and useful AI tools close at hand, Acer Qubi makes every day feel lighter, simpler and easier to navigate.</p>
@@ -348,14 +360,25 @@
       <svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v13M2.5 9.5 8 15l5.5-5.5"/></svg></a>
   </section>
 
-  <section class="faq" aria-labelledby="faq-h">
+  <section class="faq" id="faq-section" aria-labelledby="faq-h">
     <h2 class="h2" id="faq-h">Frequently asked questions</h2>
     <div class="list" id="faq"></div>
   </section>
 </main>
 
-<footer>
-  <div class="in"><span>Acer Intelligence Space</span><span class="c">© Acer Inc.</span></div>
+<footer class="site-footer">
+  <a class="footer-back-to-top" href="#intro">Back to top</a>
+  <div class="footer-shell">
+    <div class="footer-brand">
+      <strong>Acer Intelligence Space</strong>
+      <p>© 2026 Acer Inc. All rights reserved.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="https://www.acer.com/privacy">Privacy Policy</a>
+      <a href="https://www.acer.com/legal">Terms of Service</a>
+      <a href="https://www.acer.com/support">Support</a>
+    </nav>
+  </div>
 </footer>
 
 <script>
@@ -367,9 +390,9 @@
   const nav = $('.nav'), burger = $('.burger');
   const setNav = o => { nav.classList.toggle('open', o); burger.setAttribute('aria-expanded', o); };
   burger.addEventListener('click', () => setNav(!nav.classList.contains('open')));
-  nav.addEventListener('click', e => { if (e.target.closest('li a')) setNav(false); });
+  nav.addEventListener('click', e => { if (e.target.closest('.mnav a')) setNav(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setNav(false); });
-  matchMedia('(min-width: 901px)').addEventListener('change', () => setNav(false));
+  matchMedia('(min-width: 1021px)').addEventListener('change', () => setNav(false));
 
   /* ----- scenario tabs ----- */
   const SCEN = {
