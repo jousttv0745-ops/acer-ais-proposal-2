@@ -30,8 +30,12 @@ window.DECK = {
     wfStrip: { kind: 'frames', w: 1440, h: window.Wireframe.stackHeight(), label: 'Wireframe', url: '整頁 1440 寬', defaultFrame: 'main',
       frames: { main: { src: 'content/wireframe.html', label: '整頁' } },
       marks: { secs: window.Wireframe.stack().map(s => [0, s.label, 1440, s.h + 56]) } },
+    // p10 only: the same strip with 情境功能 (L1-3) before Qubi 章 (L1-2); the other pages keep the spec order
+    wfStripP10: { kind: 'frames', w: 1440, h: window.Wireframe.stackHeight(), label: 'Wireframe', url: '整頁 1440 寬', defaultFrame: 'main',
+      frames: { main: { src: 'content/wireframe.html?order=L1-1,L1-3,L1-2,L1-4,L1-5', label: '整頁' } },
+      marks: { secs: window.Wireframe.stack(['L1-1', 'L1-3', 'L1-2', 'L1-4', 'L1-5']).map(s => [0, s.label, 1440, s.h + 56]) } },
     mockHero: { kind: 'frames', w: 1440, h: 810, label: '01 Hero', url: '畫面提案・示意', defaultFrame: 'main',
-      frames: { main: { src: 'content/mockup/hero.html?v=20261005-2', label: '畫面提案 A / B' } } },
+      frames: { main: { src: 'content/mockup/hero.html?v=20261016-1', label: '畫面提案 A / B' } } },
     mockBanner: { kind: 'frames', w: 1440, h: 720, label: '02 Qubi Banner', url: '畫面提案・示意', defaultFrame: 'main',
       frames: { main: { src: 'content/mockup/banner.html', label: '畫面提案' } } },
     apple: {
@@ -390,7 +394,8 @@ window.DECK = {
       // ===== 03 Spec =====
       d.intro(3, { num: '03', title: 'Spec', sub: 'AIS landing page', p: 'Hero → Qubi → 情境功能 → 選機 → FAQ' }),
       // the whole L1 page: sections, their copy and image assets (the chapter's overview)
-      sheetStep(S.acerSheet, 'acer', 'wfStrip', 3,
+      // p10 shows 情境功能 before Qubi 章: rows in the same order as its strip
+      sheetStep({ ...S.acerSheet, rows: [0, 2, 1, 3, 4].map(i => S.acerSheet.rows[i]) }, 'acer', 'wfStripP10', 3,
         `${S.acerSheet.src}・<a href="spec.html" target="_blank" rel="noopener">附錄：完整 Spec 表 ↗</a>`),
 
       l1Scroll(S.l1[0], { page: 'mockHero', title: 'Acer Qubi 全新亮相!　兩個版本', items: [

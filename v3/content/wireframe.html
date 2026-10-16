@@ -20,14 +20,16 @@
 </head>
 <body>
 <div id="strip"></div>
-<script src="../spec-data.js?v=20261005-2"></script>
-<script src="../wireframe.js?v=20261005-2"></script>
+<script src="../spec-data.js?v=20261016-1"></script>
+<script src="../wireframe.js?v=20261016-1"></script>
 <script>
   const S = window.SPEC, WF = window.Wireframe;
   document.head.insertAdjacentHTML('beforeend', `<style>${WF.css}</style>`);
-  document.getElementById('strip').innerHTML = WF.stack().map(s => {
+  // ?order=L1-1,L1-3,... stacks the segments in that order and numbers them by position
+  const order = new URLSearchParams(location.search).get('order');
+  document.getElementById('strip').innerHTML = WF.stack(order ? order.split(',') : undefined).map((s, i) => {
     const l1 = S.l1.find(x => x.id === s.id);
-    return `<div class="label">${s.id.replace(/^L1-/, '0')} ${l1.seg}<i>≈${s.h.toLocaleString('en-US')}px</i></div>` + WF.segment(s.id, '1440px');
+    return `<div class="label">${order ? '0' + (i + 1) : s.id.replace(/^L1-/, '0')} ${l1.seg}<i>≈${s.h.toLocaleString('en-US')}px</i></div>` + WF.segment(s.id, '1440px');
   }).join('');
 </script>
 </body>

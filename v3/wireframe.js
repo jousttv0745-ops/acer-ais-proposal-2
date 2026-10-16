@@ -61,7 +61,8 @@ window.Wireframe = (() => {
 
   // the whole L1 page as one strip: each segment below a label band; y positions in page px (1440 wide)
   const LABEL = 56;
-  const stack = () => { let y = 0; return S.wireframe.segments.map(s => { const o = { id: s.id, label: y, y: y + LABEL, h: s.h }; y += LABEL + s.h; return o; }); };
+  // order: optional list of segment ids, to stack the same segments in another order (p10 shows 情境功能 before Qubi 章)
+  const stack = (order = S.wireframe.segments.map(s => s.id)) => { let y = 0; return order.map(id => seg(id)).map(s => { const o = { id: s.id, label: y, y: y + LABEL, h: s.h }; y += LABEL + s.h; return o; }); };
   const stackHeight = () => S.wireframe.segments.reduce((a, s) => a + LABEL + s.h, 0);
 
   return { css, segment, filled, fitWidth, height: id => seg(id).h, stack, stackHeight, LABEL };
